@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\SCanvases\MultiCanvas.cs" />
     <Compile Include="Assets\Scripts\SCanvases\SubMenu1.cs" />
     <Compile Include="Assets\Scripts\SCanvases\Template.cs" />
+    <Compile Include="Assets\Scripts\Scenario1\Template.cs" />
     <Compile Include="Assets\Scripts\SGameObject.cs" />
     <Compile Include="Assets\Scripts\SPrefab.cs" />
     <Compile Include="Assets\Scripts\SubCanvas.cs" />

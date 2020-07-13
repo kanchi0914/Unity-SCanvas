@@ -52,9 +52,18 @@ namespace Assets.Scripts
             switch (colorType)
             {
                 case ColorType.Black:
-                    return Color.black;
+                    {
+                        var color = Color.black;
+                        color.a = 0.4f;
+                        return color;
+                    }
                 case ColorType.White:
-                    return Color.white;
+                    {
+                        var color = Color.white;
+                        color.a = 0.4f;
+                        return color;
+                    }
+
                 default:
                     return Color.black;
             }

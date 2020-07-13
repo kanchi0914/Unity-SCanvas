@@ -27,7 +27,8 @@ public class Main : MonoBehaviour
         //    new SButton(new Action(() => QCanvasGenerator.addNewCanvas()))
         //};
 
-        QCanvas mult = new MultiCanvas();
+        //QCanvas mult = new MultiCanvas();
+        var ca = new MainMenu();
         //QCanvas qCanvas = new MainMenu();
 
     }

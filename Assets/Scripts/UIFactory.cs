@@ -107,8 +107,11 @@ namespace Assets.Scripts
             image.color = s_DefaultSelectableColor;
 
             Button bt = buttonObj.AddComponent<Button>();
-            CreateText(buttonObj, _text);
-
+            var text = CreateText(buttonObj, _text);
+            var rect = text.gameObject.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0, 0);
+            rect.anchorMax = new Vector2(1, 1);
+            rect.pivot = new Vector3(0, 1);
             return buttonObj;
         }
 

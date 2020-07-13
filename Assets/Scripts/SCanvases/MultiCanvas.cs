@@ -24,20 +24,27 @@ namespace Assets.Scripts.SCanvases
                 new SButton(gameObject, "bbb", func("bbbb")),
                 new SButton(gameObject, "ccc", func("cccc"))
             };
+
+            //var list4 = new List<SButton>()
+            //{
+            //    new SButton(gameObject, "aaa", func("aaaa")),
+            //    new SButton(gameObject, "bbb", func("bbbb")),
+            //    new SButton(gameObject, "ccc", func("cccc")),
+            //    new SButton(gameObject, "ddd", func("cccc")),
+            //    new SButton(gameObject, "eee", func("cccc")),
+            //};
+
             //var list3 = new List<Transform>()
             //{
             //    UIFactory.CreateText(this.GameObject, "11111").transform,
             //    UIFactory.CreateText(this.GameObject, "22222").transform,
             //    UIFactory.CreateText(this.GameObject, "33333").transform
             //};
-            var pre = new SPrefab(gameObject, "MyButton");
-            var pre2 = new SPrefab(gameObject, "MyButton");
-            var list2 = new List<SPrefab>()
-            {
-                pre
-                //new SButton(gameObject, "eee", func("eeee")),
-                //new SButton(gameObject, "fff", func("ffff"))
-            };
+            //var pre = new SPrefab(gameObject, "MyButton");
+            //var list2 = new List<SPrefab>()
+            //{
+            //    pre
+            //};
             
 
 
@@ -49,7 +56,7 @@ namespace Assets.Scripts.SCanvases
             var sub3_1 = new SubCanvas(sub3, 0, 0, 0.5f, 1);
             var sub3_2 = new SubCanvas(sub3, 0.5f, 0, 0.5f, 1);
             sub3_1.SetVerticalListItems(list1);
-            sub3_2.SetVerticalListItems(list2);
+            //sub3_2.SetGridButtons(list4, 2, 4);
             var sub4 = new SubCanvas(sub1, 0, 0.8f, 1f, 0.2f);
 
         }

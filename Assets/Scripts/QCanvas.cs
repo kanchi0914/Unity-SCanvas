@@ -82,5 +82,10 @@ namespace Assets.Scripts
             }
         }
 
+        public void SetBackGroundColor(ColorType colorType)
+        {
+            
+        }
+
     }
 }
