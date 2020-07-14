@@ -98,14 +98,12 @@ namespace Assets.Scripts.SCanvases
 
         public void ClearComponents ()
         {
-            Debug.Log("clear!!");
-            GameObject.Destroy(gameObject.GetComponent<GridLayoutGroup>());
-
+            var layout0 = gameObject.GetComponent<GridLayoutGroup>();
+            GameObject.Destroy(layout0);
             foreach (Transform child in gameObject.transform)
             {
                 GameObject.Destroy (child.gameObject);
             }
-
         }
 
         private void SetListLayout (TextAnchor textAnchor)
@@ -120,14 +118,22 @@ namespace Assets.Scripts.SCanvases
 
         private void SetGridLayout (int columnSize, int rowSize)
         {
-            var layout = GameObject.AddComponent<GridLayoutGroup> ();
-            if (columnSize > 0)
+            GridLayoutGroup layout = gameObject.GetComponent<GridLayoutGroup>();
+            if (layout == null)
             {
-                layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                layout.constraintCount = columnSize;
-                layout.cellSize = new Vector2 (
-                    RectSize.x / columnSize, RectSize.y / rowSize);
+                Debug.Log("null!!");
+                layout = gameObject.AddComponent<GridLayoutGroup>();
             }
+            
+            // if (columnSize > 0)
+            // {
+            //     Debug.Log(layout);
+            //     layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            //     layout.constraintCount = columnSize;
+            //     layout.cellSize = new Vector2 (
+            //         RectSize.x / columnSize, RectSize.y / rowSize);
+            // }
+            Debug.Log("------------------------------------");
         }
 
         public void SetText (string _text)
@@ -164,7 +170,7 @@ namespace Assets.Scripts.SCanvases
             int columnSize, int rowSize
         ) where T : SGameObject
         {
-            SetGridLayout (columnSize, rowSize);
+            SetGridLayout(columnSize, rowSize);
             sGameObjects.ForEach (
                 s =>
                 {

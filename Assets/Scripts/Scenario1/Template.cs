@@ -17,19 +17,17 @@ namespace Assets.Scripts.SCanvases
         private SubCanvas leftMenu;
         private SubCanvas detailView;
 
-
-
-
-
         // set constructor
         public MainMenu ()
         {
-            parent = new SubCanvas(this, 0.1f, 0.1f, 0.8f, 0.8f);
-            leftMenu = new SubCanvas("menu", parent, 0.0f, 0.0f, 0.2f, 1.0f);
-            leftMenu.SetBackGroundColor(ColorType.Black);
-            leftMenu.SetVerticalListItems(GetMenuList(), widthXratio : 1.0f);
-            detailView = new SubCanvas("detailView", parent, 0.25f, 0.0f, 0.75f, 1.0f);
-            detailView.SetBackGroundColor(ColorType.Black);
+            parent = new SubCanvas (this, 0.1f, 0.1f, 0.8f, 0.8f);
+            leftMenu = new SubCanvas ("menu", parent, 0.0f, 0.0f, 0.2f, 1.0f);
+            leftMenu.SetBackGroundColor (ColorType.Black);
+            leftMenu.SetVerticalListItems (GetMenuList (), widthXratio : 1.0f);
+            detailView = new SubCanvas ("detailView", parent, 0.25f, 0.0f, 0.75f, 1.0f);
+            detailView.SetBackGroundColor (ColorType.Black);
+
+            //detailView.SetGridListItems(GetItems (), 4, 4);
         }
 
         public List<SButton> GetMenuList ()
@@ -37,10 +35,10 @@ namespace Assets.Scripts.SCanvases
             var menuList = new List<SButton> ()
             {
                 new SButton (gameObject, "アイテム",
-                Func(SetItemView), Func (OnSelectItem)),
-                new SButton (gameObject, "スキル", Func(OnClickSkill)),
-                new SButton (gameObject, "ステータス", Func(OnClickStatus)),
-                new SButton (gameObject, "オプション", Func(OnClickOption))
+                Func (SetItemView), Func (OnSelectItem)),
+                new SButton (gameObject, "スキル", onClick:Func(SetSkillView)),
+                new SButton (gameObject, "ステータス", Func (OnClickStatus)),
+                new SButton (gameObject, "オプション", Func (OnClickOption))
             };
             return menuList;
         }
@@ -48,21 +46,49 @@ namespace Assets.Scripts.SCanvases
         public void SetItemView()
         {
             detailView.ClearComponents();
-            detailView.SetGridListItems(GetItems(), 4,4);
+            detailView.SetGridListItems(GetItems (), 4, 4);
         }
 
-        public List<String> Items = new List<string>(){
-            "薬草", "薬草", "すごい薬草", "マッチ", "寝袋" 
+        public void SetSkillView()
+        {
+            detailView.ClearComponents();
+            detailView.SetGridListItems(GetSkills(), 4, 4);
+        }
+
+        public List<String> Items = new List<string> ()
+        {
+            "薬草",
+            "薬草",
+            "すごい薬草",
+            "マッチ",
+            "寝袋"
         };
 
-
-        public List<SButton> GetItems()
+        public List<String> Skills = new List<string> ()
         {
-            var itemButtons = new List<SButton>();
-            Items.ForEach(i => {
-                Debug.Log(detailView.GameObject);
-                itemButtons.Add(
-                    new SButton(detailView.GameObject, i, onClick:Func(OnSelectItem))
+            "naguke",
+            "keur"
+        };
+
+        public List<SButton> GetItems ()
+        {
+            var itemButtons = new List<SButton> ();
+            Items.ForEach (i =>
+            {
+                itemButtons.Add (
+                    new SButton (detailView.GameObject, i, onClick : Func (OnClickItem))
+                );
+            });
+            return itemButtons;
+        }
+
+        public List<SButton> GetSkills ()
+        {
+            var itemButtons = new List<SButton> ();
+            Skills.ForEach (i =>
+            {
+                itemButtons.Add (
+                    new SButton (detailView.GameObject, i, onClick : Func (OnClickItem))
                 );
             });
             return itemButtons;
@@ -81,7 +107,7 @@ namespace Assets.Scripts.SCanvases
         public void OnClickItem ()
         {
             Debug.Log ("Item is clicked");
-  
+            detailView.ClearComponents();
         }
 
         public void OnSelectItem ()
