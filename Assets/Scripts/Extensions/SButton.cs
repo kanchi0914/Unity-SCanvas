@@ -13,24 +13,33 @@ namespace Assets.Scripts.Extensions
     public class SButton : SGameObject
     {
         public Button Button { get; set; }
-        public Delegate Func { get; private set; }
+        // public Delegate OnClick { get; private set; }
 
         public SButton(GameObject parent, string text, 
-            Delegate func, Action onSelect = null)
+            Delegate onClick, Action onSelect = null)
         {
-            gameObject = UIFactory.CreateButton(parent, text);
-            Func = func;
-            Button = gameObject.GetComponent<Button>();
-            Button.onClick.AddListener(() => func.DynamicInvoke());
+            InitGameObject(parent, text);
+            SetOnClick(onClick);
             if (onSelect != null)
             {
                 SetOnSelect(onSelect);
             }
         }
 
+        public override void InitGameObject(params object[] args){
+            gameObject = UIFactory.CreateButton(args[0] as GameObject, args[1] as string);
+        }
+
         public SButton(string text)
         {
             Button = UICreator.CreateButton(defaultLabel: text);
+        }
+
+        public void SetOnClick(Delegate onClick)
+        {
+            // OnClick = onClick;
+            Button = gameObject.GetComponent<Button>();
+            Button.onClick.AddListener(() => onClick.DynamicInvoke());
         }
 
         public void SetOnSelect(Action action)

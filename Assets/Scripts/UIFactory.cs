@@ -47,15 +47,30 @@ namespace Assets.Scripts
         private const string kMaskPath = "UI/Skin/UIMask.psd";
         private const string kFontPath = "Arial.ttf";
         
+        
+
+
         public static GameObject CreateBaseRect()
         {
             GameObject obj = new GameObject();
             var rect = obj.AddComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0f, 1f);
-            rect.anchorMax = new Vector2(0f, 1f);
-            rect.pivot = new Vector2(0f, 1f);
-            rect.position = new Vector2(0f, 0f);
+            SetTopLeftAnchor(rect);
+            // rect.anchorMin = new Vector2(0f, 1f);
+            // rect.anchorMax = new Vector2(0f, 1f);
+            // rect.pivot = new Vector2(0f, 1f);
+            // rect.position = new Vector2(0f, 0f);
             return obj;
+        }
+
+        
+        public static GameObject CreateCanvas(){
+            var gameObject = CreateBaseRect();
+            var canvas = gameObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            gameObject.AddComponent<CanvasScaler>();
+            gameObject.AddComponent<GraphicRaycaster>();
+            return gameObject;
         }
 
         public static GameObject CreatePanel()
@@ -66,6 +81,14 @@ namespace Assets.Scripts
             image.type = Image.Type.Sliced;
             image.color = Color.gray;
             return panelObject;
+        }
+
+        public static void SetTopLeftAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0f, 1f);
+            rectTransform.anchorMax = new Vector2(0f, 1f);
+            rectTransform.pivot = new Vector2(0f, 1f);
+            rectTransform.position = new Vector2(0f, 0f);
         }
 
         //public static GameObject CreateVerticalLayoutView(List<SButton> sButtons)

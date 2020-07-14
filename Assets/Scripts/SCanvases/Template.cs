@@ -7,7 +7,7 @@ using Assets.Scripts.Extensions;
 
 namespace Assets.Scripts.SCanvases
 {
-    public class Template : QCanvas
+    public class Template : SCanvas
     {
         // set constructor
         public Template()

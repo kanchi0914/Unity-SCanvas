@@ -10,74 +10,101 @@ using static Assets.Scripts.Utils;
 
 namespace Assets.Scripts.SCanvases
 {
-    public class MainMenu : QCanvas
+    public class MainMenu : SCanvas
     {
+        private SubCanvas parent;
+
+        private SubCanvas leftMenu;
+        private SubCanvas detailView;
+
+
+
+
+
         // set constructor
-        public MainMenu()
+        public MainMenu ()
         {
-            var parent = new SubCanvas(this, 0.1f, 0.1f, 0.8f, 0.8f);
-            var menu = new SubCanvas(parent, 0f, 0f, 0.2f, 1f);
-            var color = menu.GameObject.AddComponent<Image>();
-            color.color = GetColor(Utils.ColorType.Black);
-            menu.SetVerticalListItems(GetMenuList(), widthXratio: 0.9f);
-            var menu2 = new SubCanvas(parent, 0.25f, 0f, 0.75f, 1f);
-            var color2 = menu2.GameObject.AddComponent<Image>();
-            color2.color = GetColor(Utils.ColorType.Black);
+            parent = new SubCanvas(this, 0.1f, 0.1f, 0.8f, 0.8f);
+            leftMenu = new SubCanvas("menu", parent, 0.0f, 0.0f, 0.2f, 1.0f);
+            leftMenu.SetBackGroundColor(ColorType.Black);
+            leftMenu.SetVerticalListItems(GetMenuList(), widthXratio : 1.0f);
+            detailView = new SubCanvas("detailView", parent, 0.25f, 0.0f, 0.75f, 1.0f);
+            detailView.SetBackGroundColor(ColorType.Black);
         }
 
-        public List<SButton> GetMenuList()
+        public List<SButton> GetMenuList ()
         {
-            var menuList = new List<SButton>()
+            var menuList = new List<SButton> ()
             {
-                new SButton(gameObject, "アイテム", 
-                Func(OnClickItem), Func(OnSelectItem)),
-                new SButton(gameObject, "スキル", Func(OnClickSkill)),
-                //new SButton(gameObject, "装備", Func(OnClickEquip),
-                //Func2(e => OnSelect("装備"))),
-                //new SButton(gameObject, "ステータス", Func(OnClickStatus),
-                //Func2(e => OnSelect("ステータス"))),
-                //new SButton(gameObject, "オプション", Func(OnClickOption),
-                //Func2(e => OnSelect("オプション")))
+                new SButton (gameObject, "アイテム",
+                Func(SetItemView), Func (OnSelectItem)),
+                new SButton (gameObject, "スキル", Func(OnClickSkill)),
+                new SButton (gameObject, "ステータス", Func(OnClickStatus)),
+                new SButton (gameObject, "オプション", Func(OnClickOption))
             };
             return menuList;
         }
 
-        public Action Func(Action function)
+        public void SetItemView()
         {
-            return new Action(() => function());
+            detailView.ClearComponents();
+            detailView.SetGridListItems(GetItems(), 4,4);
         }
 
-        public Action<string> Func2(Action<string> function)
+        public List<String> Items = new List<string>(){
+            "薬草", "薬草", "すごい薬草", "マッチ", "寝袋" 
+        };
+
+
+        public List<SButton> GetItems()
         {
-            return new Action<string>(function);
+            var itemButtons = new List<SButton>();
+            Items.ForEach(i => {
+                Debug.Log(detailView.GameObject);
+                itemButtons.Add(
+                    new SButton(detailView.GameObject, i, onClick:Func(OnSelectItem))
+                );
+            });
+            return itemButtons;
         }
 
-        public void OnClickItem()
+        public Action Func (Action function)
         {
-            Debug.Log("Item is clicked");
+            return new Action (() => function ());
         }
 
-        public void OnSelectItem()
+        public Action<string> Func2 (Action<string> function)
         {
-            Debug.Log("selected!!!");
+            return new Action<string> (function);
         }
 
-        public void OnClickSkill()
+        public void OnClickItem ()
         {
-            Debug.Log("Skill is clicked");
+            Debug.Log ("Item is clicked");
+  
         }
 
-        public void OnClickStatus()
+        public void OnSelectItem ()
+        {
+            Debug.Log ("selected!!!");
+        }
+
+        public void OnClickSkill ()
+        {
+            Debug.Log ("Skill is clicked");
+        }
+
+        public void OnClickStatus ()
         {
 
         }
 
-        public void OnClickEquip()
+        public void OnClickEquip ()
         {
 
         }
 
-        public void OnClickOption()
+        public void OnClickOption ()
         {
 
         }

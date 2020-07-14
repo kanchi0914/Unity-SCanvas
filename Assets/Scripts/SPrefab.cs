@@ -12,10 +12,11 @@ namespace Assets.Scripts
     {
         public SPrefab(GameObject parent, string name)
         {
-            gameObject = UIFactory.CreatePrefab(parent, name);
-            //GameObject.Instantiate(gameObject);
-            //gameObject = UnityEngine.Resources.Load(name) as GameObject;
-            //UnityEngine.GameObject.Instantiate(gameObject);
+            InitGameObject(parent, name);
+        }
+
+        public override void InitGameObject(object[] args){
+            gameObject = UIFactory.CreatePrefab(args[0] as GameObject, args[1] as string);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Assets.Scripts
     public static class CanvasStack
     {
         //public static List<QCanvas> CanvasQueue { get; set; } = new List<QCanvas>();
-        public static Stack<QCanvas> Stack { get; set; } = new Stack<QCanvas>();
+        public static Stack<SCanvas> Stack { get; set; } = new Stack<SCanvas>();
 
-        public static void Push(QCanvas qCanvas)
+        public static void Push(SCanvas qCanvas)
         {
             Stack.Push(qCanvas);
         }
@@ -26,7 +26,7 @@ namespace Assets.Scripts
             Stack.Clear();
         }
 
-        public static void ClearAndPop(QCanvas qCanvas)
+        public static void ClearAndPop(SCanvas qCanvas)
         {
             foreach (var s in Stack)
             {
@@ -36,7 +36,7 @@ namespace Assets.Scripts
             //Stack.Push(qCanvas);
         }
 
-        public static void PopAndPush(QCanvas qCanvas)
+        public static void PopAndPush(SCanvas qCanvas)
         {
             var last = Stack.Pop();
             GameObject.Destroy(last.GameObject);

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.SCanvases
 {
-    public class MultiCanvas : QCanvas
+    public class MultiCanvas : SCanvas
     {
 
         //private GameObject myButton = Resources.Load("MyButton") as GameObject;
