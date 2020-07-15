@@ -20,9 +20,9 @@ namespace Assets.Scripts.SCanvases
             //UnityEngine.GameObject.Instantiate(myButton);
             var list1 = new List<SButton>()
             {
-                new SButton(gameObject, "aaa", func("aaaa")),
-                new SButton(gameObject, "bbb", func("bbbb")),
-                new SButton(gameObject, "ccc", func("cccc"))
+                //new SButton(gameObject, "aaa", func("aaaa")),
+                //new SButton(gameObject, "bbb", func("bbbb")),
+                //new SButton(gameObject, "ccc", func("cccc"))
             };
 
             //var list4 = new List<SButton>()

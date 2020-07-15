@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Extensions;
 using TMPro;
@@ -98,12 +99,19 @@ namespace Assets.Scripts.SCanvases
 
         public void ClearComponents ()
         {
-            var layout0 = gameObject.GetComponent<GridLayoutGroup>();
-            GameObject.Destroy(layout0);
             foreach (Transform child in gameObject.transform)
             {
                 GameObject.Destroy (child.gameObject);
             }
+            var layout0 = gameObject.GetComponent<GridLayoutGroup>();
+            //GameObject.DestroyImmediate(layout0, true); 
+            Destroy(layout0);
+        }
+
+        IEnumerator Destroy(Component component)
+        {
+            yield return new WaitForEndOfFrame();
+            Destroy(component);
         }
 
         private void SetListLayout (TextAnchor textAnchor)
@@ -121,24 +129,25 @@ namespace Assets.Scripts.SCanvases
             GridLayoutGroup layout = gameObject.GetComponent<GridLayoutGroup>();
             if (layout == null)
             {
-                Debug.Log("null!!");
                 layout = gameObject.AddComponent<GridLayoutGroup>();
             }
-            
-            // if (columnSize > 0)
-            // {
-            //     Debug.Log(layout);
-            //     layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            //     layout.constraintCount = columnSize;
-            //     layout.cellSize = new Vector2 (
-            //         RectSize.x / columnSize, RectSize.y / rowSize);
-            // }
-            Debug.Log("------------------------------------");
+            if (columnSize > 0)
+            {
+                layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+                layout.constraintCount = columnSize;
+                layout.cellSize = new Vector2(
+                    RectSize.x / columnSize, RectSize.y / rowSize);
+            }
         }
 
         public void SetText (string _text)
         {
-            var textObj = UIFactory.CreateText (this.GameObject, _text);
+            var textObj = UIFactory.CreateText(this.GameObject, _text);
+        }
+
+        public void SetButton(string _text)
+        {
+            UIFactory.CreateButton(this.GameObject, _text);
         }
 
         public void SetVerticalListItems<T> (

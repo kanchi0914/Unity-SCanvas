@@ -63,9 +63,8 @@ namespace Assets.Scripts
                         color.a = 0.4f;
                         return color;
                     }
-
                 default:
-                    return Color.black;
+                    return new Color(0, 0, 0, 0);
             }
 
         }

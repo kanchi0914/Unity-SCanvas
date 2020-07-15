@@ -70,6 +70,10 @@ namespace Assets.Scripts
             canvas.worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
             gameObject.AddComponent<CanvasScaler>();
             gameObject.AddComponent<GraphicRaycaster>();
+            var image = gameObject.AddComponent<Image>();
+            image.sprite = GetStandardResources().background;
+            image.type = Image.Type.Sliced;
+            image.color = new Color(0, 0, 0, 0f);
             return gameObject;
         }
 
@@ -115,7 +119,13 @@ namespace Assets.Scripts
             text.font = StandardResources.font;
             text.fontSize = 36;
             text.color = GetColor(ColorType.Black);
+
             textObj.transform.SetParent(parent.transform, false);
+            var rect = text.gameObject.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0, 0);
+            rect.anchorMax = new Vector2(1, 1);
+            rect.pivot = new Vector3(0, 1);
+
             return textObj;
         }
 
@@ -131,10 +141,7 @@ namespace Assets.Scripts
 
             Button bt = buttonObj.AddComponent<Button>();
             var text = CreateText(buttonObj, _text);
-            var rect = text.gameObject.GetComponent<RectTransform>();
-            rect.anchorMin = new Vector2(0, 0);
-            rect.anchorMax = new Vector2(1, 1);
-            rect.pivot = new Vector3(0, 1);
+            buttonObj.gameObject.transform.SetParent(parent.transform, false);
             return buttonObj;
         }
 
