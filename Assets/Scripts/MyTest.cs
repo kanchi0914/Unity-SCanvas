@@ -24,11 +24,11 @@ public class MyTest : MonoBehaviour
         text.color = Color.green;
 
         // オブジェクト名やコンポーネントの初期値を設定する
-        Dropdown dropdown = UICreator.CreateDropdown(canvas.gameObject, "Gender", "性別");
-        dropdown.GetComponent<RectTransform>().localPosition = Vector3.right * 140f;
-        dropdown.options.Clear();
-        dropdown.options.Add(new Dropdown.OptionData { text = "男性" });
-        dropdown.options.Add(new Dropdown.OptionData { text = "女性" });
+        // Dropdown dropdown = UICreator.CreateDropdown(canvas.gameObject, "Gender", "性別");
+        // dropdown.GetComponent<RectTransform>().localPosition = Vector3.right * 140f;
+        // dropdown.options.Clear();
+        // dropdown.options.Add(new Dropdown.OptionData { text = "男性" });
+        // dropdown.options.Add(new Dropdown.OptionData { text = "女性" });
     }
 
 

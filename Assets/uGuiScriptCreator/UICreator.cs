@@ -498,7 +498,7 @@ namespace HC.UI
             return inputField;
         }
 
-        public static Dropdown CreateDropdown(GameObject parent = null, string name = "Dropdown", string defaultLabel = "Option A")
+        public static GameObject CreateDropdown(GameObject parent = null, string name = "Dropdown", string defaultLabel = "Option A")
         {
             Resources resources = GetStandardResources();
 
@@ -658,7 +658,7 @@ namespace HC.UI
 
             template.SetActive(false);
 
-            return dropdown;
+            return root;
         }
 
         public static ScrollRect CreateScrollView(GameObject parent = null, string name = "Scroll View", LayoutGroupType layoutGroupType = LayoutGroupType.Vertical)
