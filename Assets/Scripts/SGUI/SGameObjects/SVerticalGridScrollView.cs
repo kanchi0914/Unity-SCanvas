@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using SGUI.Base;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace SGUI.SGameObjects
         {
             get
             {
-                return (int) ((contentAreaRectSize.y - spacing * (rowSize + 2)) / rowSize);
+                return (int) ((contentAreaRectSize.y - spacingY * (rowSize)) / rowSize);
             }
         }
 
@@ -23,14 +22,9 @@ namespace SGUI.SGameObjects
         {
             get
             {
-                var a = (int) ((contentAreaRectSize.x - spacing * (columnSize + 2)) / columnSize);
-                return (int) ((contentAreaRectSize.x - spacing * (columnSize + 2)) / columnSize);
+                return (int) ((contentAreaRectSize.x - (paddingLeft + paddingRight) - spacingX * (columnSize - 1)) / columnSize) ;
             }
         }
-
-        // private int itemWidth = 100;
-
-        // private int itemHeight;
 
         private bool isItemAutoSizing = false;
 
@@ -43,7 +37,12 @@ namespace SGUI.SGameObjects
         private int paddingRight = 0;
         private int paddingTop = 0;
         private int paddingBottom = 0;
-        private int spacing = 0;
+
+        private int scrollbarWidth = 0;
+
+        private int spacingX = 0;
+        private int spacingY = 0;
+
         public List<SGameObject> childrenObjects = new List<SGameObject> ();
 
         public GameObject ContentArea { get; private set; }
@@ -52,21 +51,11 @@ namespace SGUI.SGameObjects
 
         private Vector2 contentAreaRectSize;
 
-        // public SVerticalGridScrollView (
-        //     SGameObject parent,
-        //     string name,
-        //     int itemSize = 100,
-        //     int minContentAreaSize = 0
-        // ) : this (parent, name)
-        // {
-        //     if (minContentAreaSize > 0) this.minContentAreaSize = minContentAreaSize;
-        // }
-
         public SVerticalGridScrollView (
             SGameObject parent,
             string name,
-            int rowSize = 3,
-            int columnSize = 3
+            int rowSize,
+            int columnSize
         ) : this (parent, name)
         {
             this.rowSize = rowSize;
@@ -83,8 +72,16 @@ namespace SGUI.SGameObjects
                 return UIFactory.CreateVerticalGridLayoutScrollView (parent.GameObject, name);
             }))
         {
+            scrollbarWidth = (int) gameObject.transform.FindDeep ("Scrollbar Vertical").GetComponent<RectTransform> ().sizeDelta.x;
+            var parentWidth = RectSize.x;
             ContentArea = this.GameObject.transform.FindDeep ("Content");
-            contentAreaRectSize = new Vector2(this.RectSize.x, this.RectSize.y);
+            var rect = ContentArea.GetComponent<RectTransform> ();
+
+            var csfitter = ContentArea.AddComponent<ContentSizeFitter> ();
+            csfitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            csfitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            contentAreaRectSize = new Vector2 (RectSize.x - scrollbarWidth, RectSize.y);
             gridLayout = ContentArea.GetComponent<GridLayoutGroup> ();
         }
 
@@ -102,29 +99,10 @@ namespace SGUI.SGameObjects
 
         public void SetLayout ()
         {
+            contentAreaRectSize = new Vector2 (RectSize.x - scrollbarWidth, RectSize.y);
             SetSpacing ();
             SetPadding ();
-            if (columnSize > 0)
-            {
-                Debug.Log(gridLayout.constraint);
-                gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                gridLayout.constraintCount = columnSize;
-                gridLayout.cellSize = new Vector2(ItemWidth, ItemHeight);
-            }
-
-            // foreach (SGameObject sg in childrenObjects)
-            // {
-            //     var child = sg.GameObject;
-            //     var layout = child.GetComponent<LayoutElement> ();
-            //     if (!layout) layout = child.AddComponent<LayoutElement> ();
-            //     layout.minHeight = this.itemSize;
-            //     layout.flexibleWidth = 1f;
-            //     child.transform.SetParent (ContentArea.transform, false);
-            // }
-            // if (contentFieldSize < minContentAreaSize)
-            // {
-            //     rect.sizeDelta = new Vector2 (0, minContentAreaSize);
-            // }
+            gridLayout.cellSize = new Vector2 (ItemWidth, ItemHeight);
         }
 
         public void AddChild (SGameObject sGameObject)
@@ -141,25 +119,16 @@ namespace SGUI.SGameObjects
             paddingTop = top;
             paddingBottom = bottom;
             SetPadding ();
-            //SetItemSizeAuto ();
             return this;
         }
 
-        public SVerticalGridScrollView SetSpacing (int spacing)
+        public SVerticalGridScrollView SetSpacing (int spacingX, int spacingY)
         {
-            this.spacing = spacing;
-            var rectSize = ContentArea.GetComponent<RectTransform> ().sizeDelta;
+            this.spacingX = spacingX;
+            this.spacingY = spacingY;
             SetSpacing ();
-            //SetItemSizeAuto ();
             return this;
         }
-
-        // private void SetItemSizeAuto ()
-        // {
-        //     var rectSize = ContentArea.GetComponent<RectTransform> ().sizeDelta;
-        //     itemHeight = (int) ((rectSize.y - spacing * (rowSize + 2)) / rowSize);
-        //     itemWidth = (int) ((rectSize.x - spacing * (columnSize + 2)) / columnSize);
-        // }
 
         private void SetPadding ()
         {
@@ -171,7 +140,7 @@ namespace SGUI.SGameObjects
 
         private void SetSpacing ()
         {
-            //gridLayout.spacing = this.spacing;
+            gridLayout.spacing = new Vector2 (spacingX, spacingY);
         }
     }
 }

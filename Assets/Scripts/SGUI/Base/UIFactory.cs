@@ -9,6 +9,7 @@ using SGUI.SGameObjects;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SGUI.Base
 {
@@ -173,6 +174,14 @@ namespace SGUI.Base
             return gameObject;
         }
 
+        public static TextMeshProUGUI CreateTMProText (GameObject parent = null, string name = "Text", string defaultLabel = "Text")
+        {
+            GameObject go = CreateBaseRect(parent, name);
+            var lbl = go.AddComponent<TextMeshProUGUI> ();
+            lbl.fontStyle = FontStyles.Italic | FontStyles.Bold;
+            return lbl;
+        }
+
         public static GameObject CreateGridLayoutView (
             GameObject parent,
             string name,
@@ -226,7 +235,15 @@ namespace SGUI.Base
             string name
         )
         {
-            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.Grid);
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.VerticalGrid);
+        }
+
+        public static GameObject CreateHorizontalGridLayoutScrollView (
+            GameObject parent,
+            string name
+        )
+        {
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.HorizontalGrid);
         }
 
         public static GameObject CreateVerticalLayoutView (

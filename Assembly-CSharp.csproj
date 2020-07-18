@@ -95,6 +95,7 @@
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SDropDown.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SGameObject.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SGridLayoutView.cs" />
+     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SHorizontallGridLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SImage.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SMessageWindow.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SPanel.cs" />

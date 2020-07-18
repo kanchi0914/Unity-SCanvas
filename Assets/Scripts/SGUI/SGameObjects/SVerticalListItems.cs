@@ -86,7 +86,7 @@ namespace SGUI.SGameObjects
             SetListLayout (textAnchor);
             SetChildrenSize (1);
             sGameObjects.ForEach (
-                s => { s.SetParentSGameObject(this); });
+                s => { s.SetParentSGameObject (this); });
             return this;
         }
 
@@ -113,9 +113,10 @@ namespace SGUI.SGameObjects
             }
         }
 
+
         public void AddChild (SGameObject sGameObject)
         {
-            sGameObject.SetParentSGameObject(this);
+            sGameObject.SetParentSGameObject (this);
             childrenObjects.Add (sGameObject);
             SetChildrenSize (1);
         }

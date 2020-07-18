@@ -83,13 +83,17 @@ namespace SGUI.SGameObjects
         {
             if (parent != null && parent.gameObject.transform != null)
             {
-                if (parent is SVerticalListScrollView scrollView)
-                {
-                    scrollView.AddChild (this);
-                }
-                else if (parent is SVerticalGridScrollView gridScrollView)
+                // if (parent is SVerticalListScrollView scrollView)
+                // {
+                //     scrollView.AddChild (this);
+                // }
+                if (parent is SVerticalGridScrollView gridScrollView)
                 {
                     gridScrollView.AddChild (this);
+                }
+                else if (parent is SHorizontallGridLayoutScrollView horizontalGrid)
+                {
+                    horizontalGrid.AddChild (this);
                 }
                 else
                 {

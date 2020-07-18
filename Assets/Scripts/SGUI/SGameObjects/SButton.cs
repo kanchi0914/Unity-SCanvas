@@ -30,6 +30,7 @@ namespace SGUI.SGameObjects
             })
         ) {
             SText = new SText(this, text:text);
+            Button = gameObject.GetComponent<Button>();
         }
 
         public SButton AddOnClick (Delegate onClick)
