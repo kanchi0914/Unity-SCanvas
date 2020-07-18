@@ -81,7 +81,22 @@ namespace SGUI.SGameObjects
 
         public virtual SGameObject SetParentSGameObject (SGameObject parent)
         {
-            if (parent != null && parent.gameObject.transform != null) gameObject.transform.SetParent (parent.GameObject.transform, false);
+            if (parent != null && parent.gameObject.transform != null)
+            {
+                if (parent is SVerticalListScrollView scrollView)
+                {
+                    scrollView.AddChild (this);
+                }
+                else if (parent is SVerticalGridScrollView gridScrollView)
+                {
+                    gridScrollView.AddChild (this);
+                }
+                else
+                {
+                    gameObject.transform.SetParent (parent.GameObject.transform, false);
+                }
+            }
+
             this.parentSGameObject = parent;
             return this;
         }

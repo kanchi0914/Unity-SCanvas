@@ -57,7 +57,6 @@ namespace SGUI.SGameObjects
 
             (float x, float y) temp = (RectSize.x, itemSize);
             this.RectSize = (temp.x, temp.y);
-            //this.GameObject.transform.GetComponent<RectTransform> ().sizeDelta = new Vector2 (RectSize.x, itemSize);
 
             var trigger = gameObject.AddComponent<EventTrigger> ();
             EventTrigger.Entry entry = new EventTrigger.Entry ();
@@ -92,13 +91,107 @@ namespace SGUI.SGameObjects
             }
         }
 
-        public void AddOption ((string text, Action action) option)
+        public SDropDown AddOption ((string text, Action action) option)
         {
             dropdown.options.Add (new Dropdown.OptionData (option.text));
             options.Add (option);
+            return this;
         }
 
-        public void SetOptions (List < (string text, Action action) > options)
+        public SDropDown SetContentAreaImage (string iamgeFilePath)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            templete.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetTemplateItemImage (string iamgeFilePath)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var itemTemplate = templete.transform.FindDeep ("Item Background");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            itemTemplate.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetTemplateCheckmarkImage (string iamgeFilePath)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var checkmarkTemplate = templete.transform.FindDeep ("Item Checkmark");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            checkmarkTemplate.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetHandleImage (string iamgeFilePath)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var handle = templete.transform.FindDeep ("Handle");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            handle.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetScrollbarImage (string iamgeFilePath)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var scrollbar = templete.transform.FindDeep ("Scrollbar");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            scrollbar.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetTemplateTextConfig (
+            int fontSize, ColorType color, string fontFilePath = null)
+        {
+            var templete = this.GameObject.transform.FindDeep ("Template");
+            var textTemplate = templete.transform.FindDeep ("Item Label");
+            var text = textTemplate.GetComponent<Text> ();
+            SetTextConfig (text, fontSize, color, fontFilePath);
+            return this;
+        }
+
+        public SDropDown SetTopItemTextConfig (
+            int fontSize, ColorType color, string fontFilePath = null
+        )
+        {
+            var topText = GameObject.transform.Find ("Label").GetComponent<Text> ();
+            SetTextConfig (topText, fontSize, color, fontFilePath);
+            return this;
+        }
+
+        public SDropDown SetTopItemImage (
+            string iamgeFilePath
+        )
+        {
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            this.GameObject.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        public SDropDown SetArrowImage (
+            string iamgeFilePath
+        )
+        {
+            var arrow = this.GameObject.transform.Find ("Arrow");
+            var image = Resources.Load<Sprite> (iamgeFilePath) as Sprite;
+            arrow.GetComponent<Image> ().sprite = image;
+            return this;
+        }
+
+        private void SetTextConfig (Text text, int fontSize, ColorType color, string fontFilePath = null)
+        {
+            text.fontSize = fontSize;
+            text.color = Utils.GetColor (color, 1f);
+            if (fontFilePath != null)
+            {
+                var font = Resources.Load (fontFilePath) as Font;
+                if (font) text.font = font;
+            }
+        }
+
+        public SDropDown SetOptions (List < (string text, Action action) > options)
         {
             dropdown.ClearOptions ();
             this.options = options;
@@ -106,31 +199,36 @@ namespace SGUI.SGameObjects
             {
                 dropdown.options.Add (new Dropdown.OptionData (option.text));
             });
+            return this;
         }
 
-        public void SetItemSize (int width, int height)
+        public SDropDown SetItemSize (int width, int height)
         {
             this.RectSize = (RectSize.x, RectSize.y);
             this.GameObject.transform.GetComponent<RectTransform> ().sizeDelta = new Vector2 (width, height);
+            return this;
         }
 
-        public void OnValueChanged ()
+        private void OnValueChanged ()
         {
-            Debug.Log (dropdown.value);
             options[dropdown.value].action.Invoke ();
         }
 
-        public void SetPadding (int left, int right, int top, int bottom)
+        public SDropDown SetPadding (int left, int right, int top, int bottom)
         {
             paddingLeft = left;
             paddingRight = right;
             paddingTop = top;
             paddingBottom = bottom;
+            SetPadding();
+            return this;
         }
 
-        public void SetSpacing (int spacing)
+        public SDropDown SetSpacing (int spacing)
         {
             this.spacing = spacing;
+            SetSpacing();
+            return this;
         }
 
         private void SetPadding ()

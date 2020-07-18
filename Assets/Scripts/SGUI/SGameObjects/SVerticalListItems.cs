@@ -21,12 +21,9 @@ namespace SGUI.SGameObjects
 
         private int paddingLeft = 0;
         private int paddingRight = 0;
-
         private int paddingTop = 0;
         private int paddingBottom = 0;
-
         private int spacing = 0;
-
         private int rowSize;
 
         public SVerticalListItems (
@@ -77,26 +74,6 @@ namespace SGUI.SGameObjects
             SetRectSizeByRatio (ratioX, ratioY);
             SetLocalPosByRatio (posRatioX, posRatioY);
         }
-
-        // public int width { get; private set; } = 100;
-
-        // public int height { get; private set; } = 100;
-
-        // public void ClearComponents ()
-        // {
-        //     foreach (Transform child in gameObject.transform)
-        //     {
-        //         GameObject.Destroy (child.gameObject);
-        //     }
-        //     var layout = gameObject.GetComponent<GridLayoutGroup> ();
-        //     Destroy (layout);
-        // }
-
-        // IEnumerator Destroy (Component component)
-        // {
-        //     yield return new WaitForEndOfFrame ();
-        //     Destroy (component);
-        // }
 
         public SVerticalListItems SetVerticalListItems (
             List<SGameObject> sGameObjects,

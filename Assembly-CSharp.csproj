@@ -88,6 +88,7 @@
      <Compile Include="Assets\Scripts\SGUI\Base\UIFactory.cs" />
      <Compile Include="Assets\Scripts\SGUI\Base\Utils.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjectExtensions.cs" />
+     <Compile Include="Assets\Scripts\SGUI\SGameObjects\Interfaces\ILayoutComponent.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SButton.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SCanvas.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SDOTextMessageWindow.cs" />
@@ -98,9 +99,12 @@
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SMessageWindow.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SPanel.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SPrefab.cs" />
+     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SScrollbar.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SSubCanvas.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SText.cs" />
+     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalGridScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalListItems.cs" />
+     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalListScrollView.cs" />
      <Compile Include="Assets\Scripts\TestMono.cs" />
      <Compile Include="Assets\uGuiScriptCreator\UICreator.cs" />
      <None Include="Assets\Demigiant\DOTweenPro\readme.txt" />
@@ -326,15 +330,6 @@
  <Reference Include="nunit.framework">
  <HintPath>/home/shun/Unity/Hub/Editor/2019.1.14f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
- <Reference Include="Unity.Analytics.Editor">
- <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.Tracker">
- <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
- </Reference>
  <Reference Include="DemiLib">
  <HintPath>/home/shun/works/Unity/Unity-SCanvas/Assets/Demigiant/DemiLib/Core/DemiLib.dll</HintPath>
  </Reference>
@@ -343,6 +338,15 @@
  </Reference>
  <Reference Include="DOTweenPro">
  <HintPath>/home/shun/works/Unity/Unity-SCanvas/Assets/Demigiant/DOTweenPro/DOTweenPro.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Editor">
+ <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.Tracker">
+ <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Analytics.StandardEvents">
+ <HintPath>/home/shun/works/Unity/Unity-SCanvas/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>/home/shun/Unity/Hub/Editor/2019.1.14f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

@@ -199,10 +199,34 @@ namespace SGUI.Base
         )
         {
             var gameObject = UICreator.CreateDropdown (parent, name);
-            var rect = gameObject.GetComponent<RectTransform>();
-            SetTopLeftAnchor(rect);
+            var rect = gameObject.GetComponent<RectTransform> ();
+            SetTopLeftAnchor (rect);
             return gameObject;
 
+        }
+
+        public static GameObject CreateScrollBar (
+            GameObject parent,
+            string name
+        )
+        {
+            return UICreator.CreateScrollbar (parent, name);
+        }
+
+        public static GameObject CreateScrollView (
+            GameObject parent,
+            string name
+        )
+        {
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.Vertical);
+        }
+
+        public static GameObject CreateVerticalGridLayoutScrollView (
+            GameObject parent,
+            string name
+        )
+        {
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.Grid);
         }
 
         public static GameObject CreateVerticalLayoutView (
