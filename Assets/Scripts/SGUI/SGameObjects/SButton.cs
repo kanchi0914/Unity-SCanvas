@@ -33,9 +33,9 @@ namespace SGUI.SGameObjects
             Button = gameObject.GetComponent<Button>();
         }
 
-        public SButton AddOnClick (Delegate onClick)
+        public SButton AddOnClick (Action onClick)
         {
-            Button.onClick.AddListener (() => onClick.DynamicInvoke ());
+            Button.onClick.AddListener (() => onClick.Invoke());
             return this;
         }
 

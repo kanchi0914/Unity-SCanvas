@@ -10,8 +10,6 @@ namespace SGUI.SGameObjects
     class SPrefab : SGameObject
     {
 
-        // public static string TextGameObjectName {get{return $"{name}Name";}}
-
         public SPrefab (
             SGameObject parent = null,
             string name = "SPrefab"
@@ -48,6 +46,16 @@ namespace SGUI.SGameObjects
         {
             return base.SetLocalPosByRatio (posXratio, posYratio) as SPrefab;
         }
+
+        //public virtual SGameObject SetRectSize(int width, int height)
+        //{
+        //    return this;
+        //}
+
+        //public virtual SGameObject SetLocalPos(int posX, int posY)
+        //{
+        //    return this;
+        //}
 
         #endregion
 

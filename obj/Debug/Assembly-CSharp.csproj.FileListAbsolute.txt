@@ -536,3 +536,12 @@ C:\unity_works\scanvas\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\unity_works\scanvas\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\unity_works\scanvas\obj\Debug\Assembly-CSharp.dll
 C:\unity_works\scanvas\obj\Debug\Assembly-CSharp.pdb
+C:\unity_works\scanvas\Temp\bin\Debug\DemiLib.dll
+C:\unity_works\scanvas\Temp\bin\Debug\DOTween.dll
+C:\unity_works\scanvas\Temp\bin\Debug\DOTweenPro.dll
+C:\unity_works\scanvas\Temp\bin\Debug\UnityEditor.UI.dll
+C:\unity_works\scanvas\Temp\bin\Debug\UniRx.pdb
+C:\unity_works\scanvas\Temp\bin\Debug\DemiLib.xml
+C:\unity_works\scanvas\Temp\bin\Debug\DOTween.xml
+C:\unity_works\scanvas\Temp\bin\Debug\DOTweenPro.xml
+C:\unity_works\scanvas\Temp\bin\Debug\UnityEditor.UI.xml
