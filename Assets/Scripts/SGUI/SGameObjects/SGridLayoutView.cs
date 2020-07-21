@@ -104,11 +104,11 @@ namespace SGUI.SGameObjects
                     var layoutElement = s.GameObject.GetComponent<LayoutElement>();
                     if (layoutElement != null && layoutElement.minHeight != 0)
                     {
-                        s.RectSize = (widthRatio * RectSize.x, layoutElement.minHeight);
+                        s.RectSize = new Vector2(widthRatio * RectSize.x, layoutElement.minHeight);
                     }
                     else
                     {
-                        s.RectSize = (widthRatio * RectSize.x, this.RectSize.y / rowSize);
+                        s.RectSize = new Vector2(widthRatio * RectSize.x, this.RectSize.y / rowSize);
                     }
                 });
             return this as SGridLayoutView;

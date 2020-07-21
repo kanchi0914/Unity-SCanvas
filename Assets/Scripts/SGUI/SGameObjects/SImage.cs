@@ -38,7 +38,7 @@ namespace SGUI.SGameObjects
 
         #region  RequiredMethods
 
-        public new SImage SetBackGroundColor(ColorType colorType, float alpha)
+        public new SImage SetBackGroundColor(ColorType colorType, float alpha = 1)
         {
             return base.SetBackGroundColor(colorType, alpha) as SImage;
         }

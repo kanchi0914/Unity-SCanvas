@@ -57,6 +57,12 @@ namespace Assets.Scripts.Extensions
         {
             transform.localPosition = new Vector3(transform.localPosition.x + x,
                 transform.localPosition.y, transform.localPosition.z);
+
+    //        var rect = transform.gameObject.GetComponent<RectTransform>();
+    //        if (!rect) return;
+
+    //        rect.anchoredPosition = new Vector3(rect.anchoredPosition.x + x,
+    //rect.anchoredPosition.y, 0);
         }
 
         public static void AddLocalPosY(this Transform transform, float y)

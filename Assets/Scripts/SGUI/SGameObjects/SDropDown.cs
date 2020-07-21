@@ -56,7 +56,7 @@ namespace SGUI.SGameObjects
             layout.childForceExpandWidth = false;
 
             (float x, float y) temp = (RectSize.x, itemSize);
-            this.RectSize = (temp.x, temp.y);
+            this.RectSize = new Vector2(temp.x, temp.y);
 
             var trigger = gameObject.AddComponent<EventTrigger> ();
             EventTrigger.Entry entry = new EventTrigger.Entry ();
@@ -204,7 +204,7 @@ namespace SGUI.SGameObjects
 
         public SDropDown SetItemSize (int width, int height)
         {
-            this.RectSize = (RectSize.x, RectSize.y);
+            this.RectSize = new Vector2(RectSize.x, RectSize.y);
             this.GameObject.transform.GetComponent<RectTransform> ().sizeDelta = new Vector2 (width, height);
             return this;
         }

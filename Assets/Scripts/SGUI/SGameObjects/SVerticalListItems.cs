@@ -17,6 +17,8 @@ namespace SGUI.SGameObjects
     {
         private SGameObject parent;
 
+
+
         public List<SGameObject> childrenObjects = new List<SGameObject> ();
 
         private int paddingLeft = 0;
@@ -101,11 +103,11 @@ namespace SGUI.SGameObjects
                 else child.SetLocalPos (paddingLeft, 0);
                 if (layoutElement != null && layoutElement.minHeight != 0)
                 {
-                    child.RectSize = (widthRatio * RectSize.x, layoutElement.minHeight);
+                    child.RectSize = new Vector2(widthRatio * RectSize.x, layoutElement.minHeight);
                 }
                 else
                 {
-                    child.RectSize = (
+                    child.RectSize = new Vector2(
                         widthRatio * RectSize.x - paddingRight,
                         (this.RectSize.y - margin) / rowSize
                     );
@@ -146,6 +148,12 @@ namespace SGUI.SGameObjects
             layout.childControlWidth = false;
             layout.childAlignment = textAnchor;
         }
+
+
+
+
+
+
 
         #region  RequiredMethods
 

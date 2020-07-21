@@ -14,6 +14,8 @@ using static UnityEngine.UI.ScrollRect;
 using static HC.UI.UICreator;
 using DG.Tweening;
 using Assets.Scripts.SGUI.SGameObjects.ComponentScripts;
+using UnityEditor;
+using SGUI.SGameObjects.ComponentScripts;
 
 public class Main : MonoBehaviour
 {
@@ -21,6 +23,9 @@ public class Main : MonoBehaviour
     public Button button;
 
     public GameObject obj;
+
+
+    bool isB = false;
 
     Transform mainCanvas;
     Camera mainCamera;
@@ -31,94 +36,74 @@ public class Main : MonoBehaviour
         mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         mainCanvas = GameObject.Find("Main Canvas").transform;
 
-        //var sc = new SCanvas("aaaaaaaaa");
+        var sc = new SCanvas("aaaaaaaaa");
 
         //SInputField ipf = new SInputField(sc, "input").SetLocalPos(300, 300)
         //    .SetRectSize(200, 50) as SInputField;
 
-        //SImage panel = new SImage(sc, "img").SetLocalPos(330, 230) as SImage;
-        ////panel.SetActive(false);
-        //panel.SetActive(false);
-        ////panel.SetActive(true);
-        //panel.SetRectSize(100, 40);
+        //var baseImage = new SImage(sc, "aaaa").SetBackGroundColor(ColorType.White, 1)
+        //    .SetLocalPosByRatio(0.2f, 0.2f).SetRectSizeByRatio(0.4f, 0.4f);
 
-        //ipf.SetOnSelect(() => panel.SetActive(true));
-        //ipf.SetOnDeselect(() => panel.SetActive(false));
+        //var myImage = new SImage(baseImage, "").SetBackGroundColor(ColorType.Green)
+        //    .SetLocalPosByRatio(0.25f, 0.25f).SetRectSizeByRatio(0.5f, 0.5f);
 
-        //var myImage = new SImage(sc, "aaaaa").SetLocalPos(300, 300);
-        //var bt = new SButton(sc, "aaaa", "butttttto")
+
+
+
+        //var myImage = new SImage(sc, "aaaaa")
+        //    .SetLocalPosByRatio(0.2f, 0.2f).SetRectSize(200,200);
+        //SButton bt = new SButton(sc, "aaaa", "butttttto")
         //    .SetLocalPos(400, 400).SetRectSize(200, 100) as SButton;
 
-        //var obj = new GameObject();
-        //var objAnime = obj.TryAddComponent<DGAnimationScript>();
-        ////bt.AddOnClick(() =>
-        //{
-        //    objAnime.Animate();
-        //});
+        //    var button = new SButton(baseImage, "aaaaa", "dasdsadas")
+        //.SetLocalPosByRatio(0.25f, 0.50f).SetRectSizeByRatio(0.5f, 0.5f);
 
-        obj = new GameObject();
-        var objAnime = obj.TryAddComponent<DGAnimationScript>();
-        button.onClick.AddListener(() =>
-        {
-            objAnime.Animate();
-        });
+        //var button = new SButton();
+        //var myGrid = new SVerticalGridScrollView(sc, "gridview", 3, 3);
 
-        //Sequence seq = DOTween.Sequence();
-        //seq.Append(obj.transform.DOMoveX(0, 1f))
-        //    .OnComplete(() => Debug.Log("done!!!!!"));
+        //myGrid.SetRectSize(300, 300);
+
+        //myGrid.AddChild(button);
+
+        var ggg = new SImage(sc, "");
+        ggg.GameObject.AddComponent<TestComponent>();
+        PrefabUtility.SaveAsPrefabAsset(ggg.GameObject, "Assets/TESDDSA.prefab");
 
 
+        //myGrid.AddChild(new SButton());
+        //myGrid.AddChild(new SButton());
+        //myGrid.AddChild(new SButton());
+
+        //button.AddOnClick(() => Debug.Log("dsadsadsadad!!"));
+
+        //myGrid.SetScrollbarVisibility(ScrollbarVisibility.Permanent);
+
+        //PrefabUtility.SaveAsPrefabAsset(myGrid.GameObject, "Assets/GRID222.prefab");
 
 
-
-        //new SSlider(sc, "slider").SetRectSize(400, 40)
-        //    .SetLocalPosByRatio(0.1f, 0.1f);
+        //Debug.Log("deataaaa");
 
 
-        //var ccc = new GameObject("dadas");
-        //var rect = ccc.AddComponent<RectTransform>();
-        //UIFactory.SetTopLeftAnchor(rect);
-        //ccc.transform.SetParent(sc.GameObject.transform, false);
-        //rect.localPosition = new Vector3(100, 100, 0);
+        // var middleCenterButton = new SButton(sc, "mc", "MIDDLECENTER")
+        //     .SetLocalPosByRatio(0.5f, 0.7f);
 
-        //aaa.GameObject.transform.localPosition = new Vector3(0,0,0);
+        // middleCenterButton.AddOnClick(() => myImage.SetMiddleCenterAnchor());
 
-        //var aaadas = new GameObject();
-        //aaadas.transform.SetParent(sc.GameObject.transform);
+        // var leftTopButton = new SButton(sc, "lt", "LEFTTOP")
+        //     .SetLocalPosByRatio(0.2f, 0.7f);
 
-        // var ca = new MainMenu();
-        //
-        // var sv = new SVerticalGridScrollView (sc, "sss", 3, 1);
+        // leftTopButton.AddOnClick(() => myImage.SetTopLeftAnchor());
 
-        // sv.SetPadding (5, 5, 5, 5);
-        // sv.SetSpacing (5, 5);
+        // var fullLectButton = new SButton(sc, "fl", "FULLLECT")
+        //     .SetLocalPosByRatio(0.8f, 0.7f);
 
-        // UIFactory.CreateTMProText(sc.GameObject, "", "sassssssss");
+        // fullLectButton.AddOnClick(() => myImage.SetFullStretchAnchor());
 
-        //UICreator.CreateToggle(sc.GameObject);
+        // var hoButton = new SButton(sc, "fl", "horizooo")
+        //.SetLocalPosByRatio(0.9f, 0.7f);
 
-        //var aaa = new SToggle(sc, "aa").SetLocalPosByRatio(0.2f, 0.2f)
-        //    .SetLocalPos(100, 100)
-        //    .SetRectSize(300, 80);
+        // hoButton.AddOnClick(() => myImage.SetHorizontalStretchAnchor());
 
-        // var cccc = 
-        //new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
-
-        // new SButton (sv, "tesst", "tetete").AddOnClick (new Action (() => Debug.Log ("aaaaaaaaaaaaaaaa")));
-        // new SButton (sv, "tesst", "tetete").AddOnClick (new Action (() => Debug.Log ("aaaaaaaaaaaaaaaa")));
-        // new SButton (sv, "tesst", "tetete").AddOnClick (new Action (() => Debug.Log ("aaaaaaaaaaaaaaaa")));
-        // new SButton (sv, "tesst", "tetete").AddOnClick (new Action (() => Debug.Log ("aaaaaaaaaaaaaaaa")));
-        // new SButton (sv, "tesst", "tetete").AddOnClick (new Action (() => Debug.Log ("aaaaaaaaaaaaaaaa")));
-
-        // UICreator.CreateInputField(sc.GameObject);
-
-        // new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
-        // new SButton (aaa, "tesst", "tetete");
 
     }
 

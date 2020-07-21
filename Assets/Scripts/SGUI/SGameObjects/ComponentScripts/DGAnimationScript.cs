@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.SGUI.SGameObjects.ComponentScripts
 {
-    public class DGAnimationScript : MonoBehaviour
+    public class AnimationScript : MonoBehaviour
     {
         private Sequence sequence;
 
@@ -21,7 +22,9 @@ namespace Assets.Scripts.SGUI.SGameObjects.ComponentScripts
         public void Animate()
         {
             Debug.Log("START");
-            sequence.Append(gameObject.transform.DOLocalMoveY(0f, 0.5f))
+            gameObject.transform.DOLocalMoveY(0, 0.2f)
+                .OnComplete(() => Debug.Log("asdsa"));
+            sequence = DOTween.Sequence().Append(gameObject.transform.DOLocalMoveY(10f, 0.2f))
                 .OnComplete(() =>
                 {
                     Debug.Log("DONE!");

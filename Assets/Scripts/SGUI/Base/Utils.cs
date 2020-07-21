@@ -99,5 +99,14 @@ namespace SGUI.Base
             return color;
         }
 
+        public enum AnchorType
+        {
+            TopLeft,    TopCenter,    TopRight,
+            MiddleLeft, MiddleCenter, MiddleRight,
+            BottomLeft, BottomCenter, BottomRight,
+            HorizontalStretch, VerticalStretch,
+            FullStretch
+        }
+
     }
 }
