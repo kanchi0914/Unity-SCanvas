@@ -44,7 +44,7 @@ namespace SGUI.SGameObjects
             placeHolder.SetFullStretchAnchor();
             placeHolder.SetBackGroundColor(ColorType.Gray, 0.5f);
             placeHolder.SetText("Enter Text...");
-            placeHolder.SetColor(ColorType.Gray, 0.6f);
+            placeHolder.SetTextColor(ColorType.Gray, 0.6f);
             placeHolder.SetFontStyle(FontStyle.Italic);
 
             var spacing = 0.1f * RectSize.y;

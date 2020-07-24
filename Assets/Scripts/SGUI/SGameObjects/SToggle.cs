@@ -4,27 +4,34 @@ using SGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using Assets.Scripts.Extensions;
 
 namespace SGUI.SGameObjects
 {
-    class SToggle : SGameObject
+    public class SToggle : SGameObject
     {
-
-
         private Toggle toggle;
 
         SImage boxImageObject;
 
         SImage checkImageObject;
 
-        SText textObject;
+        public Color EnabledTextColor = Color.black;
+        public Color DisabledTextColor = Color.black;
+        public Color EnabledBackGroundImageColor = Color.white;
+        public Color DisabledBackGroundImageColor = Color.gray;
+        public SText Text;
 
-        private int aaa = 0;
+        private bool isWithBoxImage;
+
+        public SToggle(SGameObject parent) : this(parent, name:"SToggle") { }
 
         public SToggle(
             SGameObject parent,
-            string name,
-            bool isOn = true
+            bool isOn = false,
+            bool isGrouped = false,
+            bool isWithBoxImage = true,
+            string name = "SToggle"
         ) : base(parent, name,
             new Func<GameObject>(() =>
            {
@@ -35,40 +42,103 @@ namespace SGUI.SGameObjects
             toggle = gameObject.AddComponent<Toggle>();
             toggle.isOn = isOn;
             boxImageObject = new SImage(this, "toggleBackGround");
-
             checkImageObject = new SImage(boxImageObject, "box_gray_name")
                 .SetRectSizeByRatio(1, 1);
+            Text = new SText(this, "toggleLabel");
+            this.isWithBoxImage = isWithBoxImage;
+
+            boxImageObject.SetActive(isWithBoxImage);
+
+            SetBackGroundColor(ColorType.Gray, 1f);
+            boxImageObject.SetBackGroundColor(ColorType.White, 1f);
 
             checkImageObject.SetImageSource(UGUIResources.Checkmark);
-
-            textObject = new SText(this, "toggleLabel");
-
             UIFactory.SetFullStretchAnchor(checkImageObject.GameObject.GetComponent<RectTransform>());
 
             toggle.targetGraphic = boxImageObject.Image;
             toggle.graphic = checkImageObject.Image;
 
-            textObject.SetText("Text");
-            textObject.SetTextConfig(24, ColorType.Black, "Fonts/genju");
+            Text.SetText("Text");
+            Text.SetTextConfig(24, ColorType.Black, UGUIResources.Font);
+
+            if (isGrouped && parent != null)
+            {
+                var group = parent.GameObject.TryAddComponent<ToggleGroup>();
+                group.allowSwitchOff = false;
+                toggle.group = group;
+            }
+
+            var spacing = RectSize.y * 0.1f;
+
 
             var rectsizeObserver = gameObject.ObserveEveryValueChanged(_ => RectSize);
             rectsizeObserver.Subscribe(_ => UpdateSize());
+
+            toggle.onValueChanged.AddListener(e => OnSelected());
         }
 
+        /// <summary>
+        /// SetRectSizeしたとき変更できるように
+        /// </summary>
         private void UpdateSize()
         {
-            SetBackGroundColor(ColorType.Gray, 1f);
             var spacing = RectSize.y * 0.1f;
-            var imageSize = 0.8f * RectSize.y;
+            if (!isWithBoxImage)
+            {
+                Text.SetLocalPos(spacing * 1, spacing);
+                Text.SetRectSize((int)(RectSize.x - (spacing * 2)), (int)(0.8f * RectSize.y));
+            }
 
-            boxImageObject.SetLocalPos(spacing, spacing);
-            boxImageObject.SetRectSize((int)imageSize, (int)imageSize);
+            else
+            {
+                var imageSize = 0.8f * RectSize.y;
+                boxImageObject.SetLocalPos(spacing, spacing);
+                boxImageObject.SetRectSize((int)imageSize, (int)imageSize);
+                Text.SetLocalPos(spacing * 2 + imageSize, spacing);
+                Text.SetRectSize((int)(RectSize.x - (spacing * 3 + imageSize)), (int)imageSize);
+            }
 
-            boxImageObject.SetBackGroundColor(ColorType.White, 1f);
-            var textRect = textObject.GameObject.GetComponent<RectTransform>();
-            UIFactory.SetTopLeftAnchor(textRect);
-            textObject.SetLocalPos(spacing * 2 + imageSize, spacing);
-            textObject.SetRectSize((int)(RectSize.x - (spacing * 3 + imageSize)), (int)imageSize);
+        }
+
+        public SToggle AddOnValueChangedTrue(Action action, bool isOn = true)
+        {
+            toggle.onValueChanged.AddListener(e =>
+            {
+                if (isOn)
+                {
+                    if (toggle.isOn) action.Invoke();
+                }
+                else
+                {
+                    if (!toggle.isOn) action.Invoke();
+                }
+
+            });
+            return this;
+        }
+
+        //public SToggle SetEnabledTextColor(Color color)
+        //{
+        //    return this;
+        //}
+
+        //public SToggle SetDisabledTextColor()
+        //{
+        //    return this;
+        //}
+
+        private void OnSelected()
+        {
+            if (toggle.isOn)
+            {
+                Text.SetTextColor(EnabledTextColor);
+                SetBackGroundColor(EnabledBackGroundImageColor);
+            }
+            else
+            {
+                Text.SetTextColor(DisabledTextColor);
+                SetBackGroundColor(DisabledBackGroundImageColor);
+            }
         }
 
         #region  RequiredMethods
@@ -101,17 +171,6 @@ namespace SGUI.SGameObjects
             //UpdateSize();
             return this;
         }
-
-        //public virtual SGameObject SetRectSize(int width, int height)
-        //{
-        //    return this;
-        //}
-
-        //public virtual SGameObject SetLocalPos(int posX, int posY)
-        //{
-        //    return this;
-        //}
-
 
         #endregion
     }

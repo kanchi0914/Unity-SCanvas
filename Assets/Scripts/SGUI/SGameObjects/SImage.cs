@@ -12,7 +12,7 @@ using DG.Tweening;
 
 namespace SGUI.SGameObjects
 {
-    class SImage : SGameObject
+    public class SImage : SGameObject
     {
         public Image Image { get; private set; }
 

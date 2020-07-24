@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SHorizontalLayoutView.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SHorizontallGridLayoutScrollView.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SImage.cs" />
+    <Compile Include="Assets\Scripts\SGUI\SGameObjects\SImageToggle.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SInputField.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SMessageWindow.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SPanel.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\STMProText.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SText.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SToggle.cs" />
+    <Compile Include="Assets\Scripts\SGUI\SGameObjects\SToggleGroup.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalGridScrollView.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalLayoutView.cs" />
     <Compile Include="Assets\Scripts\SGUI\SGameObjects\SVerticalListScrollView.cs" />

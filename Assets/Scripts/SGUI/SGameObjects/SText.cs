@@ -14,32 +14,44 @@ namespace SGUI.SGameObjects
 
         public Text TextComponent { get; private set; }
 
-        public SText (
+        public SText(
             SGameObject parent,
             string name = "SText",
             string text = "",
             int fontSize = 24,
             ColorType colorType = ColorType.Black
-        ) : base (parent, name,
-            new Func<GameObject> (() =>
-            {
-                return UIFactory.CreateText (parent.GameObject, name, text, fontSize, colorType);
-            })
-        ) {
+        ) : base(parent, name,
+            new Func<GameObject>(() =>
+           {
+               return UIFactory.CreateText(parent.GameObject, name, text, fontSize, colorType);
+           })
+        )
+        {
             this.TextComponent = gameObject.GetComponent<Text>();
 
         }
 
-        public SText SetTextConfig (
+        public SText SetTextConfig(
             int fontSize, ColorType color, string fontName = null)
         {
-            var text = gameObject.GetComponent<Text> ();
+            var text = gameObject.GetComponent<Text>();
             text.fontSize = fontSize;
-            text.color = Utils.GetColor (color, 1f);
-            if (fontName != null) {
+            text.color = Utils.GetColor(color, 1f);
+            if (fontName != null)
+            {
                 var font = Resources.Load(fontName) as Font;
                 text.font = font;
             }
+            return this;
+        }
+
+        public SText SetTextConfig(
+            int fontSize, ColorType color, Font font)
+        {
+            var text = gameObject.GetComponent<Text>();
+            text.fontSize = fontSize;
+            text.color = Utils.GetColor(color, 1f);
+            text.font = font;
             return this;
         }
 
@@ -53,9 +65,15 @@ namespace SGUI.SGameObjects
             return this;
         }
 
-        public SText SetColor(ColorType color, float alpha)
+        public SText SetTextColor(ColorType color, float alpha)
         {
             TextComponent.color = Utils.GetColor(color, alpha);
+            return this;
+        }
+
+        public SText SetTextColor(Color color)
+        {
+            TextComponent.color = color;
             return this;
         }
 
@@ -64,7 +82,7 @@ namespace SGUI.SGameObjects
             TextComponent.fontSize = fontSize;
             return this;
         }
-        
+
         public SText SetFontStyle(FontStyle fontStyle)
         {
             TextComponent.fontStyle = FontStyle.Italic;
@@ -76,9 +94,9 @@ namespace SGUI.SGameObjects
         /// </summary>
         /// <param name="_text"></param>
         /// <returns></returns>
-        public SText SetText (string _text)
+        public SText SetText(string _text)
         {
-            var text = gameObject.GetComponent<Text> ();
+            var text = gameObject.GetComponent<Text>();
             text.text = _text;
             return this;
         }
@@ -88,8 +106,9 @@ namespace SGUI.SGameObjects
         /// </summary>
         /// <param name="textAnchor"></param>
         /// <returns></returns>
-        public SText SetAlignMent(TextAnchor textAnchor){
-            var text = gameObject.GetComponent<Text> ();
+        public SText SetAlignMent(TextAnchor textAnchor)
+        {
+            var text = gameObject.GetComponent<Text>();
             text.alignment = textAnchor;
             return this;
         }

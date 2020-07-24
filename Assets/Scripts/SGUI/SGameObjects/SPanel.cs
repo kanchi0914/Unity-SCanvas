@@ -8,16 +8,19 @@ using UnityEngine;
 
 namespace SGUI.SGameObjects
 {
-    class SPanel : SGameObject
+    class SToggleGroup : SGameObject
     {
-        public SPanel (
+        public SToggleGroup(
             SGameObject parent,
-            string name
+            bool isHorizontal = true,
+            string name = "SToggleGroup"
         ) : base (parent, name,
             new Func<GameObject> (() =>
             {
                 return UIFactory.CreatePanel (parent.GameObject, name);
             })
-        ){}
+        ){
+            new SHorizontalLayoutView(this, 3);
+        }
     }
 }

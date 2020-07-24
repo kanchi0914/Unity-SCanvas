@@ -54,7 +54,7 @@ namespace SGUI.Base
             GameObject obj = new GameObject (name);
             if (parent != null) obj.transform.SetParent (parent.transform, false);
             var rect = obj.AddComponent<RectTransform> ();
-            //SetTopLeftAnchor (rect);
+            rect.SetTopLeftAnchor();
             obj.transform.SetLocalPos (0, 0);
             rect.sizeDelta = new Vector2 (100, 100);
             return obj;
@@ -246,7 +246,6 @@ namespace SGUI.Base
         )
         {
             var gameObject = UICreator.CreateDropdown (parent, name);
-            var rect = gameObject.GetComponent<RectTransform> ();
             return gameObject;
         }
 

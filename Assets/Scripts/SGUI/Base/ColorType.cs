@@ -10,6 +10,7 @@ namespace SGUI.Base
         Red,
         Yellow,
         Green,
-        Blue
+        Blue,
+        Transparent
     }
 }

@@ -25,6 +25,8 @@ namespace SGUI.SGameObjects
         private int paddingBottom = 0;
         private int spacing = 0;
         private int columnSize;
+        bool isAutoSizing = false;
+        bool isAutoAlignMent = false;
 
         public SHorizontalLayoutView (
             SGameObject parent,
@@ -60,10 +62,10 @@ namespace SGUI.SGameObjects
         private void SetChildrenSize ()
         {
             var margin = paddingLeft + paddingRight + (columnSize - 1) * spacing;
+            var width = (this.RectSize.x - margin) / columnSize;
             foreach (var item in childrenObjects.Select ((Value, Index) => new { Value, Index }))
             {
                 var child = item.Value;
-                var width = (this.RectSize.x - margin) / columnSize;
                 if (width < 1) width = 1;
                 child.RectSize = new Vector2 (
                     width, 1
