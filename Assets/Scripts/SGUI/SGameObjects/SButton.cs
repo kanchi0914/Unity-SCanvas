@@ -17,46 +17,48 @@ namespace SGUI.SGameObjects
 
         public SText SText { get; private set; }
 
-        public SButton (
+        public SButton(
             SGameObject parent = null,
-            string name = "SButton",
             string text = "",
+            string name = "SButton",
             ColorType color = ColorType.White
-        ) : base (parent, name,
-            new Func<GameObject> (() =>
-            {
-                if (parent == null) return UIFactory.CreateButton (null, name, text, color);
-                return UIFactory.CreateButton (parent.GameObject, name, text, color);
-            })
-        ) {
-            SText = new SText(this, text:text).SetRectSizeByRatio(1,1) as SText;
+        ) : base(parent, name,
+            new Func<GameObject>(() =>
+           {
+               if (parent == null) return UIFactory.CreateButton(null, name, text, color);
+               return UIFactory.CreateButton(parent.GameObject, name, text, color);
+           })
+        )
+        {
+            SText = new SText(this, text: text).SetRectSizeByRatio(1, 1) as SText;
+            SText.SetFullStretchAnchor();
             Button = gameObject.GetComponent<Button>();
         }
 
-        public SButton AddOnClick (Action onClick)
+        public SButton AddOnClick(Action onClick)
         {
-            Button.onClick.AddListener (() => onClick.Invoke());
+            Button.onClick.AddListener(() => onClick.Invoke());
             return this;
         }
 
-        public SButton AddOnSelect (Action onSelect)
+        public SButton AddOnSelect(Action onSelect)
         {
-            var trigger = gameObject.AddComponent<EventTrigger> ();
-            var entry = new EventTrigger.Entry ();
+            var trigger = gameObject.AddComponent<EventTrigger>();
+            var entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.Select;
-            entry.callback.AddListener (e => onSelect ());
-            trigger.triggers.Add (entry);
+            entry.callback.AddListener(e => onSelect());
+            trigger.triggers.Add(entry);
             return this;
         }
 
-        public new SButton SetRectSizeByRatio (float ratioX, float ratioY)
+        public new SButton SetRectSizeByRatio(float ratioX, float ratioY)
         {
-            return base.SetRectSizeByRatio (ratioX, ratioY) as SButton;
+            return base.SetRectSizeByRatio(ratioX, ratioY) as SButton;
         }
 
-        public new SButton SetLocalPosByRatio (float posXratio, float posYratio)
+        public new SButton SetLocalPosByRatio(float posXratio, float posYratio)
         {
-            return base.SetLocalPosByRatio (posXratio, posYratio) as SButton;
+            return base.SetLocalPosByRatio(posXratio, posYratio) as SButton;
         }
 
     }

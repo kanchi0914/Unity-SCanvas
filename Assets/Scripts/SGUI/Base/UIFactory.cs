@@ -109,60 +109,60 @@ namespace SGUI.Base
             return gameObject;
         }
 
-        // public static void SetTopLeftAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0f, 1f);
-        //     rectTransform.anchorMax = new Vector2 (0f, 1f);
-        //     rectTransform.pivot = new Vector2 (0f, 1f);
-        //     rectTransform.localPosition = new Vector2 (0f, 0f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetTopLeftAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0f, 1f);
+            rectTransform.anchorMax = new Vector2(0f, 1f);
+            rectTransform.pivot = new Vector2(0f, 1f);
+            rectTransform.localPosition = new Vector2(0f, 0f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
-        // public static void SetMiddleCenterAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0.5f, 0.5f);
-        //     rectTransform.anchorMax = new Vector2 (0.5f, 0.5f);
-        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetMiddleCenterAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
-        // public static void SetHorizontalStretchAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0.0f, 0.25f);
-        //     rectTransform.anchorMax = new Vector2 (1f, 0.75f);
-        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetHorizontalStretchAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0.0f, 0.25f);
+            rectTransform.anchorMax = new Vector2(1f, 0.75f);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
-        // public static void SetStretchLeftAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0, 0);
-        //     rectTransform.anchorMax = new Vector2 (0, 1);
-        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetStretchLeftAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);
+            rectTransform.anchorMax = new Vector2(0, 1);
+            rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
-        // public static void SetMiddleLeftAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0f, 0.5f);
-        //     rectTransform.anchorMax = new Vector2 (0f, 0.5f);
-        //     rectTransform.pivot = new Vector2 (0f, 0.5f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetMiddleLeftAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0f, 0.5f);
+            rectTransform.anchorMax = new Vector2(0f, 0.5f);
+            rectTransform.pivot = new Vector2(0f, 0.5f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
-        // public static void SetFullStretchAnchor (RectTransform rectTransform)
-        // {
-        //     rectTransform.anchorMin = new Vector2 (0, 0);
-        //     rectTransform.anchorMax = new Vector2 (1, 1);
-        //     rectTransform.pivot = new Vector3 (0.5f, 0.5f);
-        //     rectTransform.offsetMax = new Vector2 (0, 0);
-        //     rectTransform.offsetMin = new Vector2 (0, 0);
-        // }
+        public static void SetFullStretchAnchor(RectTransform rectTransform)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);
+            rectTransform.anchorMax = new Vector2(1, 1);
+            rectTransform.pivot = new Vector3(0.5f, 0.5f);
+            rectTransform.offsetMax = new Vector2(0, 0);
+            rectTransform.offsetMin = new Vector2(0, 0);
+        }
 
         public static GameObject CreateText (
             GameObject parent,

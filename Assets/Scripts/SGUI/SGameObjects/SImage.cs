@@ -18,7 +18,7 @@ namespace SGUI.SGameObjects
 
         public SImage (
             SGameObject parent,
-            string name,
+            string name = "SImage",
             string imageFilePath = null
         ) : base (parent, name,
             new Func<GameObject> (() =>
