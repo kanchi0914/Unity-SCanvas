@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using SGUI.Base;
+using SGUI.SGameObjects.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.ScrollRect;
 
 namespace SGUI.SGameObjects
 {
-    class SVerticalGridScrollView : SGameObject
+    class SVerticalGridScrollView : SGameObject, ILayoutObject
     {
 
         public int ItemHeight
@@ -105,7 +106,7 @@ namespace SGUI.SGameObjects
             gridLayout.cellSize = new Vector2 (ItemWidth, ItemHeight);
         }
 
-        public void AddChild (SGameObject sGameObject)
+        public void AddItem (SGameObject sGameObject)
         {
             childrenObjects.Add (sGameObject);
             sGameObject.GameObject.transform.SetParent (ContentArea.transform, false);

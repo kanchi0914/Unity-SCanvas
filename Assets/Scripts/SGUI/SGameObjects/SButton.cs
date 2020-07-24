@@ -29,7 +29,7 @@ namespace SGUI.SGameObjects
                 return UIFactory.CreateButton (parent.GameObject, name, text, color);
             })
         ) {
-            SText = new SText(this, text:text);
+            SText = new SText(this, text:text).SetRectSizeByRatio(1,1) as SText;
             Button = gameObject.GetComponent<Button>();
         }
 

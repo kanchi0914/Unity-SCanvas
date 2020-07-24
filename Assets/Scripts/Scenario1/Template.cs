@@ -17,7 +17,7 @@ namespace Assets.Scripts
     {
         private SSubCanvas parent;
 
-        private SVerticalListItems leftMenu;
+        private SVerticalLayoutView leftMenu;
         private SGridLayoutView detailView;
 
         private PlayerPresenter playerPresenter;
@@ -25,12 +25,12 @@ namespace Assets.Scripts
         // set constructor
         public MainMenu ()
         {
-            parent = new SSubCanvas (this, 0.1f, 0.1f, 0.8f, 0.8f);
-            leftMenu = new SVerticalListItems (parent, 0.0f, 0.0f, 0.2f, 1.0f)
-                .SetBackGroundColor (ColorType.Black, 0.4f)
-                .SetVerticalListItems (GetMenuList ());
-            detailView = new SGridLayoutView (parent, 0.25f, 0.0f, 0.75f, 1.0f)
-                .SetBackGroundColor (ColorType.Black, 0.4f);
+            // parent = new SSubCanvas (this, 0.1f, 0.1f, 0.8f, 0.8f);
+            // leftMenu = new SVerticalLayoutView (parent, 0.0f, 0.0f, 0.2f, 1.0f)
+            //     .SetBackGroundColor (ColorType.Black, 0.4f)
+            //     .SetVerticalListItems (GetMenuList ());
+            // detailView = new SGridLayoutView (parent, 0.25f, 0.0f, 0.75f, 1.0f)
+            //     .SetBackGroundColor (ColorType.Black, 0.4f);
         }
 
         public List<SGameObject> GetMenuList ()

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Scripts.Extensions;
+using Assets.Scripts.SGUI.Base;
 using HC.UI;
 using SGUI.SGameObjects;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using Assets.Scripts.SGUI.Base;
 
 namespace SGUI.Base
 {
@@ -49,59 +49,58 @@ namespace SGUI.Base
         private const string kMaskPath = "UI/Skin/UIMask.psd";
         private const string kFontPath = "Arial.ttf";
 
-        public static GameObject CreateBaseRect(GameObject parent, string name)
+        public static GameObject CreateBaseRect (GameObject parent, string name)
         {
-            GameObject obj = new GameObject(name);
-            if (parent != null) obj.transform.SetParent(parent.transform, false);
-            var rect = obj.AddComponent<RectTransform>();
-            SetTopLeftAnchor(rect);
-            obj.transform.SetLocalPos(0, 0);
-            rect.sizeDelta = new Vector2(100, 100);
-            // rect.localPosition = new Vector2(0, 0);
+            GameObject obj = new GameObject (name);
+            if (parent != null) obj.transform.SetParent (parent.transform, false);
+            var rect = obj.AddComponent<RectTransform> ();
+            //SetTopLeftAnchor (rect);
+            obj.transform.SetLocalPos (0, 0);
+            rect.sizeDelta = new Vector2 (100, 100);
             return obj;
         }
 
-        public static GameObject CreateCanvas(string name)
+        public static GameObject CreateCanvas (string name)
         {
-            var gameObject = CreateBaseRect(null, name);
+            var gameObject = CreateBaseRect (null, name);
 
-            var canvas = gameObject.AddComponent<Canvas>();
+            var canvas = gameObject.AddComponent<Canvas> ();
             canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            canvas.worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            gameObject.AddComponent<CanvasScaler>();
-            gameObject.AddComponent<GraphicRaycaster>();
-            var image = gameObject.AddComponent<Image>();
+            canvas.worldCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
+            gameObject.AddComponent<CanvasScaler> ();
+            gameObject.AddComponent<GraphicRaycaster> ();
+            var image = gameObject.AddComponent<Image> ();
             image.sprite = UGUIResources.Background;
             image.type = Image.Type.Sliced;
-            image.color = new Color(0, 0, 0, 0f);
+            image.color = new Color (0, 0, 0, 0f);
             return gameObject;
         }
 
-        public static GameObject CreatePanel(GameObject parent, string name)
+        public static GameObject CreatePanel (GameObject parent, string name)
         {
-            var gameObject = CreateBaseRect(parent, name);
-            Image image = gameObject.AddComponent<Image>();
+            var gameObject = CreateBaseRect (parent, name);
+            Image image = gameObject.AddComponent<Image> ();
             image.sprite = UGUIResources.Background;
             image.type = Image.Type.Sliced;
-            image.color = Utils.GetColor(ColorType.White, 0);
+            image.color = Utils.GetColor (ColorType.White, 0);
             //SetFullStretchAnchor(gameObject.GetComponent<RectTransform>());
             return gameObject;
         }
 
-        public static GameObject CreateImage(GameObject parent, string name, string resourceImagePath = null)
+        public static GameObject CreateImage (GameObject parent, string name, string resourceImagePath = null)
         {
-            var gameObject = CreateBaseRect(parent, name);
-            var rect = gameObject.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(100, 100);
-            Image image = gameObject.AddComponent<Image>();
+            var gameObject = CreateBaseRect (parent, name);
+            var rect = gameObject.GetComponent<RectTransform> ();
+            rect.sizeDelta = new Vector2 (100, 100);
+            Image image = gameObject.AddComponent<Image> ();
             if (resourceImagePath == null)
             {
                 image.sprite = UGUIResources.Background;
             }
             else
             {
-                var source = Resources.Load<Sprite>(resourceImagePath) as Sprite;
-                if (!source) Debug.Log($"File {resourceImagePath} is not found");
+                var source = Resources.Load<Sprite> (resourceImagePath) as Sprite;
+                if (!source) Debug.Log ($"File {resourceImagePath} is not found");
                 else image.sprite = source;
             }
             image.type = Image.Type.Sliced;
@@ -110,62 +109,62 @@ namespace SGUI.Base
             return gameObject;
         }
 
-        public static void SetTopLeftAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0f, 1f);
-            rectTransform.anchorMax = new Vector2(0f, 1f);
-            rectTransform.pivot = new Vector2(0f, 1f);
-            rectTransform.localPosition = new Vector2(0f, 0f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetTopLeftAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0f, 1f);
+        //     rectTransform.anchorMax = new Vector2 (0f, 1f);
+        //     rectTransform.pivot = new Vector2 (0f, 1f);
+        //     rectTransform.localPosition = new Vector2 (0f, 0f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static void SetMiddleCenterAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetMiddleCenterAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0.5f, 0.5f);
+        //     rectTransform.anchorMax = new Vector2 (0.5f, 0.5f);
+        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static void SetHorizontalStretchAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0.0f, 0.25f);
-            rectTransform.anchorMax = new Vector2(1f, 0.75f);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetHorizontalStretchAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0.0f, 0.25f);
+        //     rectTransform.anchorMax = new Vector2 (1f, 0.75f);
+        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static void SetStretchLeftAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(0, 1);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetStretchLeftAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0, 0);
+        //     rectTransform.anchorMax = new Vector2 (0, 1);
+        //     rectTransform.pivot = new Vector2 (0.5f, 0.5f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static void SetMiddleLeftAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0f, 0.5f);
-            rectTransform.pivot = new Vector2(0f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetMiddleLeftAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0f, 0.5f);
+        //     rectTransform.anchorMax = new Vector2 (0f, 0.5f);
+        //     rectTransform.pivot = new Vector2 (0f, 0.5f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static void SetFullStretchAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(1, 1);
-            rectTransform.pivot = new Vector3(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        // public static void SetFullStretchAnchor (RectTransform rectTransform)
+        // {
+        //     rectTransform.anchorMin = new Vector2 (0, 0);
+        //     rectTransform.anchorMax = new Vector2 (1, 1);
+        //     rectTransform.pivot = new Vector3 (0.5f, 0.5f);
+        //     rectTransform.offsetMax = new Vector2 (0, 0);
+        //     rectTransform.offsetMin = new Vector2 (0, 0);
+        // }
 
-        public static GameObject CreateText(
+        public static GameObject CreateText (
             GameObject parent,
             string name,
             string _text = "",
@@ -174,63 +173,54 @@ namespace SGUI.Base
             TextAnchor textAnchor = TextAnchor.MiddleCenter
         )
         {
-            var gameObject = CreateBaseRect(parent, name);
-            Text text = gameObject.AddComponent<Text>();
+            var gameObject = CreateBaseRect (parent, name);
+            Text text = gameObject.AddComponent<Text> ();
             text.text = _text;
             if (fontSize == 0) text.fontSize = Utils.DefaultFontSize;
             else text.fontSize = fontSize;
             text.font = UGUIResources.Font;
-            text.color = Utils.GetColor(colorType, 1);
+            text.color = Utils.GetColor (colorType, 1);
             text.alignment = textAnchor;
-            var rect = gameObject.GetComponent<RectTransform>();
+            var rect = gameObject.GetComponent<RectTransform> ();
             return gameObject;
         }
 
-        public static GameObject CreateTMProText(
+        public static GameObject CreateTMProText (
             GameObject parent,
             string name = "Text",
             int fontSize = 0,
             ColorType colorType = ColorType.Black,
             TextAlignmentOptions textAlignment = TextAlignmentOptions.TopLeft
-            )
+        )
         {
-            GameObject gameObject = CreateBaseRect(parent, name);
-            var text = gameObject.AddComponent<TextMeshProUGUI>();
+            GameObject gameObject = CreateBaseRect (parent, name);
+            var text = gameObject.AddComponent<TextMeshProUGUI> ();
             text.fontStyle = FontStyles.Italic | FontStyles.Bold;
-            text.color = Utils.GetColor(colorType, 1);
+            text.color = Utils.GetColor (colorType, 1);
             text.alignment = textAlignment;
             if (fontSize == 0) text.fontSize = Utils.DefaultFontSize;
             return gameObject;
         }
 
-        public static GameObject CreateButton(GameObject parent, string name, string _text, ColorType color)
+        public static GameObject CreateButton (GameObject parent, string name, string _text, ColorType color)
         {
-            var gameObject = CreateBaseRect(parent, name);
-            Image image = gameObject.AddComponent<Image>();
+            var gameObject = CreateBaseRect (parent, name);
+            Image image = gameObject.AddComponent<Image> ();
             image.sprite = UGUIResources.Background;
             image.type = Image.Type.Sliced;
-            image.color = Utils.GetColor(color, 1);
-
-            Button bt = gameObject.AddComponent<Button>();
-
-            // var text = CreateText (gameObject, name, _text);
-            // var rect = text.GetComponent<RectTransform> ();
-            // SetFullStretchAnchor (rect);
-
+            image.color = Utils.GetColor (color, 1);
+            Button bt = gameObject.AddComponent<Button> ();
             return gameObject;
         }
 
-        public static GameObject CreatePrefab(GameObject parent, string name)
+        public static GameObject CreatePrefab (GameObject parent, string name)
         {
-            var pre = UnityEngine.Resources.Load(name) as GameObject;
-            var gameObject = GameObject.Instantiate(pre);
+            var pre = UnityEngine.Resources.Load (name) as GameObject;
+            var gameObject = GameObject.Instantiate (pre);
             return gameObject;
         }
 
-
-
-
-        public static GameObject CreateGridLayoutView(
+        public static GameObject CreateGridLayoutView (
             GameObject parent,
             string name,
             int columnSize = 0,
@@ -238,63 +228,61 @@ namespace SGUI.Base
             float height = 300f
         )
         {
-            var gameObject = CreateBaseRect(parent, name);
-            var layout = gameObject.AddComponent<GridLayoutGroup>();
-            gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+            var gameObject = CreateBaseRect (parent, name);
+            var layout = gameObject.AddComponent<GridLayoutGroup> ();
+            gameObject.GetComponent<RectTransform> ().sizeDelta = new Vector2 (width, height);
             if (columnSize > 0)
             {
                 layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
                 layout.constraintCount = columnSize;
-                layout.cellSize = new Vector2(width / columnSize, 100f);
+                layout.cellSize = new Vector2 (width / columnSize, 100f);
             }
             return gameObject;
         }
 
-        public static GameObject CreateDropDown(
+        public static GameObject CreateDropDown (
             GameObject parent,
             string name
         )
         {
-            var gameObject = UICreator.CreateDropdown(parent, name);
-            var rect = gameObject.GetComponent<RectTransform>();
-            SetTopLeftAnchor(rect);
+            var gameObject = UICreator.CreateDropdown (parent, name);
+            var rect = gameObject.GetComponent<RectTransform> ();
             return gameObject;
-
         }
 
-        public static GameObject CreateScrollBar(
+        public static GameObject CreateScrollBar (
             GameObject parent,
             string name
         )
         {
-            return UICreator.CreateScrollbar(parent, name);
+            return UICreator.CreateScrollbar (parent, name);
         }
 
-        public static GameObject CreateScrollView(
+        public static GameObject CreateScrollView (
             GameObject parent,
             string name
         )
         {
-            return UICreator.CreateScrollView(parent, name, UICreator.LayoutGroupType.Vertical);
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.Vertical);
         }
 
-        public static GameObject CreateVerticalGridLayoutScrollView(
+        public static GameObject CreateVerticalGridLayoutScrollView (
             GameObject parent,
             string name
         )
         {
-            return UICreator.CreateScrollView(parent, name, UICreator.LayoutGroupType.VerticalGrid);
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.VerticalGrid);
         }
 
-        public static GameObject CreateHorizontalGridLayoutScrollView(
+        public static GameObject CreateHorizontalGridLayoutScrollView (
             GameObject parent,
             string name
         )
         {
-            return UICreator.CreateScrollView(parent, name, UICreator.LayoutGroupType.HorizontalGrid);
+            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.HorizontalGrid);
         }
 
-        public static GameObject CreateVerticalLayoutView(
+        public static GameObject CreateVerticalLayoutView (
             GameObject parent,
             string name,
             int rowSize = 10,
@@ -302,38 +290,32 @@ namespace SGUI.Base
             TextAnchor textAnchor = TextAnchor.UpperLeft
         )
         {
-            var gameObject = CreateBaseRect(parent, name);
-            var layout = gameObject.AddComponent<VerticalLayoutGroup>();
+            var gameObject = CreateBaseRect (parent, name);
+            var layout = gameObject.AddComponent<VerticalLayoutGroup> ();
+            layout.childControlHeight = false;
+            layout.childControlWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.childForceExpandWidth = true;
+            layout.childScaleHeight = false;
+            layout.childScaleWidth = false;
             return gameObject;
         }
 
-        //public static Resources StandardResources = GetStandardResources ();
-
-        //        static private Resources GetStandardResources()
-        //        {
-        //            var s_StandardResources = new Resources ();
-        //#if UNITY_EDITOR
-        //            s_StandardResources.standard = AssetDatabase.GetBuiltinExtraResource<Sprite> (kStandardSpritePath);
-        //            s_StandardResources.background = AssetDatabase.GetBuiltinExtraResource<Sprite> (kBackgroundSpritePath);
-        //            s_StandardResources.inputField = AssetDatabase.GetBuiltinExtraResource<Sprite> (kInputFieldBackgroundPath);
-        //            s_StandardResources.knob = AssetDatabase.GetBuiltinExtraResource<Sprite> (kKnobPath);
-        //            s_StandardResources.checkmark = AssetDatabase.GetBuiltinExtraResource<Sprite> (kCheckmarkPath);
-        //            s_StandardResources.dropdown = AssetDatabase.GetBuiltinExtraResource<Sprite> (kDropdownArrowPath);
-        //            s_StandardResources.mask = AssetDatabase.GetBuiltinExtraResource<Sprite> (kMaskPath);
-        //#else
-        //            s_StandardResources.standard = UnityEngine.Resources.Load<GameObject> ("UISprite").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.background = UnityEngine.Resources.Load<GameObject> ("Background").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.inputField = UnityEngine.Resources.Load<GameObject> ("InputFieldBackground").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.knob = UnityEngine.Resources.Load<GameObject> ("Knob").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.checkmark = UnityEngine.Resources.Load<GameObject> ("Checkmark").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.dropdown = UnityEngine.Resources.Load<GameObject> ("DropdownArrow").GetComponent<SpriteRenderer> ().sprite;
-        //            s_StandardResources.mask = UnityEngine.Resources.Load<GameObject> ("UIMask").GetComponent<SpriteRenderer> ().sprite;
-        //#endif
-        //            s_StandardResources.font = UnityEngine.Resources.GetBuiltinResource<Font> (kFontPath);
-
-        //            return s_StandardResources;
-        //        }
-
+        public static GameObject CreateHotizontalLayoutView (
+            GameObject parent,
+            string name
+        )
+        {
+            var gameObject = CreateBaseRect (parent, name);
+            var layout = gameObject.AddComponent<HorizontalLayoutGroup> ();
+            layout.childControlHeight = true;
+            layout.childControlWidth = false;
+            layout.childForceExpandHeight = true;
+            layout.childForceExpandWidth = false;
+            layout.childScaleHeight = false;
+            layout.childScaleWidth = false;
+            return gameObject;
+        }
     }
 
 }
