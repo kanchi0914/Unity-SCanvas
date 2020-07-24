@@ -17,6 +17,8 @@ namespace SGUI.SGameObjects
     public class SHorizontalLayoutView : SGameObject, ILayoutObject
     {
         private SGameObject parent;
+
+        private GameObject
         public List<SGameObject> childrenObjects = new List<SGameObject> ();
 
         private int paddingLeft = 0;
@@ -40,7 +42,10 @@ namespace SGUI.SGameObjects
             float posRatioX,
             float posRatioY,
             float ratioX,
-            float ratioY
+            float ratioY,
+            bool isAutoSizingWidth = true,
+            bool isAutoSizingHeight = true,
+            bool isAutoHorizontalAlinment = true
         ) : base (parent, name,
             new Func<GameObject> (() =>
             {
