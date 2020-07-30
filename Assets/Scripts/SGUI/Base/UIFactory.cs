@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
 using HC.UI;
-using SGUI.SGameObjects;
+using UniRx;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -16,38 +16,6 @@ namespace SGUI.Base
 {
     public static class UIFactory
     {
-        //public struct Resources
-        //{
-        //    public Sprite standard;
-        //    public Sprite background;
-        //    public Sprite inputField;
-        //    public Sprite knob;
-        //    public Sprite checkmark;
-        //    public Sprite dropdown;
-        //    public Sprite mask;
-        //    public Font font;
-        //}
-
-        // private const float kWidth = 160f;
-        // private const float kThickHeight = 30f;
-        // private const float kThinHeight = 20f;
-        // private static Vector2 s_ThickElementSize = new Vector2 (kWidth, kThickHeight);
-        // private static Vector2 s_ThinElementSize = new Vector2 (kWidth, kThinHeight);
-        // private static Vector2 s_ImageElementSize = new Vector2 (100f, 100f);
-        // private static Color s_DefaultSelectableColor = new Color (1f, 1f, 1f, 1f);
-        // private static Color s_PanelColor = new Color (1f, 1f, 1f, 0.392f);
-        // private static Color s_TextColor = new Color (50f / 255f, 50f / 255f, 50f / 255f, 1f);
-
-        private const string kUILayerName = "UI";
-
-        private const string kStandardSpritePath = "UI/Skin/UISprite.psd";
-        private const string kBackgroundSpritePath = "UI/Skin/Background.psd";
-        private const string kInputFieldBackgroundPath = "UI/Skin/InputFieldBackground.psd";
-        private const string kKnobPath = "UI/Skin/Knob.psd";
-        private const string kCheckmarkPath = "UI/Skin/Checkmark.psd";
-        private const string kDropdownArrowPath = "UI/Skin/DropdownArrow.psd";
-        private const string kMaskPath = "UI/Skin/UIMask.psd";
-        private const string kFontPath = "Arial.ttf";
 
         public static GameObject CreateBaseRect (GameObject parent, string name)
         {
@@ -69,10 +37,6 @@ namespace SGUI.Base
             canvas.worldCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
             gameObject.AddComponent<CanvasScaler> ();
             gameObject.AddComponent<GraphicRaycaster> ();
-            var image = gameObject.AddComponent<Image> ();
-            image.sprite = UGUIResources.Background;
-            image.type = Image.Type.Sliced;
-            image.color = new Color (0, 0, 0, 0f);
             return gameObject;
         }
 
@@ -82,8 +46,7 @@ namespace SGUI.Base
             Image image = gameObject.AddComponent<Image> ();
             image.sprite = UGUIResources.Background;
             image.type = Image.Type.Sliced;
-            image.color = Utils.GetColor (ColorType.White, 0);
-            //SetFullStretchAnchor(gameObject.GetComponent<RectTransform>());
+            image.color = Utils.GetColor (ColorType.White, 0.2f);
             return gameObject;
         }
 
@@ -109,33 +72,33 @@ namespace SGUI.Base
             return gameObject;
         }
 
-        public static void SetTopLeftAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0f, 1f);
-            rectTransform.anchorMax = new Vector2(0f, 1f);
-            rectTransform.pivot = new Vector2(0f, 1f);
-            rectTransform.localPosition = new Vector2(0f, 0f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        //public static void SetTopLeftAnchor(RectTransform rectTransform)
+        //{
+        //    rectTransform.anchorMin = new Vector2(0f, 1f);
+        //    rectTransform.anchorMax = new Vector2(0f, 1f);
+        //    rectTransform.pivot = new Vector2(0f, 1f);
+        //    rectTransform.localPosition = new Vector2(0f, 0f);
+        //    rectTransform.offsetMax = new Vector2(0, 0);
+        //    rectTransform.offsetMin = new Vector2(0, 0);
+        //}
 
-        public static void SetMiddleCenterAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        //public static void SetMiddleCenterAnchor(RectTransform rectTransform)
+        //{
+        //    rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        //    rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        //    rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        //    rectTransform.offsetMax = new Vector2(0, 0);
+        //    rectTransform.offsetMin = new Vector2(0, 0);
+        //}
 
-        public static void SetHorizontalStretchAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0.0f, 0.25f);
-            rectTransform.anchorMax = new Vector2(1f, 0.75f);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        //public static void SetHorizontalStretchAnchor(RectTransform rectTransform)
+        //{
+        //    rectTransform.anchorMin = new Vector2(0.0f, 0.25f);
+        //    rectTransform.anchorMax = new Vector2(1f, 0.75f);
+        //    rectTransform.pivot = new Vector2(0.5f, 0.5f);
+        //    rectTransform.offsetMax = new Vector2(0, 0);
+        //    rectTransform.offsetMin = new Vector2(0, 0);
+        //}
 
         public static void SetStretchLeftAnchor(RectTransform rectTransform)
         {
@@ -146,23 +109,23 @@ namespace SGUI.Base
             rectTransform.offsetMin = new Vector2(0, 0);
         }
 
-        public static void SetMiddleLeftAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0f, 0.5f);
-            rectTransform.pivot = new Vector2(0f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        //public static void SetMiddleLeftAnchor(RectTransform rectTransform)
+        //{
+        //    rectTransform.anchorMin = new Vector2(0f, 0.5f);
+        //    rectTransform.anchorMax = new Vector2(0f, 0.5f);
+        //    rectTransform.pivot = new Vector2(0f, 0.5f);
+        //    rectTransform.offsetMax = new Vector2(0, 0);
+        //    rectTransform.offsetMin = new Vector2(0, 0);
+        //}
 
-        public static void SetFullStretchAnchor(RectTransform rectTransform)
-        {
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(1, 1);
-            rectTransform.pivot = new Vector3(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-        }
+        //public static void SetFullStretchAnchor(RectTransform rectTransform)
+        //{
+        //    rectTransform.anchorMin = new Vector2(0, 0);
+        //    rectTransform.anchorMax = new Vector2(1, 1);
+        //    rectTransform.pivot = new Vector3(0.5f, 0.5f);
+        //    rectTransform.offsetMax = new Vector2(0, 0);
+        //    rectTransform.offsetMin = new Vector2(0, 0);
+        //}
 
         public static GameObject CreateText (
             GameObject parent,
@@ -222,21 +185,21 @@ namespace SGUI.Base
 
         public static GameObject CreateGridLayoutView (
             GameObject parent,
-            string name,
-            int columnSize = 0,
-            float width = 400f,
-            float height = 300f
+            string name
+            //int columnSize = 0,
+            //float width = 400f,
+            //float height = 300f
         )
         {
             var gameObject = CreateBaseRect (parent, name);
             var layout = gameObject.AddComponent<GridLayoutGroup> ();
-            gameObject.GetComponent<RectTransform> ().sizeDelta = new Vector2 (width, height);
-            if (columnSize > 0)
-            {
-                layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-                layout.constraintCount = columnSize;
-                layout.cellSize = new Vector2 (width / columnSize, 100f);
-            }
+            //gameObject.GetComponent<RectTransform> ().sizeDelta = new Vector2 (width, height);
+            //if (columnSize > 0)
+            //{
+            //    layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            //    layout.constraintCount = columnSize;
+            //    layout.cellSize = new Vector2 (width / columnSize, 100f);
+            //}
             return gameObject;
         }
 
@@ -257,12 +220,21 @@ namespace SGUI.Base
             return UICreator.CreateScrollbar (parent, name);
         }
 
-        public static GameObject CreateScrollView (
+
+        public static GameObject CreateVerticalScrollView (
             GameObject parent,
             string name
         )
         {
             return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.Vertical);
+        }
+
+        public static GameObject CreateHorizontalScrollView(
+            GameObject parent,
+            string name
+)
+        {
+            return UICreator.CreateScrollView(parent, name, UICreator.LayoutGroupType.Horizontal);
         }
 
         public static GameObject CreateVerticalGridLayoutScrollView (
@@ -284,8 +256,6 @@ namespace SGUI.Base
         public static GameObject CreateVerticalLayoutView (
             GameObject parent,
             string name,
-            int rowSize = 10,
-            float widthRatio = 1.0f,
             TextAnchor textAnchor = TextAnchor.UpperLeft
         )
         {
@@ -307,7 +277,7 @@ namespace SGUI.Base
         {
             var gameObject = CreateBaseRect (parent, name);
             var layout = gameObject.AddComponent<HorizontalLayoutGroup> ();
-            layout.childControlHeight = true;
+            layout.childControlHeight = false;
             layout.childControlWidth = false;
             layout.childForceExpandHeight = true;
             layout.childForceExpandWidth = false;

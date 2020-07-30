@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Models;
-using Assets.Scripts.SCanvases;
 using SGUI.Base;
 using System;
 using System.Collections.Generic;
@@ -20,8 +19,8 @@ namespace Assets.Scripts.Presentor
         
         public static void OnClickUseItem(string id)
         {
-            var player = GameObject.Find("Player").GetComponent<Player>();
-            player.UseItem(id);
+            var player = GameObject.Find("Player").GetComponent<GameManager>();
+            //player.UseItem(id);
         }
         
         public static void OnHpChanged(int value)
@@ -31,10 +30,10 @@ namespace Assets.Scripts.Presentor
 
         public static void OnCountChanged()
         {
-            Debug.Log("dsdads");
-            MainMenu a = CanvasStack.Stack.ToList().Find(i => i.GetType() == typeof(MainMenu)) 
-                as MainMenu;
-            a.SetItems();
+            //Debug.Log("dsdads");
+            //MainMenu a = CanvasStack.Stack.ToList().Find(i => i.GetType() == typeof(MainMenu)) 
+            //    as MainMenu;
+            //a.SetItems();
         }
     }
 }

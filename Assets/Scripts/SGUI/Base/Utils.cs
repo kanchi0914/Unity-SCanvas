@@ -101,7 +101,7 @@ namespace SGUI.Base
 
         public enum AnchorType
         {
-            TopLeft,    TopCenter,    TopRight,
+            TopLeft, TopCenter, TopRight,
             MiddleLeft, MiddleCenter, MiddleRight,
             BottomLeft, BottomCenter, BottomRight,
             HorizontalStretch, VerticalStretch,

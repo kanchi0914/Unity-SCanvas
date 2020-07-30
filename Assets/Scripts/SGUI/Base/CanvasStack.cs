@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SGUI.Base;
-using SGUI.SGameObjects;
+using SGUI.GameObjects;
 using UnityEngine;
 
 namespace SGUI.Base

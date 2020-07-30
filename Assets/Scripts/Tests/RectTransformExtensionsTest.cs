@@ -1,37 +1,38 @@
 ﻿using System;
-using SGUI.SGameObjects;
+using SGUI.GameObjects;
 using UnityEngine;
+using static SGUI.Base.Utils.AnchorType;
 
 public class RectTransformExtensionsTest : MonoBehaviour
 {
     private void Start()
     {
         var canvas = new SCanvas();
-        var layout = new SHorizontalLayoutView(canvas, 5)
-            .SetTopLeftAnchor()
+        var layout = new SHorizontalLayoutView(canvas, true)
+            .SetAnchorType(TopLeft)
             .SetLocalPosByRatio(0f, 0.8f)
             .SetRectSizeByRatio(1, 0.2f);
 
         //new SImage(layout);
 
         var parentBaseImage = new SImage(canvas)
-            .SetMiddleCenterAnchor()
+            .SetAnchorType(MiddleCenter)
             .SetRectSize(300, 300);
 
         var childImage = new SImage(parentBaseImage)
-            .SetTopLeftAnchor()
+            .SetAnchorType(TopLeft)
             .SetRectSize(100, 100)
             .SetLocalPos(40, 80);
 
         new SButton(layout, "Vertical")
-            .AddOnClick(() => childImage.SetVerticalStretchAnchor());
+            .AddOnClick(() => childImage.SetAnchorType(VerticalStretch));
         new SButton(layout, "MIDDLECENTER")
-            .AddOnClick(() => childImage.SetMiddleCenterAnchor());
+            .AddOnClick(() => childImage.SetAnchorType(MiddleCenter));
         new SButton(layout, "FULL")
-            .AddOnClick(() => childImage.SetFullStretchAnchor());
+            .AddOnClick(() => childImage.SetAnchorType(FullStretch));
         new SButton(layout, "HORIZONTAL")
-            .AddOnClick(() => childImage.SetHorizontalStretchAnchor());
+            .AddOnClick(() => childImage.SetAnchorType(HorizontalStretch));
         new SButton(layout, "TOPLEFT")
-            .AddOnClick(() => childImage.SetTopLeftAnchor());
+            .AddOnClick(() => childImage.SetAnchorType(TopLeft));
     }
 }
