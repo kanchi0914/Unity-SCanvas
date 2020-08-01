@@ -9,7 +9,7 @@ using UniRx;
 using UnityEngine;
 using static Enums;
 
-public class RPG1
+public class CommandBattleRpg
 {
 
     public List<Command> Commands = new List<Command>();
@@ -21,8 +21,7 @@ public class RPG1
 
     private List<Item> tempRemovedItem = new List<Item>();
 
-    private SCanvas canvas;
-    //private SCanvas alliesCanvas;
+    private SCanvas mainCanvas;
     private SCanvas enemiesCanvas;
 
     private SSubCanvas commandCanvas;
@@ -54,20 +53,20 @@ public class RPG1
         }
     }
 
-    public RPG1()
+    public CommandBattleRpg()
     {
         allies = GameManager.Allies;
         CreateEnemies();
 
-        canvas = new SCanvas("Canvas");
-        allyPanels = new SHorizontalLayoutView(canvas)
+        mainCanvas = new SCanvas("Canvas");
+        allyPanels = new SHorizontalLayoutView(mainCanvas)
             .SetLocalPosByRatio(0.1f, 0).SetRectSizeByRatio(0.8f, 0.3f);
         allies.ForEach(a =>
         {
             allyViews.Add(new AllyView(this, a, allyPanels));
         });
 
-        var enemyPanels = new SHorizontalLayoutView(canvas)
+        var enemyPanels = new SHorizontalLayoutView(mainCanvas)
             .SetLocalPosByRatio(0.1f, 0.35f).SetRectSizeByRatio(0.8f, 0.3f);
         Enemies.ForEach(e =>
         {
@@ -131,7 +130,7 @@ public class RPG1
             ShowCommandView();
         }
         commandCanvas?.Dispose();
-        commandCanvas = new SSubCanvas(canvas).SetLocalPosByRatio(0, 0.7f).SetRectSizeByRatio(1f, 0.3f);
+        commandCanvas = new SSubCanvas(mainCanvas).SetLocalPosByRatio(0, 0.7f).SetRectSizeByRatio(1f, 0.3f);
         var commandButtonsView = new SGridLayoutView(commandCanvas, 3, 2).SetRectSizeByRatio(0.4f, 1f);
 
         var attackButton = new SButton(commandButtonsView, "攻撃").SetOnOnClick(() => OnClickedAttack());
@@ -179,7 +178,10 @@ public class RPG1
         subCommandView.SetBackGroundColor(ColorType.White, 0.2f);
     }
 
-    public void StartNextTurn()
+    /// <summary>
+    /// コマンド選択の初期化処理
+    /// </summary>
+    public void StartNewTurn()
     {
         allyIndex = 0;
         Commands = new List<Command>();
@@ -188,6 +190,9 @@ public class RPG1
         ShowCommandView();
     }
 
+    /// <summary>
+    /// 仲間のコマンドを選択後、コマンドの実行を開始する
+    /// </summary>
     public void StartExecutingCommands()
     {
         allyIndex = 9999;
@@ -199,18 +204,24 @@ public class RPG1
             enemyCommands.Add(command);
         });
         Commands.AddRange(enemyCommands);
-        Commands.OrderBy(c => c.User.Agi);
+        var ordered = Commands.OrderBy(c => c.User.Agi);
+        Commands = new List<Command>(ordered);
         ExecuteNextCommand();
     }
 
+    /// <summary>
+    /// コマンドリストから、次のコマンドを実行
+    /// </summary>
     public void ExecuteNextCommand()
     {
+        // 全部実行したら次のターン
         if (Commands.Count <= 0)
         {
-            StartNextTurn();
+            StartNewTurn();
             return;
         }
         var command = Commands.GetAndRemove(0);
+        // 死んでいたらスキップ
         if (!command.User.IsAlive)
         {
             ExecuteNextCommand();
@@ -233,15 +244,16 @@ public class RPG1
         if (GetLineCount(message + effectText) > 4) message = "";
         message += effectText;
         var queue = new Queue<(string, Action)>();
-        var postProcess = new Action(() =>
+        queue.Enqueue((message, null));
+        // メッセージウィンドウをクリック後の処理
+        var onSentEveryMessage = new Action(() =>
         {
             if (Enemies.Count(e => e.CurrentHp <= 0) == Enemies.Count) ExitBattle("戦闘に勝利した");
             else if (allies.Count(a => a.CurrentHp <= 0) == allies.Count) ExitBattle("全滅した....");
             else ExecuteNextCommand();
         });
-        queue.Enqueue((message, null));
-        var mw = new SMessageWindow(canvas, "message", queue, postProcess)
-            .SetLocalPosByRatio(0.15f, 0.65f).SetRectSizeByRatio(0.7f, 0.2f);
+        var mw = new SMessageWindow(mainCanvas, queue, onSentEveryMessage)
+            .SetPosAndSizeByRatio(0.15f, 0.65f, 0.7f, 0.2f) as SMessageWindow;
         mw.MessageText.SetFontSize(28);
     }
 
@@ -249,11 +261,11 @@ public class RPG1
     {
         var postProcess = new Action(() =>
         {
-            canvas.Dispose();
+            mainCanvas.Dispose();
         });
         var queue = new Queue<(string, Action)>();
         queue.Enqueue((message, null));
-        var mw = new SMessageWindow(canvas, "message", queue, postProcess)
+        var mw = new SMessageWindow(mainCanvas, queue, postProcess)
             .SetLocalPosByRatio(0.15f, 0.65f).SetRectSizeByRatio(0.7f, 0.2f);
     }
 
@@ -328,10 +340,10 @@ public class RPG1
 
     public class EnemyView : SSubCanvas
     {
-        RPG1 rpg;
+        CommandBattleRpg rpg;
         public Enemy Enemy;
         public SSelectableImage Image;
-        public EnemyView(RPG1 rpg, Enemy enemy, SGameObject parent) : base(parent)
+        public EnemyView(CommandBattleRpg rpg, Enemy enemy, SGameObject parent) : base(parent)
         {
             Image = new SSelectableImage(this, imageFilePath:enemy.ImageFilePath, keepsAspectRatio:true);
             Image.SetFullStretchAnchor().SetLocalPos(0, 0);
@@ -343,13 +355,13 @@ public class RPG1
 
     public class AllyView : SSubCanvas
     {
-        RPG1 rpg;
+        CommandBattleRpg rpg;
         public Ally Ally;
         SText nameText;
         SText hpText;
         SText mpText;
         public SSelectableImage Image;
-        public AllyView(RPG1 rpg, Ally ally, SGameObject parent) : base(parent)
+        public AllyView(CommandBattleRpg rpg, Ally ally, SGameObject parent) : base(parent)
         {
             this.rpg = rpg;
             this.Ally = ally;
@@ -393,8 +405,8 @@ public class RPG1
 
     public class ItemDetailView : SSubCanvas
     {
-        RPG1 rpg;
-        public ItemDetailView(RPG1 rpg, SGameObject parent) : base(parent)
+        CommandBattleRpg rpg;
+        public ItemDetailView(CommandBattleRpg rpg, SGameObject parent) : base(parent)
         {
             this.rpg = rpg;
             var itemsView = new SVerticalGridScrollView(this, 100, 2)
@@ -432,9 +444,9 @@ public class RPG1
 
     public class SkillCommandView : SSubCanvas
     {
-        RPG1 rpg;
+        CommandBattleRpg rpg;
         Ally ally;
-        public SkillCommandView(RPG1 rpg, Ally ally, SGameObject parent) : base(parent)
+        public SkillCommandView(CommandBattleRpg rpg, Ally ally, SGameObject parent) : base(parent)
         {
             this.rpg = rpg;
             var skillsView = new SVerticalGridScrollView(this, 100, 2)

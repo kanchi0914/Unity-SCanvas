@@ -106,18 +106,10 @@ namespace SGUI.GameObjects
             this.name = name;
         }
 
-        ~SGameObject()
-        {
-            GameObject.Destroy(gameObject);
-            Debug.Log("decomposed");
-        }
-
         public void Dispose()
         {
             GameObject.Destroy(gameObject);
         }
-
-
 
         public Vector2 RectSize
         {
@@ -287,18 +279,23 @@ namespace SGUI.GameObjects
             if (parentSGameObject == null) return this;
             SetRectSize(parentSGameObject.RectSize.x * ratioX,
                 parentSGameObject.RectSize.y * ratioY);
-            //RectSize = new Vector2 (parentSGameObject.RectSize.x * ratioX,
-            //    parentSGameObject.RectSize.y * ratioY);
             return this;
         }
 
         public virtual SGameObject SetRectSize (float width, float height)
         {
-            //if (parentSGameObject == null) return this;
-            RectSize = new Vector2 (width, height);
-            //var layout = gameObject.TryAddComponent<LayoutElement>();
-            //layout.minHeight = height;
-            //layout.minWidth = width;
+            if (anchorType == AnchorType.FullStretch || anchorType == AnchorType.HorizontalStretch
+                || anchorType == AnchorType.VerticalStretch)
+            {
+                var anchor = anchorType;
+                RectSize = new Vector2(width, height);
+                SetAnchorType(anchor);
+            }
+            else
+            {
+                RectSize = new Vector2(width, height);
+            }
+            RectSize = new Vector2(width, height);
             return this;
         }
 
@@ -307,7 +304,6 @@ namespace SGUI.GameObjects
             if (parentSGameObject == null) return this;
             gameObject.transform.SetLocalPosX (posXratio * parentSGameObject.RectSize.x);
             gameObject.transform.SetLocalPosY (-(posYratio * parentSGameObject.RectSize.y));
-            //initialPos = rectTransform.position;
             return this;
         }
 
@@ -315,8 +311,27 @@ namespace SGUI.GameObjects
         {
             if (parentSGameObject == null) return this;
             gameObject.transform.SetLocalPos (posX, -posY);
-            //initialPos = rectTransform.position;
+            return this;
+        }
 
+        public virtual SGameObject SetPosAndSize(RectInfo rectInfo)
+        {
+            SetLocalPos(rectInfo.PosX, rectInfo.PosY);
+            SetRectSize(rectInfo.Width, rectInfo.Height);
+            return this;
+        }
+
+        public virtual SGameObject SetPosAndSize(float posX, float posY, float width, float height)
+        {
+            SetLocalPos(posX, posY);
+            SetRectSize(width, height);
+            return this;
+        }
+
+        public virtual SGameObject SetPosAndSizeByRatio(float posXratio, float posYratio, float widthRatio, float heightRatio)
+        {
+            SetLocalPosByRatio(posXratio, posYratio);
+            SetRectSizeByRatio(widthRatio, heightRatio);
             return this;
         }
 
@@ -385,26 +400,31 @@ namespace SGUI.GameObjects
                 case AnchorType.TopLeft:
                     {
                         rectTransform.SetTopLeftAnchor();
+                        this.anchorType = AnchorType.TopLeft;
                         return this;
                     }
                 case AnchorType.MiddleCenter:
                     {
                         rectTransform.SetMiddleCenterAnchor();
+                        this.anchorType = AnchorType.MiddleCenter;
                         return this;
                     }
                 case AnchorType.HorizontalStretch:
                     {
                         rectTransform.SetHorizontalStretchAnchor();
+                        this.anchorType = AnchorType.HorizontalStretch;
                         return this;
                     }
                 case AnchorType.VerticalStretch:
                     {
                         rectTransform.SetMiddleCenterAnchor();
+                        this.anchorType = AnchorType.VerticalStretch;
                         return this;
                     }
                 case AnchorType.FullStretch:
                     {
                         rectTransform.SetFullStretchAnchor();
+                        this.anchorType = AnchorType.FullStretch;
                         return this;
                     }
             }
@@ -422,25 +442,29 @@ namespace SGUI.GameObjects
 
         public SGameObject SetTopLeftAnchor()
         {
-            rectTransform.SetTopLeftAnchor();
+            //rectTransform.SetTopLeftAnchor();
+            SetAnchorType(AnchorType.TopLeft);
             return this;
         }
 
         public SGameObject SetMiddleCenterAnchor()
         {
-            rectTransform.SetMiddleCenterAnchor();
+            //rectTransform.SetMiddleCenterAnchor();
+            SetAnchorType(AnchorType.MiddleCenter);
             return this;
         }
 
         public SGameObject SetHorizontalStretchAnchor()
         {
-            rectTransform.SetHorizontalStretchAnchor();
+            //rectTransform.SetHorizontalStretchAnchor();
+            SetAnchorType(AnchorType.HorizontalStretch);
             return this;
         }
 
         public SGameObject SetVerticalStretchAnchor()
         {
-            rectTransform.SetVerticalStretchAnchor();
+           // rectTransform.SetVerticalStretchAnchor();
+            SetAnchorType(AnchorType.VerticalStretch);
             return this;
         }
 
@@ -452,7 +476,8 @@ namespace SGUI.GameObjects
 
         public SGameObject SetFullStretchAnchor()
         {
-            rectTransform.SetFullStretchAnchor();
+            //rectTransform.SetFullStretchAnchor();
+            SetAnchorType(AnchorType.FullStretch);
             return this;
         }
 

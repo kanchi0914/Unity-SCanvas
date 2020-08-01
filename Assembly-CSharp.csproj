@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\SGUI\Examples\ItemEffecter.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Player.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\RPG1.cs" />
+    <Compile Include="Assets\Scripts\SGUI\Examples\RectInfos.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Skill.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\SkillEffecter.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\SkillFactory.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\OnDeselectWrapper.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\TestComponent.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\Interfaces\ILayoutComponent.cs" />
+    <Compile Include="Assets\Scripts\SGUI\GameObjects\RectInfo - コピー.cs" />
+    <Compile Include="Assets\Scripts\SGUI\GameObjects\RectInfo.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\SBaseRect.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\SButton.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\SCanvas.cs" />

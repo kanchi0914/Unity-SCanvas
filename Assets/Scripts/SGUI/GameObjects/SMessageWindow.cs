@@ -28,7 +28,7 @@ namespace SGUI.GameObjects
         private Queue<(string message, Action action)> messageQueue = new Queue<(string message, Action action)>();
         private bool closesCanvas = true;
 
-        private Action postProcess;
+        private Action onSentEveryMessage;
 
         public SText MessageText { get; private set; }
 
@@ -36,10 +36,10 @@ namespace SGUI.GameObjects
 
         public SMessageWindow(
             SGameObject parent,
-            string name,
             Queue<(string message, Action action)> messageQueue,
-            Action postProcess = null,
-            bool closesCanvas = true
+            Action onSentEveryMessage = null,
+            bool closesCanvas = true,
+            string name = "SMessageWindow"
         ) : base(parent, name,
             new Func<GameObject>(() =>
            {
@@ -52,7 +52,7 @@ namespace SGUI.GameObjects
             MessageText.SetTextAnchor(TextAnchor.UpperLeft);
             MessageText.SetFullStretchAnchor();
             this.closesCanvas = closesCanvas;
-            this.postProcess = postProcess;
+            this.onSentEveryMessage = onSentEveryMessage;
             SetEvent();
             SetMessages(messageQueue);
         }
@@ -82,7 +82,7 @@ namespace SGUI.GameObjects
         {
             if (messageQueue.Count == 0)
             {
-                if (postProcess != null) postProcess.Invoke();
+                if (onSentEveryMessage != null) onSentEveryMessage.Invoke();
                 Dispose();
                 return;
             }
