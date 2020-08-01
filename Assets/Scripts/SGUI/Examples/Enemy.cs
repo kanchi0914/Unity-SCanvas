@@ -14,7 +14,7 @@ public class Enemy : Unit
     public Command ChooseCommand()
     {
         var skill = Skills.GetAtRandom();
-        var target = GameManager.Allies.GetAtRandom();
+        var target = GameInfos.Allies.GetAtRandom();
         return new Command() { User = this, Target = target, Skill = skill };
     }
 

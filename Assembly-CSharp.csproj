@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\SGUI\Examples\Command.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Enemy.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Enums.cs" />
+    <Compile Include="Assets\Scripts\SGUI\Examples\GameInfo.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Item.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\ItemEffecter.cs" />
     <Compile Include="Assets\Scripts\SGUI\Examples\Player.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Assets\Scripts\SGUI\Extensions\ListExtension.cs" />
     <Compile Include="Assets\Scripts\SGUI\Extensions\RectTransformExtensions.cs" />
     <Compile Include="Assets\Scripts\SGUI\Extensions\TransformExtensions.cs" />
+    <Compile Include="Assets\Scripts\SGUI\Extensions\TupleEnumerable.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjectExtensions.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\DGAnimationScript.cs" />
     <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\InputFieldOnSelectWrapper.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Assets\Scripts\Scenario1\Template.cs" />
     <Compile Include="Assets\Scripts\TestMono.cs" />
     <Compile Include="Assets\Scripts\Tests\RectTransformExtensionsTest.cs" />
+    <Compile Include="Assets\test.cs" />
     <Compile Include="Assets\uGuiScriptCreator\UICreator.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />

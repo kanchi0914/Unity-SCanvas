@@ -17,11 +17,6 @@ namespace SGUI.GameObjects
     {
         public Image Image { get; private set; }
 
-        //public SSelectableImage(
-        //    SGameObject parent,
-        //    string imageFilePath = null
-        //) : this(parent){}
-
         public SSelectableImage(
             SGameObject parent,
             string imageFilePath = null,

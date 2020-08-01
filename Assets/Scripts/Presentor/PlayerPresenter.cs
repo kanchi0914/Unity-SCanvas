@@ -19,7 +19,7 @@ namespace Assets.Scripts.Presentor
         
         public static void OnClickUseItem(string id)
         {
-            var player = GameObject.Find("Player").GetComponent<GameManager>();
+            //var player = GameObject.Find("Player").GetComponent<GameInfos>();
             //player.UseItem(id);
         }
         

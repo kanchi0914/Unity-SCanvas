@@ -29,6 +29,7 @@ namespace SGUI.GameObjects
         {
             this.TextComponent = gameObject.GetComponent<Text>();
             TextComponent.resizeTextForBestFit = isAutoSizing;
+            SetRectSizeByRatio(1, 1);
         }
 
         public SText SetTextConfig(

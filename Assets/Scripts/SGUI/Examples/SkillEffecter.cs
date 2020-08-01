@@ -10,7 +10,7 @@ public static class SkillEffecter
     {
         if (skill.Name == Skill.SkillName.アイテム使用)
         {
-            var item = GameManager.Items.Find(i => i.Id == user.CurrentCommand.itemId);
+            var item = GameInfos.Items.Find(i => i.Id == user.CurrentCommand.itemId);
             return UseItem(item, user, target);
         }
         var effectText = $"{user.Name}の{skill.Name}！ ";
@@ -54,7 +54,7 @@ public static class SkillEffecter
 
     public static string UseItem(Item item, Unit user, Unit target)
     {
-        GameManager.Items.RemoveAll(i => i.Id == item.Id);
+        GameInfos.Items.RemoveAll(i => i.Id == item.Id);
         var text = $"{user}は{item}を使った！ ";
         switch (item.Name)
         {

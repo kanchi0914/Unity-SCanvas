@@ -33,7 +33,7 @@ namespace Assets.Scripts.SGUI.Base
             Dropdown = AssetDatabase.GetBuiltinExtraResource<Sprite>(kDropdownArrowPath);
             Mask = AssetDatabase.GetBuiltinExtraResource<Sprite>(kMaskPath);
 #else
-            Standard = UnityEngine.Resources.Load<GameObject> ("UISprite").GetComponent<SpriteRenderer> ().sprite;
+            UISprite = UnityEngine.Resources.Load<GameObject> ("UISprite").GetComponent<SpriteRenderer> ().sprite;
             Background = UnityEngine.Resources.Load<GameObject> ("Background").GetComponent<SpriteRenderer> ().sprite;
             InputField = UnityEngine.Resources.Load<GameObject> ("InputFieldBackground").GetComponent<SpriteRenderer> ().sprite;
             Knob = UnityEngine.Resources.Load<GameObject> ("Knob").GetComponent<SpriteRenderer> ().sprite;

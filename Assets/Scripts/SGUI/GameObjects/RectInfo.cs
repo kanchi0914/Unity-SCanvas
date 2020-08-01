@@ -21,8 +21,8 @@ public class RectInfo
 
     public RectInfo(RectInfo parentRectInfo, float posXRatio, float posYRatio, float widthRatio, float heightRatio)
     {
-        PosX = parentRectInfo.PosX * posXRatio;
-        PosY = parentRectInfo.PosY * posYRatio;
+        PosX = parentRectInfo.Width * posXRatio;
+        PosY = parentRectInfo.Height * posYRatio;
         Width = parentRectInfo.Width * widthRatio;
         Height = parentRectInfo.Height * heightRatio;
     }

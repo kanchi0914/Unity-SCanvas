@@ -23,6 +23,8 @@ namespace SGUI.GameObjects
 
         protected GameObject gameObject;
 
+        private EGMono mono;
+
         private AnchorType anchorType;
 
         public GameObject GameObject
@@ -96,6 +98,7 @@ namespace SGUI.GameObjects
             }
         }
 
+
         protected RectTransform rectTransform;
 
         protected SGameObject (SGameObject parent, string name, Func<GameObject> initializationMethod)
@@ -103,6 +106,8 @@ namespace SGUI.GameObjects
             this.gameObject = initializationMethod.Invoke () as GameObject;
             rectTransform = gameObject.GetComponent<RectTransform> ();
             SetParentSGameObject (parent);
+            SetTopLeftAnchor();
+            mono = gameObject.TryAddComponent<EGMono>();
             this.name = name;
         }
 
@@ -124,6 +129,25 @@ namespace SGUI.GameObjects
                 rect.sizeDelta = new Vector2 (value.x, value.y);
             }
         }
+
+        public SGameObject SetGlobalPos(Vector3 pos)
+        {
+            mono.StartCoroutine(AdjustTransInTheEndOfFrame(pos));
+            return this;
+        }
+
+
+        private IEnumerator AdjustTransInTheEndOfFrame(Vector3 pos)
+        {
+            yield return null;
+            gameObject.transform.position = pos;
+        }
+
+        //private IEnumerator Wait(Action action)
+        //{
+        //    yield return null;
+        //    gameObject.transform.position = pos;
+        //}
 
         public void SetActive (bool isActive)
         {
@@ -296,6 +320,12 @@ namespace SGUI.GameObjects
                 RectSize = new Vector2(width, height);
             }
             RectSize = new Vector2(width, height);
+            return this;
+        }
+
+        public virtual SGameObject SetPresetRect(RectInfo rectInfo)
+        {
+            SetPosAndSize(rectInfo.PosX, rectInfo.PosY, rectInfo.Width, rectInfo.Height);
             return this;
         }
 

@@ -16,6 +16,7 @@ public class Main : MonoBehaviour
     void Start ()
     {
         var sc = new SCanvas("aaaaaaaaa");
+        
         new CommandBattleRpg();
 
         //var si = new SImage(sc).SetMiddleCenterAnchor().SetRectSize(300, 300);

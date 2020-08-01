@@ -242,7 +242,9 @@ namespace SGUI.Base
             string name
         )
         {
-            return UICreator.CreateScrollView (parent, name, UICreator.LayoutGroupType.VerticalGrid);
+            var obj = UICreator.CreateScrollView(parent, name, UICreator.LayoutGroupType.VerticalGrid);
+            obj.GetComponent<RectTransform>().SetTopLeftAnchor();
+            return obj;
         }
 
         public static GameObject CreateHorizontalGridLayoutScrollView (
