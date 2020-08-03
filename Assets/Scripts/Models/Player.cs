@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Assets.Scripts.Presentor;
-using SGUI.Base;
+using EGUI.Base;
 using UniRx;
 using UnityEngine;
 

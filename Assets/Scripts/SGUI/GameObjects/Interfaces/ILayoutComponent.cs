@@ -1,8 +1,8 @@
-namespace SGUI.GameObjects.Interfaces
+namespace EGUI.GameObjects.Interfaces
 {
     public interface ILayoutObject
     {
-        void AddItem(SGameObject sGameObject);
+        void AddItem(EGGameObject egGameObject);
         // public int PaddingLeft { get; }
         // public int PaddingRight { get; }
 

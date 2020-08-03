@@ -1,171 +1,114 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Scripts.Extensions;
-using SGUI.Base;
-using SGUI.GameObjects.Interfaces;
+using EGUI.Base;
+using EGUI.GameObjects.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
-using static SGUI.Base.Utils;
+using static EGUI.Base.Utils;
 using static UnityEngine.UI.ScrollRect;
 
-namespace SGUI.GameObjects
+namespace EGUI.GameObjects
 {
-    class SHorizontalLayoutScrollView : SGameObject, ILayoutObject
+    class EGHorizontalLayoutScrollView : EGGameObject, ILayoutObject
     {
         private int constantItemWidth = 0;
+        private readonly HorizontalLayoutGroup layoutComponent;
 
-        private int paddingLeft = 0;
-        private int paddingRight = 0;
-        private int paddingTop = 0;
-        private int paddingBottom = 0;
-        private int spacing = 0;
-
-        public List<SGameObject> childrenObjects = new List<SGameObject>();
-
-        private int scrollbarWidth = 0;
-
-        private Vector2 contentAreaRectSize;
-
+        public int PaddingLeft => layoutComponent.padding.left;
+        public int PaddingRight => layoutComponent.padding.right;
+        public int PaddingTop => layoutComponent.padding.top;
+        public int PaddingBottom => layoutComponent.padding.bottom;
+        public float Spacing  => layoutComponent.spacing;
+        
         public GameObject ContentArea { get; private set; }
 
-        public SHorizontalLayoutScrollView(
-            SGameObject parent,
-            string name = "SHorizontalLayoutScrollView",
+        public EGHorizontalLayoutScrollView(
+            EGGameObject parent,
             int constantItemWidth = 0,
-            bool isAutoSizingHeight = true
-        ) : base(parent, name,
-            new Func<GameObject>(() =>
-           {
-               return UIFactory.CreateHorizontalScrollView(parent.GameObject, name);
-           }))
+            bool isAutoSizingHeight = true,
+            float posRatioX = 0,
+            float posRatioY = 0,
+            float widthRatio = 1,
+            float heightRatio = 1,
+            string name = "SHorizontalLayoutScrollView"
+        ) : base
+        (
+            parent,
+            posRatioX,
+            posRatioY,
+            widthRatio,
+            heightRatio,
+            name,
+            () => UIFactory.CreateHorizontalScrollView(parent.GameObject, name)
+        )
         {
             ContentArea = this.GameObject.transform.FindDeep("Content");
-            var layout = ContentArea.GetComponent<HorizontalLayoutGroup>();
+            layoutComponent = ContentArea.GetComponent<HorizontalLayoutGroup>();
 
-            layout.childControlWidth = (constantItemWidth > 0);
-            layout.childControlHeight = isAutoSizingHeight;
-            layout.childScaleHeight = false;
-            layout.childScaleWidth = false;
-            layout.childForceExpandHeight = isAutoSizingHeight;
-            layout.childForceExpandWidth = false;
+            layoutComponent.childControlWidth = (constantItemWidth > 0);
+            layoutComponent.childControlHeight = isAutoSizingHeight;
+            layoutComponent.childScaleHeight = false;
+            layoutComponent.childScaleWidth = false;
+            layoutComponent.childForceExpandHeight = isAutoSizingHeight;
+            layoutComponent.childForceExpandWidth = false;
 
-            var scrollbarSize = (int)gameObject.transform.FindDeep("Scrollbar Horizontal").GetComponent<RectTransform>().sizeDelta.y;
-            ContentArea = this.GameObject.transform.FindDeep("Content");
+            var scrollbarSize = (int)gameObject.transform.FindDeep("Scrollbar Horizontal")
+                .GetComponent<RectTransform>().sizeDelta.y;
+            ContentArea = GameObject.transform.FindDeep("Content");
             var contentAreaRect = ContentArea.GetComponent<RectTransform>();
             contentAreaRect.sizeDelta = new Vector2(0, RectSize.y - scrollbarSize);
 
             var csfitter = ContentArea.AddComponent<ContentSizeFitter>();
             csfitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
             csfitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
-
+            
             this.constantItemWidth = constantItemWidth;
         }
 
-        private void SetLayout()
+        public void AddItem(EGGameObject egGameObject)
         {
-            SetSpacing();
-            SetPadding();
-        }
-
-        public void AddItem(SGameObject sGameObject)
-        {
-            childrenObjects.Add(sGameObject);
-            sGameObject.GameObject.transform.SetParent(ContentArea.transform, false);
-            var layout = sGameObject.GameObject.TryAddComponent<LayoutElement>();
+            egGameObject.GameObject.transform.SetParent(ContentArea.transform, false);
+            var layout = egGameObject.GameObject.TryAddComponent<LayoutElement>();
             if (constantItemWidth > 0)
             {
                 layout.minWidth = constantItemWidth;
             }
             else
             {
-                layout.minWidth = sGameObject.RectSize.x;
+                layout.minWidth = egGameObject.RectSize.x;
             }
-
-            SetLayout();
+            //SetLayout();
         }
-
-        public SHorizontalLayoutScrollView SetPadding(int left, int right, int top, int bottom)
+        
+        public EGHorizontalLayoutScrollView SetPadding(int? left = null, int? right = null, int? top = null, int? bottom = null)
         {
-            paddingLeft = left;
-            paddingRight = right;
-            paddingTop = top;
-            paddingBottom = bottom;
+            layoutComponent.padding.left = left ?? PaddingLeft;
+            layoutComponent.padding.right = right ?? PaddingRight;
+            layoutComponent.padding.top = top ?? PaddingTop;
+            layoutComponent.padding.bottom = bottom ?? PaddingBottom;
             SetPadding();
             return this;
         }
 
-        public SHorizontalLayoutScrollView SetScrollbarVisibility(ScrollbarVisibility scrollbarVisibility)
+        public EGHorizontalLayoutScrollView SetSpacing(float spacing)
+        {
+            layoutComponent.spacing = spacing;
+            return this;
+        }
+
+        public EGHorizontalLayoutScrollView SetScrollbarVisibility(ScrollbarVisibility scrollbarVisibility)
         {
             var scrollView = gameObject.GetComponentInChildren<ScrollRect>();
             scrollView.horizontalScrollbarVisibility = scrollbarVisibility;
             return this;
         }
 
-        public SHorizontalLayoutScrollView SetMovementType(MovementType movementType)
+        public EGHorizontalLayoutScrollView SetMovementType(MovementType movementType)
         {
             var scrollView = gameObject.GetComponentInChildren<ScrollRect>();
             scrollView.movementType = movementType;
             return this;
         }
-
-        private void SetPadding()
-        {
-            var layout = gameObject.GetComponentInChildren<HorizontalLayoutGroup>();
-            layout.padding.left = paddingLeft;
-            layout.padding.right = paddingRight;
-            layout.padding.top = paddingTop;
-            layout.padding.bottom = paddingBottom;
-        }
-
-        private void SetSpacing()
-        {
-            var layout = gameObject.GetComponentInChildren<HorizontalLayoutGroup>();
-            layout.spacing = this.spacing;
-        }
-
-        #region  RequiredMethods
-
-        public new SHorizontalLayoutScrollView SetBackGroundColor(ColorType colorType, float alpha = 1)
-        {
-            return base.SetBackGroundColor(colorType, alpha) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetBackGroundColor(Color color)
-        {
-            return base.SetBackGroundColor(color) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetParentSGameObject(SGameObject parent)
-        {
-            return base.SetParentSGameObject(parent) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetRectSize(float width, float height)
-        {
-            return base.SetRectSize(width, height) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetRectSizeByRatio(float ratioX, float ratioY)
-        {
-            return base.SetRectSizeByRatio(ratioX, ratioY) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetLocalPos(float width, float height)
-        {
-            return base.SetLocalPos(width, height) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetLocalPosByRatio(float posXratio, float posYratio)
-        {
-            return base.SetLocalPosByRatio(posXratio, posYratio) as SHorizontalLayoutScrollView;
-        }
-
-        public new SHorizontalLayoutScrollView SetAnchorType(AnchorType anchorType)
-        {
-            return base.SetAnchorType(anchorType) as SHorizontalLayoutScrollView;
-        }
-
-        #endregion
     }
-
 }

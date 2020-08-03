@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Extensions;
-using SGUI.Base;
-using SGUI.GameObjects;
+using EGUI.Base;
+using EGUI.GameObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,11 +23,11 @@ public class CommandBattleRpg
 
     private List<Item> tempRemovedItem = new List<Item>();
 
-    private SCanvas mainCanvas;
-    private SCanvas enemiesCanvas;
+    private EGCanvas mainCanvas;
+    private EGCanvas enemiesCanvas;
 
-    private SSubCanvas commandsView;
-    private SSubCanvas subCommandsView;
+    private EgSubCanvas commandsView;
+    private EgSubCanvas subCommandsView;
 
     private List<AllyView> allyViews = new List<AllyView>();
     private List<EnemyView> enemyViews = new List<EnemyView>();
@@ -60,18 +60,18 @@ public class CommandBattleRpg
         }
     }
 
-    private SHorizontalLayoutView alliesView;
+    private EgHorizontalLayoutView alliesView;
 
     private int allyIndex;
     
     public CommandBattleRpg()
     {
-        mainCanvas = new SCanvas("Canvas");
+        mainCanvas = new EGCanvas("Canvas");
 
         allies = GameInfos.Allies;
         enemies = GameInfos.Enemies;
 
-        var alliesView = new SHorizontalLayoutView(mainCanvas, isAutoSizingWidth:false)
+        var alliesView = new EgHorizontalLayoutView(mainCanvas, isAutoSizingWidth:false)
             .SetPresetRect(RectInfos.alliesView);
 
         allies.ForEach(ally =>
@@ -80,8 +80,8 @@ public class CommandBattleRpg
             allyViews.Add(view);
         });
 
-        var enemiesView = new SHorizontalLayoutView(mainCanvas)
-            .SetPresetRect(RectInfos.enemiesView) as SHorizontalLayoutView;
+        var enemiesView = new EgHorizontalLayoutView(mainCanvas)
+            .SetPresetRect(RectInfos.enemiesView) as EgHorizontalLayoutView;
         enemies.ForEach(e =>
         {
             enemyViews.Add(new EnemyView(this, e, enemiesView));
@@ -132,14 +132,14 @@ public class CommandBattleRpg
             ShowCommandsView();
         }
         commandsView?.Dispose();
-        commandsView = new SSubCanvas(mainCanvas).SetPresetRect(RectInfos.commandsView) as SSubCanvas;
+        commandsView = new EgSubCanvas(mainCanvas).SetPresetRect(RectInfos.commandsView) as EgSubCanvas;
 
-        var commandButtonsView = new SGridLayoutView(commandsView, 3, 2).SetPresetRect(RectInfos.commandButtons);
-        var attackButton = new SButton(commandButtonsView, "攻撃").SetOnOnClick(() => OnClickedAttack());
-        var guardButton = new SButton(commandButtonsView, "防御").SetOnOnClick(() => OnClickedGuard());
-        var skillButton = new SButton(commandButtonsView, "スキル").SetOnOnClick(() => OnClickedSkill());
-        var itemButton = new SButton(commandButtonsView, "アイテム").SetOnOnClick(() => OnClickedItem());
-        var excapeButton = new SButton(commandButtonsView, "逃げる");
+        var commandButtonsView = new EGGridLayoutView(commandsView, 3, 2).SetPresetRect(RectInfos.commandButtons);
+        var attackButton = new EGButton(commandButtonsView, "攻撃").SetOnOnClick(() => OnClickedAttack());
+        var guardButton = new EGButton(commandButtonsView, "防御").SetOnOnClick(() => OnClickedGuard());
+        var skillButton = new EGButton(commandButtonsView, "スキル").SetOnOnClick(() => OnClickedSkill());
+        var itemButton = new EGButton(commandButtonsView, "アイテム").SetOnOnClick(() => OnClickedItem());
+        var excapeButton = new EGButton(commandButtonsView, "逃げる");
     }
 
     public void OnClickedAttack()
@@ -251,8 +251,8 @@ public class CommandBattleRpg
             else if (allies.Count(a => a.CurrentHp <= 0) == allies.Count) ExitBattle("全滅した....");
             else ExecuteNextCommand();
         });
-        var mw = new SMessageWindow(mainCanvas, queue, onSentEveryMessage)
-            .SetPresetRect(RectInfos.messageWindow) as SMessageWindow;
+        var mw = new EgMessageWindow(mainCanvas, queue, onSentEveryMessage)
+            .SetPresetRect(RectInfos.messageWindow) as EgMessageWindow;
         mw.MessageText.SetFontSize(28);
     }
 
@@ -268,7 +268,7 @@ public class CommandBattleRpg
         });
         var queue = new Queue<(string, Action)>();
         queue.Enqueue((message, null));
-        var mw = new SMessageWindow(mainCanvas, queue, postProcess).SetPresetRect(RectInfos.messageWindow);
+        var mw = new EgMessageWindow(mainCanvas, queue, postProcess).SetPresetRect(RectInfos.messageWindow);
     }
 
     int GetLineCount(string str)
@@ -284,15 +284,15 @@ public class CommandBattleRpg
     /// <param name="command"></param>
     public void ShowAllySelectView(Command command)
     {
-        var sc = new SCanvas();
-        var panel = new SSelectableImage(sc).SetBackGroundColor(ColorType.Black, 0.2f)
+        var sc = new EGCanvas();
+        var panel = new EgSelectableImage(sc).SetBackGroundColor(ColorType.Black, 0.2f)
             .SetOnClick(() =>
             {
                 sc.Dispose();
             });
-        var alliesView = new SSubCanvas(sc).SetPresetRect(RectInfos.alliesView);
-        var whoPanel = new SImage(sc).SetPresetRect(RectInfos.whomAllyPanel);
-        var whoText = new SText(whoPanel, "誰に？").SetRectSizeByRatio(1,1);
+        var alliesView = new EgSubCanvas(sc).SetPresetRect(RectInfos.alliesView);
+        var whoPanel = new EgImage(sc).SetPresetRect(RectInfos.whomAllyPanel);
+        var whoText = new EGText(whoPanel, "誰に？").SetRectSizeByRatio(1,1);
         var index = 0;
         allyViews
             .Where(av => av.Ally.IsAlive)
@@ -301,7 +301,7 @@ public class CommandBattleRpg
         {
             var rectSize = allyView.ApparentRectSize;
             var pos = allyView.GameObject.transform.position;
-            var select = new SSelectableImage(alliesView);
+            var select = new EgSelectableImage(alliesView);
             select.SetBackGroundColor(ColorType.Yellow, 0.2f);
             select.SetRectSize(rectSize.x, rectSize.y);
             select.SetGlobalPos(pos);
@@ -321,14 +321,14 @@ public class CommandBattleRpg
     /// <param name="command"></param>
     public void ShowEnemySelectView(Command command)
     {
-        var sc = new SCanvas();
-        var panel = new SSelectableImage(sc).SetBackGroundColor(ColorType.Black, 0.0f)
+        var sc = new EGCanvas();
+        var panel = new EgSelectableImage(sc).SetBackGroundColor(ColorType.Black, 0.0f)
             .SetOnClick(() =>
             {
                 sc.Dispose();
             });
-        var whoPanel = new SImage(sc).SetPresetRect(RectInfos.whomEnemyPanel);
-        var whoText = new SText(whoPanel, "誰に？", true);
+        var whoPanel = new EgImage(sc).SetPresetRect(RectInfos.whomEnemyPanel);
+        var whoText = new EGText(whoPanel, "誰に？", true);
         enemyViews
             .Where(e => e.Enemy.CurrentHp > 0)
             .ToList()
@@ -336,7 +336,7 @@ public class CommandBattleRpg
         {
             var rectSize = enemyView.ApparentRectSize;
             var pos = enemyView.RectTransform.position;
-            var select = new SSelectableImage(sc);
+            var select = new EgSelectableImage(sc);
             select.SetBackGroundColor(ColorType.Yellow, 0.2f);
             select.SetRectSize(rectSize.x, rectSize.y);
             select.SetGlobalPos(pos);
@@ -352,14 +352,14 @@ public class CommandBattleRpg
     /// <summary>
     /// 敵画像を表示する画面
     /// </summary>
-    public class EnemyView : SSubCanvas
+    public class EnemyView : EgSubCanvas
     {
         CommandBattleRpg rpg;
         public Enemy Enemy;
-        public SSelectableImage Image;
-        public EnemyView(CommandBattleRpg rpg, Enemy enemy, SGameObject parent) : base(parent)
+        public EgSelectableImage Image;
+        public EnemyView(CommandBattleRpg rpg, Enemy enemy, EGGameObject parent) : base(parent)
         {
-            Image = new SSelectableImage(this, imageFilePath:enemy.ImageFilePath, keepsAspectRatio:true);
+            Image = new EgSelectableImage(this, imageFilePath:enemy.ImageFilePath, keepsAspectRatio:true);
             Image.SetFullStretchAnchor().SetLocalPos(0, 0);
             Enemy = enemy;
             enemy.AddOnHpDecreased(_ => 
@@ -373,31 +373,31 @@ public class CommandBattleRpg
     /// <summary>
     /// 味方の情報を表示する画面
     /// </summary>
-    public class AllyView : SSubCanvas
+    public class AllyView : EgSubCanvas
     {
         CommandBattleRpg rpg;
         public Ally Ally;
-        SText nameText;
-        SText hpText;
-        SText mpText;
-        public SSelectableImage Image;
-        public AllyView(CommandBattleRpg rpg, Ally ally, SGameObject parent) : base(parent)
+        EGText nameText;
+        EGText hpText;
+        EGText mpText;
+        public EgSelectableImage Image;
+        public AllyView(CommandBattleRpg rpg, Ally ally, EGGameObject parent) : base(parent)
         {
             this.rpg = rpg;
             this.Ally = ally;
             SetPresetRect(RectInfos.allyView);
-            Image = new SSelectableImage(this, keepsAspectRatio: false)
+            Image = new EgSelectableImage(this, keepsAspectRatio: false)
                 .SetBackGroundColor(ColorType.White, 0.2f)
-                .SetFullStretchAnchor() as SSelectableImage;
-            nameText = new SText(this, ally.Name, true)
+                .SetFullStretchAnchor() as EgSelectableImage;
+            nameText = new EGText(this, ally.Name, true)
                 .SetLocalPosByRatio(0, 0).SetRectSizeByRatio(1, 0.33f)
-                .SetFullStretchAnchor() as SText;
-            hpText = new SText(this, "", true)
+                .SetFullStretchAnchor() as EGText;
+            hpText = new EGText(this, "", true)
                 .SetLocalPosByRatio(0, 0.33f).SetRectSizeByRatio(1, 0.33f)
-                .SetFullStretchAnchor() as SText;
-            mpText = new SText(this, "", true)
+                .SetFullStretchAnchor() as EGText;
+            mpText = new EGText(this, "", true)
                 .SetLocalPosByRatio(0, 0.66f).SetRectSizeByRatio(1, 0.33f)
-                .SetFullStretchAnchor() as SText;
+                .SetFullStretchAnchor() as EGText;
             OnHpChanged();
             OnMpChanged();
             gameObject.ObserveEveryValueChanged(_ => rpg.allyIndex).Subscribe(_ => OnAllyIndexChanged());
@@ -424,20 +424,20 @@ public class CommandBattleRpg
         }
     }
 
-    public class ItemSubCommandsView : SSubCanvas
+    public class ItemSubCommandsView : EgSubCanvas
     {
         CommandBattleRpg rpg;
-        public ItemSubCommandsView(CommandBattleRpg rpg, SGameObject parent) : base(parent)
+        public ItemSubCommandsView(CommandBattleRpg rpg, EGGameObject parent) : base(parent)
         {
             this.rpg = rpg;
             SetPresetRect(RectInfos.subCommandsView);
-            var itemsView = new SVerticalGridScrollView(this, 100, 2)
+            var itemsView = new EgVerticalGridScrollView(this, 100, 2)
                 .SetPresetRect(RectInfos.subCommands);
             GameInfos.Items
                 .Where(i => !(rpg.tempRemovedItem.Contains(i)))
                 .ToList().ForEach(item =>
             {
-                var itemButton = new SButton(itemsView, item.Name.ToString());
+                var itemButton = new EGButton(itemsView, item.Name.ToString());
                 var command = new Command()
                 {
                     itemId = item.Id,
@@ -459,21 +459,21 @@ public class CommandBattleRpg
         }
     }
 
-    public class SkillCommandView : SSubCanvas
+    public class SkillCommandView : EgSubCanvas
     {
         //CommandBattleRpg rpg;
         //Ally ally;
-        public SkillCommandView(CommandBattleRpg rpg, Ally ally, SGameObject parent) : base(parent)
+        public SkillCommandView(CommandBattleRpg rpg, Ally ally, EGGameObject parent) : base(parent)
         {
             //this.rpg = rpg;
             SetPresetRect(RectInfos.subCommandsView);
-            var skillsView = new SVerticalGridScrollView(this, 100, 2)
+            var skillsView = new EgVerticalGridScrollView(this, 100, 2)
                 .SetPresetRect(RectInfos.subCommands);
             ally.Skills
                 .Where(s => s.ConsumptionMp < ally.CurrentMp)
                 .ToList().ForEach(skill =>
                 {
-                    var skillButton = new SButton(skillsView, skill.Name.ToString());
+                    var skillButton = new EGButton(skillsView, skill.Name.ToString());
                     var command = new Command()
                     {
                         User = GameInfos.Allies[rpg.allyIndex],

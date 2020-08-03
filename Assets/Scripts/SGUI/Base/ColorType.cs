@@ -1,4 +1,4 @@
-namespace SGUI.Base
+namespace EGUI.Base
 {
     public enum ColorType
     {

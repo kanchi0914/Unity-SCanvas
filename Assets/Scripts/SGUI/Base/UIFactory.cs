@@ -12,7 +12,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SGUI.Base
+namespace EGUI.Base
 {
     public static class UIFactory
     {
@@ -62,13 +62,12 @@ namespace SGUI.Base
             }
             else
             {
-                var source = Resources.Load<Sprite> (resourceImagePath) as Sprite;
-                if (!source) Debug.Log ($"File {resourceImagePath} is not found");
+                var source = Resources.Load<Sprite> (resourceImagePath);
+                if (!source) Debug.Log ($"Sprite resource {resourceImagePath} is not found");
                 else image.sprite = source;
             }
             image.type = Image.Type.Sliced;
             image.color = Color.white;
-            //image.color = Utils.GetColor(ColorType.White, 1);
             return gameObject;
         }
 

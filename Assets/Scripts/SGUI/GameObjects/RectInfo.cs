@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 public class RectInfo
 {
-    public float PosX { get; protected set; }
-    public float PosY { get; protected set; }
-    public float Width { get; protected set; }
-    public float Height { get; protected set; }
+    public float PosX { get; private set; }
+    public float PosY { get; private set; }
+    public float Width { get; private set; }
+    public float Height { get; private set; }
 
     public RectInfo(float posX, float posY, float width, float height)
     {

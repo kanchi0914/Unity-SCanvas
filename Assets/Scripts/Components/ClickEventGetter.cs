@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SGUI
+namespace EGUI
 {
     public class ClickEventGetter : MonoBehaviour
     {

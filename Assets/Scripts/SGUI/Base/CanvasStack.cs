@@ -1,36 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SGUI.Base;
-using SGUI.GameObjects;
+﻿using System.Collections.Generic;
+using EGUI.GameObjects;
 using UnityEngine;
 
-namespace SGUI.Base
+namespace EGUI.Base
 {
     public static class CanvasStack
     {
-        public static Stack<SCanvas> Stack { get; set; } = new Stack<SCanvas> ();
-
-        // public static void GotoNextState (SCanvas nextCanvas, TransitionType type)
-        // {
-        //     if (type == TransitionType.Clear)
-        //     {
-        //         ClearAndPop (nextCanvas);
-        //     }
-        //     else if (type == TransitionType.Overlay)
-        //     {
-        //         Push (nextCanvas);
-        //     }
-        //     else if (type == TransitionType.Recurrent)
-        //     {
-        //         PopAndPush (nextCanvas);
-        //     }
-        //     nextCanvas.GameObject.GetComponent<Canvas> ().sortingOrder = (Stack.Count - 1) * 10;
-        // }
-
-        public static void Push (SCanvas canvas)
+        public static Stack<EGCanvas> Stack { get; set; } = new Stack<EGCanvas> ();
+        
+        public static void Push (EGCanvas canvas)
         {
             Stack.Push (canvas);
             canvas.GameObject.GetComponent<Canvas> ().sortingOrder = Stack.Count * 1;
@@ -50,17 +28,16 @@ namespace SGUI.Base
             Stack.Clear ();
         }
 
-        public static void ClearAndPop (SCanvas qCanvas)
+        public static void ClearAndPop (EGCanvas qCanvas)
         {
             foreach (var s in Stack)
             {
                 GameObject.Destroy (s.GameObject);
             }
             Stack.Clear ();
-            //Stack.Push(qCanvas);
         }
 
-        public static void PopAndPush (SCanvas qCanvas)
+        public static void PopAndPush (EGCanvas qCanvas)
         {
             var last = Stack.Pop ();
             GameObject.Destroy (last.GameObject);
