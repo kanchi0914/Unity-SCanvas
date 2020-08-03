@@ -13,6 +13,8 @@ using SGUI.Base;
 using SGUI.GameObjects.Interfaces;
 using UnityEngine;
 using UnityEngine;
+using System.Threading.Tasks;
+
 using UnityEngine.UI;
 using static SGUI.Base.Utils;
 
@@ -23,7 +25,7 @@ namespace SGUI.GameObjects
 
         protected GameObject gameObject;
 
-        private EGMono mono;
+        public EGMono Mono;
 
         private AnchorType anchorType;
 
@@ -77,7 +79,9 @@ namespace SGUI.GameObjects
 
         private SGameObject parentSGameObject;
 
-        private Sequence sequence = DOTween.Sequence ();
+        private Sequence sequence = DOTween.Sequence();
+
+        private Vector3 actualPos;
 
         public bool IsAcive { get { return gameObject.activeSelf; } }
 
@@ -101,13 +105,13 @@ namespace SGUI.GameObjects
 
         protected RectTransform rectTransform;
 
-        protected SGameObject (SGameObject parent, string name, Func<GameObject> initializationMethod)
+        protected SGameObject(SGameObject parent, string name, Func<GameObject> initializationMethod)
         {
-            this.gameObject = initializationMethod.Invoke () as GameObject;
-            rectTransform = gameObject.GetComponent<RectTransform> ();
-            SetParentSGameObject (parent);
+            this.gameObject = initializationMethod.Invoke() as GameObject;
+            rectTransform = gameObject.GetComponent<RectTransform>();
+            SetParentSGameObject(parent);
             SetTopLeftAnchor();
-            mono = gameObject.TryAddComponent<EGMono>();
+            Mono = gameObject.TryAddComponent<EGMono>();
             this.name = name;
         }
 
@@ -120,112 +124,115 @@ namespace SGUI.GameObjects
         {
             get
             {
-                var rect = this.gameObject.GetComponent<RectTransform> ();
-                return new Vector2 (rect.sizeDelta.x, rect.sizeDelta.y);
+                var rect = this.gameObject.GetComponent<RectTransform>();
+                return new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
             }
             set
             {
-                var rect = this.gameObject.GetComponent<RectTransform> ();
-                rect.sizeDelta = new Vector2 (value.x, value.y);
+                var rect = this.gameObject.GetComponent<RectTransform>();
+                rect.sizeDelta = new Vector2(value.x, value.y);
             }
         }
 
         public SGameObject SetGlobalPos(Vector3 pos)
         {
-            mono.StartCoroutine(AdjustTransInTheEndOfFrame(pos));
+            var parentMono = parentSGameObject.Mono;
+            if (parentMono != null)
+            {
+                gameObject.SetActive(false);
+                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+            }
+            else
+            {
+                Mono.StartCoroutine(SetGlobalPosCoroutine(pos));
+            }
             return this;
         }
 
-
-        private IEnumerator AdjustTransInTheEndOfFrame(Vector3 pos)
+        private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
         {
             yield return null;
             gameObject.transform.position = pos;
+            gameObject.SetActive(true);
         }
 
-        //private IEnumerator Wait(Action action)
-        //{
-        //    yield return null;
-        //    gameObject.transform.position = pos;
-        //}
-
-        public void SetActive (bool isActive)
+        public void SetActive(bool isActive)
         {
             //gameObject.transform.position = initialPos;
-            this.gameObject.SetActive (isActive);
+            this.gameObject.SetActive(isActive);
         }
 
 
-        public void Animate ()
+        public void Animate()
         {
-            var ts = gameObject.TryAddComponent<CanvasGroup> ();
+            var ts = gameObject.TryAddComponent<CanvasGroup>();
 
-            if (sequence.IsPlaying ())
+            if (sequence.IsPlaying())
             {
-                sequence.Complete ();
-                sequence.Kill ();
+                sequence.Complete();
+                sequence.Kill();
             }
-            ts.DOFade (0, 0);
-            this.rectTransform.AddLocalPosY (-20f);
-            sequence = DOTween.Sequence ()
-                .Append (gameObject.transform.DOLocalMoveY (20f, 0.5f).SetRelative ())
-                .SetEase (Ease.InCubic)
-                .Join (ts.DOFade (1f, 0.5f))
-                .OnComplete (() => { });
+            ts.DOFade(0, 0);
+            this.rectTransform.AddLocalPosY(-20f);
+            sequence = DOTween.Sequence()
+                .Append(gameObject.transform.DOLocalMoveY(20f, 0.5f).SetRelative())
+                .SetEase(Ease.InCubic)
+                .Join(ts.DOFade(1f, 0.5f))
+                .OnComplete(() => { });
         }
 
-        public void DisplayIn ()
+        public void DisplayIn()
         {
-            var ts = gameObject.TryAddComponent<CanvasGroup> ();
-            if (sequence.IsPlaying ())
+            var ts = gameObject.TryAddComponent<CanvasGroup>();
+            if (sequence.IsPlaying())
             {
-                sequence.Complete ();
-                sequence.Kill ();
+                sequence.Complete();
+                sequence.Kill();
             }
             var worldPos = gameObject.transform
-                .InverseTransformPoint (gameObject.transform.position);
-            var topLeftWorldPos = Utils.getScreenTopLeft ();
-            var merginToLeftTop = gameObject.transform.InverseTransformPoint (topLeftWorldPos);
-            var bottomRightWorldPos = Utils.getScreenBottomRight ();
-            var merginToRightTop = gameObject.transform.InverseTransformPoint (bottomRightWorldPos);
+                .InverseTransformPoint(gameObject.transform.position);
+            var topLeftWorldPos = Utils.getScreenTopLeft();
+            var merginToLeftTop = gameObject.transform.InverseTransformPoint(topLeftWorldPos);
+            var bottomRightWorldPos = Utils.getScreenBottomRight();
+            var merginToRightTop = gameObject.transform.InverseTransformPoint(bottomRightWorldPos);
 
-            var pos = new Vector3 (rectTransform.anchoredPosition.x,
+            var pos = new Vector3(rectTransform.anchoredPosition.x,
                 this.rectTransform.anchoredPosition.y);
 
             //rectTransform.AddLocalPosY(merginToLeftTop.y + RectSize.y);
-            rectTransform.AddLocalPosX (merginToLeftTop.x - RectSize.x);
+            rectTransform.AddLocalPosX(merginToLeftTop.x - RectSize.x);
 
-            sequence = DOTween.Sequence ()
-                .Append (rectTransform.DOAnchorPosX (pos.x, 0.8f))
-                .SetEase (Ease.OutBounce);
+            sequence = DOTween.Sequence()
+                .Append(rectTransform.DOAnchorPosX(pos.x, 0.8f))
+                .SetEase(Ease.OutBounce);
         }
 
-        public void Popup ()
+        public void Popup()
         {
-            if (sequence.IsPlaying ())
+            if (sequence.IsPlaying())
             {
-                sequence.Complete ();
-                sequence.Kill ();
+                sequence.Complete();
+                sequence.Kill();
             }
-            var rectsize = new Vector2 (RectSize.x, RectSize.y);
-            sequence = DOTween.Sequence ()
-                .Append (rectTransform.DOSizeDelta (new Vector2 (rectsize.x + 20, RectSize.y + 20), 0.4f))
-                .Append (rectTransform.DOSizeDelta (new Vector2 (rectsize.x - 10, RectSize.y - 20), 0.4f))
-                .Append (rectTransform.DOSizeDelta (new Vector2 (rectsize.x, RectSize.y), 0.4f));
-            sequence.SetEase (Ease.OutBack);
+            var rectsize = new Vector2(RectSize.x, RectSize.y);
+            sequence = DOTween.Sequence()
+                .Append(rectTransform.DOSizeDelta(new Vector2(rectsize.x + 20, RectSize.y + 20), 0.4f))
+                .Append(rectTransform.DOSizeDelta(new Vector2(rectsize.x - 10, RectSize.y - 20), 0.4f))
+                .Append(rectTransform.DOSizeDelta(new Vector2(rectsize.x, RectSize.y), 0.4f));
+            sequence.SetEase(Ease.OutBack);
         }
 
-        public void Punch ()
+        public void Punch()
         {
-            if (sequence.IsPlaying ())
+            if (sequence.IsPlaying())
             {
-                sequence.Complete ();
-                sequence.Kill ();
+                sequence.Complete();
+                sequence.Kill();
             }
 
             var pivot = rectTransform.pivot;
-            var pivotOffsets = new Vector2 (0.5f, 0.5f) - pivot;
-            SetPivot (0.5f, 0.5f);
+            var pivotOffsets = new Vector2(0.5f, 0.5f) - pivot;
+            SetPivot(0.5f, 0.5f);
             //var pospre = new Vector2(gameObject.transform.position.x,
             //    gameObject.transform.position.y);
             //var pospre2 = new Vector2(rectTransform.anchoredPosition.x,
@@ -242,63 +249,106 @@ namespace SGUI.GameObjects
             //        var posaf2 = new Vector2(rectTransform.anchoredPosition.x,
             //rectTransform.anchoredPosition.y);
 
-            sequence = DOTween.Sequence ()
-                .Append (gameObject.transform.DOPunchScale (new Vector3 (0.2f, 0.2f), 1f, 1))
-                .SetEase (Ease.OutBack)
-                .OnComplete (() =>
-                {
-                    SetPivot (0.0f, 1f);
-                });
+            sequence = DOTween.Sequence()
+                .Append(gameObject.transform.DOPunchScale(new Vector3(0.2f, 0.2f), 1f, 1))
+                .SetEase(Ease.OutBack)
+                .OnComplete(() =>
+               {
+                   SetPivot(0.0f, 1f);
+               });
         }
 
-        private void SetPivot (float x, float y)
+
+        public void AnimateShake()
         {
-            var newPivot = new Vector2 (x, y);
+            if (sequence.IsPlaying())
+            {
+                sequence.Complete();
+                sequence.Kill();
+            }
+            sequence = DOTween.Sequence()
+                .Append(gameObject.transform.DOShakePosition(0.5f, strength: 20, vibrato: 30));
+        }
+
+        public void AnimateBlink()
+        {
+            if (sequence.IsPlaying())
+            {
+                sequence.Complete();
+                sequence.Kill();
+            }
+            CanvasGroup imageCanvas = gameObject.TryAddComponent<CanvasGroup>();
+            sequence = DOTween.Sequence()
+                .Append(imageCanvas.DOFade(0.0f, 0.1f).SetLoops(5))
+                .Append(imageCanvas.DOFade(1.0f, 0.0f));
+        }
+
+        private IEnumerator SetAction(Action action)
+        {
+            yield return null;
+            action.Invoke();
+        }
+
+        //private IEnumerator SetAnime()
+        //{
+        //    yield return null;
+        //    if (sequence.IsPlaying())
+        //    {
+        //        sequence.Complete();
+        //        sequence.Kill();
+        //    }
+        //    sequence = DOTween.Sequence().
+        //        Append(gameObject.transform.DOShakePosition(0.5f, strength: 30, vibrato: 50));
+        //}
+
+
+        private void SetPivot(float x, float y)
+        {
+            var newPivot = new Vector2(x, y);
             var pivotOffset = newPivot - rectTransform.pivot;
             rectTransform.pivot = newPivot;
-            rectTransform.AddLocalPosX (RectSize.x * pivotOffset.x);
-            rectTransform.AddLocalPosY (RectSize.y * pivotOffset.y);
+            rectTransform.AddLocalPosX(RectSize.x * pivotOffset.x);
+            rectTransform.AddLocalPosY(RectSize.y * pivotOffset.y);
         }
 
-        public virtual SGameObject SetBackGroundColor (ColorType colorType, float alpha = 1)
+        public virtual SGameObject SetBackGroundColor(ColorType colorType, float alpha = 1)
         {
-            var color = gameObject.GetComponent<Image> ();
-            if (!color) color = gameObject.AddComponent<Image> ();
-            if (color) color.color = Utils.GetColor (colorType, alpha);
+            var color = gameObject.GetComponent<Image>();
+            if (!color) color = gameObject.AddComponent<Image>();
+            if (color) color.color = Utils.GetColor(colorType, alpha);
             return this;
         }
 
-        public virtual SGameObject SetBackGroundColor (Color _color)
+        public virtual SGameObject SetBackGroundColor(Color _color)
         {
-            var color = gameObject.GetComponent<Image> ();
-            if (!color) color = gameObject.AddComponent<Image> ();
+            var color = gameObject.GetComponent<Image>();
+            if (!color) color = gameObject.AddComponent<Image>();
             if (color) color.color = _color;
             return this;
         }
 
-        public virtual SGameObject SetParentSGameObject (SGameObject parent)
+        public virtual SGameObject SetParentSGameObject(SGameObject parent)
         {
             if (parent?.gameObject == null)
             {
-                Debug.Log(parent);
             }
             if (parent != null && parent.gameObject.transform != null)
             {
                 if (parent is ILayoutObject)
                 {
                     ILayoutObject layoutObject = parent as ILayoutObject;
-                    layoutObject.AddItem (this);
+                    layoutObject.AddItem(this);
                 }
                 else
                 {
-                    gameObject.transform.SetParent (parent.GameObject.transform, false);
+                    gameObject.transform.SetParent(parent.GameObject.transform, false);
                     this.parentSGameObject = parent;
                 }
             }
             return this;
         }
 
-        public virtual SGameObject SetRectSizeByRatio (float ratioX, float ratioY)
+        public virtual SGameObject SetRectSizeByRatio(float ratioX, float ratioY)
         {
             if (parentSGameObject == null) return this;
             SetRectSize(parentSGameObject.RectSize.x * ratioX,
@@ -306,7 +356,7 @@ namespace SGUI.GameObjects
             return this;
         }
 
-        public virtual SGameObject SetRectSize (float width, float height)
+        public virtual SGameObject SetRectSize(float width, float height)
         {
             if (anchorType == AnchorType.FullStretch || anchorType == AnchorType.HorizontalStretch
                 || anchorType == AnchorType.VerticalStretch)
@@ -319,7 +369,6 @@ namespace SGUI.GameObjects
             {
                 RectSize = new Vector2(width, height);
             }
-            RectSize = new Vector2(width, height);
             return this;
         }
 
@@ -329,18 +378,18 @@ namespace SGUI.GameObjects
             return this;
         }
 
-        public virtual SGameObject SetLocalPosByRatio (float posXratio, float posYratio)
+        public virtual SGameObject SetLocalPosByRatio(float posXratio, float posYratio)
         {
             if (parentSGameObject == null) return this;
-            gameObject.transform.SetLocalPosX (posXratio * parentSGameObject.RectSize.x);
-            gameObject.transform.SetLocalPosY (-(posYratio * parentSGameObject.RectSize.y));
+            gameObject.transform.SetLocalPosX(posXratio * parentSGameObject.RectSize.x);
+            gameObject.transform.SetLocalPosY(-(posYratio * parentSGameObject.RectSize.y));
             return this;
         }
 
-        public virtual SGameObject SetLocalPos (float posX, float posY)
+        public virtual SGameObject SetLocalPos(float posX, float posY)
         {
             if (parentSGameObject == null) return this;
-            gameObject.transform.SetLocalPos (posX, -posY);
+            gameObject.transform.SetLocalPos(posX, -posY);
             return this;
         }
 
@@ -365,11 +414,11 @@ namespace SGUI.GameObjects
             return this;
         }
 
-        public virtual SGameObject SetBackGroundImage (string sourceName)
+        public virtual SGameObject SetBackGroundImage(string sourceName)
         {
-            var imageSource = Resources.Load<Sprite> (sourceName);
-            var image = gameObject.GetComponent<Image> ();
-            if (!image) image = gameObject.AddComponent<Image> ();
+            var imageSource = Resources.Load<Sprite>(sourceName);
+            var image = gameObject.GetComponent<Image>();
+            if (!image) image = gameObject.AddComponent<Image>();
             image.sprite = imageSource;
             return this;
         }
@@ -381,21 +430,21 @@ namespace SGUI.GameObjects
         //     gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(RectSize.x, RectSize.y);
         // }
 
-        public void ClearComponents ()
+        public void ClearComponents()
         {
             foreach (Transform child in gameObject.transform)
             {
-                GameObject.Destroy (child.gameObject);
+                GameObject.Destroy(child.gameObject);
             }
-            var gridLayout = gameObject.GetComponent<GridLayoutGroup> ();
-            var verticalLayout = gameObject.GetComponent<VerticalLayoutGroup> ();
+            var gridLayout = gameObject.GetComponent<GridLayoutGroup>();
+            var verticalLayout = gameObject.GetComponent<VerticalLayoutGroup>();
             //GameObject.DestroyImmediate(layout0, true); 
-            Destroy (gridLayout, verticalLayout);
+            Destroy(gridLayout, verticalLayout);
         }
-        IEnumerator Destroy (params Component[] components)
+        IEnumerator Destroy(params Component[] components)
         {
-            yield return new WaitForEndOfFrame ();
-            components.ToList ().ForEach (c => Destroy (c));
+            yield return new WaitForEndOfFrame();
+            components.ToList().ForEach(c => Destroy(c));
         }
 
         // IEnumerator Destroy (Component component)
@@ -404,22 +453,22 @@ namespace SGUI.GameObjects
         //     Destroy (component);
         // }
 
-        public Action GetFunction (Action function)
-        {
-            return new Action (() => function ());
-        }
+        //public Action GetFunction (Action function)
+        //{
+        //    return new Action (() => function ());
+        //}
 
-        public Action<string> GetFunction (Action<string> function)
-        {
-            return new Action<string> (function);
-        }
+        //public Action<string> GetFunction (Action<string> function)
+        //{
+        //    return new Action<string> (function);
+        //}
 
         #region RectSetter
 
-        public SGameObject SetOffset (float minX, float minY, float maxX, float maxY)
+        public SGameObject SetOffset(float minX, float minY, float maxX, float maxY)
         {
-            rectTransform.offsetMax = new Vector2 (maxX, maxY);
-            rectTransform.offsetMin = new Vector2 (minX, minY);
+            rectTransform.offsetMax = new Vector2(maxX, maxY);
+            rectTransform.offsetMin = new Vector2(minX, minY);
             return this;
         }
 
@@ -493,7 +542,7 @@ namespace SGUI.GameObjects
 
         public SGameObject SetVerticalStretchAnchor()
         {
-           // rectTransform.SetVerticalStretchAnchor();
+            // rectTransform.SetVerticalStretchAnchor();
             SetAnchorType(AnchorType.VerticalStretch);
             return this;
         }

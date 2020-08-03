@@ -252,7 +252,7 @@ public class CommandBattleRpg
             else ExecuteNextCommand();
         });
         var mw = new SMessageWindow(mainCanvas, queue, onSentEveryMessage)
-            .SetPosAndSizeByRatio(0.15f, 0.65f, 0.7f, 0.2f) as SMessageWindow;
+            .SetPresetRect(RectInfos.messageWindow) as SMessageWindow;
         mw.MessageText.SetFontSize(28);
     }
 
@@ -299,7 +299,7 @@ public class CommandBattleRpg
             .ToList()
             .ForEach(allyView =>
         {
-            var rectSize = allyView.ApparentRectSize;       
+            var rectSize = allyView.ApparentRectSize;
             var pos = allyView.GameObject.transform.position;
             var select = new SSelectableImage(alliesView);
             select.SetBackGroundColor(ColorType.Yellow, 0.2f);
@@ -362,8 +362,11 @@ public class CommandBattleRpg
             Image = new SSelectableImage(this, imageFilePath:enemy.ImageFilePath, keepsAspectRatio:true);
             Image.SetFullStretchAnchor().SetLocalPos(0, 0);
             Enemy = enemy;
-            gameObject.ObserveEveryValueChanged(_ => enemy.CurrentHp)
-                .Subscribe(_ => { if (!enemy.IsAlive) Image.SetBackGroundColor(ColorType.White, 0f); });
+            enemy.AddOnHpDecreased(_ => 
+            {
+                if (!enemy.IsAlive) Image.SetBackGroundColor(ColorType.White, 0f);
+                AnimateBlink();
+            });
         }
     }
 
@@ -400,6 +403,7 @@ public class CommandBattleRpg
             gameObject.ObserveEveryValueChanged(_ => rpg.allyIndex).Subscribe(_ => OnAllyIndexChanged());
             gameObject.ObserveEveryValueChanged(_ => ally.CurrentHp).Subscribe(_ => OnHpChanged());
             gameObject.ObserveEveryValueChanged(_ => ally.CurrentMp).Subscribe(_ => OnMpChanged());
+            ally.AddOnHpDecreased(_ => this.AnimateShake());
         }
 
         private void OnAllyIndexChanged()
@@ -457,11 +461,11 @@ public class CommandBattleRpg
 
     public class SkillCommandView : SSubCanvas
     {
-        CommandBattleRpg rpg;
-        Ally ally;
+        //CommandBattleRpg rpg;
+        //Ally ally;
         public SkillCommandView(CommandBattleRpg rpg, Ally ally, SGameObject parent) : base(parent)
         {
-            this.rpg = rpg;
+            //this.rpg = rpg;
             SetPresetRect(RectInfos.subCommandsView);
             var skillsView = new SVerticalGridScrollView(this, 100, 2)
                 .SetPresetRect(RectInfos.subCommands);

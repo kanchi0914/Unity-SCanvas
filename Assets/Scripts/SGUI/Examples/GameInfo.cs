@@ -16,10 +16,10 @@ public static class GameInfos
 
     public static List<Ally> Allies { get; private set; } = new List<Ally>()
     {
-        new Ally("田中", 50, 0, 12, 9, 5){ },
-        new Ally("井上", 35, 20, 7, 7, 7){ Skills = new List<Skill>(){ SkillFactory.GenerateSkill(Skill.SkillName.ヒール) } },
-        new Ally("佐藤", 40, 0, 10, 7, 10){ },
-        new Ally("鈴木", 30, 25, 6, 6, 8){ Skills = new List<Skill>(){ SkillFactory.GenerateSkill(Skill.SkillName.ファイア) } },
+        new Ally("田中", 999, 0, 12, 9, 5){ }
+        //new Ally("井上", 35, 20, 7, 7, 7){ Skills = new List<Skill>(){ SkillFactory.GenerateSkill(Skill.SkillName.ヒール) } },
+        //new Ally("佐藤", 40, 0, 10, 7, 10){ },
+        //new Ally("鈴木", 30, 25, 6, 6, 8){ Skills = new List<Skill>(){ SkillFactory.GenerateSkill(Skill.SkillName.ファイア) } },
     };
 
     public static List<Enemy> Enemies { get; private set; } = new List<Enemy>();
