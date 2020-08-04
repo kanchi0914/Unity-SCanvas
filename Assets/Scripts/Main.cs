@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Assets.Scripts.Extensions;
 using HC.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,34 +11,44 @@ using static HC.UI.UICreator;
 
 public class Main : MonoBehaviour
 {
-
     private EgImage image;
     void Start ()
     {
-        var sc = new EGCanvas("aaaaaaaaa");
-        new CommandBattleRpg();
+        var canvas = new EGCanvas("test");
+        new EGScrollBar(canvas)
+            .SetRectSize(200, 20).SetMiddleCenterAnchor().SetLocalPos(0,0);
     }
-}
-
-public class MyToggle : EgToggle
-{
-    public MyToggle(EGGameObject parent, string name) : base(parent, isWithBoxImage: true, isGrouped: true, name: name)
+    
+    public void Init()
     {
-        SetAnchorType(AnchorType.MiddleCenter).SetLocalPos(0, 0);
-        SetRectSize(400, 50);
-        SetBackGroundImage("Images/Tab");
-        EnabledBackGroundImageColor = Color.white;
-        DisabledBackGroundImageColor = Color.gray;
-        EnabledTextColor = Color.black;
-        DisabledTextColor = Color.black;
-        Text.SetTextAlignment(TextAnchor.MiddleCenter);
-    }
-}
+        var canvas = new EGCanvas("test");
+        var root = new EgImage(canvas)
+            .SetRectSize(300, 20)
+            .SetMiddleCenterAnchor()
+            .SetLocalPos(0, 0) as EgImage;
 
-public class MyImage : EgImage
-{
-    public MyImage(EGGameObject parent) : base(parent)
-    {
+        var dropdownComponent = root.GameObject.TryAddComponent<Dropdown>();
+        
+        var label = new EGText(root, name: "label");
+        var arrow = new EgImage(root, name: "arrow"); 
+        var template = new EgVerticalLayoutScrollView(root, name:"template");
+        
+        
+        //dropdownの設定
+        dropdownComponent.targetGraphic = root.Image;
+        dropdownComponent.template = template.RectTransform;
+        dropdownComponent.captionText = label.TextComponent;
+
+        new EGScrollBar(canvas);
+
+        // var template = new EGUIObject(this, name: "Template");
+        // var viewport = new EGUIObject(this, name: "Viewport");
+        // var content = new EGUIObject(this, name: "Content");
+        // var item = new EGUIObject(this, name: "Item Background");
+        // var itemBackground = new EGUIObject(this, name: "Item Checkmark");
+        // var itemLabel = new EGUIObject(this, name: "Item Label");
+        //     
+
 
     }
 }

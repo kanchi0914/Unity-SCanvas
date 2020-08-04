@@ -8,7 +8,7 @@ namespace EGUI.GameObjects
     public class EGButton : EGGameObject
     {
         public Button Button { get; set; }
-        public EGText EgText { get; private set; }
+        public EGText Text { get; private set; }
         
         public EGButton(
             EGGameObject parent,
@@ -28,8 +28,8 @@ namespace EGUI.GameObjects
             () => UIFactory.CreateButton(parent.GameObject, name, text, color)
             )
         {
-            EgText = new EGText(this, text: text);
-            EgText.SetFullStretchAnchor();
+            Text = new EGText(this, text: text);
+            Text.SetFullStretchAnchor();
             Button = gameObject.GetComponent<Button>();
         }
 

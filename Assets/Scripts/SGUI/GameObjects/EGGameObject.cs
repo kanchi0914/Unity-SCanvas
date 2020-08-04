@@ -316,16 +316,16 @@ namespace EGUI.GameObjects
         //}
 
 
-        private void SetPivot(float x, float y)
+        public void SetPivot(float x, float y)
         {
             var newPivot = new Vector2(x, y);
-            var pivotOffset = newPivot - rectTransform.pivot;
+            // var pivotOffset = newPivot - rectTransform.pivot;
             rectTransform.pivot = newPivot;
-            rectTransform.AddLocalPosX(RectSize.x * pivotOffset.x);
-            rectTransform.AddLocalPosY(RectSize.y * pivotOffset.y);
+            // rectTransform.AddLocalPosX(RectSize.x * pivotOffset.x);
+            // rectTransform.AddLocalPosY(RectSize.y * pivotOffset.y);
         }
 
-        public virtual EGGameObject SetBackGroundColor(ColorType colorType, float alpha = 1)
+        public virtual EGGameObject SetColor(ColorType colorType, float alpha = 1)
         {
             var color = gameObject.GetComponent<Image>();
             if (!color) color = gameObject.AddComponent<Image>();
@@ -333,7 +333,7 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        public virtual EGGameObject SetBackGroundColor(Color _color)
+        public virtual EGGameObject SetColor(Color _color)
         {
             var color = gameObject.GetComponent<Image>();
             if (!color) color = gameObject.AddComponent<Image>();
@@ -367,8 +367,10 @@ namespace EGUI.GameObjects
         public virtual EGGameObject SetRectSizeByRatio(float ratioX, float ratioY)
         {
             if (_parentEgGameObject == null) return this;
-            SetRectSize(_parentEgGameObject.RectSize.x * ratioX,
-                _parentEgGameObject.RectSize.y * ratioY);
+            // SetRectSize(_parentEgGameObject.RectSize.x * ratioX,
+            //     _parentEgGameObject.RectSize.y * ratioY);
+            SetRectSize(_parentEgGameObject.ApparentRectSize.x * ratioX,
+                _parentEgGameObject.ApparentRectSize.y * ratioY);
             return this;
         }
 
