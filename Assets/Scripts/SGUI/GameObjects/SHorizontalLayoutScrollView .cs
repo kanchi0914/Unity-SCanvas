@@ -10,7 +10,7 @@ using static UnityEngine.UI.ScrollRect;
 
 namespace EGUI.GameObjects
 {
-    class EGHorizontalLayoutScrollView : EGGameObject, ILayoutObject
+    class PreEGHorizontalLayoutScrollView : EGGameObject, ILayoutObject
     {
         private int constantItemWidth = 0;
         private readonly HorizontalLayoutGroup layoutComponent;
@@ -23,7 +23,7 @@ namespace EGUI.GameObjects
         
         public GameObject ContentArea { get; private set; }
 
-        public EGHorizontalLayoutScrollView(
+        public PreEGHorizontalLayoutScrollView(
             EGGameObject parent,
             int constantItemWidth = 0,
             bool isAutoSizingHeight = true,
@@ -65,6 +65,8 @@ namespace EGUI.GameObjects
             
             this.constantItemWidth = constantItemWidth;
         }
+        
+        
 
         public void AddItem(EGGameObject egGameObject)
         {
@@ -81,7 +83,7 @@ namespace EGUI.GameObjects
             //SetLayout();
         }
         
-        public EGHorizontalLayoutScrollView SetPadding(int? left = null, int? right = null, int? top = null, int? bottom = null)
+        public PreEGHorizontalLayoutScrollView SetPadding(int? left = null, int? right = null, int? top = null, int? bottom = null)
         {
             layoutComponent.padding.left = left ?? PaddingLeft;
             layoutComponent.padding.right = right ?? PaddingRight;
@@ -91,20 +93,20 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        public EGHorizontalLayoutScrollView SetSpacing(float spacing)
+        public PreEGHorizontalLayoutScrollView SetSpacing(float spacing)
         {
             layoutComponent.spacing = spacing;
             return this;
         }
 
-        public EGHorizontalLayoutScrollView SetScrollbarVisibility(ScrollbarVisibility scrollbarVisibility)
+        public PreEGHorizontalLayoutScrollView SetScrollbarVisibility(ScrollbarVisibility scrollbarVisibility)
         {
             var scrollView = gameObject.GetComponentInChildren<ScrollRect>();
             scrollView.horizontalScrollbarVisibility = scrollbarVisibility;
             return this;
         }
 
-        public EGHorizontalLayoutScrollView SetMovementType(MovementType movementType)
+        public PreEGHorizontalLayoutScrollView SetMovementType(MovementType movementType)
         {
             var scrollView = gameObject.GetComponentInChildren<ScrollRect>();
             scrollView.movementType = movementType;

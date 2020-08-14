@@ -20,7 +20,7 @@ namespace EGUI.GameObjects
             widthRatio,
             heightRatio,
             name,
-            () => UIFactory.CreateBaseRect(parent.GameObject, "SSubCanvas")
+            () => UIFactory.CreateBaseRect(parent?.GameObject, "SSubCanvas")
         )
         {
         }

@@ -109,6 +109,7 @@
      <Compile Include="Assets\Scripts\SGUI\GUITest\EGDropDownTest.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjectExtensions.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\DGAnimationScript.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\GlobalCoroutine.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\InputFieldOnSelectWrapper.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\OnDeselectWrapper.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\ComponentScripts\TestComponent.cs" />
@@ -118,9 +119,11 @@
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGGameObject.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGGridLayoutView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGHorizontalGridLayoutScrollView.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\EGHorizontalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGPrefab.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGText.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EGUIObject.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\EGVerticalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgHorizontalLayoutView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgImage.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgInputField.cs" />
@@ -129,10 +132,11 @@
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgSelectableImage.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgSlider.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgToggle.cs" />
-     <Compile Include="Assets\Scripts\SGUI\GameObjects\EgVerticalGridScrollView.cs" />
-     <Compile Include="Assets\Scripts\SGUI\GameObjects\EgVerticalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\EgVerticalLayoutView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\Interfaces\ILayoutComponent.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\PreEGHorizontalGridLayoutScrollView.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\PreEgVerticalGridScrollView.cs" />
+     <Compile Include="Assets\Scripts\SGUI\GameObjects\PreEgVerticalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\RectInfo.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\SDOTextMessageWindow.cs" />
      <Compile Include="Assets\Scripts\SGUI\GameObjects\SHorizontalLayoutScrollView .cs" />
@@ -141,6 +145,7 @@
      <Compile Include="Assets\Scripts\Scenario1\Template.cs" />
      <Compile Include="Assets\Scripts\TestMono.cs" />
      <Compile Include="Assets\Scripts\Tests\RectTransformExtensionsTest.cs" />
+     <Compile Include="Assets\Scripts\Tests\RectTransformExtensionsTest2.cs" />
      <Compile Include="Assets\uGuiScriptCreator\UICreator.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -111,7 +111,7 @@ namespace EGUI.GameObjects
             float heightRatio,
             string name,
             Func<GameObject> initializationMethod
-            )
+        )
         {
             gameObject = initializationMethod.Invoke();
             rectTransform = gameObject.GetComponent<RectTransform>();
@@ -133,36 +133,32 @@ namespace EGUI.GameObjects
 
         public Vector2 RectSize
         {
-            get
-            {
-                var rect = this.gameObject.GetComponent<RectTransform>();
-                return new Vector2(rect.sizeDelta.x, rect.sizeDelta.y);
-            }
-            set
-            {
-                var rect = this.gameObject.GetComponent<RectTransform>();
-                rect.sizeDelta = new Vector2(value.x, value.y);
-            }
+            get => new Vector2(RectTransform.sizeDelta.x, RectTransform.sizeDelta.y);
+            set => RectTransform.sizeDelta = new Vector2(value.x, value.y);
         }
 
         public EGGameObject SetGlobalPos(Vector3 pos)
         {
+            var test = new EGUIObject(null);
             var parentMono = _parentEgGameObject.Mono;
             if (parentMono != null)
             {
                 gameObject.SetActive(false);
-                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+                test.Mono.StartCoroutine(SetGlobalPosCoroutine(pos));
+                //parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
             }
             else
             {
                 Mono.StartCoroutine(SetGlobalPosCoroutine(pos));
             }
-
+            test.Dispose();
             return this;
         }
 
         private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
         {
+            gameObject.transform.position = pos;
+            gameObject.SetActive(true);
             yield return null;
             gameObject.transform.position = pos;
             gameObject.SetActive(true);
@@ -335,9 +331,8 @@ namespace EGUI.GameObjects
 
         public virtual EGGameObject SetColor(Color _color)
         {
-            var color = gameObject.GetComponent<Image>();
-            if (!color) color = gameObject.AddComponent<Image>();
-            if (color) color.color = _color;
+            var color = gameObject.TryAddComponent<Image>();
+            color.color = _color;
             return this;
         }
 
@@ -376,10 +371,23 @@ namespace EGUI.GameObjects
 
         public virtual EGGameObject SetRectSize(float width, float height)
         {
-            if (anchorType == Utils.AnchorType.FullStretch || anchorType == Utils.AnchorType.HorizontalStretch
-                                                           || anchorType == Utils.AnchorType.VerticalStretch)
+            // var anchor = anchorType;
+            // var pos = RectTransform.position;
+            // SetMiddleCenterAnchor();
+            // RectSize = new Vector2(width, height);
+            // SetAnchorType(anchor);
+            // SetGlobalPos(pos);
+            if (anchorType == AnchorType.FullStretch 
+                || anchorType == AnchorType.HorizontalStretch
+                || anchorType == AnchorType.HorizontalStretchWithBottomPivot
+                || anchorType == AnchorType.HorizontalStretchWithTopPivot
+                || anchorType == AnchorType.VerticalStretch
+                || anchorType == AnchorType.VerticalStretchWithLeftPivot
+                || anchorType == AnchorType.VerticalStretchWithRightPivot
+                )
             {
                 var anchor = anchorType;
+                SetMiddleCenterAnchor();
                 RectSize = new Vector2(width, height);
                 SetAnchorType(anchor);
             }
@@ -387,7 +395,6 @@ namespace EGUI.GameObjects
             {
                 RectSize = new Vector2(width, height);
             }
-
             return this;
         }
 
@@ -400,14 +407,15 @@ namespace EGUI.GameObjects
         public virtual EGGameObject SetLocalPosByRatio(float posXratio, float posYratio)
         {
             if (_parentEgGameObject == null) return this;
-            gameObject.transform.SetLocalPosX(posXratio * _parentEgGameObject.RectSize.x);
-            gameObject.transform.SetLocalPosY(-(posYratio * _parentEgGameObject.RectSize.y));
+            var posX = posXratio * _parentEgGameObject.ApparentRectSize.x;
+            var posY = -(posYratio * _parentEgGameObject.ApparentRectSize.y);
+            SetLocalPos(posX, posY);
             return this;
         }
 
         public virtual EGGameObject SetLocalPos(float posX, float posY)
         {
-            if (_parentEgGameObject == null) return this;
+            var anchor = anchorType;
             gameObject.transform.SetLocalPos(posX, -posY);
             return this;
         }
@@ -469,22 +477,6 @@ namespace EGUI.GameObjects
             components.ToList().ForEach(c => Destroy(c));
         }
 
-        // IEnumerator Destroy (Component component)
-        // {
-        //     yield return new WaitForEndOfFrame ();
-        //     Destroy (component);
-        // }
-
-        //public Action GetFunction (Action function)
-        //{
-        //    return new Action (() => function ());
-        //}
-
-        //public Action<string> GetFunction (Action<string> function)
-        //{
-        //    return new Action<string> (function);
-        //}
-
         #region RectSetter
 
         public EGGameObject SetOffset(float minX, float minY, float maxX, float maxY)
@@ -494,92 +486,196 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        public EGGameObject SetAnchorType(Utils.AnchorType anchorType)
+        public EGGameObject SetAnchorType(AnchorType _anchorType)
         {
-            switch (anchorType)
+            this.anchorType = _anchorType;
+
+            switch (_anchorType)
             {
                 case Utils.AnchorType.TopLeft:
                 {
                     rectTransform.SetTopLeftAnchor();
-                    this.anchorType = Utils.AnchorType.TopLeft;
-                    return this;
+                    break;
+                }
+                case Utils.AnchorType.TopCenter:
+                {
+                    rectTransform.SetTopCenterAnchor();
+                    break;
+                }
+                case Utils.AnchorType.TopRight:
+                {
+                    rectTransform.SetTopRightAnchor();
+                    break;
+                }
+                case Utils.AnchorType.MiddleLeft:
+                {
+                    rectTransform.SetMiddleLeftAnchor();
+                    break;
                 }
                 case Utils.AnchorType.MiddleCenter:
                 {
                     rectTransform.SetMiddleCenterAnchor();
-                    this.anchorType = Utils.AnchorType.MiddleCenter;
-                    return this;
+                    break;
+                }
+                case Utils.AnchorType.MiddleRight:
+                {
+                    rectTransform.SetMiddleRightAnchor();
+                    break;
+                }
+                case Utils.AnchorType.BottomLeft:
+                {
+                    rectTransform.SetBottomLeftAnchor();
+                    break;
+                }
+                case Utils.AnchorType.BottomCenter:
+                {
+                    rectTransform.SetMiddleCenterAnchor();
+                    break;
+                }
+                case Utils.AnchorType.BottomRight:
+                {
+                    rectTransform.SetBottomRightAnchor();
+                    break;
                 }
                 case Utils.AnchorType.HorizontalStretch:
                 {
                     rectTransform.SetHorizontalStretchAnchor();
-                    this.anchorType = Utils.AnchorType.HorizontalStretch;
-                    return this;
+                    break;
+                }
+                case Utils.AnchorType.HorizontalStretchWithTopPivot:
+                {
+                    rectTransform.SetHorizontalStretchWithTopPivotAnchor();
+                    break;
+                }
+                case Utils.AnchorType.HorizontalStretchWithBottomPivot:
+                {
+                    rectTransform.SetHorizontalStretchWithBottomPivotAnchor();
+                    break;
                 }
                 case Utils.AnchorType.VerticalStretch:
                 {
-                    rectTransform.SetMiddleCenterAnchor();
-                    this.anchorType = Utils.AnchorType.VerticalStretch;
-                    return this;
+                    rectTransform.SetVerticalStretchAnchor();
+                    break;
+                }
+                case Utils.AnchorType.VerticalStretchWithLeftPivot:
+                {
+                    rectTransform.SetVerticalStretchWithLeftPivotAnchor();
+                    break;
+                }
+                case Utils.AnchorType.VerticalStretchWithRightPivot:
+                {
+                    rectTransform.SetVerticalStretchWithRightPivotAnchor();
+                    break;
                 }
                 case Utils.AnchorType.FullStretch:
                 {
                     rectTransform.SetFullStretchAnchor();
-                    this.anchorType = Utils.AnchorType.FullStretch;
-                    return this;
+                    break;
+                }
+                default:
+                {
+                    throw new Exception("something is wrong");
                 }
             }
-
+            this.anchorType = _anchorType;
             return this;
         }
-
-        //public enum AnchorType
-        //{
-        //    TopLeft, TopCenter, TopRight,
-        //    MiddleLeft, MiddleCenter, MiddleRight,
-        //    BottomLeft, BottomCenter, BottomRight,
-        //    HorizontalStretch, VerticalStretch,
-        //    FullStretch
-        //}
 
         public EGGameObject SetTopLeftAnchor()
         {
-            //rectTransform.SetTopLeftAnchor();
-            SetAnchorType(Utils.AnchorType.TopLeft);
+            rectTransform.SetTopLeftAnchor();
             return this;
         }
-
-        public EGGameObject SetMiddleCenterAnchor()
+        
+        public EGGameObject SetTopCenterAnchor()
         {
-            //rectTransform.SetMiddleCenterAnchor();
-            SetAnchorType(Utils.AnchorType.MiddleCenter);
+            rectTransform.SetTopCenterAnchor();
             return this;
         }
-
-        public EGGameObject SetHorizontalStretchAnchor()
+        
+        public EGGameObject SetTopRightAnchor()
         {
-            //rectTransform.SetHorizontalStretchAnchor();
-            SetAnchorType(Utils.AnchorType.HorizontalStretch);
+            rectTransform.SetTopRightAnchor();
             return this;
         }
-
-        public EGGameObject SetVerticalStretchAnchor()
-        {
-            // rectTransform.SetVerticalStretchAnchor();
-            SetAnchorType(Utils.AnchorType.VerticalStretch);
-            return this;
-        }
-
+        
         public EGGameObject SetMiddleLeftAnchor()
         {
             rectTransform.SetMiddleLeftAnchor();
             return this;
         }
 
+        public EGGameObject SetMiddleCenterAnchor()
+        {
+            rectTransform.SetMiddleCenterAnchor();
+            return this;
+        }
+        
+        public EGGameObject SetMiddleRightAnchor()
+        {
+            rectTransform.SetMiddleRightAnchor();
+            return this;
+        }
+        
+                
+        public EGGameObject SetBottomLeftAnchor()
+        {
+            rectTransform.SetBottomLeftAnchor();
+            return this;
+        }
+
+        public EGGameObject SetBottomCenterAnchor()
+        {
+            rectTransform.SetBottomCenterAnchor();
+            return this;
+        }
+        
+        public EGGameObject SetBottomRightAnchor()
+        {
+            rectTransform.SetBottomRightAnchor();
+            return this;
+        }
+
+        public EGGameObject SetHorizontalStretchAnchor()
+        {
+            rectTransform.SetHorizontalStretchAnchor();
+            return this;
+        }
+
+        public EGGameObject SetHorizontalStretchWithTopPivotAnchor()
+        {
+            rectTransform.SetHorizontalStretchWithTopPivotAnchor();
+            return this;
+        }
+        
+        public EGGameObject SetHorizontalStretchWithBottomPivotAnchor()
+        {
+            rectTransform.SetHorizontalStretchWithBottomPivotAnchor();
+            return this;
+        }
+
+        public EGGameObject SetVerticalStretchAnchor()
+        {
+            rectTransform.SetVerticalStretchAnchor();
+            return this;
+        }
+        
+        public EGGameObject SetVerticalStretchWithLeftPivotAnchor()
+        {
+            rectTransform.SetVerticalStretchWithLeftPivotAnchor();
+            return this;
+        }
+        
+        public EGGameObject SetVerticalStretchWithRightPivotAnchor()
+        {
+            rectTransform.SetVerticalStretchWithRightPivotAnchor();
+            return this;
+        }
+        
         public EGGameObject SetFullStretchAnchor()
         {
-            //rectTransform.SetFullStretchAnchor();
-            SetAnchorType(Utils.AnchorType.FullStretch);
+            rectTransform.SetFullStretchAnchor();
+            anchorType = AnchorType.FullStretch;
             return this;
         }
 

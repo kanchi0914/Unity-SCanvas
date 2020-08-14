@@ -24,11 +24,17 @@ namespace EGUI.GameObjects
         {
             get
             {
-                return (ApparentRectSize.x - (layoutComponent.padding.left + layoutComponent.padding.right)
-                    - layoutComponent.spacing.x * (columnCount - 1)) / columnCount;
+                if (ConstantItemWidth >  0) return ConstantItemWidth;
+                var value = (ApparentRectSize.x - (layoutComponent.padding.left + layoutComponent.padding.right)
+                                                - layoutComponent.spacing.x * (columnCount - 1)) / columnCount;
+                return value;
             }
         }
+
+        public int ConstantItemWidth { get; private set; } = -1;
         
+        public int ConstantItemHeight { get; private set; } = -1;
+
         public int PaddingLeft => layoutComponent.padding.left;
         public int PaddingRight => layoutComponent.padding.right;
         public int PaddingTop => layoutComponent.padding.top;
@@ -43,8 +49,11 @@ namespace EGUI.GameObjects
 
         public EGGridLayoutView (
             EGGameObject parent,
-            int rowCount,
-            int columnCount,
+            RectTransform.Axis axis ,
+            int rowCount = 3,
+            int columnCount = 3,
+            int constantItemWidth = -1,
+            int constantItemHeight = -1,
             float posRatioX = 0,
             float posRatioY = 0,
             float widthRatio = 1,
@@ -64,6 +73,8 @@ namespace EGUI.GameObjects
             layoutComponent = gameObject.GetComponent<GridLayoutGroup>();
             this.rowCount = rowCount;
             this.columnCount = columnCount;
+            if (constantItemWidth > 0) ConstantItemWidth = constantItemWidth;
+            if (constantItemHeight > 0) ConstantItemHeight = constantItemHeight;
             SetValueObserver();
             UpdateCellSize();
         }

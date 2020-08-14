@@ -1,4 +1,5 @@
-﻿using EGUI.Base;
+﻿using Assets.Scripts.Extensions;
+using EGUI.Base;
 using EGUI.GameObjects.Interfaces;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,13 +9,16 @@ namespace EGUI.GameObjects
 {
     public class EgHorizontalLayoutView : EGGameObject, ILayoutObject
     {
-        private readonly HorizontalLayoutGroup layoutComponent;
+        public HorizontalLayoutGroup LayoutComponent { get; private set; }
 
-        public int PaddingLeft => layoutComponent.padding.left;
-        public int PaddingRight => layoutComponent.padding.right;
-        public int PaddingTop => layoutComponent.padding.top;
-        public int PaddingBottom => layoutComponent.padding.bottom;
-        public float Spacing  => layoutComponent.spacing;
+        public int PaddingLeft => LayoutComponent.padding.left;
+        public int PaddingRight => LayoutComponent.padding.right;
+        public int PaddingTop => LayoutComponent.padding.top;
+        public int PaddingBottom => LayoutComponent.padding.bottom;
+        public float Spacing  => LayoutComponent.spacing;
+        //
+        // public float ConstantItemWidth { get; private set; }
+        // public float ConstantItemHeight { get; private set; }
 
         public EgHorizontalLayoutView(
             EGGameObject parent,
@@ -35,11 +39,11 @@ namespace EGUI.GameObjects
             () => UIFactory.CreateHotizontalLayoutView(parent.GameObject, name)
         )
         {
-            layoutComponent = gameObject.GetComponent<HorizontalLayoutGroup>();
-            layoutComponent.childControlWidth = isAutoSizingWidth;
-            layoutComponent.childControlHeight = isAutoSizingHeight;
-            layoutComponent.childForceExpandHeight = isAutoSizingHeight;
-            layoutComponent.childForceExpandWidth = (isAutoAlignment || isAutoSizingWidth);
+            LayoutComponent = gameObject.GetComponent<HorizontalLayoutGroup>();
+            LayoutComponent.childControlWidth = isAutoSizingWidth;
+            LayoutComponent.childControlHeight = isAutoSizingHeight;
+            LayoutComponent.childForceExpandHeight = isAutoSizingHeight;
+            LayoutComponent.childForceExpandWidth = isAutoAlignment || isAutoSizingWidth;
         }
 
         /// <summary>
@@ -54,41 +58,41 @@ namespace EGUI.GameObjects
         
         public EgHorizontalLayoutView SetAutoSizingHeight(bool isActive = true)
         {
-            layoutComponent.childControlHeight = isActive;
+            LayoutComponent.childControlHeight = isActive;
             return this;
         }
 
         public EgHorizontalLayoutView SetAutoSizingWidth(bool isActive = true)
         {
-            layoutComponent.childControlWidth = isActive;
-            layoutComponent.childForceExpandWidth = isActive;
+            LayoutComponent.childControlWidth = isActive;
+            LayoutComponent.childForceExpandWidth = isActive;
             return this;
         }
 
         public EgHorizontalLayoutView SetAutoHorizontalAlignment(bool isActive = true)
         {
-            layoutComponent.childForceExpandWidth = isActive;
+            LayoutComponent.childForceExpandWidth = isActive;
             return this;
         }
 
         public EgHorizontalLayoutView SetChildAlignment(TextAnchor textAnchor)
         {
-            layoutComponent.childAlignment = textAnchor;
+            LayoutComponent.childAlignment = textAnchor;
             return this;
         }
 
         public EgHorizontalLayoutView SetPadding(int? left = null, int? right = null, int? top = null, int? bottom = null)
         {
-            layoutComponent.padding.left = left ?? PaddingLeft;
-            layoutComponent.padding.right = right ?? PaddingRight;
-            layoutComponent.padding.top = top ?? PaddingTop;
-            layoutComponent.padding.bottom = bottom ?? PaddingBottom;
+            LayoutComponent.padding.left = left ?? PaddingLeft;
+            LayoutComponent.padding.right = right ?? PaddingRight;
+            LayoutComponent.padding.top = top ?? PaddingTop;
+            LayoutComponent.padding.bottom = bottom ?? PaddingBottom;
             return this;
         }
 
         public EgHorizontalLayoutView SetSpacing(float spacing)
         {
-            layoutComponent.spacing = spacing;
+            LayoutComponent.spacing = spacing;
             return this;
         }
     }
