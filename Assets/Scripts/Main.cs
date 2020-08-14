@@ -12,13 +12,22 @@ using static HC.UI.UICreator;
 public class Main : MonoBehaviour
 {
     private EgImage image;
-    void Start ()
+
+    void Start()
     {
-        var canvas = new EGCanvas("test");
-        new EGScrollBar(canvas)
-            .SetRectSize(200, 20).SetMiddleCenterAnchor().SetLocalPos(0,0);
+        new RectTransformExtensionsTest2().TestSetAnchor();
+        // var canvas = new EGCanvas("test");
+        //
+        // var image = new EgImage(canvas).SetRectSize(300, 300);
+        // var chi = new EgImage(image).SetMiddleLeftAnchor()
+        //     .SetRectSize(100, 100)
+        //     .SetLocalPos(0, 0)
+        //     .SetColor(ColorType.Black);
+        // chi.RectTransform.SetVerticalStretchWithLeftPivotAnchor();
+
     }
-    
+
+
     public void Init()
     {
         var canvas = new EGCanvas("test");
@@ -28,27 +37,17 @@ public class Main : MonoBehaviour
             .SetLocalPos(0, 0) as EgImage;
 
         var dropdownComponent = root.GameObject.TryAddComponent<Dropdown>();
-        
+
         var label = new EGText(root, name: "label");
-        var arrow = new EgImage(root, name: "arrow"); 
-        var template = new EgVerticalLayoutScrollView(root, name:"template");
-        
-        
+        var arrow = new EgImage(root, name: "arrow");
+        var template = new PreEgVerticalLayoutScrollView(root, name: "template");
+
+
         //dropdownの設定
         dropdownComponent.targetGraphic = root.Image;
         dropdownComponent.template = template.RectTransform;
         dropdownComponent.captionText = label.TextComponent;
 
         new EGScrollBar(canvas);
-
-        // var template = new EGUIObject(this, name: "Template");
-        // var viewport = new EGUIObject(this, name: "Viewport");
-        // var content = new EGUIObject(this, name: "Content");
-        // var item = new EGUIObject(this, name: "Item Background");
-        // var itemBackground = new EGUIObject(this, name: "Item Checkmark");
-        // var itemLabel = new EGUIObject(this, name: "Item Label");
-        //     
-
-
     }
 }

@@ -101,10 +101,15 @@ namespace EGUI.Base
 
         public enum AnchorType
         {
-            TopLeft, TopCenter, TopRight,
+            TopLeft,    TopCenter,    TopRight,
             MiddleLeft, MiddleCenter, MiddleRight,
             BottomLeft, BottomCenter, BottomRight,
-            HorizontalStretch, VerticalStretch,
+            HorizontalStretchWithTopPivot, 
+            HorizontalStretch,
+            HorizontalStretchWithBottomPivot, 
+            VerticalStretchWithLeftPivot, 
+            VerticalStretch,
+            VerticalStretchWithRightPivot, 
             FullStretch
         }
 

@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Extensions;
 using UnityEngine;
 using static EGUI.Base.Utils;
@@ -13,75 +14,7 @@ namespace EGUI.Base
             rectTransform.offsetMin = new Vector2(minX, minY);
             return rectTransform;
         }
-
-        public static RectTransform SetTopLeftAnchor(this RectTransform rectTransform)
-        {
-            rectTransform.SetMiddleCenterAnchor();
-            var rectSize = rectTransform.sizeDelta;
-            var parentRectSize = rectTransform.GetParentRectSize();
-            var merginCenterX = rectTransform.anchoredPosition.x;
-            var merginCenterY = rectTransform.anchoredPosition.y;
-            var anchoredPosX = (parentRectSize.x / 2) + merginCenterX - rectSize.x / 2;
-            var anchoredPosY = -(parentRectSize.y / 2) + merginCenterY + rectSize.y / 2;
-            rectTransform.SetAnchorAndPivot(Utils.AnchorType.TopLeft);
-            rectTransform.anchoredPosition = new Vector2(anchoredPosX, anchoredPosY);
-            return rectTransform;
-        }
-
-        public static RectTransform SetMiddleCenterAnchor(this RectTransform rectTransform)
-        {
-            var pivot = rectTransform.pivot;
-
-            var rectSize = rectTransform.sizeDelta;
-            var parentRectSize = rectTransform.GetParentRectSize();
-
-            var anchorMax = rectTransform.anchorMax;
-            var anchorMin = rectTransform.anchorMin;
-
-            var preRectSize = rectSize;
-            var preOffsetMax = rectTransform.offsetMax;
-            var preOffsetMin = rectTransform.offsetMin;
-            var preAnchoredPos = rectTransform.anchoredPosition;
-
-            if (anchorMin == new Vector2(0.5f, 0.5f) && anchorMax == new Vector2(0.5f, 0.5f))
-                return rectTransform;
-
-            // Horizontal Stretch
-            if (anchorMin == new Vector2(0, 0.5f) && anchorMax == new Vector2(1, 0.5f))
-            {
-                rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
-                var rectSizeX = parentRectSize.x - preOffsetMin.x + preOffsetMax.x;
-                rectTransform.sizeDelta = new Vector2(rectSizeX, preRectSize.y);
-            }
-            // Vertical Stretch
-            else if (anchorMin == new Vector2(0.5f, 0) && anchorMax == new Vector2(0.5f, 1))
-            {
-                rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
-                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
-                rectTransform.sizeDelta = new Vector2(preRectSize.x, rectSizeY);
-            }
-            // Full Stretch
-            else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(1, 1))
-            {
-                rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
-                var rectSizeX = parentRectSize.x + preOffsetMax.x - preOffsetMin.x;
-                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
-                rectTransform.anchoredPosition = preAnchoredPos;
-                rectTransform.sizeDelta = new Vector2(rectSizeX, rectSizeY);
-            }
-            // Top Left
-            else if (anchorMin == new Vector2(0, 1) && anchorMax == new Vector2(0, 1))
-            {
-                var merginLeft = rectTransform.anchoredPosition.x;
-                var merginTop = -rectTransform.anchoredPosition.y;
-                var anchoredPosX = merginLeft - (parentRectSize.x / 2) + rectSize.x / 2;
-                var anchoredPosY = (parentRectSize.y / 2) - merginTop - rectSize.y / 2;
-                rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
-                rectTransform.anchoredPosition = new Vector2(anchoredPosX, anchoredPosY);
-            }
-            return rectTransform;
-        }
-
+        
         private static Vector2 GetParentRectSize(this RectTransform rectTransform)
         {
             Transform parent = rectTransform.transform.parent;
@@ -98,123 +31,473 @@ namespace EGUI.Base
             return parentRectSize;
         }
 
-        public static RectTransform SetHorizontalStretchAnchor(this RectTransform rectTransform)
+
+        public static RectTransform SetMiddleCenterAnchor(this RectTransform rectTransform)
+        {
+            var rectSize = rectTransform.sizeDelta;
+            var parentRectSize = rectTransform.GetParentRectSize();
+
+            var anchorMax = rectTransform.anchorMax;
+            var anchorMin = rectTransform.anchorMin;
+
+            var preRectSize = rectSize;
+            var preOffsetMax = rectTransform.offsetMax;
+            var preOffsetMin = rectTransform.offsetMin;
+            var preAnchoredPos = rectTransform.anchoredPosition;
+            
+            var anchoredPosX = rectTransform.anchoredPosition.x;
+            var anchoredPosY = rectTransform.anchoredPosition.y;
+            float newAnchoredPosX = anchoredPosX;
+            float newAnchoredPosY = anchoredPosY;
+
+            if (anchorMin == new Vector2(0.5f, 0.5f) && anchorMax == new Vector2(0.5f, 0.5f))
+                return rectTransform;
+
+            
+            // anchoredPosX, anchoredPosYだけそのままで、ほかは反転させる
+            // Horizontal Stretch
+            if (anchorMin == new Vector2(0, 0.5f) && anchorMax == new Vector2(1, 0.5f))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeX = parentRectSize.x - preOffsetMin.x + preOffsetMax.x;
+                rectTransform.sizeDelta = new Vector2(rectSizeX, preRectSize.y);
+            }
+            // Horizontal Stretch with Top Pivot
+            else if (anchorMin == new Vector2(0, 1) && anchorMax == new Vector2(1, 1))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeX = parentRectSize.x - preOffsetMin.x + preOffsetMax.x;
+                rectTransform.sizeDelta = new Vector2(rectSizeX, preRectSize.y);
+                newAnchoredPosX = anchoredPosX;
+                newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+            }
+            // Horizontal Stretch with Bottom Pivot
+            else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(1, 0))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeX = parentRectSize.x - preOffsetMin.x + preOffsetMax.x;
+                rectTransform.sizeDelta = new Vector2(rectSizeX, preRectSize.y);
+                newAnchoredPosX = anchoredPosX;
+                newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+            }
+            // Vertical Stretch
+            else if (anchorMin == new Vector2(0.5f, 0) && anchorMax == new Vector2(0.5f, 1))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
+                rectTransform.sizeDelta = new Vector2(preRectSize.x, rectSizeY);
+            }
+            // Vertical Stretch with Left Pivot
+            else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(0, 1))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
+                rectTransform.sizeDelta = new Vector2(preRectSize.x, rectSizeY);
+                newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                newAnchoredPosY = anchoredPosY;
+            }
+            // Vertical Stretch with Right Pivot
+            else if (anchorMin == new Vector2(1, 0) && anchorMax == new Vector2(1, 1))
+            {
+                rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
+                rectTransform.sizeDelta = new Vector2(preRectSize.x, rectSizeY);
+                newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                newAnchoredPosY = anchoredPosY;
+            }
+            // Full Stretch
+            else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(1, 1))
+            {
+                rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
+                var rectSizeX = parentRectSize.x + preOffsetMax.x - preOffsetMin.x;
+                var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
+                rectTransform.anchoredPosition = preAnchoredPos;
+                rectTransform.sizeDelta = new Vector2(rectSizeX, rectSizeY);
+            }
+            // Top Left
+            else if (anchorMin == new Vector2(0, 1) && anchorMax == new Vector2(0, 1))
+            {
+                newAnchoredPosX = anchoredPosX - (parentRectSize.x / 2) + rectSize.x / 2;
+                newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+            }
+            // Top Center
+            else if (anchorMin == new Vector2(0.5f, 1) && anchorMax == new Vector2(0.5f, 1))
+            {
+                newAnchoredPosX = anchoredPosX;
+                newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+            }
+            // Top Right
+            else if (anchorMin == new Vector2(1, 1) && anchorMax == new Vector2(1, 1))
+            {
+                newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+            }
+            // Middle Left
+            else if (anchorMin == new Vector2(0, 0.5f) && anchorMax == new Vector2(0, 0.5f))
+            {
+                newAnchoredPosX = anchoredPosX - (parentRectSize.x / 2) + rectSize.x / 2;
+                newAnchoredPosY = anchoredPosY;
+            }
+            else if (anchorMin == new Vector2(0.5f, 0.5f) && anchorMax == new Vector2(0.5f, 0.5f))
+            {
+                
+            }
+            // Middle Right
+            else if (anchorMin == new Vector2(1, 0.5f) && anchorMax == new Vector2(1, 0.5f))
+            {
+                newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                newAnchoredPosY = anchoredPosY;
+            }
+            // Bottom Left
+            else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(0, 0))
+            {
+                newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+            }
+            // Bottom Center
+            else if (anchorMin == new Vector2(0.5f, 0) && anchorMax == new Vector2(0.5f, 0))
+            {
+                newAnchoredPosX = anchoredPosX;
+                newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+            }
+            // Bottom Right
+            else if (anchorMin == new Vector2(1, 0) && anchorMax == new Vector2(1, 0))
+            {
+                newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+            }
+            rectTransform.SetAnchorAndPivot(AnchorType.MiddleCenter);
+            rectTransform.anchoredPosition = new Vector2(newAnchoredPosX, newAnchoredPosY);
+            return rectTransform;
+        }
+        
+        public static RectTransform SetTopLeftAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.TopLeft);
+        }
+        
+        public static RectTransform SetTopCenterAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.TopCenter);
+        }
+        
+        public static RectTransform SetTopRightAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.TopRight);
+        }
+        
+        public static RectTransform SetMiddleLeftAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.MiddleLeft);
+        }
+        
+        public static RectTransform SetMiddleRightAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.MiddleRight);
+        }
+        
+        public static RectTransform SetBottomLeftAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.BottomLeft);
+        }
+                
+        public static RectTransform SetBottomCenterAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.BottomCenter);
+        }
+                
+        public static RectTransform SetBottomRightAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.BottomRight);
+        }
+        
+        
+        private static RectTransform SetNewAnchor(this RectTransform rectTransform, AnchorType anchorType)
         {
             rectTransform.SetMiddleCenterAnchor();
             var rectSize = rectTransform.sizeDelta;
-            var anchoredPos = rectTransform.anchoredPosition;
             var parentRectSize = rectTransform.GetParentRectSize();
-
-            var merginLeft = parentRectSize.x / 2 - rectSize.x / 2 +
-                rectTransform.anchoredPosition.x;
-            var right = parentRectSize.x / 2 - rectSize.x / 2 -
-                rectTransform.anchoredPosition.x;
-
-            rectTransform.SetAnchorAndPivot(Utils.AnchorType.HorizontalStretch);
-            rectTransform.offsetMax = new Vector2(-right, rectSize.y / 2);
-            rectTransform.offsetMin = new Vector2(merginLeft, -rectSize.y / 2);
-            rectTransform.anchoredPosition = new Vector2(anchoredPos.x, anchoredPos.y);
+            var anchoredPosX = rectTransform.anchoredPosition.x;
+            var anchoredPosY = rectTransform.anchoredPosition.y;
+            float newAnchoredPosX = anchoredPosX;
+            float newAnchoredPosY = anchoredPosY;
+            switch (anchorType)
+            {
+                case AnchorType.TopLeft:
+                {
+                    newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                    newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.TopCenter:
+                {
+                    newAnchoredPosX = anchoredPosX;
+                    newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.TopRight:
+                {
+                    newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                    newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.MiddleLeft:
+                {
+                    newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                    newAnchoredPosY = anchoredPosY;
+                    break;
+                }
+                case AnchorType.MiddleRight:
+                {
+                    newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                    newAnchoredPosY = anchoredPosY;
+                    break;
+                }
+                case AnchorType.BottomLeft:
+                {
+                    newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                    newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.BottomCenter:
+                {
+                    newAnchoredPosX = anchoredPosX;
+                    newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.BottomRight:
+                {
+                    newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                    newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+                    break;
+                }
+                case AnchorType.VerticalStretchWithLeftPivot:
+                {
+                    newAnchoredPosX = (parentRectSize.x / 2) + anchoredPosX - rectSize.x / 2;
+                    newAnchoredPosY = anchoredPosY;
+                    var merginTop = parentRectSize.y / 2 - rectSize.y / 2 - anchoredPosY;
+                    var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
+                    rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
+                    break;;
+                }
+                case AnchorType.VerticalStretchWithRightPivot:
+                {
+                    newAnchoredPosX = -(parentRectSize.x / 2) + anchoredPosX + rectSize.x / 2;
+                    newAnchoredPosY = anchoredPosY;
+                    var merginTop = parentRectSize.y / 2 - rectSize.y / 2 - anchoredPosY;
+                    var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
+                    rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
+                    break;;
+                }
+                case AnchorType.VerticalStretch:
+                {
+                    var merginTop = parentRectSize.y / 2 - rectSize.y / 2 - anchoredPosY;
+                    var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
+                    rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
+                    break;;
+                }
+                case AnchorType.HorizontalStretch:
+                {
+                    var merginLeft = parentRectSize.x / 2 - rectSize.x / 2 + anchoredPosX;
+                    var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
+                    rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
+                    break;;
+                }
+                case AnchorType.HorizontalStretchWithTopPivot:
+                {
+                    newAnchoredPosX = anchoredPosX;
+                    newAnchoredPosY = -(parentRectSize.y / 2) + anchoredPosY + rectSize.y / 2;
+                    var merginLeft = parentRectSize.x / 2 - rectSize.x / 2 + anchoredPosX;
+                    var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
+                    rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
+                    break;;
+                }
+                case AnchorType.HorizontalStretchWithBottomPivot:
+                {
+                    newAnchoredPosX = anchoredPosX;
+                    newAnchoredPosY = (parentRectSize.y / 2) + anchoredPosY - rectSize.y / 2;
+                    var merginLeft = parentRectSize.x / 2 - rectSize.x / 2 + anchoredPosX;
+                    var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
+                    rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
+                    break;;
+                }
+                case AnchorType.FullStretch:
+                {
+                    var marginLeft = anchoredPosX;
+                    var marginRight = parentRectSize.x - rectSize.x - marginLeft;
+                    var marginTop = -anchoredPosY;
+                    var marginBottom = parentRectSize.y - rectSize.y - marginTop;
+                    rectTransform.offsetMax = new Vector2(-marginRight, -marginTop);
+                    rectTransform.offsetMin = new Vector2(marginLeft, marginBottom);
+                    break;
+                }
+            }
+            rectTransform.SetAnchorAndPivot(anchorType);
+            rectTransform.anchoredPosition = new Vector2(newAnchoredPosX, newAnchoredPosY);
             return rectTransform;
         }
+
+        # region HorizontalStretch
+
+        public static RectTransform SetHorizontalStretchAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.HorizontalStretch);
+        }
+        
+        public static RectTransform SetHorizontalStretchWithTopPivotAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.HorizontalStretchWithTopPivot);
+        }
+        
+        public static RectTransform SetHorizontalStretchWithBottomPivotAnchor(this RectTransform rectTransform)
+        {
+            return rectTransform.SetNewAnchor(AnchorType.HorizontalStretchWithBottomPivot);
+        }
+
+        # endregion
+        
+        # region VerticalStretch
 
         public static RectTransform SetVerticalStretchAnchor(this RectTransform rectTransform)
         {
-            rectTransform.SetMiddleCenterAnchor();
-            var rectSize = rectTransform.sizeDelta;
-            var anchoredPos = rectTransform.anchoredPosition;
-            var parentRectSize = rectTransform.GetParentRectSize();
-
-            var merginTop = parentRectSize.y / 2 - rectSize.y / 2 -
-                rectTransform.anchoredPosition.y;
-            var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 +
-                rectTransform.anchoredPosition.y;
-
-            rectTransform.SetAnchorAndPivot(Utils.AnchorType.VerticalStretch);
-            rectTransform.offsetMax = new Vector2(rectSize.x / 2, -merginTop);
-            rectTransform.offsetMin = new Vector2(-rectSize.x / 2, merginBottom);
-            rectTransform.anchoredPosition = new Vector2(anchoredPos.x, anchoredPos.y);
-            return rectTransform;
+            return rectTransform.SetNewAnchor(AnchorType.VerticalStretch);
         }
-
-        public static RectTransform SetStretchLeftAnchor(this RectTransform rectTransform)
+        
+        public static RectTransform SetVerticalStretchWithLeftPivotAnchor(this RectTransform rectTransform)
         {
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(0, 1);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-            return rectTransform;
+            return rectTransform.SetNewAnchor(AnchorType.VerticalStretchWithLeftPivot);
         }
-
-        public static RectTransform SetMiddleLeftAnchor(this RectTransform rectTransform)
+        
+        public static RectTransform SetVerticalStretchWithRightPivotAnchor(this RectTransform rectTransform)
         {
-            rectTransform.anchorMin = new Vector2(0f, 0.5f);
-            rectTransform.anchorMax = new Vector2(0f, 0.5f);
-            rectTransform.pivot = new Vector2(0f, 0.5f);
-            rectTransform.offsetMax = new Vector2(0, 0);
-            rectTransform.offsetMin = new Vector2(0, 0);
-            return rectTransform;
-        }
+            return rectTransform.SetNewAnchor(AnchorType.VerticalStretchWithRightPivot); }
+
+        # endregion
 
         public static RectTransform SetFullStretchAnchor(this RectTransform rectTransform)
         {
-            rectTransform.SetMiddleCenterAnchor();
-            var rectSize = rectTransform.sizeDelta;
-            var preAnchoredPos = rectTransform.anchoredPosition;
-            var parentRectSize = rectTransform.GetParentRectSize();
-
-            var merginLeft = rectTransform.anchoredPosition.x;
-            var merginRight = parentRectSize.x - rectSize.x - merginLeft;
-            var merginTop = -rectTransform.anchoredPosition.y;
-            var merginBottom = parentRectSize.y - rectSize.y - merginTop;
-            rectTransform.SetAnchorAndPivot(Utils.AnchorType.FullStretch);
-            rectTransform.offsetMax = new Vector2(-merginRight, -merginTop);
-            rectTransform.offsetMin = new Vector2(merginLeft, merginBottom);
-            rectTransform.anchoredPosition = new Vector2(preAnchoredPos.x, preAnchoredPos.y);
-            return rectTransform;
+            return rectTransform.SetNewAnchor(AnchorType.FullStretch);
         }
 
-        private static void SetAnchorAndPivot(this RectTransform rectTransform, Utils.AnchorType anchorType)
+        private static RectTransform SetAnchorAndPivot(this RectTransform rectTransform, AnchorType anchorType)
         {
             switch (anchorType)
             {
-                case Utils.AnchorType.TopLeft:
+                case AnchorType.MiddleCenter:
+                {
+                    rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    rectTransform.pivot = new Vector3(0.5f, 0.5f);
+                    break;
+                }
+                case AnchorType.TopLeft:
                     {
-                        rectTransform.anchorMin = new Vector2(0f, 1f);
-                        rectTransform.anchorMax = new Vector2(0f, 1f);
-                        rectTransform.pivot = new Vector3(0.0f, 1.0f);
+                        rectTransform.anchorMin = new Vector2(0, 1);
+                        rectTransform.anchorMax = new Vector2(0, 1);
+                        rectTransform.pivot = new Vector3(0, 1);
                         break;
                     }
-                case Utils.AnchorType.FullStretch:
+                case AnchorType.TopCenter:
+                {
+                    rectTransform.anchorMin = new Vector2(0.5f, 1);
+                    rectTransform.anchorMax = new Vector2(0.5f, 1);
+                    rectTransform.pivot = new Vector3(0.5f, 1);
+                    break;
+                }
+                case AnchorType.TopRight:
+                {
+                    rectTransform.anchorMin = new Vector2(1, 1);
+                    rectTransform.anchorMax = new Vector2(1, 1);
+                    rectTransform.pivot = new Vector3(1f, 1);
+                    break;
+                }
+                case AnchorType.MiddleLeft:
+                {
+                    rectTransform.anchorMin = new Vector2(0, 0.5f);
+                    rectTransform.anchorMax = new Vector2(0, 0.5f);
+                    rectTransform.pivot = new Vector3(0, 0.5f);
+                    break;
+                }
+                case AnchorType.MiddleRight:
+                {
+                    rectTransform.anchorMin = new Vector2(1, 0.5f);
+                    rectTransform.anchorMax = new Vector2(1, 0.5f);
+                    rectTransform.pivot = new Vector3(1, 0.5f);
+                    break;
+                }
+                case AnchorType.BottomLeft:
+                {
+                    rectTransform.anchorMin = new Vector2(0, 0);
+                    rectTransform.anchorMax = new Vector2(0, 0);
+                    rectTransform.pivot = new Vector3(0, 0);
+                    break;
+                }
+                case AnchorType.BottomCenter:
+                {
+                    rectTransform.anchorMin = new Vector2(0.5f, 0);
+                    rectTransform.anchorMax = new Vector2(0.5f, 0);
+                    rectTransform.pivot = new Vector3(0.5f, 0);
+                    break;
+                }
+                case AnchorType.BottomRight:
+                {
+                    rectTransform.anchorMin = new Vector2(1, 0);
+                    rectTransform.anchorMax = new Vector2(1, 0);
+                    rectTransform.pivot = new Vector3(1, 0);
+                    break;
+                }
+                case AnchorType.FullStretch:
                     {
                         rectTransform.anchorMin = new Vector2(0, 0);
                         rectTransform.anchorMax = new Vector2(1, 1);
                         rectTransform.pivot = new Vector3(0.5f, 0.5f);
                         break;
                     }
-                case Utils.AnchorType.MiddleCenter:
+                case AnchorType.HorizontalStretch:
                     {
-                        rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-                        rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-                        rectTransform.pivot = new Vector3(0.5f, 0.5f);
-                        break;
-                    }
-                case Utils.AnchorType.HorizontalStretch:
-                    {
-                        rectTransform.anchorMin = new Vector2(0.0f, 0.5f);
-                        rectTransform.anchorMax = new Vector2(1f, 0.5f);
+                        rectTransform.anchorMin = new Vector2(0, 0.5f);
+                        rectTransform.anchorMax = new Vector2(1, 0.5f);
                         rectTransform.pivot = new Vector2(0.5f, 0.5f);
                         break;
                     }
-                case Utils.AnchorType.VerticalStretch:
+                case AnchorType.HorizontalStretchWithTopPivot:
+                {
+                    rectTransform.anchorMin = new Vector2(0, 1);
+                    rectTransform.anchorMax = new Vector2(1f, 1);
+                    rectTransform.pivot = new Vector2(0.5f, 1f);
+                    break;
+                }
+                case AnchorType.HorizontalStretchWithBottomPivot:
+                {
+                    rectTransform.anchorMin = new Vector2(0, 0);
+                    rectTransform.anchorMax = new Vector2(1f, 0);
+                    rectTransform.pivot = new Vector2(0.5f, 0f);
+                    break;
+                }
+                case AnchorType.VerticalStretch:
                     {
                         rectTransform.anchorMin = new Vector2(0.5f, 0f);
                         rectTransform.anchorMax = new Vector2(0.5f, 1f);
                         rectTransform.pivot = new Vector2(0.5f, 0.5f);
                         break;
                     }
+                case AnchorType.VerticalStretchWithLeftPivot:
+                {
+                    rectTransform.anchorMin = new Vector2(0.0f, 0f);
+                    rectTransform.anchorMax = new Vector2(0.0f, 1f);
+                    rectTransform.pivot = new Vector2(0f, 0.5f);
+                    break;
+                }
+                case AnchorType.VerticalStretchWithRightPivot:
+                {
+                    rectTransform.anchorMin = new Vector2(1.0f, 0f);
+                    rectTransform.anchorMax = new Vector2(1.0f, 1f);
+                    rectTransform.pivot = new Vector2(1f, 0.5f);
+                    break;
+                }
+                default: throw new Exception("Not to be Implemented!");
             }
-
+            return rectTransform;
         }
     }
 }
