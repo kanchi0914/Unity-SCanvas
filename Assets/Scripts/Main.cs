@@ -15,8 +15,13 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-        new RectTransformExtensionsTest2().TestSetAnchor();
-        // var canvas = new EGCanvas("test");
+        //new RectTransformExtensionsTest2().TestSetAnchor();
+        
+        var canvas = new EGCanvas("test");
+        //new EgSlider(canvas).SetRectSize(200, 40).SetLocalPos(300, 300);
+        new EgToggle(canvas).SetLocalPos(300, 300)
+            .SetRectSize(400, 80);
+        new EGDropDown(canvas).SetLocalPos(200, 200).SetRectSize(300,100);
         //
         // var image = new EgImage(canvas).SetRectSize(300, 300);
         // var chi = new EgImage(image).SetMiddleLeftAnchor()
@@ -24,7 +29,6 @@ public class Main : MonoBehaviour
         //     .SetLocalPos(0, 0)
         //     .SetColor(ColorType.Black);
         // chi.RectTransform.SetVerticalStretchWithLeftPivotAnchor();
-
     }
 
 

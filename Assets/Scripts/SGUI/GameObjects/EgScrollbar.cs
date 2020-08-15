@@ -7,8 +7,9 @@ namespace EGUI.GameObjects
 {
     public class EGScrollBar : EgImage
     {
-        // public EgImage BackGroundImage { get; private set; }
         public EgImage HandleImage { get; private set; }
+        
+        public  Scrollbar ScrollbarComponent { get; private set; }
         
         /// <summary>
         /// コンストラクタ
@@ -36,20 +37,19 @@ namespace EGUI.GameObjects
             posRatioY,
             widthRatio,
             heightRatio,
+            false,
             name
         )
         {
-            // BackGroundImage = new EgImage(this);
             var slidingArea = new EGUIObject(this, name: "Sliding Area").SetFullStretchAnchor();
             slidingArea.RectTransform.sizeDelta = new Vector2(-20, -20);
             HandleImage = new EgImage(slidingArea, name: "Handle");
             HandleImage.SetImageSource(UGUIResources.UISprite);
             HandleImage.RectTransform.sizeDelta = new Vector2(20, 20);
             HandleImage.SetPivot(0.5f, 0.5f);
-            var scrollbarComponent = GameObject.AddComponent<Scrollbar>();
-            scrollbarComponent.handleRect = HandleImage.RectTransform;
-            scrollbarComponent.targetGraphic = HandleImage.Image;
-            //SetFullStretchAnchor();
+            ScrollbarComponent = GameObject.AddComponent<Scrollbar>();
+            ScrollbarComponent.handleRect = HandleImage.RectTransform;
+            ScrollbarComponent.targetGraphic = HandleImage.Image;
         }
     }
 }

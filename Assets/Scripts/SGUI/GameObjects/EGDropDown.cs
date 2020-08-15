@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Extensions;
+using Assets.Scripts.SGUI.Base;
 using EGUI.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,6 +31,8 @@ namespace EGUI.GameObjects
         public int PaddingBottom => layoutComponent.padding.bottom;
         public float Spacing  => layoutComponent.spacing;
 
+        public EGVerticalLayoutScrollView TemplateObject;
+
         public EGDropDown(
             EGGameObject parent,
             float posRatioX = 0,
@@ -41,11 +46,70 @@ namespace EGUI.GameObjects
             posRatioY,
             widthRatio,
             heightRatio,
-            name,
-            () => UIFactory.CreateDropDown(parent.GameObject, name)
+            name, 
+            () => UIFactory.CreateBaseRect(parent.GameObject, name)
         )
         {
-            layoutComponent = gameObject.transform.FindDeep("Content").AddComponent<VerticalLayoutGroup>();
+            var label = new EGText(this, "", name: "Label")
+                .SetMiddleCenterAnchor() as EGText;
+            var arrow = new EgImage(this, name: "Arrow")
+                .SetMiddleCenterAnchor() as EgImage;
+            TemplateObject = new EGVerticalLayoutScrollView(this, name: "Template")
+                .SetMiddleCenterAnchor() as EGVerticalLayoutScrollView;
+            var item = new EgToggle(TemplateObject.ContentArea, name:"Item")
+                .SetFullStretchAnchor() as EgToggle;
+
+            item.ToggleComponent.isOn = true;
+
+            TemplateObject.Image.sprite = UGUIResources.UISprite;
+            TemplateObject.SetMovementType(ScrollRect.MovementType.Clamped);
+            TemplateObject.SetScrollbarVisibility(ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport);
+            TemplateObject.EgScrollBar.SetLocalPos(0, 0);
+
+            label.TextComponent.alignment = TextAnchor.MiddleLeft;
+            
+            arrow.Image.sprite = UGUIResources.Dropdown;
+
+            Image backgroundImage = this.GameObject.TryAddComponent<Image>();
+            backgroundImage.sprite = UGUIResources.UISprite;
+            backgroundImage.type = Image.Type.Sliced;
+
+            Dropdown dropdown = gameObject.TryAddComponent<Dropdown>();
+            dropdown.targetGraphic = backgroundImage;
+            dropdown.template = TemplateObject.GameObject.TryAddComponent<RectTransform>();
+            dropdown.captionText = label.TextComponent;
+            dropdown.itemText = item.Text.TextComponent;
+
+            label.RectTransform.anchorMin = Vector2.zero;
+            label.RectTransform.anchorMax = Vector2.one;
+            label.RectTransform.offsetMin = new Vector2(10, 6);
+            label.RectTransform.offsetMax = new Vector2(-25, -7);
+
+            arrow.SetMiddleRightAnchor()
+                .SetLocalPos(-15, 0)
+                .SetRectSize(30,30);
+
+            TemplateObject.RectTransform.anchorMin = new Vector2(0, 0);
+            TemplateObject.RectTransform.anchorMax = new Vector2(1, 0);
+            TemplateObject.RectTransform.pivot = new Vector2(0.5f, 1);
+            TemplateObject.RectTransform.anchoredPosition = new Vector2(0, 2);
+            TemplateObject.RectTransform.sizeDelta = new Vector2(0, 250);
+
+            // item.RectTransform.anchorMin = new Vector2(0, 0.5f);
+            // item.RectTransform.anchorMax = new Vector2(1, 0.5f);
+            // item.RectTransform.sizeDelta = new Vector2(0, 150);
+
+            // item.SetHorizontalStretchAnchor()
+            //     ,SetRectSize(RectSize.x, 150)
+            //
+            // item.BoxImageObject.SetMiddleLeftAnchor()
+            //     .SetLocalPos(0, 0);
+            // item.CheckImageObject.SetMiddleLeftAnchor().SetLocalPos(0, 0);
+
+            TemplateObject.SetActive(false);
+
+            layoutComponent = gameObject.transform.FindDeep("Content")
+                .TryAddComponent<VerticalLayoutGroup>();
 
             this.maxContentFieldSize = maxContentFieldSize;
             dropdownComponent = gameObject.GetComponent<Dropdown>();
@@ -62,43 +126,59 @@ namespace EGUI.GameObjects
             (float x, float y) temp = (RectSize.x, itemSize);
             RectSize = new Vector2(temp.x, temp.y);
 
-            var trigger = gameObject.AddComponent<EventTrigger>();
+            var trigger = gameObject.TryAddComponent<EventTrigger>();
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
             entry.callback.AddListener(e => OnClick());
             trigger.triggers.Add(entry);
-        }
 
-        public void Init()
-        {
-            var label = new EGUIObject(this, name: "Label");
-            var arrow = new EGUIObject(this, name: "Arrow");
-            var template = new EGUIObject(this, name: "Template");
-            var viewport = new EGUIObject(this, name: "Viewport");
-            var content = new EGUIObject(this, name: "Content");
-            var item = new EGUIObject(this, name: "Item Background");
-            var itemBackground = new EGUIObject(this, name: "Item Checkmark");
-            var itemLabel = new EGUIObject(this, name: "Item Label");
-            
-            
-            
+            AddOption("tetetetet", null);
+            AddOption("sddasdasd", null);
+            AddOption("sddasdasdsasasa", null);
+            label.SetText("");
+            OnClick();
         }
-
+        
         public void OnClick()
         {
-            SetSpacing();
-            SetPadding();
-            var content = this.GameObject.FindDeep("Content", false);
-            var rect = content.GetComponent<RectTransform>();
+            // var aaaa = new EGUIObject(null);
+            // aaaa.Mono.StartCoroutine(aaaaa());
+            // aaaa.Dispose();
+            var content = TemplateObject.ContentArea;
             var contentFieldSize = itemSize * options.Count + ((options.Count - 1) * Spacing) + PaddingTop + PaddingBottom;
-            rect.sizeDelta = new Vector2(0, contentFieldSize);
-            foreach (Transform n in content.transform)
+            content.SetRectSize(0, contentFieldSize);
+            foreach (Transform t in content.GameObject.transform)
             {
-                var layout = n.gameObject.GetComponent<LayoutElement>();
-                if (!layout) layout = n.gameObject.AddComponent<LayoutElement>();
-                layout.minHeight = this.itemSize;
+                var layout = t.gameObject.TryAddComponent<LayoutElement>();
+                layout.minHeight = itemSize;
                 layout.flexibleWidth = 1f;
             }
+            //動的に生成されるので毎回取得する必要がある
+            var dpl = gameObject.FindDeep("Dropdown List")?.TryAddComponent<RectTransform>();
+            if (contentFieldSize < maxContentFieldSize)
+            {
+                if (dpl) dpl.sizeDelta = new Vector2(0, contentFieldSize);
+            }
+            else
+            {
+                if (dpl) dpl.sizeDelta = new Vector2(0, maxContentFieldSize);
+            }
+
+        }
+
+        IEnumerator aaaaa()
+        {
+            yield return new WaitForSeconds(1f);
+            var content = TemplateObject.ContentArea;
+            var contentFieldSize = itemSize * options.Count + ((options.Count - 1) * Spacing) + PaddingTop + PaddingBottom;
+            content.SetRectSize(0, contentFieldSize);
+            foreach (Transform t in content.GameObject.transform)
+            {
+                var layout = t.gameObject.TryAddComponent<LayoutElement>();
+                layout.minHeight = itemSize;
+                layout.flexibleWidth = 1f;
+            }
+            //動的に生成されるので毎回取得する必要がある
             var dpl = this.GameObject.FindDeep("Dropdown List").GetComponent<RectTransform>();
             if (contentFieldSize < maxContentFieldSize)
             {
@@ -108,6 +188,7 @@ namespace EGUI.GameObjects
             {
                 if (dpl) dpl.sizeDelta = new Vector2(0, maxContentFieldSize);
             }
+            Debug.Log("aaaaaa");
         }
 
         /// <summary>
@@ -120,83 +201,6 @@ namespace EGUI.GameObjects
         {
             dropdownComponent.options.Add(new Dropdown.OptionData(text));
             options.Add((text, action));
-            return this;
-        }
-
-        public EGDropDown SetContentAreaImage(Sprite image)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            templete.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetTemplateItemImage(Sprite image)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            var itemTemplate = templete.transform.FindDeep("Item Background");
-            itemTemplate.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetTemplateCheckmarkImage(Sprite image)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            var checkmarkTemplate = templete.transform.FindDeep("Item Checkmark");
-            checkmarkTemplate.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetHandleImage(Sprite image)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            var handle = templete.transform.FindDeep("Handle");
-            handle.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetScrollbarImage(Sprite image)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            var scrollbar = templete.transform.FindDeep("Scrollbar");
-            scrollbar.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetTemplateTextConfig(
-            int fontSize, ColorType color, string fontFilePath = null)
-        {
-            var templete = this.GameObject.transform.FindDeep("Template");
-            var textTemplate = templete.transform.FindDeep("Item Label");
-            var text = textTemplate.GetComponent<Text>();
-            SetTextConfig(text, fontSize, color, fontFilePath);
-            return this;
-        }
-
-        public EGDropDown SetTopItemTextConfig(
-            int fontSize, ColorType color, string fontFilePath = null
-        )
-        {
-            var topText = GameObject.transform.Find("Label").GetComponent<Text>();
-            SetTextConfig(topText, fontSize, color, fontFilePath);
-            return this;
-        }
-
-        public EGDropDown SetTopItemImage(
-            string iamgeFilePath
-        )
-        {
-            var image = Resources.Load<Sprite>(iamgeFilePath) as Sprite;
-            this.GameObject.GetComponent<Image>().sprite = image;
-            return this;
-        }
-
-        public EGDropDown SetArrowImage(
-            string iamgeFilePath
-        )
-        {
-            var arrow = this.GameObject.transform.Find("Arrow");
-            var image = Resources.Load<Sprite>(iamgeFilePath) as Sprite;
-            arrow.GetComponent<Image>().sprite = image;
             return this;
         }
 

@@ -1,4 +1,5 @@
-﻿using EGUI.Base;
+﻿using Assets.Scripts.Extensions;
+using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ namespace EGUI.GameObjects
             float posRatioY = 0,
             float widthRatio = 1,
             float heightRatio = 1,
+            bool keepsAspectRatio = false,
             string name = "SImage"
         ) : base(
             parent, 
@@ -39,15 +41,21 @@ namespace EGUI.GameObjects
         )
         {
             Image = gameObject.GetComponent<Image>();
+            if (keepsAspectRatio)
+            {
+                var aspectFitter = gameObject.TryAddComponent<AspectRatioFitter>();
+                aspectFitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            }
         }
 
         /// <summary>
         /// 画像ソースを設定
         /// </summary>
         /// <param name="source">設定するSprite</param>
-        public void SetImageSource(Sprite source)
+        public EgImage SetImageSource(Sprite source)
         {
             Image.sprite = source;
+            return this;
         }
 
     }

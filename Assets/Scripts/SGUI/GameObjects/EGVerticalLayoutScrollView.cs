@@ -9,19 +9,21 @@ namespace EGUI.GameObjects
 {
     class EGVerticalLayoutScrollView : EgImage
     {
-        private int constantItemWidth = 0;
+        private int constantItemHeight = -1;
 
         public EgVerticalLayoutView ContentArea { get; private set; }
+        
+        public EGScrollBar EgScrollBar { get; private set; }
 
         public EGVerticalLayoutScrollView(
             EGGameObject parent,
-            int constantItemWidth = 100,
+            int constantItemHeight = -1,
             bool isAutoSizingHeight = true,
             float posRatioX = 0,
             float posRatioY = 0,
             float widthRatio = 1,
             float heightRatio = 1,
-            string name = "SHorizontalLayoutScrollView"
+            string name = "EGVerticalLayoutScrollView"
         ) : base
         (
             parent,
@@ -30,6 +32,7 @@ namespace EGUI.GameObjects
             posRatioY,
             widthRatio,
             heightRatio,
+            false,
             name
         )
         {
@@ -62,14 +65,15 @@ namespace EGUI.GameObjects
             Mask viewportMask = viewport.GameObject.AddComponent<Mask>();
             viewportMask.showMaskGraphic = false;
 
-            var scrollBar = new EGScrollBar(this, name: "Scrollbar Vertical").SetMiddleCenterAnchor();
-            scrollBar.GameObject.GetComponent<Scrollbar>().SetDirection(Scrollbar.Direction.BottomToTop, true);
-            scrollBar.RectTransform.anchorMin = Vector2.right;
-            scrollBar.RectTransform.anchorMax = Vector2.one;
-            scrollBar.RectTransform.pivot = Vector2.one;
-            scrollBar.RectTransform.sizeDelta = new Vector2(20, 0);
+            EgScrollBar = new EGScrollBar(this, name: "Scrollbar Vertical")
+                .SetMiddleCenterAnchor() as EGScrollBar;
+            EgScrollBar.ScrollbarComponent.SetDirection(Scrollbar.Direction.BottomToTop, true);
+            EgScrollBar.RectTransform.anchorMin = Vector2.right;
+            EgScrollBar.RectTransform.anchorMax = Vector2.one;
+            EgScrollBar.RectTransform.pivot = Vector2.one;
+            EgScrollBar.RectTransform.sizeDelta = new Vector2(20, 0);
 
-            scrollRect.verticalScrollbar = scrollBar.GameObject.GetComponent<Scrollbar>();
+            scrollRect.verticalScrollbar = EgScrollBar.ScrollbarComponent;
             scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
             scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
             scrollRect.horizontalScrollbarSpacing = -3;
@@ -77,7 +81,7 @@ namespace EGUI.GameObjects
 
             scrollRect.vertical = true;
             scrollRect.horizontal = false;
-            scrollBar.SetActive(true);
+            EgScrollBar.SetActive(true);
 
             SetScrollbarVisibility(ScrollbarVisibility.Permanent);
             
@@ -85,13 +89,15 @@ namespace EGUI.GameObjects
             csfitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             csfitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
-            this.constantItemWidth = constantItemWidth;
-
+            this.constantItemHeight = constantItemHeight;
         }
 
         public EGVerticalLayoutScrollView AddItem(EGGameObject egGameObject)
         {
             ContentArea.AddItem(egGameObject);
+            if (constantItemHeight > 0)
+                egGameObject.GameObject.TryAddComponent<LayoutElement>()
+                    .minHeight = constantItemHeight;
             return this;
         }
 

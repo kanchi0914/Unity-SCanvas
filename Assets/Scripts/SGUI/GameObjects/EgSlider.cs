@@ -1,140 +1,93 @@
-﻿// using System;
-// using Assets.Scripts.SGUI.Base;
-// using EGUI.Base;
-// using UnityEngine;
-// using UnityEngine.UI;
-// using UniRx;
-//
-// namespace EGUI.GameObjects
-// {
-//     class EgSlider : EGGameObject
-//     {
-//
-//
-//         private Slider slider;
-//
-//         EgImage boxImageObject;
-//
-//         EgImage checkImageObject;
-//
-//         EGText textObject;
-//
-//         EgImage backgroundImage;
-//
-//         EGGameObject fillArea;
-//         EgImage fill;
-//         EgImage handle;
-//         EGGameObject handleSlideArea;
-//
-//         private int aaa = 0;
-//
-//         public EgSlider(
-//             EGGameObject parent,
-//             string name,
-//             bool isOn = true
-//         ) : base(parent, name,
-//             new Func<GameObject>(() =>
-//            {
-//                return UIFactory.CreateBaseRect(parent.GameObject, name);
-//            })
-//         )
-//         {
-//             //, "Background"
-//             this.backgroundImage = new EgImage(this);
-//             backgroundImage.SetImageSource(UGUIResources.Background);
-//            
-//             backgroundImage.SetRectSizeByRatio(1f, 1);
-//             backgroundImage.SetAnchorType(Utils.AnchorType.HorizontalStretch);
-//             //, "Fill Area"
-//             fillArea = new EgSubCanvas(this);
-//             fillArea.SetAnchorType(Utils.AnchorType.HorizontalStretch);
-//
-//             //, "Fill"
-//             fill = new EgImage(fillArea);
-//             fill.SetImageSource(UGUIResources.UISprite);
-//             fill.SetRectSizeByRatio(1, 1f);
-//             fill.SetHorizontalStretchAnchor();
-//
-//             //, "Handle Slide Area"
-//             handleSlideArea = new EgSubCanvas(this);
-//             handleSlideArea.SetFullStretchAnchor();
-//
-//             //, "Handle"
-//             handle = new EgImage(handleSlideArea);
-//             handle.SetImageSource(UGUIResources.Knob);
-//
-//             slider = gameObject.AddComponent<Slider>();
-//             slider.targetGraphic = handle.Image;
-//             slider.fillRect = fill.RectTransform;
-//             slider.handleRect = handle.RectTransform;
-//
-//             var setter = gameObject.ObserveEveryValueChanged(_ => RectSize);
-//             setter.Subscribe(_ => UpdateSize());
-//
-//             UpdateSize();
-//         }
-//         
-//         private void UpdateSize()
-//         {
-//             handleSlideArea.RectTransform.offsetMax = new Vector2(-RectSize.y / 4, 0);
-//             handleSlideArea.RectTransform.offsetMin = new Vector2(-RectSize.y / 4, 0);
-//
-//             // バーのサイズは親rectの半分になる
-//             // 4を設定すると親と同じ大きさになる
-//             backgroundImage.RectTransform.offsetMax = new Vector2(0, RectSize.y / 4);
-//             backgroundImage.RectTransform.offsetMin = new Vector2(0, -RectSize.y / 4);
-//
-//             fill.RectTransform.offsetMax = new Vector2(0, RectSize.y / 4);
-//             fill.RectTransform.offsetMin = new Vector2(0, -RectSize.y / 4);
-//
-//             fillArea.RectTransform.offsetMax = new Vector2(0, 0);
-//             fillArea.RectTransform.offsetMin = new Vector2(0, 0);
-//
-//             handle.RectTransform.offsetMax = new Vector2(RectSize.y, 0);
-//             handle.RectTransform.offsetMin = new Vector2(0,0);
-//         }
-//
-//         #region  RequiredMethods
-//
-//         public new EgSlider SetBackGroundColor(ColorType colorType, float alpha)
-//         {
-//             return base.SetBackGroundColor(colorType, alpha) as EgSlider;
-//         }
-//
-//         public new EgSlider SetBackGroundColor(Color color)
-//         {
-//             return base.SetBackGroundColor(color) as EgSlider;
-//         }
-//
-//         public new EgSlider SetParentSGameObject(EGGameObject parent)
-//         {
-//             return base.SetParentSGameObject(parent) as EgSlider;
-//         }
-//
-//         public new EgSlider SetRectSizeByRatio(float ratioX, float ratioY)
-//         {
-//             base.SetRectSizeByRatio(ratioX, ratioY);
-//             return this;
-//         }
-//
-//         public new EgSlider SetLocalPosByRatio(float posXratio, float posYratio)
-//         {
-//             base.SetLocalPosByRatio(posXratio, posYratio);
-//             return this;
-//         }
-//
-//         //public virtual SGameObject SetRectSize(int width, int height)
-//         //{
-//         //    return this;
-//         //}
-//
-//         //public virtual SGameObject SetLocalPos(int posX, int posY)
-//         //{
-//         //    return this;
-//         //}
-//
-//
-//         #endregion
-//     }
-//
-// }
+﻿using System;
+using Assets.Scripts.SGUI.Base;
+using EGUI.Base;
+using UnityEngine;
+using UnityEngine.UI;
+using UniRx;
+using static EGUI.Base.Utils;
+
+namespace EGUI.GameObjects
+{
+    class EgSlider : EGGameObject
+    {
+        public Slider SliderComponent { get; private set; }
+        public EgImage BackgroundImage { get; private set; }
+
+        public EGGameObject FillArea { get; private set; }
+        public EgImage Fill { get; private set; }
+        public EgImage Handle { get; private set; }
+        public EGGameObject HandleSlideArea { get; private set; }
+        
+        public EgSlider(
+            EGGameObject parent,
+            float posRatioX = 0,
+            float posRatioY = 0,
+            float widthRatio = 1,
+            float heightRatio = 1,
+            string name = "EgSlider"
+        ) : base(
+            parent,
+            posRatioX,
+            posRatioY,
+            widthRatio,
+            heightRatio,
+            name,
+            () => UIFactory.CreateBaseRect(parent.GameObject, name)
+            )
+        {
+            //, "Background"
+            BackgroundImage = new EgImage(this, name: "Background");
+            BackgroundImage.SetImageSource(UGUIResources.Background);
+           
+            BackgroundImage.SetRectSizeByRatio(1f, 1);
+            BackgroundImage.SetAnchorType(AnchorType.HorizontalStretch);
+
+            FillArea = new EGUIObject(this, name:"Fill Area");
+            FillArea.SetAnchorType(AnchorType.HorizontalStretch);
+            
+            Fill = new EgImage(FillArea, name: "Fill");
+            Fill.SetImageSource(UGUIResources.UISprite);
+            Fill.SetRectSizeByRatio(1, 1f);
+            Fill.SetHorizontalStretchAnchor();
+
+            HandleSlideArea = new EGUIObject(this, name:"Handle Slide Area");
+            HandleSlideArea.SetFullStretchAnchor();
+            HandleSlideArea.RectTransform.offsetMax = new Vector2(30, 30);
+
+            Handle = new EgImage(HandleSlideArea, name: "Handle");
+            Handle.SetImageSource(UGUIResources.Knob);
+            
+            SliderComponent = gameObject.AddComponent<Slider>();
+            SliderComponent.targetGraphic = Handle.Image;
+            SliderComponent.fillRect = Fill.RectTransform;
+            SliderComponent.handleRect = Handle.RectTransform;
+
+            var setter = gameObject.ObserveEveryValueChanged(_ => RectSize);
+            setter.Subscribe(_ => UpdateSize());
+
+            UpdateSize();
+        }
+        
+        private void UpdateSize()
+        {
+            HandleSlideArea.RectTransform.offsetMax = new Vector2(- RectSize.y / 2, 0);
+            HandleSlideArea.RectTransform.offsetMin = new Vector2(- RectSize.y / 2, 0);
+
+            // バーのサイズは親rectの半分になる
+            // 4を設定すると親と同じ大きさになる
+            BackgroundImage.RectTransform.offsetMax = new Vector2(0, RectSize.y / 4);
+            BackgroundImage.RectTransform.offsetMin = new Vector2(0, -RectSize.y / 4);
+
+            Fill.RectTransform.offsetMax = new Vector2(0, RectSize.y / 4);
+            Fill.RectTransform.offsetMin = new Vector2(0, -RectSize.y / 4);
+
+            FillArea.RectTransform.offsetMax = new Vector2(0, 0);
+            FillArea.RectTransform.offsetMin = new Vector2(0, 0);
+
+            Handle.RectTransform.offsetMax = new Vector2(RectSize.y, 0);
+            Handle.RectTransform.offsetMin = new Vector2(0,0);
+        }
+        
+    }
+
+}

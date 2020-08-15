@@ -34,6 +34,7 @@ namespace EGUI.GameObjects
             posRatioY,
             widthRatio,
             heightRatio,
+            false,
             name
         )
         {

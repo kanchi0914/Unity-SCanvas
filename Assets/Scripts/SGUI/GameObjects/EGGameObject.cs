@@ -118,8 +118,8 @@ namespace EGUI.GameObjects
             SetParentSGameObject(parent);
             SetTopLeftAnchor();
             Mono = gameObject.TryAddComponent<EGMono>();
-            SetRectSizeByRatio(widthRatio, heightRatio);
-            SetLocalPosByRatio(posRatioX, posRatioY);
+            // SetRectSizeByRatio(widthRatio, heightRatio);
+            // SetLocalPosByRatio(posRatioX, posRatioY);
             this.name = name;
         }
 
@@ -362,8 +362,6 @@ namespace EGUI.GameObjects
         public virtual EGGameObject SetRectSizeByRatio(float ratioX, float ratioY)
         {
             if (_parentEgGameObject == null) return this;
-            // SetRectSize(_parentEgGameObject.RectSize.x * ratioX,
-            //     _parentEgGameObject.RectSize.y * ratioY);
             SetRectSize(_parentEgGameObject.ApparentRectSize.x * ratioX,
                 _parentEgGameObject.ApparentRectSize.y * ratioY);
             return this;
@@ -675,7 +673,6 @@ namespace EGUI.GameObjects
         public EGGameObject SetFullStretchAnchor()
         {
             rectTransform.SetFullStretchAnchor();
-            anchorType = AnchorType.FullStretch;
             return this;
         }
 

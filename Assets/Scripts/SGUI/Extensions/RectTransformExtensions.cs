@@ -7,6 +7,37 @@ namespace EGUI.Base
 {
     public static class RectTransformExtensions
     {
+        
+        public static Vector2 GetApparentRectSize(this RectTransform rectTransform)
+        {
+            var anchorMax = rectTransform.anchorMax;
+            var anchorMin = rectTransform.anchorMin;
+            var offsetMax = rectTransform.offsetMax;
+            var offsetMin = rectTransform.offsetMin;
+            float rectSizeX = 0;
+            float rectSizeY = 0;
+            RectTransform parent = rectTransform.transform.parent?.gameObject.TryAddComponent<RectTransform>();
+            if ((anchorMax - anchorMin).y != 0)
+            {
+                if (parent == null) rectSizeY = Screen.height;
+                else rectSizeY = parent.GetApparentRectSize().y - offsetMin.y + offsetMax.y;
+            }
+            else
+            {
+                rectSizeY = rectTransform.sizeDelta.y;
+            }
+            if ((anchorMax - anchorMin).x != 0)
+            {
+                if (parent == null) rectSizeX = Screen.width;
+                else rectSizeX = parent.GetApparentRectSize().x - offsetMin.x + offsetMax.x;
+            }
+            else
+            {
+                rectSizeX = rectTransform.sizeDelta.x;
+            }
+            return new Vector2(rectSizeX, rectSizeY);
+        }
+        
 
         public static RectTransform SetOffset(this RectTransform rectTransform, float minX, float minY, float maxX, float maxY)
         {
@@ -18,17 +49,14 @@ namespace EGUI.Base
         private static Vector2 GetParentRectSize(this RectTransform rectTransform)
         {
             Transform parent = rectTransform.transform.parent;
-            Vector2 parentRectSize;
+            return parent?.gameObject.TryAddComponent<RectTransform>().GetApparentRectSize()
+                   ?? new Vector2(Screen.width, Screen.height);
             if (parent != null)
             {
                 var rect = parent.gameObject.TryAddComponent<RectTransform>();
-                parentRectSize = rect.sizeDelta;
+                return rect.GetApparentRectSize();
             }
-            else
-            {
-                parentRectSize = new Vector2(Screen.width, Screen.height);
-            }
-            return parentRectSize;
+            return new Vector2(Screen.width, Screen.height);
         }
 
 
@@ -108,6 +136,11 @@ namespace EGUI.Base
             // Full Stretch
             else if (anchorMin == new Vector2(0, 0) && anchorMax == new Vector2(1, 1))
             {
+                // rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
+                // var rectSizeX = parentRectSize.x + preOffsetMax.x - preOffsetMin.x;
+                // var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
+                // rectTransform.anchoredPosition = preAnchoredPos;
+                // rectTransform.sizeDelta = new Vector2(rectSizeX, rectSizeY);
                 rectTransform.SetAnchorAndPivot(Utils.AnchorType.MiddleCenter);
                 var rectSizeX = parentRectSize.x + preOffsetMax.x - preOffsetMin.x;
                 var rectSizeY = parentRectSize.y - preOffsetMin.y + preOffsetMax.y;
