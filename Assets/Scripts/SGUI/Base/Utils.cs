@@ -42,76 +42,76 @@ namespace EGUI.Base
             }
         }
         
-        public static Color GetColor (ColorType colorType, float alpha)
-        {
-            Color color;
-            switch (colorType)
-            {
-                case ColorType.Black:
-                    {
-                        color = Color.black;
-                        break;
-                    }
-                case ColorType.White:
-                    {
-                        color = Color.white;
-                        break;
-                    }
-                case ColorType.Cyan:
-                    {
-                        color = Color.cyan;
-                        break;
-                    }
-                case ColorType.Gray:
-                    {
-                        color = Color.gray;
-                        break;
-                    }
-                case ColorType.Magenta:
-                    {
-                        color = Color.magenta;
-                        break;
-                    }
-                case ColorType.Red:
-                    {
-                        color = Color.red;
-                        break;
-                    }
-                case ColorType.Yellow:
-                    {
-                        color = Color.yellow;
-                        break;
-                    }
-                case ColorType.Green:
-                    {
-                        color = Color.green;
-                        break;
-                    }
-                case ColorType.Blue:
-                    {
-                        color = Color.blue;
-                        break;
-                    }
-                default:
-                    return new Color (0, 0, 0, 0);
-            }
-            color.a = alpha;
-            return color;
-        }
+        // public static Color GetColor (ColorType colorType, float alpha)
+        // {
+        //     Color color;
+        //     switch (colorType)
+        //     {
+        //         case ColorType.Black:
+        //             {
+        //                 color = Color.black;
+        //                 break;
+        //             }
+        //         case ColorType.White:
+        //             {
+        //                 color = Color.white;
+        //                 break;
+        //             }
+        //         case ColorType.Cyan:
+        //             {
+        //                 color = Color.cyan;
+        //                 break;
+        //             }
+        //         case ColorType.Gray:
+        //             {
+        //                 color = Color.gray;
+        //                 break;
+        //             }
+        //         case ColorType.Magenta:
+        //             {
+        //                 color = Color.magenta;
+        //                 break;
+        //             }
+        //         case ColorType.Red:
+        //             {
+        //                 color = Color.red;
+        //                 break;
+        //             }
+        //         case ColorType.Yellow:
+        //             {
+        //                 color = Color.yellow;
+        //                 break;
+        //             }
+        //         case ColorType.Green:
+        //             {
+        //                 color = Color.green;
+        //                 break;
+        //             }
+        //         case ColorType.Blue:
+        //             {
+        //                 color = Color.blue;
+        //                 break;
+        //             }
+        //         default:
+        //             return new Color (0, 0, 0, 0);
+        //     }
+        //     color.a = alpha;
+        //     return color;
+        // }
 
-        public enum AnchorType
-        {
-            TopLeft,    TopCenter,    TopRight,
-            MiddleLeft, MiddleCenter, MiddleRight,
-            BottomLeft, BottomCenter, BottomRight,
-            HorizontalStretchWithTopPivot, 
-            HorizontalStretch,
-            HorizontalStretchWithBottomPivot, 
-            VerticalStretchWithLeftPivot, 
-            VerticalStretch,
-            VerticalStretchWithRightPivot, 
-            FullStretch
-        }
+        // public enum AnchorType
+        // {
+        //     TopLeft,    TopCenter,    TopRight,
+        //     MiddleLeft, MiddleCenter, MiddleRight,
+        //     BottomLeft, BottomCenter, BottomRight,
+        //     HorizontalStretchWithTopPivot, 
+        //     HorizontalStretch,
+        //     HorizontalStretchWithBottomPivot, 
+        //     VerticalStretchWithLeftPivot, 
+        //     VerticalStretch,
+        //     VerticalStretchWithRightPivot, 
+        //     FullStretch
+        // }
 
 
 

@@ -1,15 +1,16 @@
-﻿using Assets.Scripts.SGUI.Base;
+﻿using Assets.Scripts.Extensions;
+using Assets.Scripts.SGUI.Base;
 using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace EGUI.GameObjects
 {
-    public class EGScrollBar : EgImage
+    public class EGScrollBar : EGGameObject
     {
-        public EgImage HandleImage { get; private set; }
+        public EGGameObject HandleImageObject { get; private set; }
         
-        public  Scrollbar ScrollbarComponent { get; private set; }
+        public Scrollbar ScrollbarComponent { get; private set; }
         
         /// <summary>
         /// コンストラクタ
@@ -23,33 +24,19 @@ namespace EGUI.GameObjects
         /// <param name="name"></param>
         public EGScrollBar
         (
-            EGGameObject parent,
-            string imageFilePath = null,
-            float posRatioX = 0,
-            float posRatioY = 0,
-            float widthRatio = 1,
-            float heightRatio = 1,
+            GameObject parent,
             string name = "EGScrollBar"
-        ) : base(
-            parent,
-            null,
-            posRatioX,
-            posRatioY,
-            widthRatio,
-            heightRatio,
-            false,
-            name
-        )
+        ) : base(parent, name)
         {
-            var slidingArea = new EGUIObject(this, name: "Sliding Area").SetFullStretchAnchor();
-            slidingArea.RectTransform.sizeDelta = new Vector2(-20, -20);
-            HandleImage = new EgImage(slidingArea, name: "Handle");
-            HandleImage.SetImageSource(UGUIResources.UISprite);
-            HandleImage.RectTransform.sizeDelta = new Vector2(20, 20);
-            HandleImage.SetPivot(0.5f, 0.5f);
-            ScrollbarComponent = GameObject.AddComponent<Scrollbar>();
-            ScrollbarComponent.handleRect = HandleImage.RectTransform;
-            ScrollbarComponent.targetGraphic = HandleImage.Image;
+            var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").gameObject.SetFullStretchAnchor();
+            slidingArea.SetRectSize(-20, 0);
+            HandleImageObject = new EGGameObject(slidingArea, name: "Handle");
+            HandleImageObject.gameObject.SetImageSprite(UGUIResources.UISprite);
+            HandleImageObject.gameObject.GetRectTransform().sizeDelta = new Vector2(20, 20);
+            HandleImageObject.gameObject.GetRectTransform().SetPivot(0.5f, 0.5f);
+            ScrollbarComponent = gameObject.AddComponent<Scrollbar>();
+            ScrollbarComponent.handleRect = HandleImageObject.gameObject.GetRectTransform();
+            ScrollbarComponent.targetGraphic = HandleImageObject.gameObject.GetComponent<Image>();
         }
     }
 }

@@ -23,7 +23,7 @@ public class RectTransformExtensionsTest2
                 isAutoSizingHeight: true
             )
             .SetRectSizeByRatio(1, 0.1f)
-            .SetColor(Color.white);
+            .SetImageColor(Color.white);
 
        //  new EgImage(buttons).SetRectSize(100, 100);
         new EGButton(layout, "Reset").SetOnOnClick(() =>
@@ -98,10 +98,10 @@ public class RectTransformExtensionsTest2
 
     public void ResetButtons()
     {
-        canvas?.Dispose();
+        canvas?.DestroySelf();
         canvas = new EGCanvas("test");
         
-        var pareImage = new EgImage(canvas)
+        var pareImage = new EGImage(canvas)
             .SetColor(Color.black)
             .SetRectSize(300, 300)
             .SetMiddleCenterAnchor()

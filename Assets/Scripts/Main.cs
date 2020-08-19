@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Examples.AdvGame;
 using Assets.Scripts.Extensions;
 using HC.UI;
 using UnityEngine;
@@ -11,47 +12,30 @@ using static HC.UI.UICreator;
 
 public class Main : MonoBehaviour
 {
-    private EgImage image;
+    private EGImage image;
 
     void Start()
     {
         //new RectTransformExtensionsTest2().TestSetAnchor();
-        
+
         var canvas = new EGCanvas("test");
-        //new EgSlider(canvas).SetRectSize(200, 40).SetLocalPos(300, 300);
-        new EgToggle(canvas).SetLocalPos(300, 300)
-            .SetRectSize(400, 80);
-        new EGDropDown(canvas).SetLocalPos(200, 200).SetRectSize(300,100);
-        //
-        // var image = new EgImage(canvas).SetRectSize(300, 300);
-        // var chi = new EgImage(image).SetMiddleLeftAnchor()
-        //     .SetRectSize(100, 100)
-        //     .SetLocalPos(0, 0)
-        //     .SetColor(ColorType.Black);
-        // chi.RectTransform.SetVerticalStretchWithLeftPivotAnchor();
-    }
+
+        var layout = new EGVerticalLayoutScrollView(canvas);
+
+        // //new EgSlider(canvas).SetRectSize(200, 40).SetLocalPos(300, 300);
+        // layout.AddItem(new EGImage(layout));
+        // layout.AddItem(new EGImage(layout));
+        // layout.AddItem(new EGImage(layout));
+        // new EgToggle(canvas).SetLocalPos(300, 300)
+        //     .SetRectSize(400, 80);
+        // new EGDropDown(canvas).SetLocalPos(200, 200).SetRectSize(300,100);
 
 
-    public void Init()
-    {
-        var canvas = new EGCanvas("test");
-        var root = new EgImage(canvas)
-            .SetRectSize(300, 20)
-            .SetMiddleCenterAnchor()
-            .SetLocalPos(0, 0) as EgImage;
+        // var layout = new EGGridLayoutView(canvas, columnCount: 3, rowCount: 3)
+        //     .SetRectSize(200, 200);
+        // new EGImage(layout);
+        // new EGImage(layout);
 
-        var dropdownComponent = root.GameObject.TryAddComponent<Dropdown>();
-
-        var label = new EGText(root, name: "label");
-        var arrow = new EgImage(root, name: "arrow");
-        var template = new PreEgVerticalLayoutScrollView(root, name: "template");
-
-
-        //dropdownの設定
-        dropdownComponent.targetGraphic = root.Image;
-        dropdownComponent.template = template.RectTransform;
-        dropdownComponent.captionText = label.TextComponent;
-
-        new EGScrollBar(canvas);
+        new AdvGameOpening();
     }
 }

@@ -66,10 +66,10 @@ public class RectTransformExtensionsTest
 
     public void ResetButtons()
     {
-        canvas?.Dispose();
+        canvas?.DestroySelf();
         canvas = new EGCanvas("test");
         
-        var pareImage = new EgImage(canvas)
+        var pareImage = new EGImage(canvas)
             .SetColor(Color.black)
             .SetRectSize(500, 500)
             .SetMiddleCenterAnchor()
