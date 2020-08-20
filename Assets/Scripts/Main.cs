@@ -1,41 +1,84 @@
-﻿using System;
-using Assets.Scripts.Examples.AdvGame;
-using Assets.Scripts.Extensions;
-using HC.UI;
+﻿using Assets.Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 using static EGUI.Base.Utils;
 using EGUI.Base;
 using EGUI.GameObjects;
-using static UnityEngine.UI.ScrollRect;
-using static HC.UI.UICreator;
 
 public class Main : MonoBehaviour
 {
-    private EGImage image;
-
     void Start()
     {
-        //new RectTransformExtensionsTest2().TestSetAnchor();
+        // var parent = new GameObject( "parent");
+        // parent.OnTransformChildrenChangedAsObservable()
+        //     .Subscribe(g =>
+        //     {
+        //         Debug.Log("child object is added?????");
+        //     });
+        // parent.ObserveEveryValueChanged(_ => gameObject.transform.position)
+        //     .Subscribe(e => Debug.Log(e));
+        // var child = new GameObject("child");
+        // child.transform.SetParent(parent.transform);
+        // child.transform.position = new Vector3(10,101,0);
+
+        // new RectTransformExtensionsTest2();
+
 
         var canvas = new EGCanvas("test");
 
-        var layout = new EGVerticalLayoutScrollView(canvas);
+        // var button = new EGButton(canvas.gameObject, "");
+        // button.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0);
+        // button.TextObject.SetText("aaaaaaa");
 
-        // //new EgSlider(canvas).SetRectSize(200, 40).SetLocalPos(300, 300);
-        // layout.AddItem(new EGImage(layout));
-        // layout.AddItem(new EGImage(layout));
-        // layout.AddItem(new EGImage(layout));
-        // new EgToggle(canvas).SetLocalPos(300, 300)
-        //     .SetRectSize(400, 80);
-        // new EGDropDown(canvas).SetLocalPos(200, 200).SetRectSize(300,100);
-
-
-        // var layout = new EGGridLayoutView(canvas, columnCount: 3, rowCount: 3)
+        // var view = new EGVerticalLayoutScrollView(canvas.gameObject);
+        // view.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0)
         //     .SetRectSize(200, 200);
-        // new EGImage(layout);
-        // new EGImage(layout);
 
-        new AdvGameOpening();
+
+        // var gridView = new EGVerticalLayoutScrollView(canvas.gameObject, true);
+        // // var gridView = new EGHorizontalLayoutScrollView(canvas.gameObject, isAutoSizingHeight:true);
+        // gridView.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0)
+        //     .SetRectSize(150, 300);
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+
+        //
+        // new EgSlider(canvas.gameObject)
+        //     .gameObject.SetRectSize(200, 30)
+        //     .SetMiddleCenterAnchor()
+        //     .SetLocalPos(0, 0);
+
+        new EgToggle(canvas.gameObject)
+            .gameObject.SetRectSize(200, 40)
+            .SetMiddleCenterAnchor()
+            .SetLocalPos(0, 0);
+
+
+        // var dp = new EGDropDown(canvas.gameObject);
+        // dp.gameObject.SetRectSize(300, 50)
+        //     .SetMiddleCenterAnchor()
+        //     .SetLocalPos(0, 0);
+        //
+        // dp.AddOption("", null);
+        // dp.AddOption("", null);
+        // dp.AddOption("", null);
+        // dp.AddOption("", null);
+        //
+
+
+
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
+        // gridView.gameObject.SetRectSize(300, 300);
+
+
+        // var image2 = new EGGameObject(view.ContentAreaObject.gameObject);
+
+        // var scroll = new EGScrollBar(canvas.gameObject);
+        // scroll.gameObject.SetMiddleCenterAnchor().SetRectSize(200, 40).SetLocalPos(0, 0);
     }
 }

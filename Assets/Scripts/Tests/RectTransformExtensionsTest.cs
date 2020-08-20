@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Extensions;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
-using static EGUI.Base.Utils.AnchorType;
+
 
 public class RectTransformExtensionsTest
 {
 
     private EGCanvas canvas;
     private RectInfo rectInfo = new RectInfo(0, 0, 100, 100);
-    private List<EGGameObject> rects;
+    private List<GameObject> rects;
 
-    public void TestSetAnchor()
+    public RectTransformExtensionsTest()
     {
         ResetButtons();
-        var buttons = new EGCanvas();
+        var buttons = new EGCanvas("ButtonsCanvas");
         var layout = new EgHorizontalLayoutView(
-            buttons,
+            buttons.gameObject,
             isAutoAlignment: true,
             isAutoSizingWidth: true,
             isAutoSizingHeight: true
-        ).SetRectSizeByRatio(1, 0.1f);
+        ).gameObject.SetRectSizeByRatio(1, 0.1f);
         new EGButton(layout, "Reset").SetOnOnClick(() =>
         {
             ResetButtons();
@@ -32,75 +33,89 @@ public class RectTransformExtensionsTest
         });
         new EGButton(layout, "SetTc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetTopCenterAnchor());
+            rects.ForEach(b => b.gameObject.SetTopCenterAnchor());
         });
         new EGButton(layout, "SetTr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetTopRightAnchor());
+            rects.ForEach(b => b.gameObject.SetTopRightAnchor());
         });
         new EGButton(layout, "SetMl").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleLeftAnchor());
+            rects.ForEach(b => b.gameObject.SetMiddleLeftAnchor());
         });
         new EGButton(layout, "SetMc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleCenterAnchor());
+            rects.ForEach(b => b.gameObject.SetMiddleCenterAnchor());
         });
         new EGButton(layout, "SetMr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleRightAnchor());
+            rects.ForEach(b => b.gameObject.SetMiddleRightAnchor());
         });
         new EGButton(layout, "SetBl").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomLeftAnchor());
+            rects.ForEach(b => b.gameObject.SetBottomLeftAnchor());
         });
         new EGButton(layout, "SetBc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomCenterAnchor());
+            rects.ForEach(b => b.gameObject.SetBottomCenterAnchor());
         });
         new EGButton(layout, "SetBr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomRightAnchor());
+            rects.ForEach(b => b.gameObject.SetBottomRightAnchor());
         });
     }
 
     public void ResetButtons()
     {
-        canvas?.DestroySelf();
-        canvas = new EGCanvas("test");
+        canvas?.gameObject.DestroySelf();
+        canvas = new EGCanvas("TestRects");
         
-        var pareImage = new EGImage(canvas)
-            .SetColor(Color.black)
+        var pareImage = new EGGameObject(canvas.gameObject)
+            .gameObject
+            .SetImageColor(Color.black)
             .SetRectSize(500, 500)
             .SetMiddleCenterAnchor()
             .SetLocalPos(0, 0);
 
-        var tl = new EGButton(pareImage, "tl")
-            .SetTopLeftAnchor().SetPresetRect(rectInfo);
-        
-        var tc = new EGButton(pareImage, "tc")
-            .SetTopCenterAnchor().SetPresetRect(rectInfo);
-        
-        var tr = new EGButton(pareImage, "tr")
-            .SetTopRightAnchor().SetPresetRect(rectInfo);
-        
-        var ml = new EGButton(pareImage, "ml")
-            .SetMiddleLeftAnchor().SetPresetRect(rectInfo);
-        
-        var mc = new EGButton(pareImage, "mc")
-            .SetMiddleCenterAnchor().SetPresetRect(rectInfo);
-        
-        var mr = new EGButton(pareImage, "mr")
-            .SetMiddleRightAnchor().SetPresetRect(rectInfo);
-        
-        var bl = new EGButton(pareImage, "bl")
-            .SetBottomLeftAnchor().SetPresetRect(rectInfo);
-        
-        var bc = new EGButton(pareImage, "bc")
-            .SetBottomCenterAnchor().SetPresetRect(rectInfo);
-        
-        var br = new EGButton(pareImage, "br")
-            .SetBottomRightAnchor().SetPresetRect(rectInfo);
-        rects = new List<EGGameObject>(){tl, tc, tr, ml, mc, mr, bl, bl, bc, br};
+        rects = new List<GameObject>()
+        {
+            new EGButton(pareImage, "tl")
+                .gameObject
+                .SetTopLeftAnchor()
+                .SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "tc")
+                .gameObject
+                .SetTopCenterAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "tr")
+                .gameObject
+                .SetTopRightAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "ml")
+                .gameObject
+                .SetMiddleLeftAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "mc")
+                .gameObject
+                .SetMiddleCenterAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "mr")
+                .gameObject
+                .SetMiddleRightAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "bl")
+                .gameObject
+                .SetBottomLeftAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "bc")
+                .gameObject
+                .SetBottomCenterAnchor().SetPresetRect(rectInfo),
+            
+            new EGButton(pareImage, "br")
+                .gameObject
+                .SetBottomRightAnchor().SetPresetRect(rectInfo)
+        };
+
     }
 }
