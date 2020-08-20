@@ -9,6 +9,8 @@ public class Main : MonoBehaviour
 {
     void Start()
     {
+
+        new EgSlider(null).SetLocalPos(300,300);
         // var parent = new GameObject( "parent");
         // parent.OnTransformChildrenChangedAsObservable()
         //     .Subscribe(g =>
@@ -24,7 +26,7 @@ public class Main : MonoBehaviour
         // new RectTransformExtensionsTest2();
 
 
-        var canvas = new EGCanvas("test");
+        // var canvas = new EGCanvas("test");
 
         // var button = new EGButton(canvas.gameObject, "");
         // button.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0);
@@ -52,21 +54,24 @@ public class Main : MonoBehaviour
         //     .SetMiddleCenterAnchor()
         //     .SetLocalPos(0, 0);
 
-        new EgToggle(canvas.gameObject)
-            .gameObject.SetRectSize(200, 40)
-            .SetMiddleCenterAnchor()
-            .SetLocalPos(0, 0);
+        // new EGToggle(canvas.gameObject)
+        //     .gameObject.SetRectSize(200, 40)
+        //     .SetMiddleCenterAnchor()
+        //     .SetLocalPos(0, 0);
 
-
-        // var dp = new EGDropDown(canvas.gameObject);
-        // dp.gameObject.SetRectSize(300, 50)
+        //
+        // var dp = new EGDropDown();
+        // dp.SetRectSize(300, 50)
         //     .SetMiddleCenterAnchor()
         //     .SetLocalPos(0, 0);
         //
-        // dp.AddOption("", null);
-        // dp.AddOption("", null);
-        // dp.AddOption("", null);
-        // dp.AddOption("", null);
+        // dp.AddOption("option1", null);
+        // dp.AddOption("option2", null);
+        // dp.AddOption("option3", null);
+        // dp.AddOption("option4", null);
+
+        // new EGToggle().SetLocalPos(300,300);
+
         //
 
 

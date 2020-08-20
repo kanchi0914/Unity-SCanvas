@@ -1,8 +1,8 @@
-﻿
-using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEngine.UI.ScrollRect;
 
 namespace EGUI.GameObjects
@@ -11,7 +11,7 @@ namespace EGUI.GameObjects
     {
         private int defaultWidth = 200;
         private int defaultHeight = 200;
-        
+
         /// <summary>
         /// ScrollRectコンポーネントへの参照
         /// </summary>
@@ -21,7 +21,7 @@ namespace EGUI.GameObjects
         /// アイテムが配置されるVerticalLayoutGroupを持つオブジェクトをラップするクラス
         /// </summary>
         public EGVerticalLayoutView ContentAreaObject { get; private set; }
-        
+
         /// <summary>
         /// ScrollBarオブジェクトをラップするクラス
         /// </summary>
@@ -45,37 +45,33 @@ namespace EGUI.GameObjects
             name
         )
         {
-            gameObject.SetMiddleCenterAnchor()
+            SetMiddleCenterAnchor()
                 .SetLocalPos(0, 0)
                 .SetRectSize(defaultWidth, defaultHeight)
                 .SetImageColor(Color.white, 0.4f);
-            
+
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .gameObject
                 .SetFullStretchAnchor()
-                .SetPivot(0,0)
+                .SetPivot(0, 0)
                 .SetRectSizeByRatio(1, 1)
                 .SetLocalPos(0, 0);
-                
-            ContentAreaObject = new EGVerticalLayoutView(viewport,
-                isAutoSizingWidth, name: "Content");
-            ContentAreaObject.gameObject
-                .SetRectSize(defaultWidth, 0 )
+
+            ContentAreaObject = new EGVerticalLayoutView(viewport.gameObject, isAutoSizingWidth, name: "Content")
+                .SetRectSize(defaultWidth, 0)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 0)
                 .SetHorizontalStretchWithTopPivotAnchor()
-                .SetLocalPos(0, 0);
+                .SetLocalPos(0, 0) as EGVerticalLayoutView;
 
-            ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Vertical");
-            ScrollBarObject.gameObject
+            ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Vertical")
+                .SetDirection(Scrollbar.Direction.BottomToTop)
                 .SetVerticalStretchWithRightPivotAnchor()
                 .SetRectSize(scrollBarWidth, defaultHeight)
-                .SetLocalPos(0, 0);
-            ScrollBarObject.ScrollbarComponent.direction = Scrollbar.Direction.BottomToTop;
-            
+                .SetLocalPos(0, 0) as EGScrollBar;
+
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
             ScrollRectComponent.content = ContentAreaObject.gameObject.GetRectTransform();
-            ScrollRectComponent.viewport = viewport.GetRectTransform();
+            ScrollRectComponent.viewport = viewport.rectTransform;
             ScrollRectComponent.verticalScrollbar = ScrollBarObject.gameObject.GetComponent<Scrollbar>();
             ScrollRectComponent.horizontalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
             ScrollRectComponent.verticalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
@@ -83,15 +79,60 @@ namespace EGUI.GameObjects
             ScrollRectComponent.verticalScrollbarSpacing = -3;
             ScrollRectComponent.vertical = true;
             ScrollRectComponent.horizontal = false;
-            
+
             var mask = viewport.gameObject.AddComponent<Mask>();
             viewport.gameObject.SetImageSprite(UGUIResources.Mask);
             mask.showMaskGraphic = false;
-            
+
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();
             csfitter.verticalFit = ContentSizeFitter.FitMode.MinSize;
             csfitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         }
 
+        public EGVerticalLayoutScrollView SetChildAlinmentTypes(
+            TextAnchor? childAlignment = null,
+            bool? childControlWidth = null,
+            bool? childControlHeight = null,
+            bool? childScaleWidth = null,
+            bool? childScaleHeight = null,
+            bool? childForceExpandWidth = null,
+            bool? childForceExpandHeight = null
+        )
+        {
+            ContentAreaObject.SetChildAlignments(childAlignment, childControlWidth, childControlHeight,
+                childScaleWidth, childScaleHeight,
+                childForceExpandWidth, childForceExpandHeight);
+            return this;
+        }
+        
+        public EGVerticalLayoutScrollView SetPaddingAndSpacing(int? paddingLeft = null, int? paddingRight = null,
+            int? paddingTop = null,
+            int? paddingBottom = null, float? spacing = null)
+        {
+            ContentAreaObject.SetPaddingAndSpacing(paddingLeft, paddingRight, paddingTop, paddingBottom, spacing);
+            return this;
+        }
+        
+        public EGVerticalLayoutScrollView SetPaddingAndSpacing(int num)
+        {
+            ContentAreaObject.SetPaddingAndSpacing(num, num, num, num, num);
+            return this;
+        }
+
+        public EGVerticalLayoutScrollView SetMovementType(MovementType? movementType = null, float? elasticity = null)
+        {
+            ScrollRectComponent.movementType = movementType ?? ScrollRectComponent.movementType;
+            ScrollRectComponent.elasticity = elasticity ?? ScrollRectComponent.elasticity;
+            return this;
+        }
+
+        public EGVerticalLayoutScrollView SetScrollBarVisibility(ScrollbarVisibility visibility, float? spacing = null)
+        {
+            ScrollRectComponent.verticalScrollbarVisibility = visibility;
+            ScrollRectComponent.verticalScrollbarSpacing = spacing ?? ScrollRectComponent.verticalScrollbarSpacing;
+            return this;
+        }
+        
+        
     }
 }

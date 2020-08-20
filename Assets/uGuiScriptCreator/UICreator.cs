@@ -183,7 +183,6 @@ namespace HC.UI
                 esys = eventSystem.AddComponent<EventSystem>();
                 eventSystem.AddComponent<StandaloneInputModule>();
             }
-
             return esys;
         }
 

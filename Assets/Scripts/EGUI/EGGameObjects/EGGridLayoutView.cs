@@ -57,7 +57,7 @@ namespace EGUI.GameObjects
         public GridLayoutGroup LayoutComponent;
         
         /// <summary>
-        /// GridLayoutGroupを持つゲームオブジェクトを生成し、参照を保持するクラス
+        /// GridLayoutGroupを持つGameObjectのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="rowCount">行数</param>
@@ -102,9 +102,23 @@ namespace EGUI.GameObjects
                 .Subscribe(_ => UpdateCellSize());
         }
 
-        private void UpdateCellSize()
+        private EGGridLayoutView UpdateCellSize()
         {
             LayoutComponent.cellSize = new Vector2(ItemWidth, ItemHeight);
+            return this;
+        }
+        
+        /// <summary>
+        /// 子オブジェクトの配置方法を設定する
+        /// </summary>
+        /// <param name="childAlignment"></param>
+        /// <returns></returns>
+        public EGGridLayoutView SetChildAlignment(
+            TextAnchor childAlignment
+        )
+        {
+            LayoutComponent.childAlignment = childAlignment;
+            return this;
         }
 
         /// <summary>
@@ -116,7 +130,7 @@ namespace EGUI.GameObjects
         /// <param name="bottom">padding.bottom</param>
         /// <param name="spacingX">spacing.x</param>
         /// <param name="spacingY">spacing.y</param>
-        public void SetPaddingAndSpacing(int? left = null, int? right = null, int? top = null, int? bottom = null,
+        public EGGridLayoutView SetPaddingAndSpacing(int? left = null, int? right = null, int? top = null, int? bottom = null,
             float? spacingX = null, float? spacingY = null)
         {
             LayoutComponent.padding.left = left ?? LayoutComponent.padding.left;
@@ -125,15 +139,17 @@ namespace EGUI.GameObjects
             LayoutComponent.padding.bottom = bottom ?? LayoutComponent.padding.bottom;
             LayoutComponent.spacing = new Vector2(spacingX ?? LayoutComponent.spacing.x,
                 spacingY ?? LayoutComponent.spacing.y);
+            return this;
         }
 
         /// <summary>
         /// GridLayoutGroupコンポーネントのpadding, spacingにまとめて同じ値を設定する
         /// </summary>
         /// <param name="left">設定する値</param>
-        public void SetPaddingAndSpacing(int num)
+        public EGGridLayoutView SetPaddingAndSpacing(int num)
         {
             SetPaddingAndSpacing(num, num, num, num, num, num);
+            return this;
         }
     }
 }

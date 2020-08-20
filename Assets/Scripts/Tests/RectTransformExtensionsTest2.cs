@@ -10,7 +10,7 @@ public class RectTransformExtensionsTest2
 
     private EGCanvas canvas;
     private RectInfo rectInfo = new RectInfo(0, 0, 50, 50);
-    private List<GameObject> rects;
+    private List<EGGameObject> objects;
 
     public RectTransformExtensionsTest2()
     {
@@ -22,9 +22,9 @@ public class RectTransformExtensionsTest2
                 isAutoSizingWidth: true,
                 isAutoSizingHeight: true
             )
-            .gameObject
             .SetRectSizeByRatio(1, 0.1f)
-            .SetImageColor(Color.white);
+            .SetImageColor(Color.white)
+            .gameObject;
         
         new EGButton(layout, "Reset").SetOnOnClick(() =>
         {
@@ -32,67 +32,67 @@ public class RectTransformExtensionsTest2
         });
         new EGButton(layout, "SetTl").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetTopLeftAnchor() );
+            objects.ForEach(b => b.SetTopLeftAnchor() );
         });
         new EGButton(layout, "SetTc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetTopCenterAnchor());
+            objects.ForEach(b => b.SetTopCenterAnchor());
         });
         new EGButton(layout, "SetTr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetTopRightAnchor());
+            objects.ForEach(b => b.SetTopRightAnchor());
         });
         new EGButton(layout, "SetMl").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleLeftAnchor());
+            objects.ForEach(b => b.SetMiddleLeftAnchor());
         });
         new EGButton(layout, "SetMc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleCenterAnchor());
+            objects.ForEach(b => b.SetMiddleCenterAnchor());
         });
         new EGButton(layout, "SetMr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetMiddleRightAnchor());
+            objects.ForEach(b => b.SetMiddleRightAnchor());
         });
         new EGButton(layout, "SetBl").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomLeftAnchor());
+            objects.ForEach(b => b.SetBottomLeftAnchor());
         });
         new EGButton(layout, "SetBc").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomCenterAnchor());
+            objects.ForEach(b => b.SetBottomCenterAnchor());
         });
         new EGButton(layout, "SetBr").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetBottomRightAnchor());
+            objects.ForEach(b => b.SetBottomRightAnchor());
         });
         new EGButton(layout, "SetHs").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetHorizontalStretchAnchor());
+            objects.ForEach(b => b.SetHorizontalStretchAnchor());
         });
         new EGButton(layout, "SetHs_t").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetHorizontalStretchWithTopPivotAnchor());
+            objects.ForEach(b => b.SetHorizontalStretchWithTopPivotAnchor());
         });
         new EGButton(layout, "SetHs_b").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetHorizontalStretchWithBottomPivotAnchor());
+            objects.ForEach(b => b.SetHorizontalStretchWithBottomPivotAnchor());
         });
         new EGButton(layout, "SetVs").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetVerticalStretchAnchor());
+            objects.ForEach(b => b.SetVerticalStretchAnchor());
         });
         new EGButton(layout, "SetVs_l").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetVerticalStretchWithLeftPivotAnchor());
+            objects.ForEach(b => b.SetVerticalStretchWithLeftPivotAnchor());
         });
         new EGButton(layout, "SetVs_r").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetVerticalStretchWithRightPivotAnchor());
+            objects.ForEach(b => b.SetVerticalStretchWithRightPivotAnchor());
         });
         new EGButton(layout, "SetFs").SetOnOnClick(() =>
         {
-            rects.ForEach(b => b.SetFullStretchAnchor());
+            objects.ForEach(b => b.SetFullStretchAnchor());
         });
     }
 
@@ -100,50 +100,41 @@ public class RectTransformExtensionsTest2
     {
         canvas?.gameObject.DestroySelf();
         canvas = new EGCanvas("test");
-        
+
         var pareImage = new EGGameObject(canvas.gameObject)
-            .gameObject
             .SetImageColor(Color.black)
             .SetRectSize(300, 300)
             .SetMiddleCenterAnchor()
-            .SetLocalPos(0, 0);
+            .SetLocalPos(0, 0).gameObject;
 
             
-        rects = new List<GameObject>()
+        objects = new List<EGGameObject>()
         {
-
-             new EGButton(pareImage, "hs_t")
-                 .gameObject
+            new EGButton(pareImage, "hs_t")
                  .SetTopLeftAnchor().SetPresetRect(rectInfo)
                  .SetHorizontalStretchWithTopPivotAnchor(),
 
              new EGButton(pareImage, "hs_c")
-                 .gameObject
                  .SetMiddleLeftAnchor().SetPresetRect(rectInfo)
                  .SetHorizontalStretchAnchor(),
             
              new EGButton(pareImage, "hs_b")
-                 .gameObject
                  .SetBottomLeftAnchor().SetPresetRect(rectInfo)
                  .SetHorizontalStretchWithBottomPivotAnchor(),
             
              new EGButton(pareImage, "vs_l")
-                 .gameObject
                  .SetMiddleLeftAnchor().SetPresetRect(rectInfo)
                  .SetVerticalStretchWithLeftPivotAnchor(),
              //
              new EGButton(pareImage, "vs_m")
-                 .gameObject
                  .SetMiddleCenterAnchor().SetPresetRect(rectInfo)
                  .SetVerticalStretchAnchor(),
             
              new EGButton(pareImage, "vs_r")
-                 .gameObject
                  .SetMiddleRightAnchor().SetPresetRect(rectInfo)
                  .SetVerticalStretchWithRightPivotAnchor(),
             
              new EGButton(pareImage, "fs")
-                 .gameObject
                  .SetMiddleCenterAnchor().SetPresetRect(rectInfo)
                  .SetFullStretchAnchor()
         };

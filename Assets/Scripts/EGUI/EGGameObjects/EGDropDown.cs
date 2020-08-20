@@ -13,86 +13,87 @@ namespace EGUI.GameObjects
 {
     class EGDropDown : EGGameObject
     {
-        private Dropdown dropdownComponent;
+        
         private int defaultWidth = 200;
         private int defaultheight = 40;
-        private List<(string text, Action action)> options = new List<(string text, Action action)>();
         private int maxContentFieldSize = 200;
+        private List<(string text, Action action)> options = new List<(string text, Action action)>();
         private VerticalLayoutGroup layoutComponent;
-        private EgToggle item;
+        private EGToggle item;
         
+        /// <summary>
+        /// Dropdownコンポーネント
+        /// </summary>
+        public Dropdown DropdownComponent { get; private set; }
+
         /// <summary>
         /// ドロップダウン展開時に表示される選択肢一覧表示エリアのオブジェクト
         /// </summary>
         public EGVerticalLayoutScrollView TemplateObject;
 
         /// <summary>
-        /// ドロップダウンを生成
+        /// DropDownオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="maxContentFieldSize">選択肢表示エリアの最大高さ</param>
         /// <param name="name">オブジェクトの名前</param>
         public EGDropDown(
-            GameObject parent,
+            GameObject parent = null,
             int maxContentFieldSize = 200,
             string name = "EGDropDown"
         ) : base(parent, name)
         {
-            gameObject.SetRectSize(defaultWidth, defaultheight);
-            gameObject.SetImageSprite(UGUIResources.UISprite);
+            SetRectSize(defaultWidth, defaultheight)
+                .SetImageSprite(UGUIResources.UISprite);
 
-            var label = new EGText(gameObject, "", name: "Label");
-            label.gameObject.SetMiddleCenterAnchor();
-            label.TextComponent.alignment = TextAnchor.MiddleLeft;
+            var label = new EGText(gameObject, "", name: "Label")
+                .SetMiddleCenterAnchor() as EGText;
+            label.SetParagraph(alignment: TextAnchor.MiddleLeft);
 
-            var arrow = new EGGameObject(gameObject, name: "Arrow");
-            arrow.gameObject.SetMiddleCenterAnchor();
-            arrow.gameObject.SetImageSprite(UGUIResources.Dropdown);
+            var arrow = new EGGameObject(gameObject, name: "Arrow")
+                .SetMiddleCenterAnchor()
+                .SetImageSprite(UGUIResources.Dropdown);
 
-            TemplateObject = new EGVerticalLayoutScrollView(gameObject, isAutoSizingWidth: true, name: "Template");
-            TemplateObject.gameObject.SetImageSprite(UGUIResources.UISprite);
-            TemplateObject.gameObject.SetImageSprite(UGUIResources.UISprite);
-            TemplateObject.ContentAreaObject.LayoutComponent.childControlHeight = true;
-            TemplateObject.ContentAreaObject.LayoutComponent.childForceExpandHeight = true;
-            TemplateObject.ScrollRectComponent.movementType = ScrollRect.MovementType.Clamped;
-            TemplateObject.ScrollRectComponent.verticalScrollbarVisibility =
-                ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
-            TemplateObject.ScrollBarObject.gameObject.SetLocalPos(0, 0);
-            
-            item = new EgToggle(TemplateObject.ContentAreaObject.gameObject, name: "Item");
-            item.gameObject.SetFullStretchAnchor();
+            TemplateObject = new EGVerticalLayoutScrollView(gameObject, isAutoSizingWidth: true, name: "Template")
+                .SetChildAlinmentTypes(
+                    childControlHeight: true, childForceExpandHeight: true)
+                .SetMovementType(ScrollRect.MovementType.Clamped)
+                .SetScrollBarVisibility(ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport)
+                .SetImageSprite(UGUIResources.UISprite)
+                .SetImageColor(Color.white)
+                .SetLocalPos(0, 0) as EGVerticalLayoutScrollView;
+
+            item = new EGToggle(TemplateObject.ContentAreaObject.gameObject, name: "Item")
+                .SetImageColor(Color.clear)
+                .SetFullStretchAnchor() as EGToggle;
             item.gameObject.GetOrAddComponent<LayoutElement>().minHeight = defaultheight;
-            item.ToggleComponent.isOn = true;
+            item.IsOn = true;
+            item.BoxImageObject.SetImageColor(Color.clear);
 
-            Dropdown dropdown = gameObject.GetOrAddComponent<Dropdown>();
-            dropdown.targetGraphic = gameObject.GetComponent<Image>();
-            dropdown.template = TemplateObject.gameObject.GetOrAddComponent<RectTransform>();
-            dropdown.captionText = label.TextComponent;
-            dropdown.itemText = item.Text.TextComponent;
-            dropdown.onValueChanged.AddListener(_ => OnValueChanged());
+            DropdownComponent = gameObject.GetOrAddComponent<Dropdown>();
+            DropdownComponent.targetGraphic = gameObject.GetComponent<Image>();
+            DropdownComponent.template = TemplateObject.gameObject.GetOrAddComponent<RectTransform>();
+            DropdownComponent.captionText = label.TextComponent;
+            DropdownComponent.itemText = item.LabelTextObject.TextComponent;
+            DropdownComponent.onValueChanged.AddListener(_ => OnValueChanged());
+            DropdownComponent.ClearOptions();
 
-            label.gameObject
-                .SetRectSize(defaultWidth - 30, defaultheight - 10)
+            label.SetRectSize(defaultWidth - 30, defaultheight - 10)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 0.5f)
                 .SetLocalPos(20, 0);
 
-            arrow.gameObject
-                .SetMiddleRightAnchor()
+            arrow.SetMiddleRightAnchor()
                 .SetLocalPos(-15, 0)
                 .SetRectSize(30, 30);
 
-            TemplateObject.gameObject
-                .SetHorizontalStretchWithBottomPivotAnchor()
+            TemplateObject.SetHorizontalStretchWithBottomPivotAnchor()
                 .SetRectSize(200, 250)
                 .SetLocalPos(0, 0)
-                .SetPivot(0.5f, 1);
-
-            TemplateObject.gameObject.SetActive(false);
+                .SetPivot(0.5f, 1)
+                .SetActive(false);
 
             this.maxContentFieldSize = maxContentFieldSize;
-            dropdownComponent = gameObject.GetComponent<Dropdown>();
-            dropdownComponent.ClearOptions();
 
             var trigger = gameObject.GetOrAddComponent<EventTrigger>();
             gameObject.ObserveEveryValueChanged(g => g.GetRectTransform().sizeDelta)
@@ -112,52 +113,52 @@ namespace EGUI.GameObjects
                 * options.Count + ((options.Count - 1) * TemplateObject.ContentAreaObject.LayoutComponent.spacing)
                                 + TemplateObject.ContentAreaObject.LayoutComponent.padding.top
                                 + TemplateObject.ContentAreaObject.LayoutComponent.padding.bottom;
-            //動的に生成されるので毎回取得する必要がある
+            // 動的に生成されるので毎回取得する必要がある
             var dpl = gameObject.FindDeep("Dropdown List")?.GetOrAddComponent<RectTransform>();
             if (contentFieldSize < maxContentFieldSize)
             {
                 if (dpl)
-                    dpl.gameObject.SetRectSize(rectTransform.GetApparentRectSize().x, contentFieldSize)
-                        .SetLocalPos(0, 0);
+                    dpl.SetRectSize(rectTransform.GetApparentRectSize().x, contentFieldSize)
+                        .SetAnchoredPos(0, 0);
             }
             else
             {
                 if (dpl)
-                    dpl.gameObject.SetRectSize(rectTransform.GetApparentRectSize().x, maxContentFieldSize)
-                        .SetLocalPos(0, 0);
+                    dpl.SetRectSize(rectTransform.GetApparentRectSize().x, maxContentFieldSize)
+                        .SetAnchoredPos(0, 0);
             }
         }
 
         /// <summary>
-        /// ドロップダウンに選択肢を追加する
+        /// ドロップダウンにアイテムを追加する
         /// </summary>
-        /// <param name="text">選択肢のテキスト</param>
+        /// <param name="text">アイテムのテキスト</param>
         /// <param name="action">選択されたときに呼ばれるAction</param>
         /// <returns></returns>
         public EGDropDown AddOption(string text, Action action)
         {
-            dropdownComponent.options.Add(new Dropdown.OptionData(text));
+            DropdownComponent.options.Add(new Dropdown.OptionData(text));
             options.Add((text, action));
             return this;
         }
 
         /// <summary>
-        /// ドロップダウンに選択肢をまとめて追加すえう
+        /// ドロップダウンにアイテムをまとめて追加する
         /// </summary>
-        /// <param name="options">選択肢のテキストと選択時のアクションのタプルのリスト</param>
+        /// <param name="options">アイテムのテキストと選択時のアクションのタプルのリスト</param>
         /// <returns></returns>
         public EGDropDown SetOptions(List<(string text, Action action)> options)
         {
-            dropdownComponent.ClearOptions();
+            DropdownComponent.ClearOptions();
             this.options = options;
-            options.ForEach(option => { dropdownComponent.options.Add(new Dropdown.OptionData(option.text)); });
+            options.ForEach(option => { DropdownComponent.options.Add(new Dropdown.OptionData(option.text)); });
             return this;
         }
 
         private void OnValueChanged()
         {
-            var action = options[dropdownComponent.value].action;
-            if (action != null) action.Invoke();
+            var action = options[DropdownComponent.value].action;
+            action?.Invoke();
         }
     }
 }

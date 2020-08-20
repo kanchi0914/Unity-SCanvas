@@ -19,7 +19,7 @@ namespace EGUI.GameObjects
         public EGText TextObject { get; private set; }
 
         /// <summary>
-        /// Buttonオブジェクトを生成し、参照を保持するクラス
+        /// Buttonオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="text">ボタンのテキスト</param>
@@ -30,10 +30,10 @@ namespace EGUI.GameObjects
             string name = "EGButton"
         ) : base(parent, name)
         {
-            gameObject.SetImageColor(Color.white).SetImageSprite(UGUIResources.UISprite);
+            SetImageColor(Color.white).SetImageSprite(UGUIResources.UISprite);
             ButtonComponent = gameObject.GetOrAddComponent<Button>();
-            TextObject = new EGText(gameObject, text);
-            TextObject.gameObject.SetRectSizeByRatio(1, 1).SetFullStretchAnchor();
+            TextObject = new EGText(gameObject, text)
+                    .SetRectSizeByRatio(1, 1).SetFullStretchAnchor()as EGText;
         }
 
         /// <summary>
@@ -43,6 +43,7 @@ namespace EGUI.GameObjects
         public void SetOnOnClick(Action onClick)
         {
             ButtonComponent.onClick.RemoveAllListeners();
+            AddOnClick(onClick);
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ namespace EGUI.GameObjects
         /// HorizontalLayoutGroupコンポーネントへの参照
         /// </summary>
         public HorizontalLayoutGroup LayoutComponent { get; private set; }
-        
+
         /// <summary>
         /// HorizontalLayoutGroupコンポーネントを持つオブジェクトを生成し、参照を保持するクラス
         /// </summary>
@@ -31,23 +31,51 @@ namespace EGUI.GameObjects
         )
         {
             LayoutComponent = gameObject.GetOrAddComponent<HorizontalLayoutGroup>();
-            LayoutComponent.childScaleHeight = false;
-            LayoutComponent.childScaleWidth = false;
-            LayoutComponent.childControlWidth = isAutoSizingWidth;
-            LayoutComponent.childControlHeight = isAutoSizingHeight;
-            LayoutComponent.childForceExpandHeight = isAutoSizingHeight;
-            LayoutComponent.childForceExpandWidth = isAutoAlignment || isAutoSizingWidth;
+            SetChildAliments(null, false, false, isAutoSizingWidth, isAutoSizingHeight,
+                isAutoAlignment || isAutoSizingWidth, isAutoSizingHeight);
         }
 
         /// <summary>
-        /// HorizontalLayoutGrouコンポーネントのpadding, spacingを設定する
+        /// 子オブジェクトの配置方法を設定する
+        /// </summary>
+        /// <param name="childAlignment"></param>
+        /// <param name="childControlWidth"></param>
+        /// <param name="childControlHeight"></param>
+        /// <param name="childScaleWidth"></param>
+        /// <param name="childScaleHeight"></param>
+        /// <param name="childForceExpandWidth"></param>
+        /// <param name="childForceExpandHeight"></param>
+        /// <returns></returns>
+        public EgHorizontalLayoutView SetChildAliments(
+            TextAnchor? childAlignment = null,
+            bool? childControlWidth = null,
+            bool? childControlHeight = null,
+            bool? childScaleWidth = null,
+            bool? childScaleHeight = null,
+            bool? childForceExpandWidth = null,
+            bool? childForceExpandHeight = null
+        )
+        {
+            LayoutComponent.childAlignment = childAlignment ?? LayoutComponent.childAlignment;
+            LayoutComponent.childControlWidth = childControlWidth ?? LayoutComponent.childControlWidth;
+            LayoutComponent.childControlHeight = childControlHeight ?? LayoutComponent.childControlHeight;
+            LayoutComponent.childScaleWidth = childScaleWidth ?? LayoutComponent.childScaleWidth;
+            LayoutComponent.childScaleHeight = childScaleHeight ?? LayoutComponent.childScaleHeight;
+            LayoutComponent.childForceExpandWidth = childForceExpandWidth ?? LayoutComponent.childForceExpandWidth;
+            LayoutComponent.childForceExpandHeight = childForceExpandHeight ?? LayoutComponent.childForceExpandHeight;
+            return this;
+        }
+
+        /// <summary>
+        /// padding, spacingを設定する
         /// </summary>
         /// <param name="left">padding.left</param>
         /// <param name="right">padding.right</param>
         /// <param name="top">padding.top</param>
         /// <param name="bottom">padding.bottom</param>
         /// /// <param name="spacing">spacing</param>
-        public void SetPaddingAndSpacing(int? left = null, int? right = null, int? top = null, int? bottom = null,
+        public EgHorizontalLayoutView SetPaddingAndSpacing(int? left = null, int? right = null, int? top = null,
+            int? bottom = null,
             float? spacing = null)
         {
             LayoutComponent.padding.left = left ?? LayoutComponent.padding.left;
@@ -55,15 +83,17 @@ namespace EGUI.GameObjects
             LayoutComponent.padding.top = top ?? LayoutComponent.padding.top;
             LayoutComponent.padding.bottom = bottom ?? LayoutComponent.padding.bottom;
             LayoutComponent.spacing = spacing ?? LayoutComponent.spacing;
+            return this;
         }
 
         /// <summary>
-        /// HorizontalLayoutGrouコンポーネントのpadding, spacingにまとめて同じ値を設定する
+        /// padding, spacingにまとめて同じ値を設定する
         /// </summary>
         /// <param name="left">設定する値</param>
-        public void SetPaddingAndSpacing(int num)
+        public EgHorizontalLayoutView SetPaddingAndSpacing(int num)
         {
             SetPaddingAndSpacing(num, num, num, num, num);
+            return this;
         }
     }
 }

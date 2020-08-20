@@ -9,60 +9,85 @@ namespace EGUI.GameObjects
 {
     class EgInputField : EGGameObject
     {
-        public InputField InputField { get; private set; }
+        /// <summary>
+        /// InputFieldコンポーネント
+        /// </summary>
+        public InputField InputFieldComponent { get; private set; }
 
-        EGText placeHolder;
-        EGText text;
+        /// <summary>
+        /// テキスト未入力時に表示されるTextオブジェクト
+        /// </summary>
+        public EGText PlaceHolderTextObject;
+        
+        /// <summary>
+        /// Textオブジェクト
+        /// </summary>
+        public EGText Textobject;
 
+        /// <summary>
+        /// InputFIeldオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="name">オブジェクト名</param>
         public EgInputField(
             GameObject parent,
             string name = "EgInputField"
         ) : base(parent, name)
         {
-            Init();
-        }
-
-        private void Init()
-        {
-            gameObject
-                .SetImageColor(Color.white)
+            SetImageColor(Color.white)
                 .SetImageSprite(UGUIResources.InputField);
-            
-            placeHolder = new EGText(this.gameObject, "Enter Text...", "PlaceHolder");
-            placeHolder.gameObject
-                .SetFullStretchAnchor()
-                .SetImageColor(Color.gray, 0.5f);
 
-            placeHolder.SetTextConfig(color: Color.gray, colorAlpha: 0.6f, fontStyle: FontStyle.Italic);
-            placeHolder.gameObject
+            PlaceHolderTextObject = new EGText(this.gameObject, "Enter Text...", "PlaceHolder")
+                .SetFullStretchAnchor()
+                .SetImageColor(Color.gray, 0.5f) as EGText;
+
+            PlaceHolderTextObject
+                .SetCharacter(fontStyle: FontStyle.Italic)
+                .SetColor(Color.gray, 0.6f)
                 .SetRectSize(gameObject.GetRectSize().x - 10, gameObject.GetRectSize().y - 10)
                 .SetLocalPos(0, 0);
-            
-            text = new EGText(gameObject, "","Text");
-            text.gameObject.SetRectSize(gameObject.GetRectSize().x - 10, gameObject.GetRectSize().y - 10);
-            text.SetTextConfig(alignment: TextAnchor.UpperLeft);
-            text.gameObject.SetFullStretchAnchor().SetLocalPos(0, 0);
-            text.TextComponent.supportRichText = false;
 
-            InputField = gameObject.AddComponent<InputField>();
-            InputField.targetGraphic = gameObject.GetComponent<Image>();
-            InputField.textComponent = text.TextComponent;
-            InputField.placeholder = placeHolder.TextComponent;
-            InputField.lineType = InputField.LineType.MultiLineNewline;
+            Textobject = new EGText(gameObject, "", "Text")
+                .SetParagraph(alignment: TextAnchor.UpperLeft)
+                .SetRectSize(RectSize.x - 10, RectSize.y - 10)
+                .SetFullStretchAnchor().SetLocalPos(0, 0) as EGText;
+
+            Textobject.TextComponent.supportRichText = false;
+
+            InputFieldComponent = gameObject.AddComponent<InputField>();
+            InputFieldComponent.targetGraphic = gameObject.GetComponent<Image>();
+            InputFieldComponent.textComponent = Textobject.TextComponent;
+            InputFieldComponent.placeholder = PlaceHolderTextObject.TextComponent;
+            InputFieldComponent.lineType = InputField.LineType.MultiLineNewline;
         }
-
+        
+        /// <summary>
+        /// テキスト変更時に呼ばれるActionを追加する
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public EgInputField AddOnValueChanged(Action action)
         {
-            InputField.onValueChanged.AddListener(e => action.Invoke());
+            InputFieldComponent.onValueChanged.AddListener(e => action.Invoke());
             return this;
         }
 
-        public EgInputField AddOnEndEdit(Action action)
-        {
-            InputField.onEndEdit.AddListener(e => action.Invoke());
-            return this;
-        }
+        // /// <summary>
+        // /// テキスト変更時に呼ばれるActionを追加する
+        // /// </summary>
+        // /// <param name="action"></param>
+        // /// <returns></returns>
+        // public EgInputField AddOnEndEdit(Action action)
+        // {
+        //     InputFieldComponent.onEndEdit.AddListener(e => action.Invoke());
+        //     return this;
+        // }
 
+        /// <summary>
+        /// 入力欄にカーソルを合わせたときに呼ばれるActionを設定する
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public EgInputField SetOnSelect(Action action)
         {
             var onSelectEvent = gameObject.GetOrAddComponent<OnSelectEventWrapper>();
@@ -70,6 +95,11 @@ namespace EGUI.GameObjects
             return this;
         }
 
+        /// <summary>
+        /// 入力欄からカーソルを外したときに呼ばれるActionを設定する
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public EgInputField SetOnDeselect(Action action)
         {
             var onDeselectEvent = gameObject.GetOrAddComponent<OnDeselectWrapper>();
@@ -77,17 +107,34 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        public EgInputField SetConfig(
-            int? characterLimit = null,
-            InputField.LineType? lineType = null,
-            InputField.ContentType? contentType = null
+        /// <summary>
+        /// InputFieldComponent.characterLimitを設定する
+        /// </summary>
+        /// <param name="characterLimit"></param>
+        /// <returns></returns>
+        public EgInputField SetCharactorLimit(
+            int characterLimit
             )
         {
-            InputField.characterLimit = characterLimit ?? InputField.characterLimit;
-            InputField.lineType = lineType ?? InputField.lineType;
-            InputField.contentType = contentType ?? InputField.contentType;
+            InputFieldComponent.characterLimit = characterLimit;
             return this;
         }
 
+        /// <summary>
+        /// InputFieldComponent.lineType、
+        /// InputFieldComponent.contentTypeを設定する
+        /// </summary>
+        /// <param name="lineType"></param>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        public EgInputField SetContentType(
+            InputField.LineType? lineType = null,
+            InputField.ContentType? contentType = null
+        )
+        {
+            InputFieldComponent.lineType = lineType ?? InputFieldComponent.lineType;
+            InputFieldComponent.contentType = contentType ?? InputFieldComponent.contentType;
+            return this;
+        }
     }
 }

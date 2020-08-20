@@ -32,7 +32,7 @@ namespace EGUI.Base
                 rectTransform.GetParentRectSize().y * ratioY);
         }
         
-        public static void SetRectSize(this RectTransform rectTransform, float width, float height)
+        public static RectTransform SetRectSize(this RectTransform rectTransform, float width, float height)
         {
             var anchorType = rectTransform.GetAnchorType();
             var pivot = rectTransform.pivot;
@@ -54,6 +54,7 @@ namespace EGUI.Base
                 rectTransform.sizeDelta = new Vector2(width, height);
             }
             rectTransform.pivot = pivot;
+            return rectTransform;
         }
         
         public static void SetLocalPosByRatio(this RectTransform rectTransform, float posXratio, float posYratio)
@@ -62,7 +63,7 @@ namespace EGUI.Base
             var posY = -(posYratio * rectTransform.GetParentRectSize().y);
             rectTransform.SetAnchoredPos(posX, posY);
         }
-        
+
         public static Vector2 GetApparentRectSize(this RectTransform rectTransform)
         {
             var anchorMax = rectTransform.anchorMax;

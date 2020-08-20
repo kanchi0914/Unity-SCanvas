@@ -29,9 +29,9 @@ namespace EGUI.GameObjects
         ) : base(parent, name)
         {
             gameObject.SetImageColor(Color.gray).SetImageSprite(UGUIResources.UISprite);
-            var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").gameObject.SetFullStretchAnchor();
+            var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").SetFullStretchAnchor();
             slidingArea.gameObject.GetRectTransform().sizeDelta = new Vector2(-20, -20);
-            HandleImageObject = new EGGameObject(slidingArea, name: "Handle");
+            HandleImageObject = new EGGameObject(slidingArea.gameObject, name: "Handle");
             HandleImageObject.gameObject.SetImageSprite(UGUIResources.UISprite);
             HandleImageObject.gameObject.GetRectTransform().sizeDelta = new Vector2(20, 20);
             HandleImageObject.gameObject.GetRectTransform().SetPivot(0.5f, 0.5f);
@@ -39,5 +39,13 @@ namespace EGUI.GameObjects
             ScrollbarComponent.handleRect = HandleImageObject.gameObject.GetRectTransform();
             ScrollbarComponent.targetGraphic = HandleImageObject.gameObject.GetComponent<Image>();
         }
+
+        public EGScrollBar SetDirection(Scrollbar.Direction direction)
+        {
+            ScrollbarComponent.direction = direction;
+            return this;
+        }
+        
+        
     }
 }

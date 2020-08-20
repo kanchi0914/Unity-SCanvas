@@ -13,12 +13,13 @@ namespace EGUI.GameObjects
         public Canvas CanvasComponent;
         
         /// <summary>
-        /// Canvasコンポーネントを生成し、参照を保持するクラス
+        /// Canvasオブジェクトのラッパークラス
         /// </summary>
         /// <param name="name"></param>
         /// <param name="isStatic"></param>
         public EGCanvas(string name, bool isStatic = false) : base(null, name)
         {
+            Utils.TryCreateEventSystem();;
             CanvasComponent = gameObject.GetOrAddComponent<Canvas>();
             CanvasComponent.renderMode = RenderMode.ScreenSpaceCamera;
             var mainCamera = GameObject.Find ("Main Camera").GetComponent<Camera> ();
@@ -38,7 +39,7 @@ namespace EGUI.GameObjects
             {
                 CanvasStack.Push(this);
             }
-            gameObject.SetLocalPosByRatio(0, 0).SetRectSizeByRatio(1, 1);
+            SetLocalPosByRatio(0, 0).SetRectSizeByRatio(1, 1);
         }
     }
 }

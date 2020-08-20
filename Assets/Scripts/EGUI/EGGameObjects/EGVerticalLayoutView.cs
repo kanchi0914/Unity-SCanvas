@@ -34,39 +34,58 @@ namespace EGUI.GameObjects
         )
         {
             LayoutComponent = gameObject.GetOrAddComponent<VerticalLayoutGroup>();
-            LayoutComponent.childScaleHeight = false;
-            LayoutComponent.childScaleWidth = false;
-            LayoutComponent.childControlWidth = isAutoSizingWidth;
-            LayoutComponent.childControlHeight = isAutoSizingHeight;
-            LayoutComponent.childForceExpandHeight = isAutoAlignment || isAutoSizingHeight;
-            LayoutComponent.childForceExpandWidth = isAutoSizingWidth;
+            SetChildAlignments(null, false, false, isAutoSizingWidth,
+                isAutoSizingHeight, isAutoAlignment || isAutoSizingHeight,
+                isAutoSizingWidth);
+        }
+
+        public EGVerticalLayoutView SetChildAlignments(
+            TextAnchor? childAlignment = null,
+            bool? childControlWidth = null,
+            bool? childControlHeight = null,
+            bool? childScaleWidth = null, 
+            bool? childScaleHeight = null,
+            bool? childForceExpandWidth = null,
+            bool? childForceExpandHeight = null
+            )
+        {
+            LayoutComponent.childAlignment = childAlignment ?? LayoutComponent.childAlignment;
+            LayoutComponent.childControlWidth = childControlWidth ?? LayoutComponent.childControlWidth;
+            LayoutComponent.childControlHeight = childControlHeight ?? LayoutComponent.childControlHeight;
+            LayoutComponent.childScaleWidth = childScaleWidth ?? LayoutComponent.childScaleWidth;
+            LayoutComponent.childScaleHeight = childScaleHeight ?? LayoutComponent.childScaleHeight;
+            LayoutComponent.childForceExpandWidth = childForceExpandWidth ?? LayoutComponent.childForceExpandWidth;
+            LayoutComponent.childForceExpandHeight = childForceExpandHeight ?? LayoutComponent.childForceExpandHeight;
+            return this;
         }
         
         /// <summary>
         /// VerticalLayoutGroupコンポーネントのpadding, spacingを設定する
         /// </summary>
-        /// <param name="left">padding.left</param>
-        /// <param name="right">padding.right</param>
-        /// <param name="top">padding.top</param>
-        /// <param name="bottom">padding.bottom</param>
+        /// <param name="paddingLeft">padding.left</param>
+        /// <param name="paddingRight">padding.right</param>
+        /// <param name="paddingTop">padding.top</param>
+        /// <param name="paddingBottom">padding.bottom</param>
         /// /// <param name="spacing">spacing</param>
-        public void SetPaddingAndSpacing(int? left = null, int? right = null, int? top = null, int? bottom = null,
-            float? spacing = null)
+        public EGVerticalLayoutView SetPaddingAndSpacing(int? paddingLeft = null, int? paddingRight = null, int? paddingTop = null,
+            int? paddingBottom = null, float? spacing = null)
         {
-            LayoutComponent.padding.left = left ?? LayoutComponent.padding.left;
-            LayoutComponent.padding.right = right ?? LayoutComponent.padding.right;
-            LayoutComponent.padding.top = top ?? LayoutComponent.padding.top;
-            LayoutComponent.padding.bottom = bottom ?? LayoutComponent.padding.bottom;
+            LayoutComponent.padding.left = paddingLeft ?? LayoutComponent.padding.left;
+            LayoutComponent.padding.right = paddingRight ?? LayoutComponent.padding.right;
+            LayoutComponent.padding.top = paddingTop ?? LayoutComponent.padding.top;
+            LayoutComponent.padding.bottom = paddingBottom ?? LayoutComponent.padding.bottom;
             LayoutComponent.spacing = spacing ?? LayoutComponent.spacing;
+            return this;
         }
 
         /// <summary>
         /// VerticalLayoutGroupコンポーネントのpadding, spacingにまとめて同じ値を設定する
         /// </summary>
         /// <param name="left">設定する値</param>
-        public void SetPaddingAndSpacing(int num)
+        public EGVerticalLayoutView SetPaddingAndSpacing(int num)
         {
             SetPaddingAndSpacing(num, num, num, num, num);
+            return this;
         }
     }
 }

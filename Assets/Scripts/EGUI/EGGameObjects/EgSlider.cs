@@ -11,13 +11,28 @@ namespace EGUI.GameObjects
 {
     class EgSlider : EGGameObject
     {
+        
+        private int defaultWidth = 200;
+        private int defaultHeight = 20;
+        
+        /// <summary>
+        /// Sliderコンポーネント
+        /// </summary>
         public Slider SliderComponent { get; private set; }
-        public EGGameObject BackgroundImage { get; private set; }
+        
+        /// <summary>
+        /// 背景画像のオブジェクト
+        /// </summary>
+        public EGGameObject BackgroundImageObject { get; private set; }
+        
+        /// <summary>
+        /// Handle部分のオブジェクト
+        /// </summary>
+        public EGGameObject HandleObject { get; private set; }
 
-        public EGGameObject FillArea { get; private set; }
-        public EGGameObject Fill { get; private set; }
-        public EGGameObject Handle { get; private set; }
-        public EGGameObject HandleSlideArea { get; private set; }
+        private EGGameObject fillAreaObject;
+        private EGGameObject fillObject;
+        private EGGameObject handleSlideAreaObject;
         
         public EgSlider(
             GameObject parent,
@@ -27,32 +42,32 @@ namespace EGUI.GameObjects
             name
             )
         {
-            BackgroundImage = new EGGameObject(this.gameObject, name: "Background");
-            BackgroundImage.gameObject
+            SetRectSize(defaultWidth, defaultHeight);
+            BackgroundImageObject = new EGGameObject(gameObject, name: "Background");
+            BackgroundImageObject
                 .SetImageSprite(UGUIResources.Background)
                 .SetRectSizeByRatio(1, 1)
                 .SetHorizontalStretchAnchor();
 
-            FillArea = new EGGameObject(gameObject, name:"Fill Area");
-            FillArea.gameObject.SetHorizontalStretchAnchor();
+            fillAreaObject = new EGGameObject(gameObject, name:"Fill Area")
+                .SetHorizontalStretchAnchor();
             
-            Fill = new EGGameObject(FillArea.gameObject, name: "Fill");
-            Fill.gameObject.SetImageSprite(UGUIResources.UISprite)
+            fillObject = new EGGameObject(fillAreaObject.gameObject, name: "Fill");
+            fillObject.SetImageSprite(UGUIResources.UISprite)
                 .SetRectSizeByRatio(1, 1f)
                 .SetHorizontalStretchAnchor();
 
-            HandleSlideArea = new EGGameObject(this.gameObject, name:"Handle Slide Area");
-            HandleSlideArea.gameObject
-                .SetFullStretchAnchor();
-            HandleSlideArea.gameObject.GetRectTransform().offsetMax = new Vector2(30, 30);
+            handleSlideAreaObject = new EGGameObject(this.gameObject, name:"Handle Slide Area");
+            handleSlideAreaObject.SetFullStretchAnchor();
+            handleSlideAreaObject.rectTransform.offsetMax = new Vector2(30, 30);
 
-            Handle = new EGGameObject(HandleSlideArea.gameObject, name: "Handle");
-            Handle.gameObject.SetImageSprite(UGUIResources.Knob);
+            HandleObject = new EGGameObject(handleSlideAreaObject.gameObject, name: "Handle");
+            HandleObject.gameObject.SetImageSprite(UGUIResources.Knob);
             
             SliderComponent = gameObject.AddComponent<Slider>();
-            SliderComponent.targetGraphic = Handle.gameObject.GetComponent<Image>();
-            SliderComponent.fillRect = Fill.gameObject.GetRectTransform();
-            SliderComponent.handleRect = Handle.gameObject.GetRectTransform();
+            SliderComponent.targetGraphic = HandleObject.gameObject.GetComponent<Image>();
+            SliderComponent.fillRect = fillObject.gameObject.GetRectTransform();
+            SliderComponent.handleRect = HandleObject.gameObject.GetRectTransform();
 
             var setter = gameObject.ObserveEveryValueChanged(_ => rectTransform.sizeDelta);
             setter.Subscribe(_ => UpdateSize());
@@ -62,22 +77,22 @@ namespace EGUI.GameObjects
         
         private void UpdateSize()
         {
-            HandleSlideArea.rectTransform.offsetMax = new Vector2(- rectTransform.sizeDelta.y / 2, 0);
-            HandleSlideArea.rectTransform.offsetMin = new Vector2(- rectTransform.sizeDelta.y / 2, 0);
+            handleSlideAreaObject.rectTransform.offsetMax = new Vector2(- rectTransform.sizeDelta.y / 2, 0);
+            handleSlideAreaObject.rectTransform.offsetMin = new Vector2(- rectTransform.sizeDelta.y / 2, 0);
 
             // バーのサイズは親rectの半分になる
             // 4を設定すると親と同じ大きさになる
-            BackgroundImage.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
-            BackgroundImage.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
+            BackgroundImageObject.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
+            BackgroundImageObject.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
 
-            Fill.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
-            Fill.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
+            fillObject.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
+            fillObject.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
 
-            FillArea.rectTransform.offsetMax = new Vector2(0, 0);
-            FillArea.rectTransform.offsetMin = new Vector2(0, 0);
+            fillAreaObject.rectTransform.offsetMax = new Vector2(0, 0);
+            fillAreaObject.rectTransform.offsetMin = new Vector2(0, 0);
 
-            Handle.rectTransform.offsetMax = new Vector2(rectTransform.sizeDelta.y, 0);
-            Handle.rectTransform.offsetMin = new Vector2(0,0);
+            HandleObject.rectTransform.offsetMax = new Vector2(rectTransform.sizeDelta.y, 0);
+            HandleObject.rectTransform.offsetMin = new Vector2(0,0);
         }
         
     }

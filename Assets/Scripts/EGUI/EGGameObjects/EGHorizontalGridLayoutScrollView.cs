@@ -28,8 +28,8 @@ namespace EGUI.GameObjects
         public EGScrollBar ScrollBarObject { get; private set; }
 
         /// <summary>
-        /// GridLayoutGroupでアイテムが配置される、
-        /// 水平方向にスクロールするScrollRectコンポーネントを持つScrollViewを生成し、参照を保持するクラス
+        /// GridLayoutGroupでアイテムを配置し、
+        /// 水平方向にスクロールするScrollViewのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="rowCount">行数</param>
@@ -44,20 +44,19 @@ namespace EGUI.GameObjects
             string name = "EGHorizontalGridLayoutScrollView"
         ) : base(parent, name)
         {
-            gameObject.SetMiddleCenterAnchor()
+            SetMiddleCenterAnchor()
                 .SetLocalPos(0, 0)
                 .SetRectSize(200, 200)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .gameObject
                 .SetFullStretchAnchor()
                 .SetPivot(0,1)
                 .SetRectSizeByRatio(1, 1)
                 .SetLocalPos(0, 0);
 
-            ContentAreaObject = new EGGridLayoutView(viewport, rowCount,
+            ContentAreaObject = new EGGridLayoutView(viewport.gameObject, rowCount,
                 constantItemWidth:constantItemWidth, name: "Content");
-            ContentAreaObject.gameObject
+            ContentAreaObject
                 .SetRectSize(200, defaultHeight)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 1)
@@ -65,14 +64,14 @@ namespace EGUI.GameObjects
             ContentAreaObject.LayoutComponent.startAxis = GridLayoutGroup.Axis.Vertical;
             
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Horizontal");
-            ScrollBarObject.gameObject
+            ScrollBarObject
                 .SetHorizontalStretchWithBottomPivotAnchor()
                 .SetRectSize(200, scrollBarHeight)
                 .SetLocalPos(0, 0);
 
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
             ScrollRectComponent.content = ContentAreaObject.gameObject.GetRectTransform();
-            ScrollRectComponent.viewport = viewport.GetRectTransform();
+            ScrollRectComponent.viewport = viewport.rectTransform;
             ScrollRectComponent.horizontalScrollbar = ScrollBarObject.gameObject.GetComponent<Scrollbar>();
             ScrollRectComponent.horizontalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
             ScrollRectComponent.verticalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;

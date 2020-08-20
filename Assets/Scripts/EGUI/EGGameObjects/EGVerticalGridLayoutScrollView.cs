@@ -28,7 +28,7 @@ namespace EGUI.GameObjects
         
         /// <summary>
         /// GridLayoutGroupでアイテムが配置され、垂直方向にスクロールする
-        /// ScrollRectコンポーネントを持つScrollViewを生成し、参照を保持するクラス
+        /// ScrollRectコンポーネントを持つScrollViewをラップするクラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="columnCount">列数</param>
@@ -47,34 +47,30 @@ namespace EGUI.GameObjects
             name
         )
         {
-            gameObject.SetMiddleCenterAnchor()
-                .SetLocalPos(0, 0)
+            SetMiddleCenterAnchor().SetLocalPos(0, 0)
                 .SetRectSize(200, 200)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .gameObject
                 .SetFullStretchAnchor()
                 .SetPivot(0,1)
                 .SetRectSizeByRatio(1, 1)
                 .SetLocalPos(0, 0);
                 
-            ContentAreaObject = new EGGridLayoutView(viewport,
+            ContentAreaObject = new EGGridLayoutView(viewport.gameObject,
                 columnCount: columnCount, constantItemHeight:constantItemHeight, name: "Content");
-            ContentAreaObject.gameObject
-                .SetRectSize(200 - scrollBarWidth, 0 )
+            ContentAreaObject.SetRectSize(200 - scrollBarWidth, 0 )
                 .SetFullStretchAnchor()
                 .SetLocalPos(0, 0);
 
             var scrollBar = new EGScrollBar(gameObject, name: "Scrollbar Vertical");
-            scrollBar.gameObject
-                .SetVerticalStretchWithRightPivotAnchor()
+            scrollBar.SetVerticalStretchWithRightPivotAnchor()
                 .SetRectSize(scrollBarWidth, 200)
                 .SetLocalPos(0, 0);
             scrollBar.ScrollbarComponent.direction = Scrollbar.Direction.BottomToTop;
             
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
             ScrollRectComponent.content = ContentAreaObject.gameObject.GetRectTransform();
-            ScrollRectComponent.viewport = viewport.GetRectTransform();
+            ScrollRectComponent.viewport = viewport.rectTransform;
             ScrollRectComponent.verticalScrollbar = scrollBar.gameObject.GetComponent<Scrollbar>();
             ScrollRectComponent.horizontalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
             ScrollRectComponent.verticalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
@@ -91,6 +87,42 @@ namespace EGUI.GameObjects
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();
             csfitter.verticalFit = ContentSizeFitter.FitMode.MinSize;
             csfitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        }
+        
+        public EGVerticalGridLayoutScrollView SetChildAlignment(
+            TextAnchor childAlignment
+        )
+        {
+            ContentAreaObject.SetChildAlignment(childAlignment);
+            return this;
+        }
+        
+        public EGVerticalGridLayoutScrollView SetPaddingAndSpacing(int? paddingLeft = null, int? paddingRight = null,
+            int? paddingTop = null,
+            int? paddingBottom = null, float? spacing = null)
+        {
+            ContentAreaObject.SetPaddingAndSpacing(paddingLeft, paddingRight, paddingTop, paddingBottom, spacing);
+            return this;
+        }
+        
+        public EGVerticalGridLayoutScrollView SetPaddingAndSpacing(int num)
+        {
+            ContentAreaObject.SetPaddingAndSpacing(num, num, num, num, num);
+            return this;
+        }
+
+        public EGVerticalGridLayoutScrollView SetMovementType(MovementType? movementType = null, float? elasticity = null)
+        {
+            ScrollRectComponent.movementType = movementType ?? ScrollRectComponent.movementType;
+            ScrollRectComponent.elasticity = elasticity ?? ScrollRectComponent.elasticity;
+            return this;
+        }
+
+        public EGVerticalGridLayoutScrollView SetScrollBarVisibility(ScrollbarVisibility visibility, float? spacing = null)
+        {
+            ScrollRectComponent.verticalScrollbarVisibility = visibility;
+            ScrollRectComponent.verticalScrollbarSpacing = spacing ?? ScrollRectComponent.verticalScrollbarSpacing;
+            return this;
         }
 
     }
