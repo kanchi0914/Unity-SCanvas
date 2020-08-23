@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Extensions;
+﻿using System.Linq;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using UniRx.Triggers;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -28,14 +31,32 @@ namespace EGUI.GameObjects
         public EGScrollBar ScrollBarObject { get; private set; }
 
         /// <summary>
-        /// VerticalLayoutGroupでアイテムが配置されるScrollViewオブジェクトを生成し、参照を保持するクラス
+        /// VerticalLayoutGroupでアイテムを配置するScrollViewオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isAutoSizingWidth">アイテムの幅を親に合わせるか</param>
+        /// <param name="scrollBarWidth">ScrollBarオブジェクトの幅</param>
+        public EGVerticalLayoutScrollView
+        (
+            EGGameObject parent,
+            bool isAutoSizingWidth = true,
+            int scrollBarWidth = 20
+        ) : this
+        (
+            parent.gameObject, isAutoSizingWidth, scrollBarWidth
+        )
+        {
+        }
+
+        /// <summary>
+        /// VerticalLayoutGroupでアイテムを配置するScrollViewオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="isAutoSizingWidth">アイテムの幅を親に合わせるか</param>
         /// <param name="scrollBarWidth">ScrollBarオブジェクトの幅</param>
         /// <param name="name">オブジェクト名</param>
         public EGVerticalLayoutScrollView(
-            GameObject parent,
+            GameObject parent = null,
             bool isAutoSizingWidth = true,
             int scrollBarWidth = 20,
             string name = "EGVerticalLayoutScrollView"
@@ -87,6 +108,13 @@ namespace EGUI.GameObjects
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();
             csfitter.verticalFit = ContentSizeFitter.FitMode.MinSize;
             csfitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+
+            gameObject.OnTransformChildrenChangedAsObservable().Subscribe(_ =>
+            {
+                var added = gameObject.GetChildrenObjects().Last();
+                if (added != ScrollBarObject.gameObject)
+                    gameObject.GetChildrenObjects().Last().transform.SetParent(ContentAreaObject.rectTransform);
+            });
         }
 
         public EGVerticalLayoutScrollView SetChildAlinmentTypes(
@@ -104,7 +132,7 @@ namespace EGUI.GameObjects
                 childForceExpandWidth, childForceExpandHeight);
             return this;
         }
-        
+
         public EGVerticalLayoutScrollView SetPaddingAndSpacing(int? paddingLeft = null, int? paddingRight = null,
             int? paddingTop = null,
             int? paddingBottom = null, float? spacing = null)
@@ -112,7 +140,7 @@ namespace EGUI.GameObjects
             ContentAreaObject.SetPaddingAndSpacing(paddingLeft, paddingRight, paddingTop, paddingBottom, spacing);
             return this;
         }
-        
+
         public EGVerticalLayoutScrollView SetPaddingAndSpacing(int num)
         {
             ContentAreaObject.SetPaddingAndSpacing(num, num, num, num, num);
@@ -132,7 +160,5 @@ namespace EGUI.GameObjects
             ScrollRectComponent.verticalScrollbarSpacing = spacing ?? ScrollRectComponent.verticalScrollbarSpacing;
             return this;
         }
-        
-        
     }
 }

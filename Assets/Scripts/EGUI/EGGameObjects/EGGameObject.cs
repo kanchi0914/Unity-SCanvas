@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.Extensions;
 using UnityEngine;
 using EGUI.Base;
@@ -29,7 +30,14 @@ namespace EGUI.GameObjects
             get => rectTransform.sizeDelta;
             set => rectTransform.sizeDelta = value;
         }
-        
+
+        /// <summary>
+        /// GameObjectのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクトをラップするEGGameObject</param>
+        /// <param name="name">オブジェクト名</param>
+        public EGGameObject(EGGameObject parent) : this(parent.gameObject){}
+
         /// <summary>
         /// GameObjectのラッパークラス
         /// </summary>
@@ -65,7 +73,7 @@ namespace EGUI.GameObjects
             gameObject.SetActive(isActive);
             return this;
         }
-
+        
         public EGGameObject SetRectSizeByRatio(float ratioX, float ratioY)
         {
             rectTransform.SetRectSize(rectTransform.GetParentRectSize().x * ratioX,
@@ -81,7 +89,7 @@ namespace EGUI.GameObjects
 
         public EGGameObject SetLocalPosByRatio(float posXratio, float posYratio)
         {
-            rectTransform.SetRectSizeByRatio(posXratio, posYratio);
+            rectTransform.SetLocalPosByRatio(posXratio, posYratio);
             return this;
         }
 

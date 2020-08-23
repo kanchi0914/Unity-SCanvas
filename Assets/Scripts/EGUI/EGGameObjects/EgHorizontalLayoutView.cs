@@ -10,9 +10,28 @@ namespace EGUI.GameObjects
         /// HorizontalLayoutGroupコンポーネントへの参照
         /// </summary>
         public HorizontalLayoutGroup LayoutComponent { get; private set; }
+        
+        /// <summary>
+        /// EgHorizontalLayoutViewオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isAutoSizingWidth">各アイテムの幅を自動調整するか</param>
+        /// <param name="isAutoSizingHeight">各アイテムの高さを親に合わせて自動調整するか</param>
+        /// <param name="isAutoAlignment">各アイテムの間隔を自動で調整するか</param>
+        public EgHorizontalLayoutView
+        (
+            EGGameObject parent = null,
+            bool isAutoSizingWidth = false,
+            bool isAutoSizingHeight = false,
+            bool isAutoAlignment = false
+        ) : this
+        (
+            parent.gameObject,
+            isAutoSizingWidth, isAutoSizingHeight, isAutoAlignment
+        ){}
 
         /// <summary>
-        /// HorizontalLayoutGroupコンポーネントを持つオブジェクトを生成し、参照を保持するクラス
+        /// EgHorizontalLayoutViewオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="isAutoSizingWidth">各アイテムの幅を自動調整するか</param>
@@ -31,7 +50,7 @@ namespace EGUI.GameObjects
         )
         {
             LayoutComponent = gameObject.GetOrAddComponent<HorizontalLayoutGroup>();
-            SetChildAliments(null, false, false, isAutoSizingWidth, isAutoSizingHeight,
+            SetChildAliments(null, isAutoSizingWidth, isAutoSizingHeight, false, false,
                 isAutoAlignment || isAutoSizingWidth, isAutoSizingHeight);
         }
 

@@ -59,6 +59,27 @@ namespace EGUI.GameObjects
         /// <summary>
         /// GridLayoutGroupを持つGameObjectのラッパークラス
         /// </summary>
+        /// <param name="parent">親オブジェクトをラップするEGGameObject</param>
+        /// <param name="rowCount">行数</param>
+        /// <param name="columnCount">列数</param>
+        /// <param name="constantItemWidth">アイテムの固定幅</param>
+        /// <param name="constantItemHeight">アイテムの固定高さ</param>
+        public EGGridLayoutView
+        (
+            EGGameObject parent,
+            int rowCount = 3,
+            int columnCount = 3,
+            int constantItemWidth = -1,
+            int constantItemHeight = -1
+        ) : this
+        (
+            parent.gameObject,
+            rowCount,columnCount,constantItemWidth,constantItemHeight
+        ){}
+        
+        /// <summary>
+        /// GridLayoutGroupを持つGameObjectのラッパークラス
+        /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="rowCount">行数</param>
         /// <param name="columnCount">列数</param>

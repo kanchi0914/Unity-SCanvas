@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Examples.AdvGame;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
 using DG.Tweening;
@@ -10,19 +11,6 @@ namespace EGUI.GameObjects
 {
     public class EgMessageWindow : EGGameObject
     {
-        public struct Section
-        {
-            public String Talker;
-            public String Text;
-            public Action Action;
-
-            public Section(string talker, string message, Action action = null)
-            {
-                Talker = talker;
-                Text = message;
-                Action = action;
-            }
-        }
 
         public List<Section> SentSections = new List<Section>();
 
@@ -43,6 +31,11 @@ namespace EGUI.GameObjects
             string name = "SMessageWindow"
         ) : base(parent, name)
         {
+            SetImageColor(Color.gray, 0.5f)
+                .SetBottomCenterAnchor()
+                .SetLocalPosByRatio(0, -0.1f)
+                .SetRectSizeByRatio(0.8f, 0.3f);
+            
             MessageText = new EGText(gameObject, "");
             MessageText
                 .SetCharacter(fontSize: 36, font: UGUIResources.Font)
@@ -50,6 +43,8 @@ namespace EGUI.GameObjects
                 .SetParagraph(alignment: TextAnchor.UpperLeft);
                 
             MessageText
+                .SetLocalPosByRatio(0.05f, 0.1f)
+                .SetRectSizeByRatio(0.9f, 0.8f)
                 .SetFullStretchAnchor()
                 .SetImageColor(Color.gray, 0.5f)
                 .SetOnClick(OnClicked);

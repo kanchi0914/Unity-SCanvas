@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Extensions;
+﻿using System.Linq;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.ScrollRect;
@@ -28,6 +31,24 @@ namespace EGUI.GameObjects
         public EGScrollBar ScrollBarObject { get; private set; }
         
         /// <summary>
+        /// DropDownオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isAutoSizingHeight">アイテムの高さを親に合わせるか</param>
+        /// <param name="scrollBarHeight">ScrollBarオブジェクトの高さ</param>
+        public EGHorizontalLayoutScrollView
+        (
+            EGGameObject parent,
+            bool isAutoSizingHeight = true,
+            int scrollBarHeight = 20
+        ) : this
+        (
+            parent.gameObject,
+            isAutoSizingHeight, scrollBarHeight
+        ){}
+        
+        
+        /// <summary>
         /// HorizontalLayoutGroupでアイテムを配置するScrollViewオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
@@ -35,7 +56,7 @@ namespace EGUI.GameObjects
         /// <param name="scrollBarHeight">ScrollBarオブジェクトの高さ</param>
         /// <param name="name">オブジェクト名</param>
         public EGHorizontalLayoutScrollView(
-            GameObject parent,
+            GameObject parent = null,
             bool isAutoSizingHeight = true,
             int scrollBarHeight = 20,
             string name = "EGHorizontalLayoutScrollView"
@@ -73,9 +94,9 @@ namespace EGUI.GameObjects
             ScrollRectComponent.verticalScrollbarVisibility = ScrollbarVisibility.AutoHideAndExpandViewport;
             ScrollRectComponent.horizontalScrollbarSpacing = -3;
             ScrollRectComponent.verticalScrollbarSpacing = -3;
-            ScrollRectComponent.vertical = false;
             ScrollRectComponent.horizontal = true;
-            
+            ScrollRectComponent.vertical = false;
+
             var mask = viewport.gameObject.AddComponent<Mask>();
             viewport.gameObject.SetImageSprite(UGUIResources.Mask);
             mask.showMaskGraphic = false;
@@ -83,6 +104,13 @@ namespace EGUI.GameObjects
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();
             csfitter.horizontalFit = ContentSizeFitter.FitMode.MinSize;
             csfitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+
+            gameObject.OnTransformChildrenChangedAsObservable().Subscribe(_ =>
+            {
+                var added = gameObject.GetChildrenObjects().Last();
+                if (added != ScrollBarObject.gameObject)
+                    gameObject.GetChildrenObjects().Last().transform.SetParent(ContentAreaObject.rectTransform);
+            });
         }
         
         /// <summary>

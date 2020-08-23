@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Examples.AdvGame;
+using Assets.Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 using static EGUI.Base.Utils;
@@ -9,8 +10,33 @@ public class Main : MonoBehaviour
 {
     void Start()
     {
+        //new EgSlider(null).SetLocalPos(300,300);
 
-        new EgSlider(null).SetLocalPos(300,300);
+        // var layout = new EGHorizontalLayoutScrollView()
+        //     .SetLocalPos(200, 200)
+        //     .SetRectSize(200, 200);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+        // new EGButton(layout);
+
+        // var titleText = new EGText(text: "たのしいアドベンチャーゲーム")
+        //     // .SetCharacter(font: GUIData.GenjuGothicBold, fontSize: 48)
+        //     .SetMiddleCenterAnchor()
+        //     .SetRectSizeByRatio(0.8f, 0.2f)
+        //     .SetLocalPosByRatio(0, 0.25f);
+
+        // new EGButton().SetTopRightAnchor()
+        //     .SetRectSizeByRatio(0.8f, 0.2f)
+        //     .SetLocalPosByRatio(0, 0.25f);
+        //
+        new AdvGameOpening();
+
+
         // var parent = new GameObject( "parent");
         // parent.OnTransformChildrenChangedAsObservable()
         //     .Subscribe(g =>
@@ -73,7 +99,6 @@ public class Main : MonoBehaviour
         // new EGToggle().SetLocalPos(300,300);
 
         //
-
 
 
         // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");

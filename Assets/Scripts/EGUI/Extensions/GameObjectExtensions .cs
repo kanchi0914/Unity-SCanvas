@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using EGUI.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -60,6 +60,20 @@ namespace Assets.Scripts.Extensions
         //     gameObject.transform.position = pos;
         //     gameObject.SetActive(true);
         // }
+        
+        public static GameObject SetParent(this GameObject gameObject, Transform transform)
+        {
+            var tempMono = new GameObject();
+            var mono = tempMono.gameObject.AddComponent<MonoBehaviour>();
+            mono.StartCoroutine(setParent(gameObject, transform));
+            return gameObject;
+        }
+
+        private static IEnumerator setParent(GameObject gameObject, Transform transform)
+        {
+            yield return new WaitForEndOfFrame();
+            gameObject.transform.SetParent(transform);
+        }
         
         public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
         {

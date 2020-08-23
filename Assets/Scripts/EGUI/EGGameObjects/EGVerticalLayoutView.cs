@@ -11,9 +11,28 @@ namespace EGUI.GameObjects
         /// VerticalLayoutGroupコンポーネントへの参照
         /// </summary>
         public VerticalLayoutGroup LayoutComponent;
+        
+        /// <summary>
+        /// VerticalLayoutGroupでオブジェクトを配置するScrollViewオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isAutoSizingWidth">アイテムの幅を親に合わせるか</param>
+        /// <param name="scrollBarWidth">ScrollBarオブジェクトの幅</param>
+        public EGVerticalLayoutView
+        (
+            EGGameObject parent,
+            bool isAutoSizingWidth = false,
+            bool isAutoSizingHeight = false,
+            bool isAutoAlignment = false
+        ) : this
+        (
+            parent.gameObject, isAutoSizingWidth, isAutoSizingHeight, isAutoAlignment
+        )
+        {
+        }
 
         /// <summary>
-        /// VerticalLayoutGroupコンポーネントを持つオブジェクトを生成し、参照を保持するクラス
+        /// VerticalLayoutGroupでオブジェクトを配置するScrollViewオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="isAutoSizingWidth">各アイテムの幅を親に合わせて自動調整するか</param>
@@ -34,11 +53,22 @@ namespace EGUI.GameObjects
         )
         {
             LayoutComponent = gameObject.GetOrAddComponent<VerticalLayoutGroup>();
-            SetChildAlignments(null, false, false, isAutoSizingWidth,
-                isAutoSizingHeight, isAutoAlignment || isAutoSizingHeight,
-                isAutoSizingWidth);
+            SetChildAlignments(null, isAutoSizingWidth, isAutoSizingHeight, false,
+                false, isAutoAlignment || isAutoSizingWidth,
+                isAutoSizingHeight);
         }
 
+        /// <summary>
+        /// 子要素の配置方法を設定する
+        /// </summary>
+        /// <param name="childAlignment"></param>
+        /// <param name="childControlWidth"></param>
+        /// <param name="childControlHeight"></param>
+        /// <param name="childScaleWidth"></param>
+        /// <param name="childScaleHeight"></param>
+        /// <param name="childForceExpandWidth"></param>
+        /// <param name="childForceExpandHeight"></param>
+        /// <returns></returns>
         public EGVerticalLayoutView SetChildAlignments(
             TextAnchor? childAlignment = null,
             bool? childControlWidth = null,

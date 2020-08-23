@@ -27,9 +27,27 @@ namespace EGUI.GameObjects
         public Dropdown DropdownComponent { get; private set; }
 
         /// <summary>
-        /// ドロップダウン展開時に表示される選択肢一覧表示エリアのオブジェクト
+        /// DropDownオブジェクトのラッパークラス
         /// </summary>
+        /// <param name="parent">親オブジェクトをラップするEGGameObject</param>
+        /// <param name="maxContentFieldSize">選択肢表示エリアの最大高さ</param>
+        /// <param name="name">オブジェクトの名前</param>
         public EGVerticalLayoutScrollView TemplateObject;
+        
+        /// <summary>
+        /// DropDownオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="maxContentFieldSize">選択肢表示エリアの最大高さ</param>
+        public EGDropDown
+        (
+            EGGameObject parent = null,
+            int maxContentFieldSize = 200
+        ) : this
+        (
+            parent.gameObject,
+            maxContentFieldSize
+        ){}
 
         /// <summary>
         /// DropDownオブジェクトのラッパークラス
@@ -40,7 +58,7 @@ namespace EGUI.GameObjects
         public EGDropDown(
             GameObject parent = null,
             int maxContentFieldSize = 200,
-            string name = "EGDropDown"
+            string name = "DropDown"
         ) : base(parent, name)
         {
             SetRectSize(defaultWidth, defaultheight)

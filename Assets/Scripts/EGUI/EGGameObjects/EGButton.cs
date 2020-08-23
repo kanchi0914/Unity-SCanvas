@@ -17,6 +17,21 @@ namespace EGUI.GameObjects
         /// Textコンポーネント
         /// </summary>
         public EGText TextObject { get; private set; }
+        
+        /// <summary>
+        /// Buttonオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクトをラップするEGGameObject</param>
+        /// <param name="text">ボタンのテキスト</param>
+        public EGButton
+        (
+            EGGameObject parent,
+            string text = ""
+        ) : this
+        (
+            parent.gameObject,
+            text
+        ){}
 
         /// <summary>
         /// Buttonオブジェクトのラッパークラス
@@ -25,8 +40,8 @@ namespace EGUI.GameObjects
         /// <param name="text">ボタンのテキスト</param>
         /// <param name="name">オブジェクト名</param>
         public EGButton(
-            GameObject parent,
-            string text,
+            GameObject parent = null,
+            string text = "",
             string name = "EGButton"
         ) : base(parent, name)
         {
@@ -40,19 +55,21 @@ namespace EGUI.GameObjects
         /// ボタンコンポーネントから全てのイベントリスナーを削除し、新たにActionを追加する
         /// </summary>
         /// <param name="onClick">クリック時に呼ばれるAction</param>
-        public void SetOnOnClick(Action onClick)
+        public EGButton SetOnOnClick(Action onClick)
         {
             ButtonComponent.onClick.RemoveAllListeners();
             AddOnClick(onClick);
+            return this;
         }
 
         /// <summary>
         /// ボタンコンポーネントのイベントリスナーにActionを追加する
         /// </summary>
         /// <param name="onClick">クリック時に呼ばれるAction</param>
-        public void AddOnClick(Action onClick)
+        public EGButton AddOnClick(Action onClick)
         {
             ButtonComponent.onClick.AddListener(() => onClick.Invoke());
+            return this;
         }
     }
 }

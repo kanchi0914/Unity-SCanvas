@@ -11,6 +11,43 @@ namespace EGUI.GameObjects
 {
     public class EGText : EGGameObject
     {
+        public struct TextPreset
+        {
+            public Font Font;
+            public FontStyle? FontStyle;
+            public int? FontSize;
+            public int? LineSpacing;
+            public bool? SupportRichText;
+            public TextAnchor? Alignment;
+            public bool? AlignByGeometry;
+            public HorizontalWrapMode? HorizontalOverflow;
+            public VerticalWrapMode? VerticalOverflow;
+            public bool? ResizeTextForBestFit;
+            public Color? Color;
+
+            public TextPreset(
+                Font font = null, FontStyle? fontStyle = null, int? fontSize = null,
+                int? lineSpacing = null, bool? supportRichText = null,
+                TextAnchor? alignment = null, bool? alignByGeometry = null,
+                HorizontalWrapMode? horizontalOverflow = null,
+                VerticalWrapMode? verticalOverflow = null,
+                bool? resizeTextForBestFit = null, Color? color = null
+                )
+            {
+                Font = font;
+                FontStyle = fontStyle;
+                FontSize = fontSize;
+                LineSpacing = lineSpacing;
+                SupportRichText = supportRichText;
+                Alignment = alignment;
+                AlignByGeometry = alignByGeometry;
+                HorizontalOverflow = horizontalOverflow;
+                VerticalOverflow = verticalOverflow;
+                ResizeTextForBestFit = resizeTextForBestFit;
+                Color = color;
+            }
+        }
+        
         /// <summary>
         /// Textコンポーネント
         /// </summary>
@@ -44,11 +81,30 @@ namespace EGUI.GameObjects
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="text">テキスト</param>
+        public EGText
+        (
+            EGGameObject parent,
+            string text = "",
+            bool isAutoSizing = false
+        ) : this
+        (
+            parent.gameObject,
+            text, isAutoSizing
+        )
+        {
+        }
+
+        /// <summary>
+        /// Textオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="text">テキスト</param>
         /// <param name="name">オブジェクト名</param>
         public EGText
         (
             GameObject parent = null,
             string text = "",
+            bool isAutoSizing = false,
             string name = "EGText"
         ) : base
         (
@@ -59,7 +115,7 @@ namespace EGUI.GameObjects
             TextComponent = gameObject.GetOrAddComponent<Text>();
             SetText(text)
                 .SetCharacter(fontSize: Utils.DefaultFontSize, font: UGUIResources.Font)
-                .SetParagraph(alignment: TextAnchor.MiddleCenter)
+                .SetParagraph(alignment: TextAnchor.MiddleCenter, resizeTextForBestFit: isAutoSizing)
                 .SetColor(Utils.DefaultTextColor);
         }
 
@@ -86,7 +142,7 @@ namespace EGUI.GameObjects
             DefaultTextColor = TextComponent.color;
             return this;
         }
-        
+
         /// <summary>
         /// カーソルが乗ったときのテキストの色を設定
         /// </summary>
@@ -128,7 +184,8 @@ namespace EGUI.GameObjects
         /// <param name="lineSpacing"></param>
         /// <param name="supportRichText"></param>
         /// <returns></returns>
-        public EGText SetCharacter(Font font = null, FontStyle? fontStyle = null, int? fontSize = null,
+        public EGText SetCharacter(
+            Font font = null, FontStyle? fontStyle = null, int? fontSize = null,
             int? lineSpacing = null, bool? supportRichText = null)
         {
             TextComponent.font = font ?? TextComponent.font;
@@ -148,7 +205,8 @@ namespace EGUI.GameObjects
         /// <param name="verticalOverflow"></param>
         /// <param name="resizeTextForBestFit"></param>
         /// <returns></returns>
-        public EGText SetParagraph(TextAnchor? alignment = null, bool? alignByGeometry = null,
+        public EGText SetParagraph(
+            TextAnchor? alignment = null, bool? alignByGeometry = null,
             HorizontalWrapMode? horizontalOverflow = null,
             VerticalWrapMode? verticalOverflow = null,
             bool? resizeTextForBestFit = null)
@@ -158,6 +216,16 @@ namespace EGUI.GameObjects
             TextComponent.horizontalOverflow = horizontalOverflow ?? TextComponent.horizontalOverflow;
             TextComponent.verticalOverflow = verticalOverflow ?? TextComponent.verticalOverflow;
             TextComponent.resizeTextForBestFit = resizeTextForBestFit ?? TextComponent.resizeTextForBestFit;
+            return this;
+        }
+
+        public EGText SetTextPreset(TextPreset textPreset)
+        {
+            SetCharacter(textPreset.Font, textPreset.FontStyle, textPreset.FontSize,
+                textPreset.LineSpacing, textPreset.SupportRichText);
+            SetParagraph(textPreset.Alignment, textPreset.AlignByGeometry, textPreset.HorizontalOverflow,
+                textPreset.VerticalOverflow, textPreset.ResizeTextForBestFit);
+            if (textPreset.Color != null) SetColor((Color)textPreset.Color);
             return this;
         }
     }

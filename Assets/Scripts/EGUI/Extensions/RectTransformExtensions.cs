@@ -477,7 +477,6 @@ namespace EGUI.Base
                     var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
                     rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
                     break;
-                    ;
                 }
                 case AnchorType.VerticalStretchWithRightPivot:
                 {
@@ -487,7 +486,6 @@ namespace EGUI.Base
                     var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
                     rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
                     break;
-                    ;
                 }
                 case AnchorType.VerticalStretch:
                 {
@@ -495,7 +493,6 @@ namespace EGUI.Base
                     var merginBottom = parentRectSize.y / 2 - rectSize.y / 2 + anchoredPosY;
                     rectTransform.sizeDelta = new Vector2(rectSize.x, -(merginTop + merginBottom));
                     break;
-                    ;
                 }
                 case AnchorType.HorizontalStretch:
                 {
@@ -503,7 +500,6 @@ namespace EGUI.Base
                     var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
                     rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
                     break;
-                    ;
                 }
                 case AnchorType.HorizontalStretchWithTopPivot:
                 {
@@ -513,7 +509,6 @@ namespace EGUI.Base
                     var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
                     rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
                     break;
-                    ;
                 }
                 case AnchorType.HorizontalStretchWithBottomPivot:
                 {
@@ -523,7 +518,6 @@ namespace EGUI.Base
                     var right = parentRectSize.x / 2 - rectSize.x / 2 - anchoredPosX;
                     rectTransform.sizeDelta = new Vector2(-(merginLeft + right), rectSize.y);
                     break;
-                    ;
                 }
                 case AnchorType.FullStretch:
                 {

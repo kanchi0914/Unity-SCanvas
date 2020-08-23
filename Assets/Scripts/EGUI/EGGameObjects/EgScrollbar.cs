@@ -9,19 +9,28 @@ namespace EGUI.GameObjects
     public class EGScrollBar : EGGameObject
     {
         public EGGameObject HandleImageObject { get; private set; }
-        
+
         public Scrollbar ScrollbarComponent { get; private set; }
-        
+
         /// <summary>
-        /// コンストラクタ
+        /// ScrollBarオブジェクトのラッパークラス
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="imageFilePath"></param>
-        /// <param name="posRatioX"></param>
-        /// <param name="posRatioY"></param>
-        /// <param name="widthRatio"></param>
-        /// <param name="heightRatio"></param>
-        /// <param name="name"></param>
+        /// <param name="parent">親オブジェクト</param>
+        public EGScrollBar
+        (
+            EGGameObject parent
+        ) : this
+        (
+            parent.gameObject
+        )
+        {
+        }
+
+        /// <summary>
+        /// ScrollBarオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="name">オブジェクト名</param>
         public EGScrollBar
         (
             GameObject parent,
@@ -45,7 +54,5 @@ namespace EGUI.GameObjects
             ScrollbarComponent.direction = direction;
             return this;
         }
-        
-        
     }
 }

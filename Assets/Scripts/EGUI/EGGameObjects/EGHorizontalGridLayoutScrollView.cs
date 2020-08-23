@@ -1,5 +1,8 @@
-﻿using Assets.Scripts.Extensions;
+﻿using System.Linq;
+using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.UI.ScrollRect;
@@ -26,6 +29,25 @@ namespace EGUI.GameObjects
         /// ScrollBarゲームオブジェクトをラップするクラス
         /// </summary>
         public EGScrollBar ScrollBarObject { get; private set; }
+        
+        /// <summary>
+        /// DropDownオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクトを</param>
+        /// <param name="rowCount">行数</param>
+        /// <param name="constantItemWidth">アイテムの幅</param>
+        /// <param name="scrollBarHeight">スクロールバーの高さ</param>
+        public EGHorizontalGridLayoutScrollView
+        (
+            EGGameObject parent,
+            int rowCount = 3,
+            int constantItemWidth = 100,
+            int scrollBarHeight = 20
+        ) : this
+        (
+            parent.gameObject,
+            rowCount,constantItemWidth,scrollBarHeight
+        ){}
 
         /// <summary>
         /// GridLayoutGroupでアイテムを配置し、
@@ -37,7 +59,7 @@ namespace EGUI.GameObjects
         /// <param name="scrollBarHeight">スクロールバーの高さ</param>
         /// <param name="name">オブジェクトの名前</param>
         public EGHorizontalGridLayoutScrollView(
-            GameObject parent,
+            GameObject parent = null,
             int rowCount = 3,
             int constantItemWidth = 100,
             int scrollBarHeight = 20,
@@ -57,6 +79,7 @@ namespace EGUI.GameObjects
             ContentAreaObject = new EGGridLayoutView(viewport.gameObject, rowCount,
                 constantItemWidth:constantItemWidth, name: "Content");
             ContentAreaObject
+                .SetChildAlignment(TextAnchor.UpperLeft)
                 .SetRectSize(200, defaultHeight)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 1)
@@ -68,7 +91,8 @@ namespace EGUI.GameObjects
                 .SetHorizontalStretchWithBottomPivotAnchor()
                 .SetRectSize(200, scrollBarHeight)
                 .SetLocalPos(0, 0);
-
+            ScrollBarObject.ScrollbarComponent.direction = Scrollbar.Direction.LeftToRight;
+            
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
             ScrollRectComponent.content = ContentAreaObject.gameObject.GetRectTransform();
             ScrollRectComponent.viewport = viewport.rectTransform;
@@ -85,8 +109,15 @@ namespace EGUI.GameObjects
             mask.showMaskGraphic = false;
 
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();
-            csfitter.horizontalFit = ContentSizeFitter.FitMode.MinSize;
+            csfitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
             csfitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+            
+            gameObject.OnTransformChildrenChangedAsObservable().Subscribe(_ =>
+            {
+                var added = gameObject.GetChildrenObjects().Last();
+                if (added != ScrollBarObject.gameObject)
+                    gameObject.GetChildrenObjects().Last().transform.SetParent(ContentAreaObject.rectTransform);
+            });
         }
     }
 }

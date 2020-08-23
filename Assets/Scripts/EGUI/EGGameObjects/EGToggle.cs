@@ -14,7 +14,7 @@ namespace EGUI.GameObjects
         private int defaultHeight = 40;
         private int offSet = 5;
         private int spacing = 10;
-        
+
         /// <summary>
         /// Toggleコンポーネントへの参照
         /// </summary>
@@ -23,24 +23,49 @@ namespace EGUI.GameObjects
         public EGGameObject BoxImageObject { get; private set; }
 
         public EGGameObject CheckImageObject { get; private set; }
-        
+
         public EGText LabelTextObject { get; private set; }
 
         public Color EnabledTextColor { get; set; } = Color.black;
         public Color DisabledTextColor { get; set; } = Color.black;
-        
+
         public Color EnabledBackGroundImageColor { get; set; } = Color.clear;
-        
+
         public Color DisabledBackGroundImageColor { get; set; } = Color.clear;
-        
+
         public bool IsOn
         {
             get => ToggleComponent.isOn;
             set => ToggleComponent.isOn = value;
         }
-        
+
+        /// <summary>
+        /// Toggleオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isGrouped">Toggleをグループ化するか</param>
+        /// <param name="isWithCheckBoxImage">チェックボックスの画像を表示するか</param>
+        public EGToggle
+        (
+            EGGameObject parent,
+            bool isGrouped = false,
+            bool isWithCheckBoxImage = true
+        ) : this
+        (
+            parent.gameObject, isGrouped, isWithCheckBoxImage
+        )
+        {
+        }
+
+        /// <summary>
+        /// Toggleオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        /// <param name="isGrouped">Toggleをグループ化するか</param>
+        /// <param name="isWithCheckBoxImage">チェックボックスの画像を表示するか</param>
+        /// <param name="name">オブジェクト名</param>
         public EGToggle(
-            GameObject parent = null, 
+            GameObject parent = null,
             bool isGrouped = false,
             bool isWithCheckBoxImage = true,
             string name = "EgToggle"
@@ -53,29 +78,29 @@ namespace EGUI.GameObjects
                 .SetImageSprite(UGUIResources.UISprite)
                 .SetImageColor(DisabledBackGroundImageColor);
             ToggleComponent = gameObject.AddComponent<Toggle>();
-            
+
             BoxImageObject = new EGGameObject(gameObject, name: "toggleBackGround")
                 .SetImageSprite(UGUIResources.UISprite)
                 .SetImageColor(Color.white);
 
-            LabelTextObject = new EGText(this.gameObject, "Toggle", "toggleLabel")
+            LabelTextObject = new EGText(this.gameObject, "Toggle", false, "toggleLabel")
                 .SetParagraph(alignment: TextAnchor.MiddleLeft)
                 .SetRectSize(200, 40) as EGText;
-            
+
             var checkBoxImageSize = rectTransform.sizeDelta.y - spacing * 2;
             BoxImageObject
                 .SetMiddleLeftAnchor()
                 .SetLocalPos(spacing, 0)
                 .SetRectSize(checkBoxImageSize, checkBoxImageSize);
-            
+
             var boxAspectFitter = BoxImageObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             boxAspectFitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
-            boxAspectFitter.aspectRatio = 1; 
+            boxAspectFitter.aspectRatio = 1;
             BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
-            
+
             var textAspectFitter = LabelTextObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             textAspectFitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
-            textAspectFitter.aspectRatio = 3; 
+            textAspectFitter.aspectRatio = 3;
             BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
 
             CheckImageObject = new EGGameObject(BoxImageObject.gameObject, name: "box_gray_name")
@@ -91,14 +116,14 @@ namespace EGUI.GameObjects
 
             BoxImageObject.SetRectSize(defaultHeight - offSet * 2, defaultHeight - offSet * 2);
             LabelTextObject.SetRectSize(defaultWidth * 2 - defaultHeight, defaultHeight - spacing);
-            
+
             var layout = gameObject.AddComponent<HorizontalLayoutGroup>();
             layout.childControlWidth = false;
             layout.childControlHeight = true;
             layout.childForceExpandWidth = false;
             layout.childForceExpandHeight = true;
             layout.spacing = spacing;
-            layout.padding = new RectOffset(offSet,offSet,offSet,offSet);
+            layout.padding = new RectOffset(offSet, offSet, offSet, offSet);
 
             if (isGrouped && parent != null)
             {
@@ -110,7 +135,7 @@ namespace EGUI.GameObjects
             // this.isWithCheckBox = isWithCheckBox;
             ToggleComponent.onValueChanged.AddListener(e => OnSelected());
         }
-        
+
         public void SetOnValueChanged(Action action, bool isOn = true)
         {
             ToggleComponent.onValueChanged.RemoveAllListeners();
@@ -131,7 +156,7 @@ namespace EGUI.GameObjects
                 }
             });
         }
-        
+
         private void OnSelected()
         {
             if (ToggleComponent.isOn)
@@ -145,8 +170,5 @@ namespace EGUI.GameObjects
                 gameObject.SetImageColor(DisabledBackGroundImageColor);
             }
         }
-
-
     }
-
 }

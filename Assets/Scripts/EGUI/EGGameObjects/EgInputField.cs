@@ -18,26 +18,40 @@ namespace EGUI.GameObjects
         /// テキスト未入力時に表示されるTextオブジェクト
         /// </summary>
         public EGText PlaceHolderTextObject;
-        
+
         /// <summary>
         /// Textオブジェクト
         /// </summary>
         public EGText Textobject;
 
         /// <summary>
-        /// InputFIeldオブジェクトのラッパークラス
+        /// InputFieldオブジェクトのラッパークラス
+        /// </summary>
+        /// <param name="parent">親オブジェクト</param>
+        public EgInputField
+        (
+            EGGameObject parent
+        ) : this
+        (
+            parent.gameObject
+        )
+        {
+        }
+
+        /// <summary>
+        /// InputFieldオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
         /// <param name="name">オブジェクト名</param>
         public EgInputField(
-            GameObject parent,
+            GameObject parent = null,
             string name = "EgInputField"
         ) : base(parent, name)
         {
             SetImageColor(Color.white)
                 .SetImageSprite(UGUIResources.InputField);
 
-            PlaceHolderTextObject = new EGText(this.gameObject, "Enter Text...", "PlaceHolder")
+            PlaceHolderTextObject = new EGText(this.gameObject, "Enter Text...", false, "PlaceHolder")
                 .SetFullStretchAnchor()
                 .SetImageColor(Color.gray, 0.5f) as EGText;
 
@@ -47,7 +61,7 @@ namespace EGUI.GameObjects
                 .SetRectSize(gameObject.GetRectSize().x - 10, gameObject.GetRectSize().y - 10)
                 .SetLocalPos(0, 0);
 
-            Textobject = new EGText(gameObject, "", "Text")
+            Textobject = new EGText(gameObject, "", false, "Text")
                 .SetParagraph(alignment: TextAnchor.UpperLeft)
                 .SetRectSize(RectSize.x - 10, RectSize.y - 10)
                 .SetFullStretchAnchor().SetLocalPos(0, 0) as EGText;
@@ -60,7 +74,7 @@ namespace EGUI.GameObjects
             InputFieldComponent.placeholder = PlaceHolderTextObject.TextComponent;
             InputFieldComponent.lineType = InputField.LineType.MultiLineNewline;
         }
-        
+
         /// <summary>
         /// テキスト変更時に呼ばれるActionを追加する
         /// </summary>
@@ -112,9 +126,9 @@ namespace EGUI.GameObjects
         /// </summary>
         /// <param name="characterLimit"></param>
         /// <returns></returns>
-        public EgInputField SetCharactorLimit(
+        public EgInputField SetCharacterLimit(
             int characterLimit
-            )
+        )
         {
             InputFieldComponent.characterLimit = characterLimit;
             return this;
