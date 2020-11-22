@@ -155,16 +155,6 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        // public EGText AddOnClick(Action action)
-        // {
-        //     var entry = new EventTrigger.Entry();
-        //     entry.eventID = EventTriggerType.PointerClick;
-        //     entry.callback.AddListener(e => action.Invoke());
-        //     var trigger = gameObject.GetOrAddComponent<EventTrigger>();
-        //     trigger.triggers.Add(entry);
-        //     return this;
-        // }
-
         public EGText AddEvent(EventTriggerType type, Action action)
         {
             var entry = new EventTrigger.Entry();

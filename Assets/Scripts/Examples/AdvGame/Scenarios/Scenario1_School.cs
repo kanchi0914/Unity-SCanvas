@@ -13,6 +13,14 @@ namespace Assets.Scripts.Examples.AdvGame
         {
             InitScripts();
             SetBackGroundImage("Images/bg_school_rouka");
+            if (GameData.IsAllFlagCompleted)
+            {
+                Load("solved_intro");
+            }
+            else
+            {
+                Load();
+            }
         }
 
         private void InitScripts()
@@ -103,17 +111,96 @@ namespace Assets.Scripts.Examples.AdvGame
                 }),
             };
             Scripts.Add("selected_dont_cooperate", script3);
-            var script4 = new List<Section>()
+            
+            var options_where_to_go = new List<Section>()
             {
                 new Section("", "どこに行こうか？",
                     () =>
                     {
+                        RemoveAllCharacters();
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("2組の教室", () => new Scenario2_Classroom().Load("intro", 0));
-                        optionWindow.AddOption("パソコン室", () => Load("start", 0));
+                        optionWindow.AddOption("斎藤さんの所", () => Load("ask_saito"));
+                        optionWindow.AddOption("2組の教室", () => new Scenario2_Classroom().Load());
+                        optionWindow.AddOption("パソコン室", () => new Scenario3_PCroom().Load());
                     })
             };
-            Scripts.Add("options_where_to_go", script4);
+            Scripts.Add("options_where_to_go", options_where_to_go);
+            
+            // 「協力する」
+            var ask_saito = new List<Section>()
+            {
+                new Section("", "まずは斎藤さんの所へ行ってみた\nどうやらすごく落ち込んでいるようだ‥‥", () =>
+                {
+                    RemoveAllCharacters();
+                }),
+                new Section("ヒロシ", "あの‥‥斎藤さん\nちょっといいかな"),
+                new Section("斎藤さん", "あ‥‥はい　なんでしょうか‥‥",
+                    () => SetCharacterImage("斎藤", "normal")),
+                new Section("ヒロシ", "財布がなくなったって話聞いたよ\nなにか俺たちにできることはないかと思ってさ\n" +
+                                   "なんでもいいから　情報が欲しいんだ", () => Load("options_what_to_ask"))
+            };
+            
+            var options_what_to_ask = new List<Section>()
+            {
+                new Section("斎藤さん", "答えられること‥‥あまりないとおもいますが‥",
+                    () =>
+                    {
+                        RemoveAllCharacters();
+                        SetCharacterImage("斎藤", "normal");
+                        var optionWindow = new OptionsWindow(AdvMessageWindow);
+                        optionWindow.AddOption("盗まれた財布について聞く", () => Load("asked_about_wallet",0));
+                        optionWindow.AddOption("盗まれたときの状況を聞く", () => Load("asked_about_situation",0));
+                        optionWindow.AddOption("やめる", () =>
+                        {
+                            Load("options_where_to_go");
+                        });
+                    })
+            };
+            Scripts.Add("options_what_to_ask", options_what_to_ask);
+            
+            var asked_about_wallet = new List<Section>()
+            {
+                new Section("ヒロシ", "盗まれた財布って、どんな感じだった？"),
+                new Section("斎藤さん", "どんなって‥‥　別に普通です　普通の財布‥‥"),
+                new Section("ヒロシ", "そうか‥‥\n(特に情報を引き出せそうにないな‥‥)"),
+                new Section("", "", () =>
+                {
+                    Load("options_what_to_ask",0);
+                }),
+            };
+            Scripts.Add("asked_about_wallet", asked_about_wallet);
+            
+            var asked_about_situation = new List<Section>()
+            {
+                new Section("ヒロシ", "財布がなくなったときの事　思い出せる？"),
+                new Section("斎藤さん", "ちょっと目を離しただけなんです　他のクラスの子に呼ばれて\n" +
+                                    "教室の入り口で少し話した後　戻ったらなくなってて‥‥"),
+                new Section("斎藤さん", "きっとクラスに　私の事が嫌いな人がいるんです\n私もう　怖くてみんなと話せない‥‥"),
+                new Section("ヒロ子", "(ヒロシくん‥‥　これはまずいよ　早く何とかしてあげないと～)",
+                    () => SetCharacterImage("ヒロ子", "running")),
+                new Section("", "", () =>
+                {
+                    Load("options_what_to_ask",0);
+                }),
+            };
+            Scripts.Add("asked_about_situation", asked_about_situation);
+            
+            
+            Scripts.Add("ask_saito", ask_saito);
+            
+            var solved_intro = new List<Section>()
+            {
+                new Section("ヒロ子", "いろいろ調べたけど　結局よくわかんないね～",
+                    () => SetCharacterImage("ヒロ子", "normal")),
+                new Section("ヒロシ", "そんなことはないぞ　今ある情報で 謎はすべて解けた"),
+                new Section("ヒロ子", "えっ!? すごいよ～　さすがはヒロシくん\nそれで　誰が犯人なの？",
+                    () => SetCharacterImage("ヒロ子", "running")),
+                new Section("ヒロシ", "授業が始まるし　それはまた後にしよう\n放課後教室でな"),
+                new Section("ヒロ子", "え～気になるよ～",
+                    () => SetCharacterImage("ヒロ子", "smile")),
+                new Section("", "", () => new Scenario4_Afternoon().Load())
+            };
+            Scripts.Add("solved_intro", solved_intro);
         }
     }
 }

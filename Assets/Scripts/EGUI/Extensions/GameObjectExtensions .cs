@@ -42,25 +42,6 @@ namespace Assets.Scripts.Extensions
             return gameObject.GetOrAddComponent<Image>();
         }
 
-        // public EGGameObject SetGlobalPos(Vector3 pos)
-        // {
-        //     var test = new EGUIObject(null);
-        //     var obj = new GameObject().AddComponent<MonoBehaviour>();
-        //     gameObject.SetActive(false);
-        //     obj.StartCoroutine(SetGlobalPosCoroutine(pos));
-        //     test.DestroySelf();
-        //     return this;
-        // }
-
-        // private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
-        // {
-        //     gameObject.transform.position = pos;
-        //     gameObject.SetActive(true);
-        //     yield return null;
-        //     gameObject.transform.position = pos;
-        //     gameObject.SetActive(true);
-        // }
-        
         public static GameObject SetParent(this GameObject gameObject, Transform transform)
         {
             var tempMono = new GameObject();

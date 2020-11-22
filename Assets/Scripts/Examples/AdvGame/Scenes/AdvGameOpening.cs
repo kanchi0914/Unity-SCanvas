@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Examples.AdvGame.Objects;
+﻿using System;
+using Assets.Scripts.Examples.AdvGame.Objects;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
@@ -12,18 +13,23 @@ namespace Assets.Scripts.Examples.AdvGame
 
         public AdvGameOpening()
         {
+            //var data = new SaveData("dasdsad", 0, $"{GameData.SAVE_DATA_FILE_PATH}/aaaaa");
+            //FileUtils.SaveToBinaryFile(data, $"{GameData.SAVE_DATA_FILE_PATH}/safds");
+            Debug.Log("done");
+        }
+
+        private void Init()
+        {
             canvas = new EGCanvas("");
-            GameData.SaveSatas[0] = new SaveData("", 3, "");
-            GameData.SaveSatas[1] = new SaveData("", 3, "");
 
             var backGroundImage = new EGGameObject(canvas);
             Utils.SetBackgroundImage(backGroundImage, "Images/school");
 
             var titleText = new EGText(canvas, "たのしいアドベンチャーゲーム")
-                .SetCharacter(font: GUIData.GenjuGothicBold, fontSize: 48)
-                .SetMiddleCenterAnchor()
-                .SetRectSizeByRatio(0.8f, 0.2f) 
-                .SetLocalPosByRatio(0, -0.25f)
+                    .SetCharacter(font: GUIData.GenjuGothicBold, fontSize: 48)
+                    .SetMiddleCenterAnchor()
+                    .SetRectSizeByRatio(0.8f, 0.2f)
+                    .SetLocalPosByRatio(0, -0.25f)
                 as EGText;
             var menus = new EGVerticalLayoutView(canvas, isAutoSizingWidth: true)
                 .SetMiddleCenterAnchor()
@@ -38,8 +44,7 @@ namespace Assets.Scripts.Examples.AdvGame
             newGameText.AddOnClick(() =>
             {
                 CanvasStack.ClearAll();
-                // new Scenario0_Morning().Load("intro", 0);
-                new Scenario2_Classroom().Load();
+                new Scenario1_School();
             });
             loadGameText.AddOnClick(() => new LoadMenu());
             optionGameText.AddOnClick(() => new OptionMenu());

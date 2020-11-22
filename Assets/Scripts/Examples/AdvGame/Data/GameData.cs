@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using EGUI.GameObjects;
 using UnityEngine;
 
 namespace Assets.Scripts.Examples.AdvGame
 {
-    public static class GameData
+    public class GameData
     {
         public static List<Character> Characters = new List<Character>();
-        public static SaveData[] SaveSatas = new SaveData[6];
+        public static SaveData[] SaveDatas = new SaveData[6];
+
+        public static readonly String SAVE_DATA_FILE_PATH = "Assets/Scripts/Examples/AdvGame/SaveData";
 
         public static bool HasAskedAboutSeat = false;
+
+        public static bool IsAllFlagCompleted = false;
 
         static GameData()
         {
@@ -22,11 +28,12 @@ namespace Assets.Scripts.Examples.AdvGame
                 {"tere", Resources.Load<Sprite>("Images/sick_atsui_school_girl")},
                 {"smile", Resources.Load<Sprite>("Images/school_blazer_girl_kurubushi")},
                 {"depressed", Resources.Load<Sprite>("Images/school_girl_cry_walk")},
+                {"love", Resources.Load<Sprite>("Images/message_loveletter_girl")},
             };
-            var mobko = new Character(){Name = "モブ子"};
-            mobko.ImageMap = new Dictionary<string, Sprite>()
+            var saito = new Character(){Name = "斎藤"};
+            saito.ImageMap = new Dictionary<string, Sprite>()
             {
-                {"normal", Resources.Load<Sprite>("Images/study_gariben_girl")},
+                {"normal", Resources.Load<Sprite>("Images/shisyunki_girl2")},
             };
             var danshi = new Character(){Name = "男子生徒"};
             danshi.ImageMap = new Dictionary<string, Sprite>()
@@ -39,9 +46,35 @@ namespace Assets.Scripts.Examples.AdvGame
                 {"normal", Resources.Load<Sprite>("Images/school_joshikousei_kogyaru_90s")},
             };
             Characters.Add(heroine);
-            Characters.Add(mobko);
+            Characters.Add(saito);
             Characters.Add(danshi);
             Characters.Add(joshi);
         }
+        
+        public static void LoadData()
+        {
+            for (int i = 0; i < 6; i++){
+                SaveData data = null;
+                try
+                {
+                    data = FileUtils.LoadFromBinaryFile($"{SAVE_DATA_FILE_PATH}/data_{i + 1}") as SaveData;
+                    data.Init();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+                SaveDatas[i] = data;
+            }
+        }
+        
+        public static void SaveData(SaveData saveData, int dataNumber)
+        {
+            var tempImageFilePath = $"{SAVE_DATA_FILE_PATH}/ScreenShots/image_{dataNumber}";
+            ScreenCapture.CaptureScreenshot(tempImageFilePath);
+            FileUtils.SaveToBinaryFile(saveData, $"{SAVE_DATA_FILE_PATH}/data_{dataNumber + 1}");
+            SaveDatas[dataNumber] = saveData;
+        }
+
     }
 }

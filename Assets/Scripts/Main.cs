@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Examples.AdvGame;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts.Examples.AdvGame;
 using Assets.Scripts.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,105 +12,45 @@ public class Main : MonoBehaviour
 {
     void Start()
     {
-        //new EgSlider(null).SetLocalPos(300,300);
-
-        // var layout = new EGHorizontalLayoutScrollView()
-        //     .SetLocalPos(200, 200)
-        //     .SetRectSize(200, 200);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-        // new EGButton(layout);
-
-        // var titleText = new EGText(text: "たのしいアドベンチャーゲーム")
-        //     // .SetCharacter(font: GUIData.GenjuGothicBold, fontSize: 48)
-        //     .SetMiddleCenterAnchor()
-        //     .SetRectSizeByRatio(0.8f, 0.2f)
-        //     .SetLocalPosByRatio(0, 0.25f);
-
-        // new EGButton().SetTopRightAnchor()
-        //     .SetRectSizeByRatio(0.8f, 0.2f)
-        //     .SetLocalPosByRatio(0, 0.25f);
-        //
+        var aaaa = 1100;
         new AdvGameOpening();
-
-
-        // var parent = new GameObject( "parent");
-        // parent.OnTransformChildrenChangedAsObservable()
-        //     .Subscribe(g =>
-        //     {
-        //         Debug.Log("child object is added?????");
-        //     });
-        // parent.ObserveEveryValueChanged(_ => gameObject.transform.position)
-        //     .Subscribe(e => Debug.Log(e));
-        // var child = new GameObject("child");
-        // child.transform.SetParent(parent.transform);
-        // child.transform.position = new Vector3(10,101,0);
-
-        // new RectTransformExtensionsTest2();
-
-
-        // var canvas = new EGCanvas("test");
-
-        // var button = new EGButton(canvas.gameObject, "");
-        // button.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0);
-        // button.TextObject.SetText("aaaaaaa");
-
-        // var view = new EGVerticalLayoutScrollView(canvas.gameObject);
-        // view.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0)
-        //     .SetRectSize(200, 200);
-
-
-        // var gridView = new EGVerticalLayoutScrollView(canvas.gameObject, true);
-        // // var gridView = new EGHorizontalLayoutScrollView(canvas.gameObject, isAutoSizingHeight:true);
-        // gridView.gameObject.SetMiddleCenterAnchor().SetLocalPos(0, 0)
-        //     .SetRectSize(150, 300);
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-
-        //
-        // new EgSlider(canvas.gameObject)
-        //     .gameObject.SetRectSize(200, 30)
-        //     .SetMiddleCenterAnchor()
-        //     .SetLocalPos(0, 0);
-
-        // new EGToggle(canvas.gameObject)
-        //     .gameObject.SetRectSize(200, 40)
-        //     .SetMiddleCenterAnchor()
-        //     .SetLocalPos(0, 0);
-
-        //
-        // var dp = new EGDropDown();
-        // dp.SetRectSize(300, 50)
-        //     .SetMiddleCenterAnchor()
-        //     .SetLocalPos(0, 0);
-        //
-        // dp.AddOption("option1", null);
-        // dp.AddOption("option2", null);
-        // dp.AddOption("option3", null);
-        // dp.AddOption("option4", null);
-
-        // new EGToggle().SetLocalPos(300,300);
-
-        //
-
-
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // new EGButton(gridView.ContentAreaObject.gameObject, "aaaaa");
-        // gridView.gameObject.SetRectSize(300, 300);
-
-
-        // var image2 = new EGGameObject(view.ContentAreaObject.gameObject);
-
-        // var scroll = new EGScrollBar(canvas.gameObject);
-        // scroll.gameObject.SetMiddleCenterAnchor().SetRectSize(200, 40).SetLocalPos(0, 0);
+        //var save = new SaveData("1", 10, "path/to/image");
+        // var path = "Assets/Scripts/Examples/AdvGame/Sdsadadsasd1"
+        // var data = Main.LoadFromBinaryFile(path);
+        // Debug.Log("saved!");
     }
+    
+    // /// <summary>
+    // /// オブジェクトの内容をファイルから読み込み復元する
+    // /// </summary>
+    // /// <param name="path">読み込むファイル名</param>
+    // /// <returns>復元されたオブジェクト</returns>
+    // public static object LoadFromBinaryFile(string path)
+    // {
+    //     FileStream fs = new FileStream(path,
+    //         FileMode.Open,
+    //         FileAccess.Read);
+    //     BinaryFormatter f = new BinaryFormatter();
+    //     //読み込んで逆シリアル化する
+    //     object obj = f.Deserialize(fs);
+    //     fs.Close();
+    //
+    //     return obj;
+    // }
+    //
+    // /// <summary>
+    // /// オブジェクトの内容をファイルに保存する
+    // /// </summary>
+    // /// <param name="obj">保存するオブジェクト</param>
+    // /// <param name="path">保存先のファイル名</param>
+    // public static void SaveToBinaryFile(object obj, string path)
+    // {
+    //     FileStream fs = new FileStream(path,
+    //         FileMode.Create,
+    //         FileAccess.Write);
+    //     BinaryFormatter bf = new BinaryFormatter();
+    //     //シリアル化して書き込む
+    //     bf.Serialize(fs, obj);
+    //     fs.Close();
+    // }
 }

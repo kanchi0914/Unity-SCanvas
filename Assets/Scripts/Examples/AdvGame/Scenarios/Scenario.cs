@@ -84,7 +84,12 @@ namespace Assets.Scripts.Examples.AdvGame
         public void SetCharacterImage(string name, string imageName)
         {
             var charaAndImage = CharacterImages.Find(c => c.Item1.Name == name);
-            charaAndImage.Item2.SetImageSprite(charaAndImage.Item1.ImageMap[imageName]);
+            if (charaAndImage.egGameObject == null)
+            {
+                AddCharacter(name, imageName); 
+                return;
+            }
+            charaAndImage.egGameObject.SetImageSprite(charaAndImage.Character.ImageMap[imageName]);
         }
 
     }
