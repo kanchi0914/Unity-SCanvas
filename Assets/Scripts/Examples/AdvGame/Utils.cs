@@ -11,7 +11,7 @@ namespace Assets.Scripts.Examples.AdvGame
         public static void SetBackgroundImage(EGGameObject image, string imageFilePath)
         {
             image.SetImage(imageFilePath);
-            image.gameObject.GetImage().SetNativeSize();
+            image.gameObject.GetImageComponent().SetNativeSize();
             image.SetMiddleCenterAnchor().SetLocalPos(0, 0);
             var asfitter = image.gameObject.AddComponent<AspectRatioFitter>();
             asfitter.aspectRatio = image.RectSize.x / image.RectSize.y;

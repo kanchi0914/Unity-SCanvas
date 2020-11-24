@@ -7,8 +7,9 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
 {
     public class SaveMenu : EGCanvas
     {
-        public SaveMenu(string scenarioName, string sceneId, int messageNumber) : base("OptionMenu")
+        public SaveMenu(Scenario scenario) : base("OptionMenu")
         {
+            GameData.LoadData();
             var blockImage = new EGGameObject(this).SetRectSizeByRatio(1, 1);
             blockImage.SetImageColor(Color.clear);
             var menu = new EGGameObject(this);
@@ -36,7 +37,9 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
 
             foreach (var (item, index) in GameData.SaveDatas.ToList().Indexed())
             {
-                new SaveDataImage(saveDateImagesCanvas, true, index,  scenarioName, sceneId, messageNumber, item);
+                new SaveDataImage(saveDateImagesCanvas, true, index, 
+                    scenario.ScenarioName, scenario.CurrentScriptId, 
+                    scenario.SectionNumber, item);
             }
 
             var closeButton = new EGButton(menu, "×")

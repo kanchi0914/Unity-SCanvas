@@ -23,6 +23,8 @@ namespace EGUI.GameObjects
             public HorizontalWrapMode? HorizontalOverflow;
             public VerticalWrapMode? VerticalOverflow;
             public bool? ResizeTextForBestFit;
+            public int? ResizeTextMinSize;
+            public int? ResizeTextMaxSize;
             public Color? Color;
 
             public TextPreset(
@@ -31,7 +33,8 @@ namespace EGUI.GameObjects
                 TextAnchor? alignment = null, bool? alignByGeometry = null,
                 HorizontalWrapMode? horizontalOverflow = null,
                 VerticalWrapMode? verticalOverflow = null,
-                bool? resizeTextForBestFit = null, Color? color = null
+                bool? resizeTextForBestFit = null, int? resizeTextMinSize = null,
+                int? resizeTextMaxSize = null, Color? color = null
                 )
             {
                 Font = font;
@@ -44,6 +47,8 @@ namespace EGUI.GameObjects
                 HorizontalOverflow = horizontalOverflow;
                 VerticalOverflow = verticalOverflow;
                 ResizeTextForBestFit = resizeTextForBestFit;
+                ResizeTextMinSize = resizeTextMinSize;
+                ResizeTextMaxSize = resizeTextMaxSize;
                 Color = color;
             }
         }
@@ -199,13 +204,18 @@ namespace EGUI.GameObjects
             TextAnchor? alignment = null, bool? alignByGeometry = null,
             HorizontalWrapMode? horizontalOverflow = null,
             VerticalWrapMode? verticalOverflow = null,
-            bool? resizeTextForBestFit = null)
+            bool? resizeTextForBestFit = null,
+            int? resizeTextMinSize = null,
+            int? resizeTextMaxSize = null
+            )
         {
             TextComponent.alignment = alignment ?? TextComponent.alignment;
             TextComponent.alignByGeometry = alignByGeometry ?? TextComponent.alignByGeometry;
             TextComponent.horizontalOverflow = horizontalOverflow ?? TextComponent.horizontalOverflow;
             TextComponent.verticalOverflow = verticalOverflow ?? TextComponent.verticalOverflow;
             TextComponent.resizeTextForBestFit = resizeTextForBestFit ?? TextComponent.resizeTextForBestFit;
+            TextComponent.resizeTextMinSize = resizeTextMinSize ?? TextComponent.resizeTextMinSize;
+            TextComponent.resizeTextMaxSize = resizeTextMaxSize ?? TextComponent.resizeTextMaxSize;
             return this;
         }
 
@@ -214,7 +224,8 @@ namespace EGUI.GameObjects
             SetCharacter(textPreset.Font, textPreset.FontStyle, textPreset.FontSize,
                 textPreset.LineSpacing, textPreset.SupportRichText);
             SetParagraph(textPreset.Alignment, textPreset.AlignByGeometry, textPreset.HorizontalOverflow,
-                textPreset.VerticalOverflow, textPreset.ResizeTextForBestFit);
+                textPreset.VerticalOverflow, textPreset.ResizeTextForBestFit, textPreset.ResizeTextMinSize, 
+                textPreset.ResizeTextMaxSize);
             if (textPreset.Color != null) SetColor((Color)textPreset.Color);
             return this;
         }

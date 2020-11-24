@@ -13,7 +13,7 @@ namespace Assets.Scripts.Examples.AdvGame
         {
             InitScripts();
             SetBackGroundImage("Images/bg_dote_yuyake");
-            Load();
+            LoadScript();
         }
 
         private void InitScripts()
@@ -44,8 +44,8 @@ namespace Assets.Scripts.Examples.AdvGame
                     {
                         SetCharacterImage("ヒロ子", "love");
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("はい", () => Load("choose_yes"));
-                        optionWindow.AddOption("いいえ", () => Load("choose_no"));
+                        optionWindow.AddOption("はい", () => LoadScript("choose_yes"));
+                        optionWindow.AddOption("いいえ", () => LoadScript("choose_no"));
                     }),
             };
             Scripts.Add("intro", intro);

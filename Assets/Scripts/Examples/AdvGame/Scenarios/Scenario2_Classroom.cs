@@ -20,7 +20,7 @@ namespace Assets.Scripts.Examples.AdvGame
             var intro = new List<Section>()
             {
                 new Section("", "俺たちは事件が起こったという2組の教室にやってきた"),
-                new Section("", "", () => Load("options_what_to_do", 0))
+                new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("intro", intro);
             // 
@@ -31,13 +31,13 @@ namespace Assets.Scripts.Examples.AdvGame
                     {
                         RemoveAllCharacters();
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("周りの人に話を聞く", () => Load("ask_girl",0));
+                        optionWindow.AddOption("周りの人に話を聞く", () => LoadScript("ask_girl"));
                         optionWindow.AddOption("席を調べる", () =>
                         {
-                            if (GameData.HasAskedAboutSeat) Load("check_seat_with_info", 0);
-                            else Load("check_seat_without_info", 0);
+                            if (GameData.HasAskedAboutSeat) LoadScript("check_seat_with_info");
+                            else LoadScript("check_seat_without_info");
                         });
-                        optionWindow.AddOption("別の場所へ行く", () => new Scenario1_School().Load("options_where_to_go",0));
+                        optionWindow.AddOption("別の場所へ行く", () => new Scenario1_School().LoadScript("options_where_to_go"));
                     })
             };
             Scripts.Add("options_what_to_do", options_what_to_do);
@@ -57,7 +57,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("女子生徒", "あ～あれね　マジかわいそーってカンジだけど" +
                                                     "\nアタシそんなよく知らないかんね　あんま期待しないでね～"),
                 new Section("", "",
-                    () => Load("options_what_to_ask"))
+                    () => LoadScript("options_what_to_ask"))
             };
             Scripts.Add("ask_girl", ask_girl);
             
@@ -67,12 +67,12 @@ namespace Assets.Scripts.Examples.AdvGame
                     () =>
                     {
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("斎藤さんの特徴について", () => Load("asked_about_saito",0));
-                        optionWindow.AddOption("財布の特徴について", () => Load("asked_about_wallet",0));
-                        optionWindow.AddOption("斎藤さんの席について", () => Load("asked_about_seat",0));
+                        optionWindow.AddOption("斎藤さんの特徴について", () => LoadScript("asked_about_saito"));
+                        optionWindow.AddOption("財布の特徴について", () => LoadScript("asked_about_wallet"));
+                        optionWindow.AddOption("斎藤さんの席について", () => LoadScript("asked_about_seat"));
                         optionWindow.AddOption("やめる", () =>
                         {
-                            Load("options_what_to_do");
+                            LoadScript("options_what_to_do");
                         });
                     })
             };
@@ -88,7 +88,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("女子生徒", "ないない　ウチのクラスめっちゃ仲良しってか～" +
                                                    "\nもじイジメとかあったら　ウチが見逃すはずないし～"),
                 new Section("", "",
-                    () => Load("options_what_to_ask",0))
+                    () => LoadScript("options_what_to_ask"))
             };
             Scripts.Add("asked_about_saito", asked_about_saito);
             
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Examples.AdvGame
                                                     "\nあ　それは言い過ぎか？ごめんね～"),
                 new Section("ヒロシ", "(なるほど‥‥目立つ財布か)"),
                 new Section("", "",
-                    () => Load("options_what_to_ask",0))
+                    () => LoadScript("options_what_to_ask"))
             };
             Scripts.Add("asked_about_wallet", asked_about_wallet);
             
@@ -116,7 +116,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロシ", "(窓際の一番奥の席‥と)",
                     () => GameData.HasAskedAboutSeat = true),
                 new Section("", "",
-                    () => Load("options_what_to_ask",0))
+                    () => LoadScript("options_what_to_ask"))
             };
             Scripts.Add("asked_about_seat", asked_about_seat);
             
@@ -134,7 +134,7 @@ namespace Assets.Scripts.Examples.AdvGame
                                                    "\n人間じゃとても無理だろ"),
                 new Section("ヒロシ", "(とはいえ　窓が開いてるのは気になるな‥‥？)"),
                 new Section("", "",
-                    () => Load("options_what_to_do",0))
+                    () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("check_seat_with_info", check_seat_with_info);
             
@@ -143,7 +143,7 @@ namespace Assets.Scripts.Examples.AdvGame
             {
                 new Section("ヒロシ", "斎藤さんの席を調べたいけど、場所がわからないな…"),
                 new Section("", "",
-                    () => Load("options_what_to_do",0))
+                    () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("check_seat_without_info", check_seat_without_info);
 

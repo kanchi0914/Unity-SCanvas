@@ -34,21 +34,21 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
             
             var scrollRect = new EGVerticalLayoutScrollView(
                     window, isAutoSizingWidth:true)
-                .SetBottomCenterAnchor()
+                .SetTopCenterAnchor()
                 .SetRectSizeByRatio(0.9f, 0.8f)
-                .SetLocalPosByRatio(0, 0.05f) as EGVerticalLayoutScrollView;
+                .SetLocalPosByRatio(0, 0.1f) as EGVerticalLayoutScrollView;
             scrollRect.SetPaddingAndSpacing(10).SetImageColor(Color.clear);
             sections.ForEach(s =>
             {
-                var image = new EGGameObject(scrollRect);
+                var image = new EGGameObject(scrollRect).SetRectSize(0, 120);
                 image.SetImageColor(Color.cyan, 0.5f);
                 var logtext = new EGText(image, $"{s.Talker} : {s.Text}")
                     .SetTextPreset(DefaultText)
+                    .SetParagraph(verticalOverflow: VerticalWrapMode.Overflow)
                     .SetCharacter(fontSize:20)
                     .SetRectSizeByRatio(1, 1) 
                     .SetFullStretchAnchor() as EGText;
                 logtext.SetParagraph(TextAnchor.UpperLeft);
-                // scrollRect.AddItem(image);
             });
 
             var button = new CloseButton(window);

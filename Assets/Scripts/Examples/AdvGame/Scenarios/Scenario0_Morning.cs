@@ -38,7 +38,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロ子", "えっ…　そ　それは困るなぁ…", 
                 () => SetCharacterImage("ヒロ子", "tere")),
                 new Section("ヒロシ", "なに動揺してんだよ…　ほら早く学校行くぞ"),
-                new Section("", "", () => new Scenario1_School().Load("intro", 0))
+                new Section("", "", () => new Scenario1_School().LoadScript("intro"))
             };
             Scripts.Add("intro", script1);
         }

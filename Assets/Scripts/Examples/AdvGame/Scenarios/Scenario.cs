@@ -9,19 +9,36 @@ using UnityEngine;
 
 namespace Assets.Scripts.Examples.AdvGame
 {
+    /// <summary>
+    /// シナリオのモデルクラス
+    /// </summary>
     public class Scenario
     {
-        //public List<List<Section>> Scripts = new List<List<Section>>(); 
         public Dictionary<string, List<Section>> Scripts =
             new Dictionary<string, List<Section>>();
+        
+        // 現在再生中のスクリプト
+        public List<Section> CurrentScript = new List<Section>();
+        // 現在再生中のスクリプトID(セーブデータに必要)
+        public string CurrentScriptId;
+        // 現在のスクリプト中、何番目のセクションを表示しているか
+        public int SectionNumber = -1;
+        // ログ表示に必要な部分
+        public List<Section> SentSections = new List<Section>();
+
+        // シナリオ名(クラス名)
+        public string ScenarioName => GetType().Name;
+        
         public List<(Character Character, EGGameObject egGameObject)> CharacterImages = new List<(Character, EGGameObject)>();
+        
+        // ビュークラス
         private EGCanvas backGroundImageCanvas;
         private EGCanvas CharacterImageCanvas;
         private EgHorizontalLayoutView characterImagesLayoutView;
         private EGCanvas messageWindowCanvas;
         public AdvMessageWindow AdvMessageWindow;
-
         public EGGameObject BackgroundImage { get; set; }
+        
         public Scenario ()
         {
             CanvasStack.ClearAll();
@@ -35,15 +52,38 @@ namespace Assets.Scripts.Examples.AdvGame
                 .SetRectSizeByRatio(1,1) as EgHorizontalLayoutView;
             characterImagesLayoutView.LayoutComponent.childAlignment = TextAnchor.MiddleCenter;
             messageWindowCanvas = new EGCanvas("messageWindowCanvas");
-            AdvMessageWindow = new AdvMessageWindow(messageWindowCanvas);
+            AdvMessageWindow = new AdvMessageWindow(messageWindowCanvas, this);
         }
 
-        public void Load(string scriptId = null, int sectionNumber = 0)
+        // メッセージ送り
+        public void SendSection()
         {
-            var script =  ((scriptId == null) ? Scripts.First().Value : Scripts[scriptId]);
-            script.RemoveRange(0, sectionNumber);
-            AdvMessageWindow.SetMessageAndActions(script);
-            AdvMessageWindow.gameObject.GetImage().raycastTarget = true;
+            SectionNumber++;
+            // スクリプト中の全セクションを表示し終わった
+            if (SectionNumber >= CurrentScript.Count)
+            {
+                AdvMessageWindow.DestroySelf();
+                return;
+            }
+            var section = CurrentScript[SectionNumber];
+            SentSections.Add(section);
+            AdvMessageWindow.SetTalkerText(section.Talker);
+            AdvMessageWindow.SetMessageText(section.Text);
+            section.Action?.Invoke();
+        }
+
+        public void LoadScript(string scriptId = null, int sectionNumber = -1)
+        {
+            SectionNumber = -1;
+            if (scriptId == null) scriptId = Scripts.First().Key;
+            CurrentScriptId = scriptId;
+            CurrentScript = Scripts[scriptId];
+            while (sectionNumber > 0)
+            {
+                SendSection();
+                sectionNumber--;
+            }
+            SendSection();
         }
         
         public void SetBackGroundImage(string imageFilePath)

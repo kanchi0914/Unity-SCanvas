@@ -9,6 +9,21 @@ namespace Assets.Scripts.Extensions
 {
     public static class GameObjectExtensions
     {
+        public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
+        {
+            try
+            {
+                var attached = gameObject.GetComponent<T>();
+                if (!attached) attached = gameObject.AddComponent<T>();
+                return attached;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+        
         public static List<GameObject> GetChildrenObjects(this GameObject gameObject)
         {
             var childrenObjects = new List<GameObject>();
@@ -37,7 +52,7 @@ namespace Assets.Scripts.Extensions
             return gameObject.GetRectTransform().sizeDelta;
         }
                 
-        public static Image GetImage(this GameObject gameObject)
+        public static Image GetImageComponent(this GameObject gameObject)
         {
             return gameObject.GetOrAddComponent<Image>();
         }
@@ -55,22 +70,6 @@ namespace Assets.Scripts.Extensions
             yield return new WaitForEndOfFrame();
             gameObject.transform.SetParent(transform);
         }
-        
-        public static T GetOrAddComponent<T>(this GameObject gameObject) where T : Component
-        {
-            try
-            {
-                var attached = gameObject.GetComponent<T>();
-                if (!attached) attached = gameObject.AddComponent<T>();
-                return attached;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return null;
-            }
-        }
-
         
         public static GameObject SetOnClick(this GameObject gameObject, Action action)
         {

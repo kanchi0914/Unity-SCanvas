@@ -24,10 +24,10 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロシ", "わかったよ　それじゃ言うぞ\n犯人は‥‥",                     () =>
                 {
                     var optionWindow = new OptionsWindow(AdvMessageWindow);
-                    optionWindow.AddOption("ヒロ子だ", () => Load("choose_hiroko"));
-                    optionWindow.AddOption("俺だ", () => Load("choose_myself"));
-                    optionWindow.AddOption("斎藤さん自身だ", () => Load("choose_saito"));
-                    optionWindow.AddOption("猫だ", () => Load("choose_cat",0));
+                    optionWindow.AddOption("ヒロ子だ", () => LoadScript("choose_hiroko"));
+                    optionWindow.AddOption("俺だ", () => LoadScript("choose_myself"));
+                    optionWindow.AddOption("斎藤さん自身だ", () => LoadScript("choose_saito"));
+                    optionWindow.AddOption("猫だ", () => LoadScript("choose_cat"));
                 }),
             };
             Scripts.Add("intro", intro);

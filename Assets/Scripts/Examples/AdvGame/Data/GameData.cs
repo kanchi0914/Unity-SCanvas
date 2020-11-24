@@ -12,9 +12,23 @@ namespace Assets.Scripts.Examples.AdvGame
 
         public static readonly String SAVE_DATA_FILE_PATH = "Assets/Scripts/Examples/AdvGame/SaveData";
 
+        // フラグ：席について聞いた
         public static bool HasAskedAboutSeat = false;
+        
+        public static HashSet<string> SelectedOptions = new HashSet<string>();
+        // // フラグ：席を調べた
+        // public static bool HasCheckedSeat = false;
+        // // フラグ：猫の情報を入手した
+        // public static bool HasCheckedCat = false;
+        // // フラグ：状況について聞いた
+        // public static bool HasAskedStollenSituation = false;
+        // // フラグ：状況について聞いた
+        // public static bool HasAskedStollenSituation = false;
 
         public static bool IsAllFlagCompleted = false;
+
+        public static string CurrentScenarioId;
+        public static string CurrentScriptId;
 
         static GameData()
         {
@@ -58,7 +72,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 try
                 {
                     data = FileUtils.LoadFromBinaryFile($"{SAVE_DATA_FILE_PATH}/data_{i + 1}") as SaveData;
-                    data.Init();
+                    
                 }
                 catch (Exception e)
                 {
@@ -70,8 +84,17 @@ namespace Assets.Scripts.Examples.AdvGame
         
         public static void SaveData(SaveData saveData, int dataNumber)
         {
-            var tempImageFilePath = $"{SAVE_DATA_FILE_PATH}/ScreenShots/image_{dataNumber}";
-            ScreenCapture.CaptureScreenshot(tempImageFilePath);
+            var tempImageFilePath = saveData.ImageFilePath;
+            try
+            {
+                ScreenCapture.CaptureScreenshot(tempImageFilePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
             FileUtils.SaveToBinaryFile(saveData, $"{SAVE_DATA_FILE_PATH}/data_{dataNumber + 1}");
             SaveDatas[dataNumber] = saveData;
         }

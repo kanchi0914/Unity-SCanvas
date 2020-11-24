@@ -12,12 +12,12 @@ namespace EGUI.GameObjects
     public class EgMessageWindow : EGGameObject
     {
 
-        public List<Section> SentSections = new List<Section>();
+        // public List<Section> SentSections = new List<Section>();
+        //
+        // public Queue<Section> MessageQueue = new Queue<Section>();
+        // private bool closesCanvas = true;
 
-        public Queue<Section> MessageQueue = new Queue<Section>();
-        private bool closesCanvas = true;
-
-        public Action OnSentEveryMessage { get; protected set; }
+        // public Action OnSentEveryMessage { get; protected set; }
 
         public EGText MessageText { get; private set; }
 
@@ -59,66 +59,23 @@ namespace EGUI.GameObjects
                     .SetRectSizeByRatio(1, 1)
                     .SetFullStretchAnchor()
                 as EGText;
-        }
-
-        /// <summary>
-        /// 全てのメッセージを送り終わった後に呼ばれるActionを設定します。
-        /// </summary>
-        /// <param name="onSentEveryMessage"></param>
-        /// <returns></returns>
-        public EgMessageWindow SetOnSentEveryMessage(Action onSentEveryMessage)
-        {
-            OnSentEveryMessage = onSentEveryMessage;
-            return this;
-        }
-
-        /// <summary>
-        /// メッセージキューを新たに設定します。
-        /// </summary>
-        /// <param name="messageAndActions"></param>
-        public void SetMessageAndActions(List<Section> messageAndActions)
-        {
-            MessageQueue = new Queue<Section>(messageAndActions);
-            SetNextMessage();
-        }
-
-        /// <summary>
-        /// メッセージキューにメッセージを追加します。
-        /// </summary>
-        /// <param name="message"></param>
-        public void AddMessageAndAction(Section messageAndActions)
-        {
-            MessageQueue.Enqueue(messageAndActions);
-        }
-
-        /// <summary>
-        /// メッセージキューにメッセージのリストを追加します。
-        /// </summary>
-        /// <param name="message"></param>
-        public void AddMessageAndAction(List<Section> messageAndActions)
-        {
-            messageAndActions.ForEach(ma => MessageQueue.Enqueue(ma));
+            
+            gameObject.GetImageComponent().raycastTarget = true;
         }
 
         protected virtual void OnClicked()
         {
-            if (MessageQueue.Count == 0)
-            {
-                OnSentEveryMessage?.Invoke();
-                DestroySelf();
-                return;
-            }
-
-            SetNextMessage();
         }
 
-        protected virtual void SetNextMessage()
+        public void SetTalkerText(string talker)
         {
-            var current = MessageQueue.Dequeue();
-            SentSections.Add(current);
-            MessageText.SetText(current.Text);
-            TalkerText.SetText(current.Talker);
-            current.Action?.Invoke();
+            TalkerText.SetText(talker);
         }
+
+        public void SetMessageText(string message)
+        {
+            MessageText.SetText(message);
+        }
+
     }
 }

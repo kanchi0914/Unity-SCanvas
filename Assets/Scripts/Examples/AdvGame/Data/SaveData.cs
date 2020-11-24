@@ -1,49 +1,64 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.Serialization;
 using EGUI.GameObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Examples.AdvGame
 {
     [Serializable()]
-    public class SaveData
+    public class SaveData : IDeserializationCallback
     {
         public string SceneId;
-        public int MessageNumber;
+        [FormerlySerializedAs("MessageNumber")] public int sectionNumber;
+        
+        [NonSerialized] private Lazy<Sprite> image;
 
         public Sprite Image
         {
-            get { return image; }
-            private set { image = value; }
+            get
+            {
+                if (image == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return image.Value;
+                }
+            }
         }
-
-        [NonSerialized]
-        private Sprite image = null;
+        
         public String ImageFilePath;
         public String ScenarioName;
 
-        public SaveData(string scenarioName, string sceneId, int messageNumber, string imageFilePath)
+        public SaveData(string scenarioName, string sceneId, int sectionNumber, string imageFilePath)
         {
+            image = new Lazy<Sprite>(LoadScreenShotImage);
             ScenarioName = scenarioName;
             SceneId = sceneId;
-            MessageNumber = messageNumber;
+            this.sectionNumber = sectionNumber;
             ImageFilePath = imageFilePath;
-            Init();
+            //Image = LoadScreenShotImage();
         }
 
-        public void Init()
+        public void OnDeserialization(object sender)
         {
-            LoadScreenShotImage();
+            image = new Lazy<Sprite>(LoadScreenShotImage);
         }
 
-        private void LoadScreenShotImage()
+        public Sprite LoadScreenShotImage()
         {
             try
             {
-                Image = FileUtils.LoadFromBinaryFile(ImageFilePath) as Sprite;
+                var image = FileUtils.LoadSprite(ImageFilePath);
+                return image;
             }
             catch (Exception e)
             {
+                return null;
             }
         }
     }

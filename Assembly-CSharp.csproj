@@ -99,6 +99,7 @@
      <Compile Include="Assets\Scripts\EGUI\Extensions\GameObjectExtensions .cs" />
      <Compile Include="Assets\Scripts\EGUI\Extensions\RectTransformExtensions.cs" />
      <Compile Include="Assets\Scripts\EGUI\GameObjectExtensions.cs" />
+     <Compile Include="Assets\Scripts\Examples\AdvGame\AdvGameOpening.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Components\AdvMessageWindow.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Components\CloseButton.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Components\GenjuText.cs" />
@@ -112,6 +113,7 @@
      <Compile Include="Assets\Scripts\Examples\AdvGame\Data\GameData.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Data\SaveData.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Models\Charactor.cs" />
+     <Compile Include="Assets\Scripts\Examples\AdvGame\Models\Option.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Models\Section.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario0_Morning.cs" />
@@ -120,7 +122,6 @@
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario3_Afternoon.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario3_Pcroom.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario5_AfternoonDote.cs" />
-     <Compile Include="Assets\Scripts\Examples\AdvGame\Scenes\AdvGameOpening.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Utils.cs" />
      <Compile Include="Assets\Scripts\Examples\Ally.cs" />
      <Compile Include="Assets\Scripts\Examples\Command.cs" />

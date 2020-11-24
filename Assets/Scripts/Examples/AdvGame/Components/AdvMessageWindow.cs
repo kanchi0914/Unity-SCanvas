@@ -5,15 +5,18 @@ using static Assets.Scripts.Examples.AdvGame.GUIData;
 
 namespace Assets.Scripts.Examples.AdvGame.Objects
 {
+    /// <summary>
+    /// メッセージウィンドウのビュークラス
+    /// 基本的に画面表示に関する操作のみを行い、状態を持たないように設計する
+    /// </summary>
     public class AdvMessageWindow : EgMessageWindow
     {
-        public int MessageNumber = 0;
-        public List<Section> sendSections = new List<Section>();
-        
         public bool IsOptionSelecting = false;
+        public Scenario Scenario;
 
-        public AdvMessageWindow(EGGameObject parentCanvas) : base(parentCanvas.gameObject)
+        public AdvMessageWindow(EGGameObject parentCanvas, Scenario scenario) : base(parentCanvas.gameObject)
         {
+            Scenario = scenario;
             var menus = new EgHorizontalLayoutView(
                     this,
                     isAutoSizingHeight: true,
@@ -28,27 +31,20 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
             var loadText = new EGText(menus, "ロード", true).SetTextPreset(DefaultText);
             var optionText = new EGText(menus, "オプション", true).SetTextPreset(DefaultText);
             
-            logText.AddOnClick(() => new LogWindow(SentSections));
-            saveText.AddOnClick(() => new SaveMenu("", "", MessageNumber));
+            logText.AddOnClick(() => new LogWindow(Scenario.SentSections));
+            saveText.AddOnClick(() => new SaveMenu(Scenario));
             loadText.AddOnClick(() => new LoadMenu());
             optionText.AddOnClick(() => new OptionMenu());
-            
-            MessageText.SetTextPreset(DefaultText).SetCharacter(fontSize: 28);
+
+            MessageText.SetTextPreset(MessageWindowText);
             TalkerText.SetTextPreset(DefaultText);
         }
         
         protected override void OnClicked()
         {
-            // MessageNumber++;
             if (!IsOptionSelecting)
             {
-                if (MessageQueue.Count == 0)
-                {
-                    OnSentEveryMessage?.Invoke();
-                    DestroySelf();
-                    return;
-                }
-                SetNextMessage();
+                Scenario.SendSection();
             }
         }
     }
