@@ -21,17 +21,21 @@ namespace Assets.Scripts.Examples.AdvGame
             {
                 new Section("", "　～放課後～"),
                 new Section("ヒロ子", "ねーもういいでしょ　ヒロシくん\n犯人教えてよ", () => SetCharacterImage("ヒロ子", "normal")),
-                new Section("ヒロシ", "わかったよ　それじゃ言うぞ\n犯人は‥‥",                     () =>
+                new Section("ヒロシ", "わかったよ　それじゃ言うぞ\n犯人は‥‥", () =>
                 {
                     var optionWindow = new OptionsWindow(AdvMessageWindow);
-                    optionWindow.AddOption("ヒロ子だ", () => LoadScript("choose_hiroko"));
-                    optionWindow.AddOption("俺だ", () => LoadScript("choose_myself"));
-                    optionWindow.AddOption("斎藤さん自身だ", () => LoadScript("choose_saito"));
-                    optionWindow.AddOption("猫だ", () => LoadScript("choose_cat"));
+                    optionWindow.AddOption(
+                        new Option($"{ScenarioName}_choose_hiroko", "ヒロ子だ", () => LoadScript("choose_hiroko")));
+                    optionWindow.AddOption(new Option($"{ScenarioName}_choose_myself", "俺だ",
+                        () => LoadScript("choose_myself")));
+                    optionWindow.AddOption(new Option($"{ScenarioName}_choose_saito", "斎藤さん自身だ",
+                        () => LoadScript("choose_saito")));
+                    optionWindow.AddOption(new Option($"{ScenarioName}_choose_cat", "猫だ",
+                        () => LoadScript("choose_cat")));
                 }),
             };
             Scripts.Add("intro", intro);
-            
+
             var choose_hiroko = new List<Section>()
             {
                 new Section("ヒロシ", "ヒロ子だ"),
@@ -50,7 +54,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 }),
             };
             Scripts.Add("choose_hiroko", choose_hiroko);
-            
+
             var choose_myself = new List<Section>()
             {
                 new Section("ヒロシ", "俺だ"),
@@ -68,7 +72,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 }),
             };
             Scripts.Add("choose_myself", choose_myself);
-            
+
             var choose_saito = new List<Section>()
             {
                 new Section("ヒロシ", "斎藤さん自身だ"),
@@ -89,7 +93,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 }),
             };
             Scripts.Add("choose_saito", choose_saito);
-            
+
             var choose_cat = new List<Section>()
             {
                 new Section("ヒロシ", "猫だ"),
@@ -109,13 +113,9 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロシ", "それなら心配はいらない\nヒロ子　小銭持ってるか？"),
                 new Section("ヒロ子", "えっ？あるにはあるけど‥‥",
                     () => SetCharacterImage("ヒロ子", "normal")),
-                new Section("", "", () =>
-                {
-                    new Scenario4_AfternoonDote();
-                }),
+                new Section("", "", () => { new Scenario4_AfternoonDote(); }),
             };
             Scripts.Add("choose_cat", choose_cat);
-
         }
     }
 }
