@@ -1,66 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using HC.UI;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts.Examples.AdvGame;
 using Assets.Scripts.Extensions;
+using UnityEngine;
 using UnityEngine.UI;
-using Assets.Scripts;
-using System;
-using Assets.Scripts.SCanvases;
+using static EGUI.Base.Utils;
+using EGUI.Base;
+using EGUI.GameObjects;
 
 public class Main : MonoBehaviour
 {
-
-    Transform mainCanvas;
-    Camera mainCamera;
-
-    // Start is called before the first frame update
     void Start()
     {
-        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        mainCanvas = GameObject.Find("Main Canvas").transform;
-        //var aaa = new SButton(new Action(() => Debug.Log("NO1!")));
-        //List<SButton> buttons = new List<SButton>()
-        //{
-        //    aaa,
-        //    new SButton(new Action(() => Debug.Log("NO222222!"))),
-        //    new SButton(new Action(() => QCanvasGenerator.addNewCanvas()))
-        //};
-
-        //QCanvas mult = new MultiCanvas();
-        var ca = new MainMenu();
-        //QCanvas qCanvas = new MainMenu();
-
+        var aaaa = 1100;
+        new AdvGameOpening();
+        //var save = new SaveData("1", 10, "path/to/image");
+        // var path = "Assets/Scripts/Examples/AdvGame/Sdsadadsasd1"
+        // var data = Main.LoadFromBinaryFile(path);
+        // Debug.Log("saved!");
     }
-
     
-
-    private Vector3 getScreenTopLeft()
-    {
-        // 画面の左上を取得
-        Vector3 topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);
-        // 上下反転させる
-        topLeft.Scale(new Vector3(1f, -1f, 1f));
-        return topLeft;
-    }
-
-    private Vector3 getScreenBottomRight()
-    {
-        // 画面の右下を取得
-        Vector3 bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));
-        // 上下反転させる
-        bottomRight.Scale(new Vector3(1f, -1f, 1f));
-        return bottomRight;
-    }
-
-    void addNewCanvas()
-    {
-        var root = new GameObject();
-        root.name = "NEWCANVAS!!";
-        Canvas canvas = root.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        canvas.worldCamera = mainCamera;
-        root.AddComponent<CanvasScaler>();
-        root.AddComponent<GraphicRaycaster>();
-    }
+    // /// <summary>
+    // /// オブジェクトの内容をファイルから読み込み復元する
+    // /// </summary>
+    // /// <param name="path">読み込むファイル名</param>
+    // /// <returns>復元されたオブジェクト</returns>
+    // public static object LoadFromBinaryFile(string path)
+    // {
+    //     FileStream fs = new FileStream(path,
+    //         FileMode.Open,
+    //         FileAccess.Read);
+    //     BinaryFormatter f = new BinaryFormatter();
+    //     //読み込んで逆シリアル化する
+    //     object obj = f.Deserialize(fs);
+    //     fs.Close();
+    //
+    //     return obj;
+    // }
+    //
+    // /// <summary>
+    // /// オブジェクトの内容をファイルに保存する
+    // /// </summary>
+    // /// <param name="obj">保存するオブジェクト</param>
+    // /// <param name="path">保存先のファイル名</param>
+    // public static void SaveToBinaryFile(object obj, string path)
+    // {
+    //     FileStream fs = new FileStream(path,
+    //         FileMode.Create,
+    //         FileAccess.Write);
+    //     BinaryFormatter bf = new BinaryFormatter();
+    //     //シリアル化して書き込む
+    //     bf.Serialize(fs, obj);
+    //     fs.Close();
+    // }
 }

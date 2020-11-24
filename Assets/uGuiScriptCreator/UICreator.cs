@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEditor;
 #endif
 
-
 namespace HC.UI
 {
     public static class UICreator
@@ -14,7 +13,8 @@ namespace HC.UI
 
         public enum LayoutGroupType
         {
-            Grid,
+            VerticalGrid,
+            HorizontalGrid,
             Horizontal,
             Vertical,
         }
@@ -52,7 +52,6 @@ namespace HC.UI
 
         static private Resources s_StandardResources;
 
-
         private const float kWidth = 160f;
         private const float kThickHeight = 30f;
         private const float kThinHeight = 20f;
@@ -82,13 +81,13 @@ namespace HC.UI
                 s_StandardResources.dropdown = AssetDatabase.GetBuiltinExtraResource<Sprite>(kDropdownArrowPath);
                 s_StandardResources.mask = AssetDatabase.GetBuiltinExtraResource<Sprite>(kMaskPath);
 #else
-                s_StandardResources.standard = UnityEngine.Resources.Load<GameObject>("UISprite").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.background = UnityEngine.Resources.Load<GameObject>("Background").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.inputField = UnityEngine.Resources.Load<GameObject>("InputFieldBackground").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.knob = UnityEngine.Resources.Load<GameObject>("Knob").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.checkmark = UnityEngine.Resources.Load<GameObject>("Checkmark").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.dropdown = UnityEngine.Resources.Load<GameObject>("DropdownArrow").GetComponent<SpriteRenderer>().sprite;
-                s_StandardResources.mask = UnityEngine.Resources.Load<GameObject>("UIMask").GetComponent<SpriteRenderer>().sprite;
+                s_StandardResources.standard = UnityEngine.Resources.Load<GameObject> ("UISprite").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.background = UnityEngine.Resources.Load<GameObject> ("Background").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.inputField = UnityEngine.Resources.Load<GameObject> ("InputFieldBackground").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.knob = UnityEngine.Resources.Load<GameObject> ("Knob").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.checkmark = UnityEngine.Resources.Load<GameObject> ("Checkmark").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.dropdown = UnityEngine.Resources.Load<GameObject> ("DropdownArrow").GetComponent<SpriteRenderer> ().sprite;
+                s_StandardResources.mask = UnityEngine.Resources.Load<GameObject> ("UIMask").GetComponent<SpriteRenderer> ().sprite;
 #endif
                 s_StandardResources.font = UnityEngine.Resources.GetBuiltinResource<Font>(kFontPath);
             }
@@ -184,14 +183,12 @@ namespace HC.UI
                 esys = eventSystem.AddComponent<EventSystem>();
                 eventSystem.AddComponent<StandaloneInputModule>();
             }
-
             return esys;
         }
 
         public static Image CreatePanel(GameObject parent = null, string name = "Panel")
         {
             Resources resources = GetStandardResources();
-
 
             GameObject panelRoot = CreateUIElementRoot(name, s_ThickElementSize);
             SetParentAndAlign(panelRoot, parent);
@@ -215,7 +212,7 @@ namespace HC.UI
         public static Button CreateButton(GameObject parent = null, string name = "Button", string defaultLabel = "Button")
         {
             Resources resources = GetStandardResources();
-            
+
             GameObject buttonRoot = CreateUIElementRoot(name, s_ThickElementSize);
             SetParentAndAlign(buttonRoot, parent);
             buttonRoot.layer = LayerMask.NameToLayer(kUILayerName);
@@ -248,7 +245,7 @@ namespace HC.UI
         public static Text CreateText(GameObject parent = null, string name = "Text", string defaultLabel = "Text")
         {
             Resources resources = GetStandardResources();
-        
+
             GameObject go = CreateUIElementRoot(name, s_ThickElementSize);
             SetParentAndAlign(go, parent);
             go.layer = LayerMask.NameToLayer(kUILayerName);
@@ -348,10 +345,9 @@ namespace HC.UI
             return slider;
         }
 
-        public static Scrollbar CreateScrollbar(GameObject parent = null, string name = "Scrollbar")
+        public static GameObject CreateScrollbar(GameObject parent = null, string name = "Scrollbar")
         {
             Resources resources = GetStandardResources();
-
 
             // Create GOs Hierarchy
             GameObject scrollbarRoot = CreateUIElementRoot(name, s_ThinElementSize);
@@ -384,13 +380,12 @@ namespace HC.UI
             scrollbar.targetGraphic = handleImage;
             SetDefaultColorTransitionValues(scrollbar);
 
-            return scrollbar;
+            return scrollbarRoot;
         }
 
         public static Toggle CreateToggle(GameObject parent = null, string name = "Toggle", string defaultLabel = "Toggle", bool isOn = true)
         {
             Resources resources = GetStandardResources();
-
 
             // Set up hierarchy
             GameObject toggleRoot = CreateUIElementRoot(name, s_ThinElementSize);
@@ -447,7 +442,6 @@ namespace HC.UI
         {
             Resources resources = GetStandardResources();
 
-
             GameObject root = CreateUIElementRoot(name, s_ThickElementSize);
             SetParentAndAlign(root, parent);
             root.layer = LayerMask.NameToLayer(kUILayerName);
@@ -498,10 +492,9 @@ namespace HC.UI
             return inputField;
         }
 
-        public static Dropdown CreateDropdown(GameObject parent = null, string name = "Dropdown", string defaultLabel = "Option A")
+        public static GameObject CreateDropdown(GameObject parent = null, string name = "Dropdown", string defaultLabel = "Option A")
         {
             Resources resources = GetStandardResources();
-
 
             GameObject root = CreateUIElementRoot(name, s_ThickElementSize);
             SetParentAndAlign(root, parent);
@@ -658,13 +651,12 @@ namespace HC.UI
 
             template.SetActive(false);
 
-            return dropdown;
+            return root;
         }
 
-        public static ScrollRect CreateScrollView(GameObject parent = null, string name = "Scroll View", LayoutGroupType layoutGroupType = LayoutGroupType.Vertical)
+        public static GameObject CreateScrollView(GameObject parent = null, string name = "Scroll View", LayoutGroupType layoutGroupType = LayoutGroupType.Vertical)
         {
             Resources resources = GetStandardResources();
-
 
             GameObject root = CreateUIElementRoot(name, new Vector2(200, 200));
             SetParentAndAlign(root, parent);
@@ -672,29 +664,6 @@ namespace HC.UI
 
             GameObject viewport = CreateUIObject("Viewport", root);
             GameObject content = CreateUIObject("Content", viewport);
-
-            // Sub controls.
-
-            GameObject hScrollbar = CreateScrollbar().gameObject;
-            hScrollbar.name = "Scrollbar Horizontal";
-            SetParentAndAlign(hScrollbar, root);
-            RectTransform hScrollbarRT = hScrollbar.GetComponent<RectTransform>();
-            hScrollbarRT.anchorMin = Vector2.zero;
-            hScrollbarRT.anchorMax = Vector2.right;
-            hScrollbarRT.pivot = Vector2.zero;
-            hScrollbarRT.sizeDelta = new Vector2(0, hScrollbarRT.sizeDelta.y);
-
-            GameObject vScrollbar = CreateScrollbar().gameObject;
-            vScrollbar.name = "Scrollbar Vertical";
-            SetParentAndAlign(vScrollbar, root);
-            vScrollbar.GetComponent<Scrollbar>().SetDirection(Scrollbar.Direction.BottomToTop, true);
-            RectTransform vScrollbarRT = vScrollbar.GetComponent<RectTransform>();
-            vScrollbarRT.anchorMin = Vector2.right;
-            vScrollbarRT.anchorMax = Vector2.one;
-            vScrollbarRT.pivot = Vector2.one;
-            vScrollbarRT.sizeDelta = new Vector2(vScrollbarRT.sizeDelta.x, 0);
-
-            // Setup RectTransforms.
 
             // Make viewport fill entire scroll view.
             RectTransform viewportRT = viewport.GetComponent<RectTransform>();
@@ -716,12 +685,8 @@ namespace HC.UI
             ScrollRect scrollRect = root.AddComponent<ScrollRect>();
             scrollRect.content = contentRT;
             scrollRect.viewport = viewportRT;
-            scrollRect.horizontalScrollbar = hScrollbar.GetComponent<Scrollbar>();
-            scrollRect.verticalScrollbar = vScrollbar.GetComponent<Scrollbar>();
-            scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
-            scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
-            scrollRect.horizontalScrollbarSpacing = -3;
-            scrollRect.verticalScrollbarSpacing = -3;
+
+            // Setup RectTransforms.
 
             Image rootImage = root.AddComponent<Image>();
             rootImage.sprite = resources.background;
@@ -735,22 +700,113 @@ namespace HC.UI
             viewportImage.sprite = resources.mask;
             viewportImage.type = Image.Type.Sliced;
 
-            switch (layoutGroupType)
+            // Sub controls.
+
+            if (layoutGroupType == LayoutGroupType.Horizontal || layoutGroupType == LayoutGroupType.HorizontalGrid)
             {
-                case LayoutGroupType.Grid:
-                    content.AddComponent<GridLayoutGroup>();
-                    break;
+                GameObject hScrollbar = CreateScrollbar();
+                hScrollbar.name = "Scrollbar Horizontal";
+                SetParentAndAlign(hScrollbar, root);
+                RectTransform hScrollbarRT = hScrollbar.GetComponent<RectTransform>();
+                hScrollbarRT.anchorMin = Vector2.zero;
+                hScrollbarRT.anchorMax = Vector2.right;
+                hScrollbarRT.pivot = Vector2.zero;
+                hScrollbarRT.sizeDelta = new Vector2(0, hScrollbarRT.sizeDelta.y);
 
-                case LayoutGroupType.Horizontal:
-                    content.AddComponent<HorizontalLayoutGroup>();
-                    break;
+                scrollRect.horizontalScrollbar = hScrollbar.GetComponent<Scrollbar>();
+                scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+                scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+                scrollRect.horizontalScrollbarSpacing = -3;
+                scrollRect.verticalScrollbarSpacing = -3;
 
-                case LayoutGroupType.Vertical:
-                    content.AddComponent<VerticalLayoutGroup>();
-                    break;
+                switch (layoutGroupType)
+                {
+                    case LayoutGroupType.HorizontalGrid:
+                        content.AddComponent<GridLayoutGroup>();
+                        scrollRect.vertical = false;
+                        scrollRect.horizontal = true;
+                        hScrollbar.SetActive(true);
+                        break;
+
+                    case LayoutGroupType.Horizontal:
+                        content.AddComponent<HorizontalLayoutGroup>();
+                        scrollRect.horizontal = true;
+                        scrollRect.vertical = false;
+                        hScrollbar.SetActive(true);
+                        break;
+                }
+            }
+            else
+            {
+                GameObject vScrollbar = CreateScrollbar();
+                vScrollbar.name = "Scrollbar Vertical";
+                SetParentAndAlign(vScrollbar, root);
+                vScrollbar.GetComponent<Scrollbar>().SetDirection(Scrollbar.Direction.BottomToTop, true);
+                RectTransform vScrollbarRT = vScrollbar.GetComponent<RectTransform>();
+                vScrollbarRT.anchorMin = Vector2.right;
+                vScrollbarRT.anchorMax = Vector2.one;
+                vScrollbarRT.pivot = Vector2.one;
+                vScrollbarRT.sizeDelta = new Vector2(vScrollbarRT.sizeDelta.x, 0);
+
+                scrollRect.verticalScrollbar = vScrollbar.GetComponent<Scrollbar>();
+                scrollRect.horizontalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+                scrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+                scrollRect.horizontalScrollbarSpacing = -3;
+                scrollRect.verticalScrollbarSpacing = -3;
+
+                switch (layoutGroupType)
+                {
+                    case LayoutGroupType.VerticalGrid:
+                        content.AddComponent<GridLayoutGroup>();
+                        scrollRect.vertical = true;
+                        scrollRect.horizontal = false;
+                        vScrollbar.SetActive(true);
+                        break;
+                    case LayoutGroupType.Vertical:
+                        content.AddComponent<VerticalLayoutGroup>();
+                        scrollRect.vertical = true;
+                        scrollRect.horizontal = false;
+                        vScrollbar.SetActive(true);
+                        break;
+                }
             }
 
-            return scrollRect;
+            // switch (layoutGroupType)
+            // {
+            //     case LayoutGroupType.VerticalGrid:
+            //         content.AddComponent<GridLayoutGroup> ();
+            //         scrollRect.vertical = true;
+            //         scrollRect.horizontal = false;
+            //         vScrollbar.SetActive (true);
+            //         hScrollbar.SetActive (false);
+            //         break;
+
+            //     case LayoutGroupType.HorizontalGrid:
+            //         content.AddComponent<GridLayoutGroup> ();
+            //         scrollRect.vertical = false;
+            //         scrollRect.horizontal = true;
+            //         vScrollbar.SetActive (false);
+            //         hScrollbar.SetActive (true);
+            //         break;
+
+            //     case LayoutGroupType.Horizontal:
+            //         content.AddComponent<HorizontalLayoutGroup> ();
+            //         scrollRect.horizontal = true;
+            //         scrollRect.vertical = false;
+            //         hScrollbar.SetActive (true);
+            //         vScrollbar.SetActive (false);
+            //         break;
+
+            //     case LayoutGroupType.Vertical:
+            //         content.AddComponent<VerticalLayoutGroup> ();
+            //         scrollRect.vertical = true;
+            //         scrollRect.horizontal = false;
+            //         vScrollbar.SetActive (true);
+            //         hScrollbar.SetActive (false);
+            //         break;
+            // }
+
+            return root;
         }
 
         #endregion
