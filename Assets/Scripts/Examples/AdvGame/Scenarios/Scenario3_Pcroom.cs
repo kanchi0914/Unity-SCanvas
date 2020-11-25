@@ -38,17 +38,18 @@ namespace Assets.Scripts.Examples.AdvGame
                     {
                         RemoveAllCharacters();
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("「校内で発生中の連続盗難事件」", () => LoadScript("search_about_incident"));
-                        optionWindow.AddOption("「校内美少女ランキングを作成するスレ」", () =>
-                        {
-                            LoadScript("search_about_girl");
-                        });
-                        optionWindow.AddOption("「飼い猫を探しています」", () => LoadScript("search_about_cat"));
-                        optionWindow.AddOption("別の場所へ行く", () => new Scenario1_School().LoadScript("options_where_to_go"));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_incident", "「校内で発生中の連続盗難事件」",
+                            () => LoadScript("search_about_incident")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_girl", "「校内美少女ランキングを作成するスレ」",
+                            () => LoadScript("search_about_girl")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_cat", "「飼い猫を探しています」",
+                            () => LoadScript("search_about_cat")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_options_where_to_go", "別の場所へ行く",
+                            () => new Scenario1_School().LoadScript("options_where_to_go")));
                     })
             };
             Scripts.Add("options_what_to_do", options_what_to_do);
-            
+
             // 「協力しない」
             var search_about_incident = new List<Section>()
             {
@@ -64,7 +65,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("search_about_incident", search_about_incident);
-            
+
             var search_about_girl = new List<Section>()
             {
                 new Section("ヒロシ", "校内美少女ランキング？　くだらないことを考えるやつがいるもんだな"),
@@ -74,7 +75,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("search_about_girl", search_about_girl);
-            
+
             var search_about_cat = new List<Section>()
             {
                 new Section("ヒロシ", "飼い猫を探している？　事件には関係なさそうだけど　一応のぞいてみるか‥‥"),
@@ -85,7 +86,6 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("search_about_cat", search_about_cat);
-
         }
     }
 }

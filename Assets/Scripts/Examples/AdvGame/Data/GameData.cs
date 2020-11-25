@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using EGUI.GameObjects;
 using UnityEngine;
 
@@ -13,19 +14,30 @@ namespace Assets.Scripts.Examples.AdvGame
         public static readonly String SAVE_DATA_FILE_PATH = "Assets/Scripts/Examples/AdvGame/SaveData";
 
         // フラグ：席について聞いた
-        public static bool HasAskedAboutSeat = false;
+        //public static bool HasAskedAboutSeat = false;
         
+        // 選択済みの選択肢
         public static HashSet<string> SelectedOptions = new HashSet<string>();
-        // // フラグ：席を調べた
-        // public static bool HasCheckedSeat = false;
-        // // フラグ：猫の情報を入手した
-        // public static bool HasCheckedCat = false;
-        // // フラグ：状況について聞いた
-        // public static bool HasAskedStollenSituation = false;
-        // // フラグ：状況について聞いた
-        // public static bool HasAskedStollenSituation = false;
+        
+        private static HashSet<string> KeyOptionIds = new HashSet<string>()
+        {
+            $"{nameof(Scenario1_School)}_ask_about_situation",
+            $"{nameof(Scenario2_Classroom)}_ask_about_saito",
+            $"{nameof(Scenario2_Classroom)}_ask_about_wallet",
+            $"{nameof(Scenario2_Classroom)}_check_seat_with_info",
+            $"{nameof(Scenario3_PCroom)}_search_about_incident",
+            $"{nameof(Scenario3_PCroom)}_options_where_to_go"
+        };
 
-        public static bool IsAllFlagCompleted = false;
+        public static bool IsAllFlagCompleted
+        {
+            get
+            {
+                //return true;
+                return KeyOptionIds.ToList().All(it => SelectedOptions.Contains(it));
+                // return isAllKeyOptionSelected && HasAskedAboutSeat;
+            }
+        } 
 
         public static string CurrentScenarioId;
         public static string CurrentScriptId;

@@ -27,22 +27,33 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 as EGVerticalLayoutView;
             options.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.MinSize;
         }
-
-        public void AddOption(string text, Action action)
+        
+        public void AddOption(Option option)
         {
-            var button = new EGButton(options, text)
+            var optionButton = new EGButton(options, option.Text)
                     .SetRectSize(50, 60)
                     .SetImageColor(Color.gray, 0.5f)
                 as EGButton;
-            button.SetOnOnClick(() =>
+            var layoutElement = optionButton.gameObject.AddComponent<LayoutElement>();
+            layoutElement.minHeight = 50;
+            optionButton.TextObject.SetTextPreset(OptionText);
+            if (GameData.SelectedOptions.Contains(option.Id))
+            {
+                optionButton.SetImageColor(Color.gray, 0.8f);
+                optionButton.TextObject.SetColor(Color.white, 0.7f);
+            }
+            optionButton.SetOnOnClick(() =>
             {
                 messageWindow.IsOptionSelecting = false;
                 DestroySelf();
-                action.Invoke();
+                // option.SelectedAction.Invoke();
+                option.Select();
             });
-            var layoutElement = button.gameObject.AddComponent<LayoutElement>();
-            layoutElement.minHeight = 50;
-            button.TextObject.SetTextPreset(OptionText);
+        }
+
+        public void AddOption(string text, Action action)
+        {
+            AddOption(new Option(null, text, action));
         }
     }
 }

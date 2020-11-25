@@ -44,13 +44,13 @@ namespace Assets.Scripts.Examples.AdvGame
                     {
                         SetCharacterImage("ヒロ子", "love");
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("はい", () => LoadScript("choose_yes"));
-                        optionWindow.AddOption("いいえ", () => LoadScript("choose_no"));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_say_yes","はい", () => LoadScript("say_yes")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_say_no","いいえ", () => LoadScript("say_no")));
                     }),
             };
             Scripts.Add("intro", intro);
             
-            var choose_yes = new List<Section>()
+            var say_yes = new List<Section>()
             {
                 new Section("ヒロシ", "仕方ないな‥‥　頼りにならない助手役だが\nこれからもよろしくな"),
                 new Section("ヒロ子", "やったー！！！　ヒロシくん　愛してる！！！", 
@@ -63,9 +63,9 @@ namespace Assets.Scripts.Examples.AdvGame
                     new AdvGameOpening();
                 }),
             };
-            Scripts.Add("choose_yes", choose_yes);
+            Scripts.Add("say_yes", say_yes);
             
-            var choose_no = new List<Section>()
+            var say_no = new List<Section>()
             {
                 new Section("ヒロシ", "悪いけど‥‥おまえのことは　友達としてしか見れないな"),
                 new Section("ヒロ子", "そっか‥‥そうだよね　ごめんね　今のは忘れて", 
@@ -79,7 +79,7 @@ namespace Assets.Scripts.Examples.AdvGame
                     new AdvGameOpening();
                 }),
             };
-            Scripts.Add("choose_no", choose_no);
+            Scripts.Add("say_no", say_no);
         }
     }
 }

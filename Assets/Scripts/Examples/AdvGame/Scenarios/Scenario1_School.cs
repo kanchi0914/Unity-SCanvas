@@ -13,22 +13,20 @@ namespace Assets.Scripts.Examples.AdvGame
         {
             InitScripts();
             SetBackGroundImage("Images/bg_school_rouka");
+            LoadScript();
+        }
+
+        public void LoadScript(string scriptId = null, int sectionNumber = -1)
+        {
             if (GameData.IsAllFlagCompleted)
             {
-                LoadScript("solved_intro");
+                base.LoadScript("solved_intro");
             }
             else
             {
-                LoadScript();
+                base.LoadScript(scriptId, sectionNumber);
             }
         }
-        
-        // public Dictionary<string, Option> Options = new Dictionary<string, Option>()
-        // {
-        //     {"", null},
-        //     {"dasda", null},
-        //     {"ヒロ子に協力する", new Option()}
-        // };
 
         private void InitScripts()
         {
@@ -59,8 +57,10 @@ namespace Assets.Scripts.Examples.AdvGame
                     () =>
                     {
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("ヒロ子に協力する", () => LoadScript("selected_cooperate"));
-                        optionWindow.AddOption("ヒロ子に協力しない", () => LoadScript("selected_dont_cooperate"));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_selected_cooperate", "ヒロ子に協力する",
+                            () => LoadScript("selected_cooperate")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_selected_dont_cooperate", "ヒロ子に協力しない",
+                            () => LoadScript("selected_dont_cooperate")));
                     })
             };
             Scripts.Add("intro", script1);
@@ -125,17 +125,19 @@ namespace Assets.Scripts.Examples.AdvGame
                     () =>
                     {
                         RemoveAllCharacters();
-                        Debug.Log("ooooooooooooooooooooooooooo");
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("斎藤さんの所", () => LoadScript("ask_saito"));
-                        optionWindow.AddOption("2組の教室", () => new Scenario2_Classroom().LoadScript());
-                        optionWindow.AddOption("パソコン室", () => new Scenario3_PCroom().LoadScript());
+                        optionWindow.AddOption(new Option($"{ScenarioName}_goto_saito", "斎藤さんの所",
+                            () => LoadScript("goto_saito")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_goto_class2", "2組の教室",
+                            () => new Scenario2_Classroom().LoadScript()));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_goto_pc_room", "パソコン室",
+                            () => new Scenario3_PCroom().LoadScript()));
                     })
             };
             Scripts.Add("options_where_to_go", options_where_to_go);
             
             // 「協力する」
-            var ask_saito = new List<Section>()
+            var goto_saito = new List<Section>()
             {
                 new Section("", "まずは斎藤さんの所へ行ってみた\nどうやらすごく落ち込んでいるようだ‥‥", () =>
                 {
@@ -156,8 +158,10 @@ namespace Assets.Scripts.Examples.AdvGame
                         RemoveAllCharacters();
                         SetCharacterImage("斎藤", "normal");
                         var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption("盗まれた財布について聞く", () => LoadScript("asked_about_wallet"));
-                        optionWindow.AddOption("盗まれたときの状況を聞く", () => LoadScript("asked_about_situation"));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_ask_about_wallet", "盗まれた財布について聞く",
+                            () => LoadScript("ask_about_wallet")));
+                        optionWindow.AddOption(new Option($"{ScenarioName}_ask_about_situation", "盗まれた時の状況について聞く",
+                            () => LoadScript("ask_about_situation")));
                         optionWindow.AddOption("やめる", () =>
                         {
                             LoadScript("options_where_to_go");
@@ -166,7 +170,7 @@ namespace Assets.Scripts.Examples.AdvGame
             };
             Scripts.Add("options_what_to_ask", options_what_to_ask);
             
-            var asked_about_wallet = new List<Section>()
+            var ask_about_wallet = new List<Section>()
             {
                 new Section("ヒロシ", "盗まれた財布って、どんな感じだった？"),
                 new Section("斎藤さん", "どんなって‥‥　別に普通です　普通の財布‥‥"),
@@ -176,9 +180,9 @@ namespace Assets.Scripts.Examples.AdvGame
                     LoadScript("options_what_to_ask");
                 }),
             };
-            Scripts.Add("asked_about_wallet", asked_about_wallet);
+            Scripts.Add("ask_about_wallet", ask_about_wallet);
             
-            var asked_about_situation = new List<Section>()
+            var ask_about_situation = new List<Section>()
             {
                 new Section("ヒロシ", "財布がなくなったときの事　思い出せる？"),
                 new Section("斎藤さん", "ちょっと目を離しただけなんです　他のクラスの子に呼ばれて\n" +
@@ -191,15 +195,15 @@ namespace Assets.Scripts.Examples.AdvGame
                     LoadScript("options_what_to_ask");
                 }),
             };
-            Scripts.Add("asked_about_situation", asked_about_situation);
+            Scripts.Add("ask_about_situation", ask_about_situation);
 
-            Scripts.Add("ask_saito", ask_saito);
+            Scripts.Add("goto_saito", goto_saito);
             
             var solved_intro = new List<Section>()
             {
                 new Section("ヒロ子", "いろいろ調べたけど　結局よくわかんないね～",
                     () => SetCharacterImage("ヒロ子", "normal")),
-                new Section("ヒロシ", "そんなことはないぞ　今ある情報で 謎はすべて解けた"),
+                new Section("ヒロシ", "そんなことはないぞ　今ある情報で 謎はすべて解けた"), 
                 new Section("ヒロ子", "えっ!? すごいよ～　さすがはヒロシくん\nそれで　誰が犯人なの？",
                     () => SetCharacterImage("ヒロ子", "running")),
                 new Section("ヒロシ", "授業が始まるし　それはまた後にしよう\n放課後教室でな"),

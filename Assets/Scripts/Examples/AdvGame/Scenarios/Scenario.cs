@@ -26,7 +26,6 @@ namespace Assets.Scripts.Examples.AdvGame
         // ログ表示に必要な部分
         public List<Section> SentSections = new List<Section>();
 
-        // シナリオ名(クラス名)
         public string ScenarioName => GetType().Name;
         
         public List<(Character Character, EGGameObject egGameObject)> CharacterImages = new List<(Character, EGGameObject)>();
@@ -78,7 +77,7 @@ namespace Assets.Scripts.Examples.AdvGame
             if (scriptId == null) scriptId = Scripts.First().Key;
             CurrentScriptId = scriptId;
             CurrentScript = Scripts[scriptId];
-            while (sectionNumber > 0)
+            while (sectionNumber >= 0)
             {
                 SendSection();
                 sectionNumber--;

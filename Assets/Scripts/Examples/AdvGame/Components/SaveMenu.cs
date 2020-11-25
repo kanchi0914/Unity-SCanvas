@@ -38,7 +38,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
             foreach (var (item, index) in GameData.SaveDatas.ToList().Indexed())
             {
                 new SaveDataImage(saveDateImagesCanvas, true, index, 
-                    scenario.ScenarioName, scenario.CurrentScriptId, 
+                    scenario.GetType().Name, scenario.CurrentScriptId, 
                     scenario.SectionNumber, item);
             }
 

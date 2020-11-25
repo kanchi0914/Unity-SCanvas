@@ -11,16 +11,10 @@ namespace Assets.Scripts.Examples.AdvGame
     public class AdvGameOpening
     {
         private EGCanvas canvas;
-
-        private Sprite s;
-
+        
         public AdvGameOpening()
         {
-            // var option = new Option("aaa", () => Debug.Log("dasda"));
-            // FileUtils.SaveToBinaryFile(option, Application.dataPath + "/aaaaa");
-            // var option2 = FileUtils.LoadFromBinaryFile(Application.dataPath + "/aaaaa") as Option;
-            // option2.Select.Invoke();
-            //Init();
+            Init();
         }
 
         private void Init()
