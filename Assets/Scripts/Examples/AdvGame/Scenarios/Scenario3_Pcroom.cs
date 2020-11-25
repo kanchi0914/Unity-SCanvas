@@ -11,22 +11,21 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario3_PCroom()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_computer_room_hellowork");
+            Renderer.SetBackgroundImage("bg_computer_room_hellowork");
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var intro = new List<Section>()
             {
                 new Section("ヒロシ", "PC室にやってきたぞ"),
-                new Section("ヒロ子", "ヒロシくん　ここで何する気～？", () => SetCharacterImage("ヒロ子", "normal")),
-                new Section("ヒロ子", "まさか　エッチな画像を検索する気じゃ‥‥", () => SetCharacterImage("ヒロ子", "tere")),
+                new Section("ヒロ子", "ヒロシくん　ここで何する気～？", () => Renderer.SetCharacterImage("ヒロ子", "normal")),
+                new Section("ヒロ子", "まさか　エッチな画像を検索する気じゃ‥‥", () => Renderer.SetCharacterImage("ヒロ子", "tere")),
                 new Section("ヒロシ", "バカだな　そんなわけないだろ\nお前じゃあるまいし"),
-                new Section("ヒロ子", "わたしはそんなことしませ～～ん！！", () => SetCharacterImage("ヒロ子", "joy")),
+                new Section("ヒロ子", "わたしはそんなことしませ～～ん！！", () => Renderer.SetCharacterImage("ヒロ子", "joy")),
                 new Section("ヒロシ", "なんでちょっと嬉しそうなんだよ‥‥"),
                 new Section("ヒロシ", "この学校のBBSがネットにあるんだよ　何か情報が得られるかもしれないと思ってな"),
-                new Section("ヒロ子", "へ～知らなかった　早速調べてみよーよ", () => SetCharacterImage("ヒロ子", "normal")),
+                new Section("ヒロ子", "へ～知らなかった　早速調べてみよーよ", () => Renderer.SetCharacterImage("ヒロ子", "normal")),
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("intro", intro);
@@ -36,16 +35,16 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "学校のBBSだ。いくつかスレッドがあるみたいだが‥‥",
                     () =>
                     {
-                        RemoveAllCharacters();
-                        var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_incident", "「校内で発生中の連続盗難事件」",
-                            () => LoadScript("search_about_incident")));
-                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_girl", "「校内美少女ランキングを作成するスレ」",
-                            () => LoadScript("search_about_girl")));
-                        optionWindow.AddOption(new Option($"{ScenarioName}_search_about_cat", "「飼い猫を探しています」",
-                            () => LoadScript("search_about_cat")));
-                        optionWindow.AddOption(new Option($"{ScenarioName}_options_where_to_go", "別の場所へ行く",
-                            () => new Scenario1_School().LoadScript("options_where_to_go")));
+                        Renderer.RemoveAllCharacters();
+                        var option1 = new Option($"{ScenarioName}_search_about_incident", "「校内で発生中の連続盗難事件」",
+                            () => LoadScript("search_about_incident"));
+                        var option2 = new Option($"{ScenarioName}_search_about_girl", "「校内美少女ランキングを作成するスレ」",
+                            () => LoadScript("search_about_girl"));
+                        var option3 = new Option($"{ScenarioName}_search_about_cat", "「飼い猫を探しています」",
+                            () => LoadScript("search_about_cat"));
+                        var option4 = new Option($"{ScenarioName}_options_where_to_go", "別の場所へ行く",
+                            () => new Scenario1_School().LoadScript("options_where_to_go"));
+                        Renderer.ShowOptionsWindow(option1, option2, option3, option4);
                     })
             };
             Scripts.Add("options_what_to_do", options_what_to_do);
@@ -60,7 +59,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "『↑学校でカードゲームする奴ｗｗｗ"),
                 new Section("", "『さっき聞いたんだけど　2組にも　財布盗まれた子がいるらしいね"),
                 new Section("ヒロ子", "え～！　盗まれたの斎藤さんだけじゃないんだ\n犯人は同一人物かな～",
-                    () => SetCharacterImage("ヒロ子", "running")),
+                    () => Renderer.SetCharacterImage("ヒロ子", "running")),
                 new Section("ヒロシ", "もしそうなら　犯人は金目のものばかり狙っていることになるぞ\n悪質だな‥‥"),
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
@@ -69,9 +68,9 @@ namespace Assets.Scripts.Examples.AdvGame
             var search_about_girl = new List<Section>()
             {
                 new Section("ヒロシ", "校内美少女ランキング？　くだらないことを考えるやつがいるもんだな"),
-                new Section("ヒロ子", "‥‥‥", () => SetCharacterImage("ヒロ子", "tere")),
+                new Section("ヒロ子", "‥‥‥", () => Renderer.SetCharacterImage("ヒロ子", "tere")),
                 new Section("ヒロシ", "お前の事を考えて　見るのはやめといてやるよ"),
-                new Section("ヒロ子", "それ　どういう意味なんでしょうか‥‥", () => SetCharacterImage("ヒロ子", "depressed")),
+                new Section("ヒロ子", "それ　どういう意味なんでしょうか‥‥", () => Renderer.SetCharacterImage("ヒロ子", "depressed")),
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("search_about_girl", search_about_girl);
@@ -80,9 +79,9 @@ namespace Assets.Scripts.Examples.AdvGame
             {
                 new Section("ヒロシ", "飼い猫を探している？　事件には関係なさそうだけど　一応のぞいてみるか‥‥"),
                 new Section("", "『飼い猫を探しています　名前はミケ\n大きめの三毛猫で　キラキラしたものが好き"),
-                new Section("ヒロ子", "探してあげたいけど　今は財布のことがあるしね", () => SetCharacterImage("ヒロ子", "depressed")),
+                new Section("ヒロ子", "探してあげたいけど　今は財布のことがあるしね", () => Renderer.SetCharacterImage("ヒロ子", "depressed")),
                 new Section("ヒロシ", "‥‥いや　ひょっとするとこれはいい情報かもしれないぞ"),
-                new Section("ヒロ子", "？？？", () => SetCharacterImage("ヒロ子", "normal")),
+                new Section("ヒロ子", "？？？", () => Renderer.SetCharacterImage("ヒロ子", "normal")),
                 new Section("", "", () => LoadScript("options_what_to_do"))
             };
             Scripts.Add("search_about_cat", search_about_cat);

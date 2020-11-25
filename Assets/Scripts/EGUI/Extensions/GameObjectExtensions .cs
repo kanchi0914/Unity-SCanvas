@@ -104,9 +104,9 @@ namespace Assets.Scripts.Extensions
         public static GameObject SetImageSprite(this GameObject gameObject, Sprite sprite)
         {
             var image = gameObject.GetOrAddComponent<Image>();
-            image.type = Image.Type.Sliced;
             if (image != null)
             {
+                image.type = Image.Type.Sliced;
                 image.sprite = sprite;
                 return gameObject;
             }

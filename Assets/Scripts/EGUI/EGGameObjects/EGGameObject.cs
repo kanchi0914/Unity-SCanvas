@@ -229,6 +229,7 @@ namespace EGUI.GameObjects
         
         public EGGameObject SetImageSprite(Sprite sprite)
         {
+            var aaa = gameObject;
             gameObject.SetImageSprite(sprite);
             return this;
         }

@@ -12,11 +12,10 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
     public class AdvMessageWindow : EgMessageWindow
     {
         public bool IsOptionSelecting = false;
-        public Scenario Scenario;
 
-        public AdvMessageWindow(EGGameObject parentCanvas, Scenario scenario) : base(parentCanvas.gameObject)
+        public AdvMessageWindow(EGGameObject parentCanvas) : base(parentCanvas.gameObject)
         {
-            Scenario = scenario;
+            //Scenario = scenario;
             var menus = new EgHorizontalLayoutView(
                     this,
                     isAutoSizingHeight: true,
@@ -31,8 +30,8 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
             var loadText = new EGText(menus, "ロード", true).SetTextPreset(DefaultText);
             var optionText = new EGText(menus, "オプション", true).SetTextPreset(DefaultText);
             
-            logText.AddOnClick(() => new LogWindow(Scenario.SentSections));
-            saveText.AddOnClick(() => new SaveMenu(Scenario));
+            logText.AddOnClick(() => new LogWindow());
+            saveText.AddOnClick(() => new SaveMenu());
             loadText.AddOnClick(() => new LoadMenu());
             optionText.AddOnClick(() => new OptionMenu());
 
@@ -44,7 +43,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
         {
             if (!IsOptionSelecting)
             {
-                Scenario.SendSection();
+                CanvasRenderer.Instance.Scenario.SendSection();
             }
         }
     }

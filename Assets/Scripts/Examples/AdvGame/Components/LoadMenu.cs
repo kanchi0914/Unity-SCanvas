@@ -13,7 +13,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
     {
         public LoadMenu() : base("LoadMenu")
         {
-            GameData.LoadData();
+            GameData.ReadDatasFromDisc();
             var blockImage = new EGGameObject(this).SetRectSizeByRatio(1, 1);
             blockImage.SetImageColor(Color.clear);
             var menu = new EGGameObject(this);
@@ -28,6 +28,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 .SetRectSizeByRatio(1, 1);
 
             var text = new EGText(menu, "ロードするデータを選択")
+                .SetTextPreset(GUIData.DefaultText)
                 .SetTopCenterAnchor()
                 .SetRectSizeByRatio(1, 0.2f)
                 .SetLocalPos(0, 0);
@@ -49,21 +50,5 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 .SetRectSize(40, 40) as EGButton;
             closeButton.SetOnOnClick(() => { DestroySelf(); });
         }
-        
-        // public void LoadData()
-        // {
-        //     for (int i = 0; i < 6; i++){
-        //         SaveData data = null;
-        //         try
-        //         {
-        //             data = Main.LoadFromBinaryFile($"Assets/Scripts/Examples/AdvGame/SaveData/data_{i + 1}") as SaveData;
-        //         }
-        //         catch (Exception e)
-        //         {
-        //             Console.WriteLine(e);
-        //         }
-        //         GameData.SaveDatas[i] = data;
-        //     }
-        // }
     }
 }

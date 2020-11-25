@@ -7,9 +7,10 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
 {
     public class SaveMenu : EGCanvas
     {
-        public SaveMenu(Scenario scenario) : base("OptionMenu")
+        public SaveMenu() : base("OptionMenu")
         {
-            GameData.LoadData();
+            var scenario = CanvasRenderer.Instance.Scenario;
+            GameData.ReadDatasFromDisc();
             var blockImage = new EGGameObject(this).SetRectSizeByRatio(1, 1);
             blockImage.SetImageColor(Color.clear);
             var menu = new EGGameObject(this);
@@ -24,6 +25,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 .SetRectSizeByRatio(1, 1);
 
             var text = new EGText(menu, "セーブする場所を選択")
+                .SetTextPreset(GUIData.DefaultText)
                 .SetTopCenterAnchor()
                 .SetRectSizeByRatio(1, 0.2f)
                 .SetLocalPos(0, 0);

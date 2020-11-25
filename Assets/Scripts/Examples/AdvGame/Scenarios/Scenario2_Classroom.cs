@@ -11,11 +11,10 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario2_Classroom()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_school_room");
+            Renderer.SetBackgroundImage("bg_school_room");
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var intro = new List<Section>()
             {
@@ -29,42 +28,41 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "何をしようかな？",
                     () =>
                     {
-                        RemoveAllCharacters();
-                        var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption(
-                            new Option($"{ScenarioName}_ask_girl", "周りの人に話を聞く", () => LoadScript("ask_girl")));
+                        Renderer.RemoveAllCharacters();
+                        var option1 = new Option($"{ScenarioName}_ask_girl", "周りの人に話を聞く", () => LoadScript("ask_girl"));
+                        Option option2;
                         if (GameData.SelectedOptions.Contains($"{ScenarioName}_ask_about_seat"))
                         {
-                            optionWindow.AddOption(new Option($"{ScenarioName}_check_seat_with_info", "席を調べる",
+                            option2 = new Option($"{ScenarioName}_check_seat_with_info", "席を調べる",
                                 () =>
                                 {
-                                    // GameData.HasAskedAboutSeat = true;
                                     LoadScript("check_seat_with_info");
-                                }));
+                                });
                         }
                         else
                         {
-                            optionWindow.AddOption(new Option($"{ScenarioName}_check_seat_without_info", "席を調べる",
-                                () => LoadScript("check_seat_without_info")));
+                            option2 = new Option($"{ScenarioName}_check_seat_without_info", "席を調べる",
+                                () => LoadScript("check_seat_without_info"));
                         }
-                        optionWindow.AddOption(new Option($"{ScenarioName}_options_where_to_go", "別の場所へ行く",
-                            () => new Scenario1_School().LoadScript("options_where_to_go")));
+                        var option3 = new Option($"{ScenarioName}_options_where_to_go", "別の場所へ行く",
+                            () => new Scenario1_School().LoadScript("options_where_to_go"));
+                        Renderer.ShowOptionsWindow(option1, option2, option3);
                     })
             };
             Scripts.Add("options_what_to_do", options_what_to_do);
-            // 「協力しない」
+            
             var ask_girl = new List<Section>()
             {
                 new Section("ヒロシ", "(とりあえず、周りの人に話を聞いてみるか)"),
                 new Section("ヒロシ", "(今話しかけられそうなのは　あの女の子だけか…)",
-                    () => AddCharacter("女子生徒", "normal")),
+                    () => Renderer.AddCharacter("女子生徒", "normal")),
                 new Section("ヒロシ", "ごめん　ちょっと今いいかな"),
                 new Section("女子生徒", "なに～？　ナンパならお断りだけど～"),
                 new Section("ヒロ子", "ヒロシくんはナンパなんかしません！！",
-                    () => AddCharacter("ヒロ子", "depressed")),
+                    () => Renderer.AddCharacter("ヒロ子", "depressed")),
                 new Section("ヒロシ", "おまえは少し黙っててくれ‥‥"),
                 new Section("ヒロシ", "このクラスで起こったらしい　財布盗難事件について聞きたいんだけど",
-                    () => RemoveCharacter("ヒロ子")),
+                    () => Renderer.RemoveCharacter("ヒロ子")),
                 new Section("女子生徒", "あ～あれね　マジかわいそーってカンジだけど" +
                                     "\nアタシそんなよく知らないかんね　あんま期待しないでね～"),
                 new Section("", "",
@@ -77,14 +75,14 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロシ", "何を聞こうか？",
                     () =>
                     {
-                        var optionWindow = new OptionsWindow(AdvMessageWindow);
-                        optionWindow.AddOption(new Option($"{ScenarioName}_ask_about_saito", "斎藤さんの特徴について",
-                            () => LoadScript("ask_about_saito")));
-                        optionWindow.AddOption(new Option($"{ScenarioName}_ask_about_wallet", "財布の特徴について",
-                            () => LoadScript("ask_about_wallet")));
-                        optionWindow.AddOption(new Option($"{ScenarioName}_ask_about_seat", "斎藤さんの席について",
-                            () => LoadScript("ask_about_seat")));
-                        optionWindow.AddOption("やめる", () => { LoadScript("options_what_to_do"); });
+                        var option1 = new Option($"{ScenarioName}_ask_about_saito", "斎藤さんの特徴について",
+                            () => LoadScript("ask_about_saito"));
+                        var option2 = new Option($"{ScenarioName}_ask_about_wallet", "財布の特徴について",
+                            () => LoadScript("ask_about_wallet"));
+                        var option3 = new Option($"{ScenarioName}_ask_about_seat", "斎藤さんの席について",
+                            () => LoadScript("ask_about_seat"));
+                        var option4 = new Option(null, "やめる", () => { LoadScript("options_what_to_do"); });
+                        Renderer.ShowOptionsWindow(option1, option2, option3, option4);
                     })
             };
             Scripts.Add("options_what_to_ask", options_what_to_ask);
@@ -135,11 +133,11 @@ namespace Assets.Scripts.Examples.AdvGame
             {
                 new Section("ヒロシ", "窓際の一番奥の席‥‥あれだな"),
                 new Section("ヒロ子", "ん～　とくに変わったところはなさそうだね‥‥" +
-                                   "\nあっ！", () => AddCharacter("ヒロ子", "normal")),
+                                   "\nあっ！", () => Renderer.AddCharacter("ヒロ子", "normal")),
                 new Section("ヒロシ", "どうした？"),
                 new Section("ヒロ子", "見て！　窓が全開になってる…" +
                                    "\n犯人はここから逃げたんだよ！間違いない！",
-                    () => SetCharacterImage("ヒロ子", "joy")),
+                    () => Renderer.SetCharacterImage("ヒロ子", "joy")),
                 new Section("ヒロシ", "バカ言え‥ここは3階だぞ" +
                                    "\n人間じゃとても無理だろ"),
                 new Section("ヒロシ", "(とはいえ　窓が開いてるのは気になるな‥‥？)"),

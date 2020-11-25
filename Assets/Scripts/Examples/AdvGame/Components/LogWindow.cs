@@ -9,8 +9,9 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
 {
     public class LogWindow : EGCanvas
     {
-        public LogWindow(List<Section> sections) : base("LogWindow")
+        public LogWindow() : base("LogWindow")
         {
+            var sections = CanvasRenderer.Instance.Scenario.SentSections;
             var blockImage = new EGGameObject(this).SetRectSizeByRatio(1, 1);
             blockImage.SetImageColor(Color.clear);
             var window = new EGGameObject(this);
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 .SetRectSizeByRatio(0.9f, 0.8f)
                 .SetLocalPosByRatio(0, 0.1f) as EGVerticalLayoutScrollView;
             scrollRect.SetPaddingAndSpacing(10).SetImageColor(Color.clear);
-            sections.ForEach(s =>
+            sections?.ForEach(s =>
             {
                 var image = new EGGameObject(scrollRect).SetRectSize(0, 120);
                 image.SetImageColor(Color.cyan, 0.5f);

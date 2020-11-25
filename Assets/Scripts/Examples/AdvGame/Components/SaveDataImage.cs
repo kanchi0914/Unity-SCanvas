@@ -51,20 +51,19 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
                 SetImageSprite(saveData.Image);
             }
             
-
             this.dataNumber = dataNumber;
             if (isSave)
             {
-                SetOnClick(AddOnClickInSaveMenu);
+                SetOnClick(ClickInSaveMenu);
             }
             else
             {
-                SetOnClick(AddOnClickInLoadMenu);
+                SetOnClick(ClickInLoadMenu);
             }
         }
 
 
-        private void AddOnClickInSaveMenu()
+        private void ClickInSaveMenu()
         {
             if (saveData == null)
             {
@@ -73,59 +72,39 @@ namespace Assets.Scripts.Examples.AdvGame.Objects
             else
             {
                 Save();
-                // var canvas = new EGCanvas("");
-                // var window = new EGGameObject(canvas)
-                //     .SetImageColor(Color.gray)
-                //     .SetMiddleCenterAnchor()
-                //     .SetRectSizeByRatio(0.3f, 0.2f)
-                //     .SetLocalPos(0, 0);
-                // new EGText(window, "上書きしていいですか？").SetRectSizeByRatio(1f, 0.4f)
-                //     .SetTopCenterAnchor().SetLocalPos(0, 0);
-                // var okButton = new EGButton(window, "OK").SetBottomCenterAnchor()
-                //     .SetRectSizeByRatio(0.6f, 0.2f)
-                //     .SetLocalPosByRatio(0, 0.2f) as EGButton;
-                // // セーブ
-                // okButton.SetOnOnClick(() => { Save(); });
-                // var buttton = new CloseButton(window);
-                // buttton.AddOnClick(() => canvas.DestroySelf());
+                var canvas = new EGCanvas("");
+                var window = new EGGameObject(canvas)
+                    .SetImageColor(Color.gray)
+                    .SetMiddleCenterAnchor()
+                    .SetRectSizeByRatio(0.3f, 0.2f)
+                    .SetLocalPos(0, 0);
+                new EGText(window, "上書きしていいですか？").SetRectSizeByRatio(1f, 0.4f)
+                    .SetTopCenterAnchor().SetLocalPos(0, 0);
+                var okButton = new EGButton(window, "OK").SetBottomCenterAnchor()
+                    .SetRectSizeByRatio(0.6f, 0.2f)
+                    .SetLocalPosByRatio(0, 0.2f) as EGButton;
+                // セーブ
+                okButton.SetOnOnClick(() => { Save(); });
+                var buttton = new CloseButton(window);
+                buttton.AddOnClick(() => canvas.DestroySelf());
             }
         }
 
         private void Save()
         {
             var imageFilePath = $"{GameData.SAVE_DATA_FILE_PATH}/ScreenShots/image_{dataNumber}.png";
-            Debug.Log(imageFilePath);
             var saveData = new SaveData(scenarioName, sceneId, messageNumber - 1, imageFilePath);
             GameData.SaveData(saveData, dataNumber);
-            CanvasStack.Pop();
+            saveMenu.DestroySelf();
         }
 
-        private void AddOnClickInLoadMenu()
+        private void ClickInLoadMenu()
         {
             if (saveData != null)
             {
-                CanvasStack.ClearAll();
                 var savedata = GameData.SaveDatas[dataNumber];
-                //Type type = Type.GetType(savedata.ScenarioName);
-                Type type = GetTypeByClassName(savedata.ScenarioName);
-                Scenario scenario = Activator.CreateInstance(type) as Scenario;
-                scenario.LoadScript(savedata.SceneId, savedata.sectionNumber);
+                CanvasRenderer.Instance.Load(savedata, savedata.SceneId, savedata.sectionNumber);
             }
-        }
-
-        public static Type GetTypeByClassName(string className)
-        {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    if (type.Name == className)
-                    {
-                        return type;
-                    }
-                }
-            }
-            return null;
         }
     }
 }
