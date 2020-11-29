@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Examples.AdvGame.Objects;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
@@ -11,11 +11,10 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario4_Afternoon()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_school_room_yuyake");
+            SetBackGroundImage("bg_school_room_yuyake");
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var intro = new List<Section>()
             {
@@ -113,7 +112,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロシ", "それなら心配はいらない\nヒロ子　小銭持ってるか？"),
                 new Section("ヒロ子", "えっ？あるにはあるけど‥‥",
                     () => SetCharacterImage("ヒロ子", "normal")),
-                new Section("", "", () => { new Scenario4_AfternoonDote(); }),
+                new Section("", "", () => { new Scenario4_AfternoonDote().LoadScript(); }),
             };
             Scripts.Add("choose_cat", choose_cat);
         }

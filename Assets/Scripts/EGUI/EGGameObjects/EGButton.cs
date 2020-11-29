@@ -45,10 +45,10 @@ namespace EGUI.GameObjects
             string name = "EGButton"
         ) : base(parent, name)
         {
-            SetImageColor(Color.white).SetImageSprite(UGUIResources.UISprite);
+            SetImageColor(Color.white).SetImage(UGUIResources.UISprite);
             ButtonComponent = gameObject.GetOrAddComponent<Button>();
             TextObject = new EGText(gameObject, text)
-                    .SetRectSizeByRatio(1, 1).SetFullStretchAnchor()as EGText;
+                    .SetRelativeSize(1, 1).SetFullStretchAnchor()as EGText;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Examples.AdvGame.Objects;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
@@ -11,11 +11,10 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario0_Morning ()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_outside_jutaku");
+            SetBackGroundImage("bg_outside_jutaku");
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var script1 = new List<Section>()
             {
@@ -38,7 +37,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("ヒロ子", "えっ…　そ　それは困るなぁ…", 
                 () => SetCharacterImage("ヒロ子", "tere")),
                 new Section("ヒロシ", "なに動揺してんだよ…　ほら早く学校行くぞ"),
-                new Section("", "", () => new Scenario1_School().LoadScript("intro"))
+                new Section("", "", () => new Scenario1_School().LoadScript())
             };
             Scripts.Add("intro", script1);
         }

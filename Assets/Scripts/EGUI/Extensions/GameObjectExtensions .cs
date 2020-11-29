@@ -57,11 +57,11 @@ namespace Assets.Scripts.Extensions
             return gameObject.GetOrAddComponent<Image>();
         }
 
-        public static GameObject SetParent(this GameObject gameObject, Transform transform)
+        public static GameObject SetParent(this GameObject gameObject, GameObject parent)
         {
             var tempMono = new GameObject();
             var mono = tempMono.gameObject.AddComponent<MonoBehaviour>();
-            mono.StartCoroutine(setParent(gameObject, transform));
+            mono.StartCoroutine(setParent(gameObject, parent.transform));
             return gameObject;
         }
 
@@ -101,12 +101,12 @@ namespace Assets.Scripts.Extensions
             return gameObject;
         }
         
-        public static GameObject SetImageSprite(this GameObject gameObject, Sprite sprite)
+        public static GameObject SetImage(this GameObject gameObject, Sprite sprite)
         {
             var image = gameObject.GetOrAddComponent<Image>();
-            image.type = Image.Type.Sliced;
             if (image != null)
             {
+                image.type = Image.Type.Sliced;
                 image.sprite = sprite;
                 return gameObject;
             }

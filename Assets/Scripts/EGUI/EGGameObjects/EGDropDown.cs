@@ -61,8 +61,8 @@ namespace EGUI.GameObjects
             string name = "DropDown"
         ) : base(parent, name)
         {
-            SetRectSize(defaultWidth, defaultheight)
-                .SetImageSprite(UGUIResources.UISprite);
+            SetSize(defaultWidth, defaultheight)
+                .SetImage(UGUIResources.UISprite);
 
             var label = new EGText(gameObject, "", name: "Label")
                 .SetMiddleCenterAnchor() as EGText;
@@ -70,16 +70,16 @@ namespace EGUI.GameObjects
 
             var arrow = new EGGameObject(gameObject, name: "Arrow")
                 .SetMiddleCenterAnchor()
-                .SetImageSprite(UGUIResources.Dropdown);
+                .SetImage(UGUIResources.Dropdown);
 
             TemplateObject = new EGVerticalLayoutScrollView(gameObject, isAutoSizingWidth: true, name: "Template")
                 .SetChildAlinmentTypes(
                     childControlHeight: true, childForceExpandHeight: true)
                 .SetMovementType(ScrollRect.MovementType.Clamped)
                 .SetScrollBarVisibility(ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport)
-                .SetImageSprite(UGUIResources.UISprite)
+                .SetImage(UGUIResources.UISprite)
                 .SetImageColor(Color.white)
-                .SetLocalPos(0, 0) as EGVerticalLayoutScrollView;
+                .SetPosition(0, 0) as EGVerticalLayoutScrollView;
 
             item = new EGToggle(TemplateObject.ContentAreaObject.gameObject, name: "Item")
                 .SetImageColor(Color.clear)
@@ -96,18 +96,18 @@ namespace EGUI.GameObjects
             DropdownComponent.onValueChanged.AddListener(_ => OnValueChanged());
             DropdownComponent.ClearOptions();
 
-            label.SetRectSize(defaultWidth - 30, defaultheight - 10)
+            label.SetSize(defaultWidth - 30, defaultheight - 10)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 0.5f)
-                .SetLocalPos(20, 0);
+                .SetPosition(20, 0);
 
             arrow.SetMiddleRightAnchor()
-                .SetLocalPos(-15, 0)
-                .SetRectSize(30, 30);
+                .SetPosition(-15, 0)
+                .SetSize(30, 30);
 
             TemplateObject.SetHorizontalStretchWithBottomPivotAnchor()
-                .SetRectSize(200, 250)
-                .SetLocalPos(0, 0)
+                .SetSize(200, 250)
+                .SetPosition(0, 0)
                 .SetPivot(0.5f, 1)
                 .SetActive(false);
 
@@ -136,13 +136,13 @@ namespace EGUI.GameObjects
             if (contentFieldSize < maxContentFieldSize)
             {
                 if (dpl)
-                    dpl.SetRectSize(rectTransform.GetApparentRectSize().x, contentFieldSize)
+                    dpl.SetSize(rectTransform.GetApparentRectSize().x, contentFieldSize)
                         .SetAnchoredPos(0, 0);
             }
             else
             {
                 if (dpl)
-                    dpl.SetRectSize(rectTransform.GetApparentRectSize().x, maxContentFieldSize)
+                    dpl.SetSize(rectTransform.GetApparentRectSize().x, maxContentFieldSize)
                         .SetAnchoredPos(0, 0);
             }
         }

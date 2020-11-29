@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using EGUI.GameObjects;
@@ -33,6 +34,8 @@ namespace Assets.Scripts.Examples.AdvGame
         
         public String ImageFilePath;
         public String ScenarioName;
+        public HashSet<string> SelectedOptions = new HashSet<string>();
+        public String SavedDate = "";
 
         public SaveData(string scenarioName, string sceneId, int sectionNumber, string imageFilePath)
         {
@@ -41,7 +44,7 @@ namespace Assets.Scripts.Examples.AdvGame
             SceneId = sceneId;
             this.sectionNumber = sectionNumber;
             ImageFilePath = imageFilePath;
-            //Image = LoadScreenShotImage();
+            SelectedOptions = GameData.SelectedOptions;
         }
 
         public void OnDeserialization(object sender)

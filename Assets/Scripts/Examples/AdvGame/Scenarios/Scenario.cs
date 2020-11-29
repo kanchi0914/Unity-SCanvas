@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Examples.AdvGame.Objects;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using Assets.Scripts.Extensions;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Examples.AdvGame
 {
@@ -40,18 +41,24 @@ namespace Assets.Scripts.Examples.AdvGame
         
         public Scenario ()
         {
-            CanvasStack.ClearAll();
             Init();
+            InitScripts();
         }
         
         private void Init(){
+            CanvasStack.ClearAll();
             backGroundImageCanvas = new EGCanvas("backGroundImageCanvas");
             CharacterImageCanvas = new EGCanvas("CharacterImageCanvas");
             characterImagesLayoutView = new EgHorizontalLayoutView(CharacterImageCanvas, isAutoAlignment:true)
-                .SetRectSizeByRatio(1,1) as EgHorizontalLayoutView;
+                .SetRelativeSize(1,1) as EgHorizontalLayoutView;
             characterImagesLayoutView.LayoutComponent.childAlignment = TextAnchor.MiddleCenter;
             messageWindowCanvas = new EGCanvas("messageWindowCanvas");
             AdvMessageWindow = new AdvMessageWindow(messageWindowCanvas, this);
+        }
+
+        protected virtual void InitScripts()
+        {
+            
         }
 
         // メッセージ送り
@@ -85,20 +92,46 @@ namespace Assets.Scripts.Examples.AdvGame
             SendSection();
         }
         
-        public void SetBackGroundImage(string imageFilePath)
+        public void SetBackGroundImage(string imageName)
         {
-            BackgroundImage?.DestroySelf();;
+            BackgroundImage?.DestroySelf();
             BackgroundImage = new EGGameObject(backGroundImageCanvas);
-            Utils.SetBackgroundImage(BackgroundImage, imageFilePath);
+            var image = BackgroundImageData.Images[imageName];
+            BackgroundImage.SetImage(image);
+            Utils.SetImageAsBackground(BackgroundImage);
         }
         
         public void AddCharacter(string name, string imageName)
         {
-            var chara = GameData.Characters.Find(c => c.Name == name);
+            var chara = CharacterData.Characters.Find(c => c.Name == name);
             var image = new EGGameObject(characterImagesLayoutView);
-            image.SetImageSprite(chara.ImageMap[imageName]);
+            var source = chara.ImageMap[imageName];
+            image.SetImage(source);
+            SetImageAspectRatio(image, source);
             CharacterImages.Add((chara, image));
-            image.SetRectSizeByRatio(0.4f, 0.9f);
+        }
+        
+        public void SetCharacterImage(string name, string imageName)
+        {
+            var charaAndImage = CharacterImages.Find(c => c.Item1.Name == name);
+            if (charaAndImage.egGameObject == null)
+            {
+                AddCharacter(name, imageName); 
+                return;
+            }
+            var image = charaAndImage.Character.ImageMap[imageName];
+            SetImageAspectRatio(charaAndImage.egGameObject, image);
+            charaAndImage.egGameObject.SetImage(charaAndImage.Character.ImageMap[imageName]);
+        }
+
+        private void SetImageAspectRatio(EGGameObject imageObject, Sprite source)
+        {
+            var ratio = source.bounds.size.x / source.bounds.size.y;
+            Debug.Log($"{source.name}, x{source.bounds.size.x}, y{source.bounds.size.y}");
+            var fitter = imageObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
+            fitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
+            fitter.aspectRatio = ratio;
+            imageObject.SetRelativeSize(.0f, .9f, false);
         }
 
         public void RemoveAllCharacters()
@@ -120,16 +153,7 @@ namespace Assets.Scripts.Examples.AdvGame
             CharacterImages.RemoveAll(c => c.Item1.Name == name);
         }
 
-        public void SetCharacterImage(string name, string imageName)
-        {
-            var charaAndImage = CharacterImages.Find(c => c.Item1.Name == name);
-            if (charaAndImage.egGameObject == null)
-            {
-                AddCharacter(name, imageName); 
-                return;
-            }
-            charaAndImage.egGameObject.SetImageSprite(charaAndImage.Character.ImageMap[imageName]);
-        }
+
 
     }
 }

@@ -49,7 +49,7 @@ namespace EGUI.GameObjects
         ) : base(parent, name)
         {
             SetImageColor(Color.white)
-                .SetImageSprite(UGUIResources.InputField);
+                .SetImage(UGUIResources.InputField);
 
             PlaceHolderTextObject = new EGText(this.gameObject, "Enter Text...", false, "PlaceHolder")
                 .SetFullStretchAnchor()
@@ -58,13 +58,13 @@ namespace EGUI.GameObjects
             PlaceHolderTextObject
                 .SetCharacter(fontStyle: FontStyle.Italic)
                 .SetColor(Color.gray, 0.6f)
-                .SetRectSize(gameObject.GetRectSize().x - 10, gameObject.GetRectSize().y - 10)
-                .SetLocalPos(0, 0);
+                .SetSize(gameObject.GetRectSize().x - 10, gameObject.GetRectSize().y - 10)
+                .SetPosition(0, 0);
 
             Textobject = new EGText(gameObject, "", false, "Text")
                 .SetParagraph(alignment: TextAnchor.UpperLeft)
-                .SetRectSize(RectSize.x - 10, RectSize.y - 10)
-                .SetFullStretchAnchor().SetLocalPos(0, 0) as EGText;
+                .SetSize(RectSize.x - 10, RectSize.y - 10)
+                .SetFullStretchAnchor().SetPosition(0, 0) as EGText;
 
             Textobject.TextComponent.supportRichText = false;
 

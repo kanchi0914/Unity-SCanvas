@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EGUI.GameObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine;
@@ -16,7 +17,13 @@ namespace EGUI.Base
         public static Color DefaultColor = new Color(1f, 1f, 1f, 0.392f);
         
         public static Color DefaultTextColor = new Color(50f / 255f, 50f / 255f, 50f / 255f, 1f);
-
+        //
+        //
+        // public static EGGameObject CreateEGGameObjectFromExistingGameObject()
+        // {
+        //     
+        // }
+        
         public static int DefaultFontSize
         {
             get

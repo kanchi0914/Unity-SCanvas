@@ -22,7 +22,7 @@ public class RectTransformExtensionsTest2
                 isAutoSizingWidth: true,
                 isAutoSizingHeight: true
             )
-            .SetRectSizeByRatio(1, 0.1f)
+            .SetRelativeSize(1, 0.1f)
             .SetImageColor(Color.white)
             .gameObject;
         
@@ -103,9 +103,9 @@ public class RectTransformExtensionsTest2
 
         var pareImage = new EGGameObject(canvas.gameObject)
             .SetImageColor(Color.black)
-            .SetRectSize(300, 300)
+            .SetSize(300, 300)
             .SetMiddleCenterAnchor()
-            .SetLocalPos(0, 0).gameObject;
+            .SetPosition(0, 0).gameObject;
 
             
         objects = new List<EGGameObject>()

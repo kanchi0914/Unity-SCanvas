@@ -67,28 +67,28 @@ namespace EGUI.GameObjects
         )
         {
             SetMiddleCenterAnchor()
-                .SetLocalPos(0, 0)
-                .SetRectSize(defaultWidth, defaultHeight)
+                .SetPosition(0, 0)
+                .SetSize(defaultWidth, defaultHeight)
                 .SetImageColor(Color.white, 0.4f);
 
             var viewport = new EGGameObject(gameObject, name: "Viewport")
                 .SetFullStretchAnchor()
                 .SetPivot(0, 0)
-                .SetRectSizeByRatio(1, 1)
-                .SetLocalPos(0, 0);
+                .SetRelativeSize(1, 1)
+                .SetPosition(0, 0);
 
             ContentAreaObject = new EGVerticalLayoutView(viewport.gameObject, isAutoSizingWidth, name: "Content")
-                .SetRectSize(defaultWidth, 0)
+                .SetSize(defaultWidth, 0)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 0)
                 .SetHorizontalStretchWithTopPivotAnchor()
-                .SetLocalPos(0, 0) as EGVerticalLayoutView;
+                .SetPosition(0, 0) as EGVerticalLayoutView;
 
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Vertical")
                 .SetDirection(Scrollbar.Direction.BottomToTop)
                 .SetVerticalStretchWithRightPivotAnchor()
-                .SetRectSize(scrollBarWidth, defaultHeight)
-                .SetLocalPos(0, 0) as EGScrollBar;
+                .SetSize(scrollBarWidth, defaultHeight)
+                .SetPosition(0, 0) as EGScrollBar;
 
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
             ScrollRectComponent.content = ContentAreaObject.gameObject.GetRectTransform();
@@ -102,7 +102,7 @@ namespace EGUI.GameObjects
             ScrollRectComponent.horizontal = false;
 
             var mask = viewport.gameObject.AddComponent<Mask>();
-            viewport.gameObject.SetImageSprite(UGUIResources.Mask);
+            viewport.gameObject.SetImage(UGUIResources.Mask);
             mask.showMaskGraphic = false;
 
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();

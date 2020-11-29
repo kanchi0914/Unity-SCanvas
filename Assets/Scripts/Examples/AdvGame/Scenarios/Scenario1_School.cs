@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Examples.AdvGame.Objects;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
@@ -11,9 +11,7 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario1_School()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_school_rouka");
-            LoadScript();
+            SetBackGroundImage("bg_school_rouka");
         }
 
         public void LoadScript(string scriptId = null, int sectionNumber = -1)
@@ -28,7 +26,7 @@ namespace Assets.Scripts.Examples.AdvGame
             }
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var script1 = new List<Section>()
             {

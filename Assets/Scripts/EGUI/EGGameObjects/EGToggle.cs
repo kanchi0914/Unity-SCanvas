@@ -74,24 +74,24 @@ namespace EGUI.GameObjects
             name
         )
         {
-            SetRectSize(200, 40)
-                .SetImageSprite(UGUIResources.UISprite)
+            SetSize(200, 40)
+                .SetImage(UGUIResources.UISprite)
                 .SetImageColor(DisabledBackGroundImageColor);
             ToggleComponent = gameObject.AddComponent<Toggle>();
 
             BoxImageObject = new EGGameObject(gameObject, name: "toggleBackGround")
-                .SetImageSprite(UGUIResources.UISprite)
+                .SetImage(UGUIResources.UISprite)
                 .SetImageColor(Color.white);
 
             LabelTextObject = new EGText(this.gameObject, "Toggle", false, "toggleLabel")
                 .SetParagraph(alignment: TextAnchor.MiddleLeft)
-                .SetRectSize(200, 40) as EGText;
+                .SetSize(200, 40) as EGText;
 
             var checkBoxImageSize = rectTransform.sizeDelta.y - spacing * 2;
             BoxImageObject
                 .SetMiddleLeftAnchor()
-                .SetLocalPos(spacing, 0)
-                .SetRectSize(checkBoxImageSize, checkBoxImageSize);
+                .SetPosition(spacing, 0)
+                .SetSize(checkBoxImageSize, checkBoxImageSize);
 
             var boxAspectFitter = BoxImageObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             boxAspectFitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
@@ -104,9 +104,9 @@ namespace EGUI.GameObjects
             BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
 
             CheckImageObject = new EGGameObject(BoxImageObject.gameObject, name: "box_gray_name")
-                .SetImageSprite(UGUIResources.Checkmark)
-                .SetRectSizeByRatio(1, 1)
-                .SetLocalPos(0, 0)
+                .SetImage(UGUIResources.Checkmark)
+                .SetRelativeSize(1, 1)
+                .SetPosition(0, 0)
                 .SetFullStretchAnchor();
 
             BoxImageObject.gameObject.SetActive(isWithCheckBoxImage);
@@ -114,8 +114,8 @@ namespace EGUI.GameObjects
             ToggleComponent.targetGraphic = BoxImageObject.gameObject.GetComponent<Image>();
             ToggleComponent.graphic = CheckImageObject.gameObject.GetComponent<Image>();
 
-            BoxImageObject.SetRectSize(defaultHeight - offSet * 2, defaultHeight - offSet * 2);
-            LabelTextObject.SetRectSize(defaultWidth * 2 - defaultHeight, defaultHeight - spacing);
+            BoxImageObject.SetSize(defaultHeight - offSet * 2, defaultHeight - offSet * 2);
+            LabelTextObject.SetSize(defaultWidth * 2 - defaultHeight, defaultHeight - spacing);
 
             var layout = gameObject.AddComponent<HorizontalLayoutGroup>();
             layout.childControlWidth = false;

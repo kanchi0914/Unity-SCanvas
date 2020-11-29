@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Examples.AdvGame.Objects;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
@@ -11,11 +11,10 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public Scenario2_Classroom()
         {
-            InitScripts();
-            SetBackGroundImage("Images/bg_school_room");
+            SetBackGroundImage("bg_school_room");
         }
 
-        private void InitScripts()
+        protected override void InitScripts()
         {
             var intro = new List<Section>()
             {

@@ -67,30 +67,30 @@ namespace EGUI.GameObjects
         ) : base(parent, name)
         {
             SetMiddleCenterAnchor()
-                .SetLocalPos(0, 0)
-                .SetRectSize(200, 200)
+                .SetPosition(0, 0)
+                .SetSize(200, 200)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
                 .SetFullStretchAnchor()
                 .SetPivot(0,1)
-                .SetRectSizeByRatio(1, 1)
-                .SetLocalPos(0, 0);
+                .SetRelativeSize(1, 1)
+                .SetPosition(0, 0);
 
             ContentAreaObject = new EGGridLayoutView(viewport.gameObject, rowCount,
                 constantItemWidth:constantItemWidth, name: "Content");
             ContentAreaObject
                 .SetChildAlignment(TextAnchor.UpperLeft)
-                .SetRectSize(200, defaultHeight)
+                .SetSize(200, defaultHeight)
                 .SetFullStretchAnchor()
                 .SetPivot(0, 1)
-                .SetLocalPos(0, 0);
+                .SetPosition(0, 0);
             ContentAreaObject.LayoutComponent.startAxis = GridLayoutGroup.Axis.Vertical;
             
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Horizontal");
             ScrollBarObject
                 .SetHorizontalStretchWithBottomPivotAnchor()
-                .SetRectSize(200, scrollBarHeight)
-                .SetLocalPos(0, 0);
+                .SetSize(200, scrollBarHeight)
+                .SetPosition(0, 0);
             ScrollBarObject.ScrollbarComponent.direction = Scrollbar.Direction.LeftToRight;
             
             ScrollRectComponent = gameObject.AddComponent<ScrollRect>();
@@ -105,7 +105,7 @@ namespace EGUI.GameObjects
             ScrollRectComponent.horizontal = true;
             
             var mask = viewport.gameObject.AddComponent<Mask>();
-            viewport.gameObject.SetImageSprite(UGUIResources.Mask);
+            viewport.gameObject.SetImage(UGUIResources.Mask);
             mask.showMaskGraphic = false;
 
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();

@@ -21,7 +21,7 @@ public class RectTransformExtensionsTest
                 isAutoAlignment: true,
                 isAutoSizingWidth: true,
                 isAutoSizingHeight: true
-            ).SetRectSizeByRatio(1, 0.1f)
+            ).SetRelativeSize(1, 0.1f)
             .gameObject;
         new EGButton(layout, "Reset").SetOnOnClick(() => { ResetButtons(); });
         new EGButton(layout, "SetTl").SetOnOnClick(() => { rects.ForEach(b => b.SetTopLeftAnchor()); });
@@ -42,9 +42,9 @@ public class RectTransformExtensionsTest
 
         var pareImage = new EGGameObject(canvas.gameObject)
             .SetImageColor(Color.black)
-            .SetRectSize(500, 500)
+            .SetSize(500, 500)
             .SetMiddleCenterAnchor()
-            .SetLocalPos(0, 0).gameObject;
+            .SetPosition(0, 0).gameObject;
 
         rects = new List<EGGameObject>()
         {
