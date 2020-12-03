@@ -2,14 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts;
+using Assets.Scripts.EGUI;
 using Assets.Scripts.EGUI.MonoBehaviourScripts;
 using Assets.Scripts.Extensions;
 using UnityEngine;
 using EGUI.Base;
 using EGUI.EGGameObjects.Base;
 using UniRx;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Utils = Assets.Scripts.Examples.AdvGame.Utils;
 
 namespace EGUI.GameObjects
 {
@@ -74,40 +76,33 @@ namespace EGUI.GameObjects
 
         /// <summary>
         /// Initializes a new instance of the EGGameObject class, generating a new GameObject.
-        /// The parent of the generated GameObject is set to the GameObject that wrapped by the given EGGameObject. 
-        /// </summary>
-        /// <param name="parent">The EGGameObject that wraps GameObject set to tha parent.</param>
-        /// <param name="name">The name of the generated GameObject.</param>
-        public EGGameObject(EGGameObject parent, string name = "GameObject", GameObject self = null)
-            : this(parent.gameObject, name, self)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the EGGameObject class, generating a new GameObject.
         /// The parent of the generated Object is set to the given GameObject. 
         /// </summary>
         /// <param name="parent">The GameObject set to tha parent.</param>
         /// <param name="name">The name of the generated GameObject.</param>
         public EGGameObject
         (
-            GameObject parent = null,
+            GameObject parent,
             string name = "GameObject",
-            GameObject self = null
+            GameObject self = null,
+            bool destroysGameObjectIfExists = false
         )
         {
             if (self != null)
             {
                 gameObject = self;
+                gameObject.GetOrAddComponent<EGUIObjectInfo>().Init(this);
                 return;
             }
 
             gameObject = new GameObject(name);
+            gameObject.GetOrAddComponent<EGUIObjectInfo>().Init(this);
+
             if (parent != null)
             {
                 gameObject.transform.SetParent(parent.transform, false);
             }
-            else if (GlobalSettings.createsNewCanvasWhenParentIsNull && !(this is EGCanvas))
+            else if (!(this is EGCanvas))
             {
                 if (CanvasStack.Stack.Count < 1)
                 {
@@ -122,6 +117,17 @@ namespace EGUI.GameObjects
             }
             gameObject.GetOrAddComponent<RectTransform>().SetMiddleCenterAnchor();
             SetPosition(0, 0).SetSize(100, 100);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the EGGameObject class, generating a new GameObject.
+        /// The parent of the generated GameObject is set to the GameObject that wrapped by the given EGGameObject. 
+        /// </summary>
+        /// <param name="parent">The EGGameObject that wraps GameObject set to tha parent.</param>
+        /// <param name="name">The name of the generated GameObject.</param>
+        public EGGameObject(EGGameObject parent = null, string name = "GameObject", GameObject self = null, bool destroysGameObjectIfExists = false)
+            : this(parent?.gameObject, name, self, destroysGameObjectIfExists)
+        {
         }
 
         /// <summary>
@@ -181,6 +187,11 @@ namespace EGUI.GameObjects
             rectTransform.SetSize(rectTransform.GetParentRectSize().x * widthRatio,
                 rectTransform.GetParentRectSize().y * heightRatio);
             return this;
+        }
+
+        public T As<T>() where T : EGGameObject
+        {
+            return (T) this;
         }
 
         /// <summary>
@@ -244,8 +255,47 @@ namespace EGUI.GameObjects
             rectTransform.SetPresetRect(rectInfo);
             return this;
         }
+        
+        public EGGameObject AddEvent(EventTriggerType type, Action action)
+        {
+            var entry = new EventTrigger.Entry();
+            entry.eventID = type;
+            entry.callback.AddListener(e => action.Invoke());
+            var trigger = gameObject.GetOrAddComponent<EventTrigger>();
+            trigger.triggers.Add(entry);
+            return this;
+        }
 
-        public EGGameObject SetAnchorType(RectTransformExtensions.AnchorType anchorType, bool keepsPosition = false)
+        public EGGameObject RemoveAllEvent()
+        {
+            var trigger = gameObject.GetOrAddComponent<EventTrigger>();
+            trigger.triggers.Clear();
+            return this;
+        }
+        
+        public EGGameObject SetGlobalPos(Vector3 pos)
+        {
+            var parentMono = rectTransform.parent.gameObject.GetOrAddComponent<GlobalPosSetter>();
+            if (parentMono != null)
+            {
+                gameObject.SetActive(false);
+                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+            }
+            else
+            {
+                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+            }
+            return this;
+        }
+
+        private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
+        {
+            yield return null;
+            gameObject.transform.position = pos;
+            gameObject.SetActive(true);
+        }
+
+        public EGGameObject SetAnchorType(AnchorType anchorType, bool keepsPosition = false)
         {
             rectTransform.SetAnchorType(anchorType, keepsPosition);
             return this;
@@ -349,11 +399,11 @@ namespace EGUI.GameObjects
         }
 
 
-        public EGGameObject SetOnClick(Action action)
-        {
-            gameObject.SetOnClick(action);
-            return this;
-        }
+        // public EGGameObject SetOnClick(Action action)
+        // {
+        //     gameObject.SetOnClick(action);
+        //     return this;
+        // }
 
         public EGGameObject AddOnClick(Action action)
         {

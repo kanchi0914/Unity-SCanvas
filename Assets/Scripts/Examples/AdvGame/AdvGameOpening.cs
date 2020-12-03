@@ -29,11 +29,9 @@ namespace Assets.Scripts.Examples.AdvGame
     {
         public AdvGameOpening()
         {
-            var canvas = new EGCanvas("");
-            // var image = new EGGameObject(canvas);
-            // image.SetSize(800, 600);
-            //new AdvMessageWindow(canvas, null);
-            Init();
+            var canvas = new EGCanvas("testca");
+            new EGGameObject(canvas).SetSize(400,300).SetImageColor(Color.blue);
+            //Init();
         }
 
         private void Init()

@@ -41,13 +41,12 @@ namespace EGUI.GameObjects
         /// <param name="name">オブジェクト名</param>
         public EGButton(
             GameObject parent = null,
-            string text = "",
             string name = "EGButton"
         ) : base(parent, name)
         {
-            SetImageColor(Color.white).SetImage(UGUIResources.UISprite);
+            SetImageColor(Color.white).SetImage(UGUIDefaultResources.UISprite);
             ButtonComponent = gameObject.GetOrAddComponent<Button>();
-            TextObject = new EGText(gameObject, text)
+            TextObject = new EGText(gameObject)
                     .SetRelativeSize(1, 1).SetFullStretchAnchor()as EGText;
         }
 
@@ -69,6 +68,12 @@ namespace EGUI.GameObjects
         public EGButton AddOnClick(Action onClick)
         {
             ButtonComponent.onClick.AddListener(() => onClick.Invoke());
+            return this;
+        }
+
+        public EGButton SetText(string text)
+        {
+            TextObject.SetText(text);
             return this;
         }
     }

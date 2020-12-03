@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Examples.AdvGame;
+using Assets.Scripts.Examples.AdvGame.GameObjects;
 using Assets.Scripts.Extensions;
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
 using static Assets.Scripts.Examples.AdvGame.GUIData;
 
-namespace Assets.Scripts.Examples.AdvGame.GameObjects
+namespace EGUI.Examples
 {
     /// <summary>
     /// メッセージウィンドウのビュークラス
@@ -21,7 +23,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
         public AdvMessageWindow(EGCanvas parentCanvas, Scenario scenario) : base(parentCanvas)
         {
             Scenario = scenario;
-            SetAnchorType(RectTransformExtensions.AnchorType.BottomCenter, false)
+            SetAnchorType(AnchorType.BottomCenter, false)
                 .SetPosition(0, 20)
                 .SetSize(600, 150)
                 .SetImageColor(Color.gray, 0.5f);
@@ -34,19 +36,31 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetTopRightAnchor()
                 .SetSize(300, 20);
 
-            var logText = new EGText(menus, "バックログ", true).SetTextPreset(DefaultText);
-            var saveText = new EGText(menus, "セーブ", true).SetTextPreset(DefaultText);
-            var loadText = new EGText(menus, "ロード", true).SetTextPreset(DefaultText);
-            var optionText = new EGText(menus, "オプション", true).SetTextPreset(DefaultText);
+            var logText = new EGText(menus, "LogTextLabel")
+                .SetText("バックログ")
+                .ResizeBestFIt()
+                .SetTextPreset(DefaultText);
+            var saveText = new EGText(menus, "SaveTextLabel")
+                .SetText("セーブ")
+                .ResizeBestFIt()
+                .SetTextPreset(DefaultText);
+            var loadText = new EGText(menus, "LoadTextLabel")
+                .SetText("ロード")
+                .ResizeBestFIt()
+                .SetTextPreset(DefaultText);
+            var optionText = new EGText(menus, "ConfigTextLabel")
+                .SetText("オプション")
+                .ResizeBestFIt()
+                .SetTextPreset(DefaultText);
 
             messageText = new EGText(gameObject, "Test text")
                 .SetParagraph(alignment: TextAnchor.UpperLeft)
                 .SetText("This it a text!")
                 .SetTextPreset(MessageWindowText)
-                .SetAnchorType(RectTransformExtensions.AnchorType.TopCenter, false)
+                .SetAnchorType(AnchorType.TopCenter, false)
                 .SetPosition(0, -20)
                 .SetSize(550, 120)
-                .SetOnClick(OnClicked) as EGText;
+                .AddOnClick(OnClicked) as EGText;
 
             var talkerPanelImage = new EGGameObject(this)
                 .SetImageColor(Color.gray, 0.5f)

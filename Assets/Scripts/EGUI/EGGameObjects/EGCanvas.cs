@@ -18,7 +18,7 @@ namespace EGUI.GameObjects
         /// </summary>
         /// <param name="name"></param>
         /// <param name="isStatic"></param>
-        public EGCanvas(string name, bool isStatic = false) : base(name: name)
+        public EGCanvas(string name = "EGCanvas", bool isStatic = false) : base(name: name)
         {
             Utils.TryCreateEventSystem();
             ;
@@ -33,8 +33,13 @@ namespace EGUI.GameObjects
             }
 
             CanvasComponent.worldCamera = mainCamera;
-            gameObject.AddComponent<CanvasScaler>();
+            
+            // var scaler = gameObject.AddComponent<CanvasScaler>();
+            // scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            // scaler.referenceResolution = new Vector2(800, 600);
+            
             gameObject.AddComponent<GraphicRaycaster>();
+            
             if (isStatic)
             {
                 CanvasComponent.sortingOrder = 1000;

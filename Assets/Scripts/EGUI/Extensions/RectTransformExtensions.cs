@@ -4,28 +4,28 @@ using UnityEngine;
 
 namespace EGUI.Base
 {
-    public static class RectTransformExtensions
+    public enum AnchorType
     {
-        public enum AnchorType
-        {
-            HorizontalStretchWithTopPivot,
-            HorizontalStretch,
-            HorizontalStretchWithBottomPivot,
-            VerticalStretchWithLeftPivot,
-            VerticalStretch,
-            VerticalStretchWithRightPivot,
-            FullStretch,
-            TopLeft,
-            TopCenter,
-            TopRight,
-            MiddleLeft,
-            MiddleCenter,
-            MiddleRight,
-            BottomLeft,
-            BottomCenter,
-            BottomRight,
-        }
-        
+        HorizontalStretchWithTopPivot,
+        HorizontalStretch,
+        HorizontalStretchWithBottomPivot,
+        VerticalStretchWithLeftPivot,
+        VerticalStretch,
+        VerticalStretchWithRightPivot,
+        FullStretch,
+        TopLeft,
+        TopCenter,
+        TopRight,
+        MiddleLeft,
+        MiddleCenter,
+        MiddleRight,
+        BottomLeft,
+        BottomCenter,
+        BottomRight,
+    }
+    
+    public static class RectTransformExtensions
+    { 
         public static void SetRectSizeByRatio(this RectTransform rectTransform,  float ratioX, float ratioY)
         {
             rectTransform.SetSize(rectTransform.GetParentRectSize().x * ratioX,

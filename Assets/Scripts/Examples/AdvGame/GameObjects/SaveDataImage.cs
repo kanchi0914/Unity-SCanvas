@@ -59,11 +59,11 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 this.dataNumber = dataNumber;
             if (isSave)
             {
-                SetOnClick(ClickInSaveMenu);
+                AddOnClick(ClickInSaveMenu);
             }
             else
             {
-                SetOnClick(ClickInLoadMenu);
+                AddOnClick(ClickInLoadMenu);
             }
         }
 

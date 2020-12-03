@@ -71,19 +71,19 @@ namespace Assets.Scripts.Extensions
             gameObject.transform.SetParent(transform);
         }
         
-        public static GameObject SetOnClick(this GameObject gameObject, Action action)
-        {
-            var Trigger = gameObject.GetOrAddComponent<EventTrigger>();
-            Trigger.triggers = new List<EventTrigger.Entry>();
-            return gameObject.AddOnClick(action);
-        }
+        // public static GameObject SetOnClick(this GameObject gameObject, Action action)
+        // {
+        //     var Trigger = gameObject.GetOrAddComponent<EventTrigger>();
+        //     Trigger.triggers = new List<EventTrigger.Entry>();
+        //     return gameObject.AddOnClick(action);
+        // }
 
         public static GameObject AddOnClick(this GameObject gameObject, Action action)
         {
             var trigger = gameObject.GetOrAddComponent<EventTrigger>();
             var entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener(e => action.Invoke());
+            entry.callback.AddListener(e => action?.Invoke());
             trigger.triggers.Add(entry);
             return gameObject;
         }
@@ -96,6 +96,7 @@ namespace Assets.Scripts.Extensions
                 var source = Resources.Load<Sprite> (imageFilePath);
                 if (!source) Debug.Log ($"Sprite resource {imageFilePath} is not found");
                 else image.sprite = source;
+                image.type = Image.Type.Sliced;
                 return gameObject;
             }
             return gameObject;

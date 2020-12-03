@@ -1,18 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyMono : MonoBehaviour
+public class EmptyMonoBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("Yes!!");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // private void Start()
+    // {
+    //     StartCoroutine(test());
+    // }
+    //
+    // private IEnumerator test()
+    // {
+    //     yield return null;
+    // }
 }

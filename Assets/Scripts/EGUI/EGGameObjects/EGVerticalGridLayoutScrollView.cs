@@ -109,7 +109,7 @@ namespace EGUI.GameObjects
             ScrollRectComponent.horizontal = false;
 
             var mask = viewport.gameObject.AddComponent<Mask>();
-            viewport.gameObject.SetImage(UGUIResources.Mask);
+            viewport.gameObject.SetImage(UGUIDefaultResources.Mask);
             mask.showMaskGraphic = false;
 
             var csfitter = ContentAreaObject.gameObject.GetOrAddComponent<ContentSizeFitter>();

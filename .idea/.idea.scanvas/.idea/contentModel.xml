@@ -39,9 +39,11 @@
           </e>
           <e p="readme_DOTweenPro.txt" t="Include" />
         </e>
+        <e p="Demo.cs" t="Include" />
         <e p="Editor" t="Include">
           <e p="DebugMenu.cs" t="Include" />
         </e>
+        <e p="ParentSizeFItter.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -328,13 +330,15 @@
           <e p="Components" t="Include">
             <e p="ClickEventGetter.cs" t="Include" />
           </e>
+          <e p="DoTweenAnimator.cs" t="Include" />
           <e p="EGUI" t="Include">
+            <e p="EGGameObjectInstances.cs" t="Include" />
             <e p="EGGameObjects" t="Include">
               <e p="Base" t="Include">
                 <e p="CanvasStack.cs" t="Include" />
                 <e p="GlobalSettings.cs" t="Include" />
                 <e p="RectInfo.cs" t="Include" />
-                <e p="UGUIResources.cs" t="Include" />
+                <e p="UGUIDefaultResources.cs" t="Include" />
                 <e p="Utils.cs" t="Include" />
               </e>
               <e p="ComponentScripts" t="Include">
@@ -359,6 +363,8 @@
               <e p="EGVerticalLayoutScrollView.cs" t="Include" />
               <e p="EGVerticalLayoutView.cs" t="Include" />
             </e>
+            <e p="EGUIObjectInfo.cs" t="Include" />
+            <e p="Enums.cs" t="Include" />
             <e p="Extensions" t="Include">
               <e p="GameObjectExtensions .cs" t="Include" />
               <e p="RectTransformExtensions.cs" t="Include" />
@@ -367,6 +373,7 @@
             <e p="MonoBehaviourScripts" t="Include">
               <e p="RelativeSizeSetter.cs" t="Include" />
             </e>
+            <e p="StringUtils.cs" t="Include" />
           </e>
           <e p="Examples" t="Include">
             <e p="AdvGame" t="Include">
@@ -379,6 +386,7 @@
                 <e p="SaveData.cs" t="Include" />
               </e>
               <e p="DirectoryUtils.cs" t="Include" />
+              <e p="FileUtils.cs" t="Include" />
               <e p="GameObjects" t="Include">
                 <e p="AdvMessageWindow.cs" t="Include" />
                 <e p="CloseButton.cs" t="Include" />
@@ -406,27 +414,39 @@
               </e>
               <e p="Utils.cs" t="Include" />
             </e>
-            <e p="Ally.cs" t="Include" />
-            <e p="Command.cs" t="Include" />
             <e p="Demos" t="Include">
+              <e p="ButtonAndWindow.cs" t="Include" />
               <e p="RelativeSizeDemo.cs" t="Include" />
             </e>
-            <e p="EgMessageWindow.cs" t="Include" />
-            <e p="Enemy.cs" t="Include" />
-            <e p="Enums.cs" t="Include" />
-            <e p="FileUtils.cs" t="Include" />
-            <e p="GameInfo.cs" t="Include" />
-            <e p="Item.cs" t="Include" />
-            <e p="ItemEffecter.cs" t="Include" />
             <e p="ListExtension.cs" t="Include" />
-            <e p="Player.cs" t="Include" />
-            <e p="RectInfos.cs" t="Include" />
-            <e p="RPG1.cs" t="Include" />
-            <e p="Skill.cs" t="Include" />
-            <e p="SkillEffecter.cs" t="Include" />
-            <e p="SkillFactory.cs" t="Include" />
-            <e p="Unit.cs" t="Include" />
+            <e p="RpgGame" t="Include">
+              <e p="Ally.cs" t="Include" />
+              <e p="Command.cs" t="Include" />
+              <e p="CommandBattle.cs" t="Include" />
+              <e p="Enemy.cs" t="Include" />
+              <e p="GameInfo.cs" t="Include" />
+              <e p="Item.cs" t="Include" />
+              <e p="ItemEffecter.cs" t="Include" />
+              <e p="ItemFactory.cs" t="Include" />
+              <e p="RpgMain.cs" t="Include" />
+              <e p="Skill.cs" t="Include" />
+              <e p="SkillEffecter.cs" t="Include" />
+              <e p="SkillFactory.cs" t="Include" />
+              <e p="Unit.cs" t="Include" />
+              <e p="Views" t="Include">
+                <e p="AlliesWindow.cs" t="Include" />
+                <e p="AutoResizedTextLabel.cs" t="Include" />
+                <e p="CommandsWindow.cs" t="Include" />
+                <e p="CommandTextLabel.cs" t="Include" />
+                <e p="EnemiesWindow.cs" t="Include" />
+                <e p="RpgCanvas.cs" t="Include" />
+                <e p="RpgMessageWindow.cs" t="Include" />
+                <e p="RpgText.cs" t="Include" />
+                <e p="SubCommandsCanvas.cs" t="Include" />
+              </e>
+            </e>
           </e>
+          <e p="GlobalPosSetter.cs" t="Include" />
           <e p="GridItemSizeSetter.cs" t="Include" />
           <e p="Main.cs" t="Include" />
           <e p="MethodInfoHelper.cs" t="Include" />
@@ -434,6 +454,7 @@
             <e p="Item.cs" t="Include" />
             <e p="Player.cs" t="Include" />
           </e>
+          <e p="MyTest.cs" t="Include" />
           <e p="Presentor" t="Include">
             <e p="PlayerPresenter.cs" t="Include" />
           </e>

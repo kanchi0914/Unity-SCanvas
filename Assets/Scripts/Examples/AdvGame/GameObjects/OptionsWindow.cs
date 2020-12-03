@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using Assets.Scripts.Extensions;
 using EGUI.Base;
+using EGUI.Examples;
 using EGUI.GameObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +41,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
             if (GameData.SelectedOptions.Contains(option.Id))
             {
                 optionButton.SetImageColor(Color.gray, 0.8f);
-                optionButton.TextObject.SetColor(Color.white, 0.7f);
+                optionButton.TextObject.SetTextColor(Color.white, 0.7f);
             }
             optionButton.SetOnOnClick(() =>
             {

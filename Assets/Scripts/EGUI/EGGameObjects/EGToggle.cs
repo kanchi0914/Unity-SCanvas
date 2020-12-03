@@ -75,15 +75,16 @@ namespace EGUI.GameObjects
         )
         {
             SetSize(200, 40)
-                .SetImage(UGUIResources.UISprite)
+                .SetImage(UGUIDefaultResources.UISprite)
                 .SetImageColor(DisabledBackGroundImageColor);
             ToggleComponent = gameObject.AddComponent<Toggle>();
 
             BoxImageObject = new EGGameObject(gameObject, name: "toggleBackGround")
-                .SetImage(UGUIResources.UISprite)
+                .SetImage(UGUIDefaultResources.UISprite)
                 .SetImageColor(Color.white);
 
-            LabelTextObject = new EGText(this.gameObject, "Toggle", false, "toggleLabel")
+            LabelTextObject = new EGText(this.gameObject, "toggleLabel")
+                .SetText("Toggle")
                 .SetParagraph(alignment: TextAnchor.MiddleLeft)
                 .SetSize(200, 40) as EGText;
 
@@ -104,7 +105,7 @@ namespace EGUI.GameObjects
             BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
 
             CheckImageObject = new EGGameObject(BoxImageObject.gameObject, name: "box_gray_name")
-                .SetImage(UGUIResources.Checkmark)
+                .SetImage(UGUIDefaultResources.Checkmark)
                 .SetRelativeSize(1, 1)
                 .SetPosition(0, 0)
                 .SetFullStretchAnchor();
@@ -161,12 +162,12 @@ namespace EGUI.GameObjects
         {
             if (ToggleComponent.isOn)
             {
-                LabelTextObject.SetColor(EnabledTextColor);
+                LabelTextObject.SetTextColor(EnabledTextColor);
                 gameObject.SetImageColor(EnabledBackGroundImageColor);
             }
             else
             {
-                LabelTextObject.SetColor(DisabledTextColor);
+                LabelTextObject.SetTextColor(DisabledTextColor);
                 gameObject.SetImageColor(DisabledBackGroundImageColor);
             }
         }

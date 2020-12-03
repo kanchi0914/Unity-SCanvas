@@ -35,7 +35,7 @@ namespace EGUI.GameObjects
                 VerticalWrapMode? verticalOverflow = null,
                 bool? resizeTextForBestFit = null, int? resizeTextMinSize = null,
                 int? resizeTextMaxSize = null, Color? color = null
-                )
+            )
             {
                 Font = font;
                 FontStyle = fontStyle;
@@ -52,7 +52,7 @@ namespace EGUI.GameObjects
                 Color = color;
             }
         }
-        
+
         /// <summary>
         /// Textコンポーネント
         /// </summary>
@@ -85,16 +85,15 @@ namespace EGUI.GameObjects
         /// Textオブジェクトのラッパークラス
         /// </summary>
         /// <param name="parent">親オブジェクト</param>
-        /// <param name="text">テキスト</param>
+        /// <param name="name">テキスト</param>
         public EGText
         (
-            EGGameObject parent,
-            string text = "",
-            bool isAutoSizing = false
+            EGGameObject parent = null,
+            string name = ""
         ) : this
         (
-            parent.gameObject,
-            text, isAutoSizing
+            parent?.gameObject,
+            name
         )
         {
         }
@@ -107,9 +106,7 @@ namespace EGUI.GameObjects
         /// <param name="name">オブジェクト名</param>
         public EGText
         (
-            GameObject parent = null,
-            string text = "",
-            bool isAutoSizing = false,
+            GameObject parent,
             string name = "EGText"
         ) : base
         (
@@ -118,10 +115,9 @@ namespace EGUI.GameObjects
         )
         {
             TextComponent = gameObject.GetOrAddComponent<Text>();
-            SetText(text)
-                .SetCharacter(fontSize: Utils.DefaultFontSize, font: UGUIResources.Font)
-                .SetParagraph(alignment: TextAnchor.MiddleCenter, resizeTextForBestFit: isAutoSizing)
-                .SetColor(Utils.DefaultTextColor);
+            SetCharacter(fontSize: Utils.DefaultFontSize, font: UGUIDefaultResources.Font)
+                .SetParagraph(alignment: TextAnchor.MiddleCenter)
+                .SetTextColor(Utils.DefaultTextColor);
         }
 
         /// <summary>
@@ -141,7 +137,7 @@ namespace EGUI.GameObjects
         /// <param name="color"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public EGText SetColor(Color color, float? alpha = null)
+        public EGText SetTextColor(Color color, float? alpha = null)
         {
             TextComponent.color = new Color(color.r, color.g, color.b, alpha ?? color.a);
             DefaultTextColor = TextComponent.color;
@@ -167,6 +163,12 @@ namespace EGUI.GameObjects
             entry.callback.AddListener(e => action.Invoke());
             var trigger = gameObject.GetOrAddComponent<EventTrigger>();
             trigger.triggers.Add(entry);
+            return this;
+        }
+
+        public EGText ResizeBestFIt(bool resizeTextForBestFit = true)
+        {
+            TextComponent.resizeTextForBestFit = resizeTextForBestFit;
             return this;
         }
 
@@ -207,7 +209,7 @@ namespace EGUI.GameObjects
             bool? resizeTextForBestFit = null,
             int? resizeTextMinSize = null,
             int? resizeTextMaxSize = null
-            )
+        )
         {
             TextComponent.alignment = alignment ?? TextComponent.alignment;
             TextComponent.alignByGeometry = alignByGeometry ?? TextComponent.alignByGeometry;
@@ -224,9 +226,9 @@ namespace EGUI.GameObjects
             SetCharacter(textPreset.Font, textPreset.FontStyle, textPreset.FontSize,
                 textPreset.LineSpacing, textPreset.SupportRichText);
             SetParagraph(textPreset.Alignment, textPreset.AlignByGeometry, textPreset.HorizontalOverflow,
-                textPreset.VerticalOverflow, textPreset.ResizeTextForBestFit, textPreset.ResizeTextMinSize, 
+                textPreset.VerticalOverflow, textPreset.ResizeTextForBestFit, textPreset.ResizeTextMinSize,
                 textPreset.ResizeTextMaxSize);
-            if (textPreset.Color != null) SetColor((Color)textPreset.Color);
+            if (textPreset.Color != null) SetTextColor((Color) textPreset.Color);
             return this;
         }
     }

@@ -63,7 +63,7 @@ namespace EGUI.GameObjects
             SetSize(defaultWidth, defaultHeight);
             BackgroundImageObject = new EGGameObject(gameObject, name: "Background");
             BackgroundImageObject
-                .SetImage(UGUIResources.Background)
+                .SetImage(UGUIDefaultResources.Background)
                 .SetRelativeSize(1, 1)
                 .SetHorizontalStretchAnchor();
 
@@ -71,7 +71,7 @@ namespace EGUI.GameObjects
                 .SetHorizontalStretchAnchor();
 
             fillObject = new EGGameObject(fillAreaObject.gameObject, name: "Fill");
-            fillObject.SetImage(UGUIResources.UISprite)
+            fillObject.SetImage(UGUIDefaultResources.UISprite)
                 .SetRelativeSize(1, 1f)
                 .SetHorizontalStretchAnchor();
 
@@ -80,7 +80,7 @@ namespace EGUI.GameObjects
             handleSlideAreaObject.rectTransform.offsetMax = new Vector2(30, 30);
 
             HandleObject = new EGGameObject(handleSlideAreaObject.gameObject, name: "Handle");
-            HandleObject.gameObject.SetImage(UGUIResources.Knob);
+            HandleObject.gameObject.SetImage(UGUIDefaultResources.Knob);
 
             SliderComponent = gameObject.AddComponent<Slider>();
             SliderComponent.targetGraphic = HandleObject.gameObject.GetComponent<Image>();

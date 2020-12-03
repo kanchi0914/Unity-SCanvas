@@ -37,11 +37,11 @@ namespace EGUI.GameObjects
             string name = "EGScrollBar"
         ) : base(parent, name)
         {
-            gameObject.SetImageColor(Color.gray).SetImage(UGUIResources.UISprite);
+            gameObject.SetImageColor(Color.gray).SetImage(UGUIDefaultResources.UISprite);
             var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").SetFullStretchAnchor();
             slidingArea.gameObject.GetRectTransform().sizeDelta = new Vector2(-20, -20);
             HandleImageObject = new EGGameObject(slidingArea.gameObject, name: "Handle");
-            HandleImageObject.gameObject.SetImage(UGUIResources.UISprite);
+            HandleImageObject.gameObject.SetImage(UGUIDefaultResources.UISprite);
             HandleImageObject.gameObject.GetRectTransform().sizeDelta = new Vector2(20, 20);
             HandleImageObject.gameObject.GetRectTransform().SetPivot(0.5f, 0.5f);
             ScrollbarComponent = gameObject.AddComponent<Scrollbar>();

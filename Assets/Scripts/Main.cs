@@ -9,7 +9,7 @@ using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEditor;
 
-public class Main : MonoBehaviour
+public class rMain : MonoBehaviour
 {
     void Start()
     {
@@ -17,7 +17,6 @@ public class Main : MonoBehaviour
         // var prefab = PrefabUtility.SaveAsPrefabAsset(obj.gameObject, "Assets/BBB.prefab");
         // AssetDatabase.SaveAssets();
         new AdvGameOpening();
-        var a = new EGGameObject();
         //a.gameObject.transform.SetPivot();
         //var save = new SaveData("1", 10, "path/to/image");
         // var path = "Assets/Scripts/Examples/AdvGame/Sdsadadsasd1"

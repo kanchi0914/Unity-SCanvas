@@ -62,22 +62,22 @@ namespace EGUI.GameObjects
         ) : base(parent, name)
         {
             SetSize(defaultWidth, defaultheight)
-                .SetImage(UGUIResources.UISprite);
+                .SetImage(UGUIDefaultResources.UISprite);
 
-            var label = new EGText(gameObject, "", name: "Label")
+            var label = new EGText(gameObject, "Label")
                 .SetMiddleCenterAnchor() as EGText;
             label.SetParagraph(alignment: TextAnchor.MiddleLeft);
 
             var arrow = new EGGameObject(gameObject, name: "Arrow")
                 .SetMiddleCenterAnchor()
-                .SetImage(UGUIResources.Dropdown);
+                .SetImage(UGUIDefaultResources.Dropdown);
 
             TemplateObject = new EGVerticalLayoutScrollView(gameObject, isAutoSizingWidth: true, name: "Template")
                 .SetChildAlinmentTypes(
                     childControlHeight: true, childForceExpandHeight: true)
                 .SetMovementType(ScrollRect.MovementType.Clamped)
                 .SetScrollBarVisibility(ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport)
-                .SetImage(UGUIResources.UISprite)
+                .SetImage(UGUIDefaultResources.UISprite)
                 .SetImageColor(Color.white)
                 .SetPosition(0, 0) as EGVerticalLayoutScrollView;
 

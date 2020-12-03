@@ -20,42 +20,7 @@ namespace Assets.Scripts.Examples.AdvGame
             asfitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
         }
 
-        // https://baba-s.hatenablog.com/entry/2014/09/08/114615
-        /// <summary>
-        /// 指定された GameObject を複製して返します
-        /// </summary>
-        public static GameObject Clone(GameObject go)
-        {
-            var clone = GameObject.Instantiate(go) as GameObject;
-            clone.transform.parent = go.transform.parent;
-            clone.transform.localPosition = go.transform.localPosition;
-            clone.transform.localScale = go.transform.localScale;
-            return clone;
-        }
 
-        //--------------------------------------------------------------------------------
-        // 引数に渡したオブジェクトをディープコピーしたオブジェクトを生成して返す
-        // ジェネリックメソッド版
-        //--------------------------------------------------------------------------------
-        public static T DeepCopy<T>(T target)
-        {
-            T result;
-            BinaryFormatter b = new BinaryFormatter();
-            MemoryStream mem = new MemoryStream();
-
-            try
-            {
-                b.Serialize(mem, target);
-                mem.Position = 0;
-                result = (T) b.Deserialize(mem);
-            }
-            finally
-            {
-                mem.Close();
-            }
-
-            return result;
-        }
     }
 
 

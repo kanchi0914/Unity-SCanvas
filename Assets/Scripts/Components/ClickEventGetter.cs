@@ -10,18 +10,21 @@ namespace EGUI
 {
     public class ClickEventGetter : MonoBehaviour
     {
-        void Update ()
+        void Update()
         {
-            if (Input.GetMouseButtonDown (0))
-            {
-                var ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-                var hit2d = Physics2D.Raycast ((Vector2) ray.origin, (Vector2) ray.direction);
-                if (hit2d)
-                {
-                    var clickedGameObject = hit2d.transform.gameObject.name;
-                    Debug.Log (clickedGameObject);
-                }
-            }
+            // if (Input.GetMouseButtonDown(0))
+            // {
+            //     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //     Debug.Log(ray);
+            //
+            //     var hit2d = Physics2D.Raycast((Vector2) ray.origin, (Vector2) ray.direction);
+            //     Debug.Log(hit2d.transform);
+            //     if (hit2d)
+            //     {
+            //         var clickedGameObject = hit2d.transform.gameObject.name;
+            //         Debug.Log(clickedGameObject);
+            //     }
+            // }
         }
     }
 }

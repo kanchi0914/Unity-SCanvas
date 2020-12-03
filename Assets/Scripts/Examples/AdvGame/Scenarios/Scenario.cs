@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Examples.AdvGame.GameObjects;
 using Assets.Scripts.Extensions;
 using EGUI.Base;
+using EGUI.Examples;
 using EGUI.GameObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -127,7 +128,6 @@ namespace Assets.Scripts.Examples.AdvGame
         private void SetImageAspectRatio(EGGameObject imageObject, Sprite source)
         {
             var ratio = source.bounds.size.x / source.bounds.size.y;
-            Debug.Log($"{source.name}, x{source.bounds.size.x}, y{source.bounds.size.y}");
             var fitter = imageObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             fitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
             fitter.aspectRatio = ratio;
