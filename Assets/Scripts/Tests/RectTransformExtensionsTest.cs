@@ -9,8 +9,9 @@ using UnityEngine;
 public class RectTransformExtensionsTest
 {
     private EGCanvas canvas;
-    private RectInfo rectInfo = new RectInfo(0, 0, 100, 100);
     private List<EGGameObject> rects;
+    private float buttonWidth = 50;
+    private float buttonHeight = 50;
 
     public RectTransformExtensionsTest()
     {
@@ -21,18 +22,47 @@ public class RectTransformExtensionsTest
                 isAutoAlignment: true,
                 isAutoSizingWidth: true,
                 isAutoSizingHeight: true
-            ).SetRelativeSize(1, 0.1f)
+            )
+            .SetAnchorType(AnchorType.BottomCenter)
+            .SetRelativeSize(1, 0.1f)
             .gameObject;
         new EGButton(layout, "Reset").SetOnOnClick(() => { ResetButtons(); });
-        new EGButton(layout, "SetTl").SetOnOnClick(() => { rects.ForEach(b => b.SetTopLeftAnchor()); });
-        new EGButton(layout, "SetTc").SetOnOnClick(() => { rects.ForEach(b => b.SetTopCenterAnchor()); });
-        new EGButton(layout, "SetTr").SetOnOnClick(() => { rects.ForEach(b => b.SetTopRightAnchor()); });
-        new EGButton(layout, "SetMl").SetOnOnClick(() => { rects.ForEach(b => b.SetMiddleLeftAnchor()); });
-        new EGButton(layout, "SetMc").SetOnOnClick(() => { rects.ForEach(b => b.SetMiddleCenterAnchor()); });
-        new EGButton(layout, "SetMr").SetOnOnClick(() => { rects.ForEach(b => b.SetMiddleRightAnchor()); });
-        new EGButton(layout, "SetBl").SetOnOnClick(() => { rects.ForEach(b => b.SetBottomLeftAnchor()); });
-        new EGButton(layout, "SetBc").SetOnOnClick(() => { rects.ForEach(b => b.SetBottomCenterAnchor()); });
-        new EGButton(layout, "SetBr").SetOnOnClick(() => { rects.ForEach(b => b.SetBottomRightAnchor()); });
+        new EGButton(layout, "SetTl").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.TopLeft, true));
+        });
+        new EGButton(layout, "SetTc").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.TopCenter, true));
+        });
+        new EGButton(layout, "SetTr").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.TopRight, true));
+        });
+        new EGButton(layout, "SetMl").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.MiddleLeft, true));
+        });
+        new EGButton(layout, "SetMc").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.MiddleCenter, true));
+        });
+        new EGButton(layout, "SetMr").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.MiddleRight, true));
+        });
+        new EGButton(layout, "SetBl").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.BottomLeft, true));
+        });
+        new EGButton(layout, "SetBc").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.BottomCenter, true));
+        });
+        new EGButton(layout, "SetBr").SetOnOnClick(() =>
+        {
+            rects.ForEach(b => b.SetAnchorType(AnchorType.BottomRight, true));
+        });
     }
 
     public void ResetButtons()
@@ -42,39 +72,38 @@ public class RectTransformExtensionsTest
 
         var pareImage = new EGGameObject(canvas.gameObject)
             .SetImageColor(Color.black)
-            .SetSize(500, 500)
-            .SetMiddleCenterAnchor()
+            .SetSize(300, 300)
+            .SetAnchorType(AnchorType.MiddleCenter)
             .SetPosition(0, 0).gameObject;
 
         rects = new List<EGGameObject>()
         {
             new EGButton(pareImage, "tl")
-                .SetTopLeftAnchor()
-                .SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.TopLeft).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "tc")
-                .SetTopCenterAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.TopCenter).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "tr")
-                .SetTopRightAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.TopRight).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "ml")
-                .SetMiddleLeftAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.MiddleLeft).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "mc")
-                .SetMiddleCenterAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.MiddleCenter).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "mr")
-                .SetMiddleRightAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.MiddleRight).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "bl")
-                .SetBottomLeftAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.BottomLeft).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "bc")
-                .SetBottomCenterAnchor().SetPresetRect(rectInfo),
+                .SetAnchorType(AnchorType.BottomCenter).SetSize(buttonWidth, buttonHeight),
 
             new EGButton(pareImage, "br")
-                .SetBottomRightAnchor().SetPresetRect(rectInfo)
+                .SetAnchorType(AnchorType.BottomRight).SetSize(buttonWidth, buttonHeight)
         };
     }
 }

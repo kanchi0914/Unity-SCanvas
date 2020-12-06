@@ -33,7 +33,7 @@ namespace EGUI.Examples
                     isAutoSizingHeight: true,
                     isAutoSizingWidth: true
                 )
-                .SetTopRightAnchor()
+                .SetAnchorType(AnchorType.TopRight)
                 .SetSize(300, 20);
 
             var logText = new EGText(menus, "LogTextLabel")
@@ -64,7 +64,7 @@ namespace EGUI.Examples
 
             var talkerPanelImage = new EGGameObject(this)
                 .SetImageColor(Color.gray, 0.5f)
-                .SetTopLeftAnchor()
+                .SetAnchorType(AnchorType.TopLeft)
                 .SetPosition(0, 40)
                 .SetSize(200, 40);
             

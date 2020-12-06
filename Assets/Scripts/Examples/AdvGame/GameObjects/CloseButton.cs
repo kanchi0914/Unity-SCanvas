@@ -1,4 +1,5 @@
-﻿using EGUI.GameObjects;
+﻿using EGUI.Base;
+using EGUI.GameObjects;
 
 namespace Assets.Scripts.Examples.AdvGame.GameObjects
 {
@@ -6,7 +7,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
     {
         public CloseButton(EGGameObject parent): base(parent)
         {
-            SetTopRightAnchor()
+            SetAnchorType(AnchorType.TopRight)
                 .SetPosition(20,20)
                 .SetSize(40, 40);
             TextObject.SetText("×");

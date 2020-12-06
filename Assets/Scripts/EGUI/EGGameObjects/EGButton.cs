@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +48,7 @@ namespace EGUI.GameObjects
             SetImageColor(Color.white).SetImage(UGUIDefaultResources.UISprite);
             ButtonComponent = gameObject.GetOrAddComponent<Button>();
             TextObject = new EGText(gameObject)
-                    .SetRelativeSize(1, 1).SetFullStretchAnchor()as EGText;
+                    .SetRelativeSize(1, 1).SetAnchorType(AnchorType.FullStretch) as EGText;
         }
 
         /// <summary>

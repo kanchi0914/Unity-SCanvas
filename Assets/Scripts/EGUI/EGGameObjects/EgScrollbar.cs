@@ -38,7 +38,7 @@ namespace EGUI.GameObjects
         ) : base(parent, name)
         {
             gameObject.SetImageColor(Color.gray).SetImage(UGUIDefaultResources.UISprite);
-            var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").SetFullStretchAnchor();
+            var slidingArea = new EGGameObject(gameObject, name: "Sliding Area").SetAnchorType(AnchorType.FullStretch);
             slidingArea.gameObject.GetRectTransform().sizeDelta = new Vector2(-20, -20);
             HandleImageObject = new EGGameObject(slidingArea.gameObject, name: "Handle");
             HandleImageObject.gameObject.SetImage(UGUIDefaultResources.UISprite);

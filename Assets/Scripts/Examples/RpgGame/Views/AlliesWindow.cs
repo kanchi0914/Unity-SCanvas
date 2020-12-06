@@ -16,7 +16,7 @@ namespace Examples.RpgGame.Views
         public AlliesWindow(RpgCanvas canvas, CommandBattle commandBattle, List<Ally> allies) : base(canvas,
             "AlliesWindow")
         {
-            SetTopCenterAnchor()
+            SetAnchorType(AnchorType.TopCenter)
                 .SetPosition(0, -10)
                 .SetSize(480, 128);
             var layoutView = new EgHorizontalLayoutView(this, isAutoAlignment: true)

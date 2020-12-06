@@ -22,7 +22,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
             options = new EGVerticalLayoutView(this, isAutoSizingWidth: true)
                     .SetPaddingAndSpacing(10)
                     .SetImageColor(Color.white, 0.5f)
-                    .SetMiddleCenterAnchor()
+                    .SetAnchorType(AnchorType.MiddleCenter)
                     .SetRelativePosition(0, -0.2f)
                     .SetRelativeSize(0.4f, 0.3f)
                 as EGVerticalLayoutView;

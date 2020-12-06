@@ -1,4 +1,5 @@
-﻿using EGUI.GameObjects;
+﻿using EGUI.Base;
+using EGUI.GameObjects;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,16 +13,16 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetRelativeSize(1, 1)
                 .SetImageColor(Color.clear);
             var menu = new EGGameObject(this);
-            menu.SetMiddleCenterAnchor()
+            menu.SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0, 0)
                 .SetRelativeSize(0.6f, 0.6f);
             var backGroundImage = new EGGameObject(menu)
                 .SetImageColor(Color.gray, 0.2f)
-                .SetMiddleCenterAnchor()
+                .SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0,0)
                 .SetRelativeSize(1, 1);
             var closeButton = new EGButton(menu, "×")
-                .SetTopRightAnchor()
+                .SetAnchorType(AnchorType.TopRight)
                 .SetPosition(20,-20)
                 .SetSize(40, 40) as EGButton;
             closeButton.SetOnOnClick(() =>

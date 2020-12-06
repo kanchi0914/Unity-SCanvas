@@ -1,5 +1,6 @@
 using System.Linq;
 using Assets.Scripts.Extensions;
+using EGUI.Base;
 using UnityEngine;
 
 namespace EGUI.GameObjects.Demos
@@ -10,23 +11,17 @@ namespace EGUI.GameObjects.Demos
         {
             var canvas = new EGCanvas("");
             var parentImage = new EGGameObject(canvas.gameObject, "Parent")
-                .SetMiddleCenterAnchor()
+                .SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(-200, 0)
                 .SetSize(300, 200)
                 .SetImageColor(Color.white);
 
-            var childImage = new EGGameObject(parentImage, "child")
-                .SetMiddleCenterAnchor()
-                .SetPosition(0, 0)
-                .SetImageColor(Color.cyan)
-                .SetRelativeSize(.8f, .8f, true);
-
             var cloneParent = parentImage.Duplicate().SetPosition(200, 0);
             var cloneChild = new EGGameObject(cloneParent.gameObject.GetChildrenObjects().First());
-            cloneChild.SetRelativeSize(.8f, .8f, false).SetFullStretchAnchor();
+            cloneChild.SetRelativeSize(.8f, .8f, false).SetAnchorType(AnchorType.FullStretch);
             
             var slider = new EgSlider(canvas)
-                .SetTopCenterAnchor()
+                .SetAnchorType(AnchorType.TopCenter)
                 .SetPosition(0, 50)
                 .SetSize(200, 40) as EgSlider;
             

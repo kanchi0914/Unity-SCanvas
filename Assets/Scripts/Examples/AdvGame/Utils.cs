@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Scripts.Extensions;
+using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Examples.AdvGame
         public static void SetImageAsBackground(EGGameObject image)
         {
             image.gameObject.GetImageComponent().SetNativeSize();
-            image.SetMiddleCenterAnchor().SetPosition(0, 0);
+            image.SetAnchorType(AnchorType.MiddleCenter).SetPosition(0, 0);
             var asfitter = image.gameObject.AddComponent<AspectRatioFitter>();
             asfitter.aspectRatio = image.RectSize.x / image.RectSize.y;
             asfitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;

@@ -167,25 +167,19 @@ namespace EGUI.Base
 
             return AnchorType.MiddleCenter;
         }
+
+        public static RectTransform SetAnchoredPosAndSize(this RectTransform rectTransform, float posX, float posY, float width, float height)
+        {
+            rectTransform.SetAnchoredPos(posX, posY);
+            rectTransform.SetSize(width, height);
+            return rectTransform;
+        }
         
         public static RectTransform SetOffset(this RectTransform rectTransform, float minX, float minY, float maxX,
             float maxY)
         {
             rectTransform.offsetMax = new Vector2(maxX, maxY);
             rectTransform.offsetMin = new Vector2(minX, minY);
-            return rectTransform;
-        }
-        
-        public static RectTransform SetPresetRect(this RectTransform rectTransform, RectInfo rectInfo)
-        {
-            rectTransform.SetPosAndSize(rectInfo.PosX, rectInfo.PosY, rectInfo.Width, rectInfo.Height);
-            return rectTransform;
-        }
-        
-        public static RectTransform SetPosAndSize(this RectTransform rectTransform, float posX, float posY, float width, float height)
-        {
-            rectTransform.SetAnchoredPos(posX, posY);
-            rectTransform.SetSize(width, height);
             return rectTransform;
         }
         
@@ -334,37 +328,37 @@ namespace EGUI.Base
             return rectTransform;
         }
 
-        public static RectTransform SetTopLeftAnchor(this RectTransform rectTransform)
+        private static RectTransform SetTopLeftAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.TopLeft);
         }
 
-        public static RectTransform SetTopCenterAnchor(this RectTransform rectTransform)
+        private static RectTransform SetTopCenterAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.TopCenter);
         }
 
-        public static RectTransform SetTopRightAnchor(this RectTransform rectTransform)
+        private static RectTransform SetTopRightAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.TopRight);
         }
 
-        public static RectTransform SetMiddleLeftAnchor(this RectTransform rectTransform)
+        private static RectTransform SetMiddleLeftAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.MiddleLeft);
         }
 
-        public static RectTransform SetMiddleRightAnchor(this RectTransform rectTransform)
+        private static RectTransform SetMiddleRightAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.MiddleRight);
         }
 
-        public static RectTransform SetBottomLeftAnchor(this RectTransform rectTransform)
+        private static RectTransform SetBottomLeftAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.BottomLeft);
         }
 
-        public static RectTransform SetBottomCenterAnchor(this RectTransform rectTransform)
+        private static RectTransform SetBottomCenterAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.BottomCenter);
         }
@@ -374,37 +368,37 @@ namespace EGUI.Base
             return rectTransform.SetAnchorType(AnchorType.BottomRight);
         }
         
-        public static RectTransform SetHorizontalStretchAnchor(this RectTransform rectTransform)
+        private static RectTransform SetHorizontalStretchAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.HorizontalStretch);
         }
 
-        public static RectTransform SetHorizontalStretchWithTopPivotAnchor(this RectTransform rectTransform)
+        private static RectTransform SetHorizontalStretchWithTopPivotAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.HorizontalStretchWithTopPivot);
         }
 
-        public static RectTransform SetHorizontalStretchWithBottomPivotAnchor(this RectTransform rectTransform)
+        private static RectTransform SetHorizontalStretchWithBottomPivotAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.HorizontalStretchWithBottomPivot);
         }
         
-        public static RectTransform SetVerticalStretchAnchor(this RectTransform rectTransform)
+        private static RectTransform SetVerticalStretchAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.VerticalStretch);
         }
 
-        public static RectTransform SetVerticalStretchWithLeftPivotAnchor(this RectTransform rectTransform)
+        private static RectTransform SetVerticalStretchWithLeftPivotAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.VerticalStretchWithLeftPivot);
         }
 
-        public static RectTransform SetVerticalStretchWithRightPivotAnchor(this RectTransform rectTransform)
+        private static RectTransform SetVerticalStretchWithRightPivotAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.VerticalStretchWithRightPivot);
         }
 
-        public static RectTransform SetFullStretchAnchor(this RectTransform rectTransform)
+        private static RectTransform SetFullStretchAnchor(this RectTransform rectTransform)
         {
             return rectTransform.SetAnchorType(AnchorType.FullStretch);
         }

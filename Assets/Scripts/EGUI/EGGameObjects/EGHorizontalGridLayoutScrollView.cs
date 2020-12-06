@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using EGUI.Base;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -66,12 +67,12 @@ namespace EGUI.GameObjects
             string name = "EGHorizontalGridLayoutScrollView"
         ) : base(parent, name)
         {
-            SetMiddleCenterAnchor()
+            SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0, 0)
                 .SetSize(200, 200)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0,1)
                 .SetRelativeSize(1, 1)
                 .SetPosition(0, 0);
@@ -81,14 +82,14 @@ namespace EGUI.GameObjects
             ContentAreaObject
                 .SetChildAlignment(TextAnchor.UpperLeft)
                 .SetSize(200, defaultHeight)
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0, 1)
                 .SetPosition(0, 0);
             ContentAreaObject.LayoutComponent.startAxis = GridLayoutGroup.Axis.Vertical;
             
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Horizontal");
             ScrollBarObject
-                .SetHorizontalStretchWithBottomPivotAnchor()
+                .SetAnchorType(AnchorType.HorizontalStretchWithBottomPivot)
                 .SetSize(200, scrollBarHeight)
                 .SetPosition(0, 0);
             ScrollBarObject.ScrollbarComponent.direction = Scrollbar.Direction.LeftToRight;

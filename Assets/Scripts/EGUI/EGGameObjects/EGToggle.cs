@@ -90,25 +90,25 @@ namespace EGUI.GameObjects
 
             var checkBoxImageSize = rectTransform.sizeDelta.y - spacing * 2;
             BoxImageObject
-                .SetMiddleLeftAnchor()
+                .SetAnchorType(AnchorType.MiddleLeft)
                 .SetPosition(spacing, 0)
                 .SetSize(checkBoxImageSize, checkBoxImageSize);
 
             var boxAspectFitter = BoxImageObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             boxAspectFitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
             boxAspectFitter.aspectRatio = 1;
-            BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
+            BoxImageObject.SetAnchorType(AnchorType.VerticalStretchWithLeftPivot);
 
             var textAspectFitter = LabelTextObject.gameObject.GetOrAddComponent<AspectRatioFitter>();
             textAspectFitter.aspectMode = AspectRatioFitter.AspectMode.HeightControlsWidth;
             textAspectFitter.aspectRatio = 3;
-            BoxImageObject.SetVerticalStretchWithLeftPivotAnchor();
+            BoxImageObject.SetAnchorType(AnchorType.VerticalStretchWithLeftPivot);
 
             CheckImageObject = new EGGameObject(BoxImageObject.gameObject, name: "box_gray_name")
                 .SetImage(UGUIDefaultResources.Checkmark)
                 .SetRelativeSize(1, 1)
                 .SetPosition(0, 0)
-                .SetFullStretchAnchor();
+                .SetAnchorType(AnchorType.FullStretch);
 
             BoxImageObject.gameObject.SetActive(isWithCheckBoxImage);
 

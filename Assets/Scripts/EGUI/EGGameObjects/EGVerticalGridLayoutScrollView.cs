@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using EGUI.Base;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -71,12 +72,12 @@ namespace EGUI.GameObjects
             name
         )
         {
-            SetMiddleCenterAnchor()
+            SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0, 0)
                 .SetSize(defaultWidth, defaultHeight)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0, 0)
                 .SetRelativeSize(1, 1)
                 .SetPosition(0, 0);
@@ -86,13 +87,13 @@ namespace EGUI.GameObjects
             ContentAreaObject
                 .SetChildAlignment(TextAnchor.UpperLeft)
                 .SetSize(defaultWidth, 0)
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0, 1)
                 .SetPosition(0, 0);
 
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Vertical");
             ScrollBarObject
-                .SetVerticalStretchWithRightPivotAnchor()
+                .SetAnchorType(AnchorType.VerticalStretchWithRightPivot)
                 .SetSize(scrollBarWidth, defaultHeight)
                 .SetPosition(0, 0);
             ScrollBarObject.ScrollbarComponent.direction = Scrollbar.Direction.BottomToTop;

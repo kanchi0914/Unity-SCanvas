@@ -61,22 +61,21 @@ namespace EGUI.GameObjects
         )
         {
             SetSize(defaultWidth, defaultHeight);
-            BackgroundImageObject = new EGGameObject(gameObject, name: "Background");
-            BackgroundImageObject
+            BackgroundImageObject = new EGGameObject(gameObject, name: "Background")
                 .SetImage(UGUIDefaultResources.Background)
                 .SetRelativeSize(1, 1)
-                .SetHorizontalStretchAnchor();
+                .SetAnchorType(AnchorType.HorizontalStretch);
 
             fillAreaObject = new EGGameObject(gameObject, name: "Fill Area")
-                .SetHorizontalStretchAnchor();
+                .SetAnchorType(AnchorType.HorizontalStretch);
 
-            fillObject = new EGGameObject(fillAreaObject.gameObject, name: "Fill");
-            fillObject.SetImage(UGUIDefaultResources.UISprite)
+            fillObject = new EGGameObject(fillAreaObject.gameObject, name: "Fill")
+                .SetImage(UGUIDefaultResources.UISprite)
                 .SetRelativeSize(1, 1f)
-                .SetHorizontalStretchAnchor();
+                .SetAnchorType(AnchorType.HorizontalStretch);
 
-            handleSlideAreaObject = new EGGameObject(this.gameObject, name: "Handle Slide Area");
-            handleSlideAreaObject.SetFullStretchAnchor();
+            handleSlideAreaObject = new EGGameObject(this.gameObject, name: "Handle Slide Area")
+                .SetAnchorType(AnchorType.FullStretch);
             handleSlideAreaObject.rectTransform.offsetMax = new Vector2(30, 30);
 
             HandleObject = new EGGameObject(handleSlideAreaObject.gameObject, name: "Handle");

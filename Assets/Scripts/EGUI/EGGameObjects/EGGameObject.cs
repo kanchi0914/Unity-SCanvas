@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.EGUI;
 using Assets.Scripts.EGUI.MonoBehaviourScripts;
 using Assets.Scripts.Extensions;
 using UnityEngine;
 using EGUI.Base;
-using EGUI.EGGameObjects.Base;
-using UniRx;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -115,7 +111,7 @@ namespace EGUI.GameObjects
                     gameObject.transform.SetParent(canvas.gameObject.transform, false);
                 }
             }
-            gameObject.GetOrAddComponent<RectTransform>().SetMiddleCenterAnchor();
+            gameObject.GetOrAddComponent<RectTransform>().SetAnchorType(AnchorType.MiddleCenter);
             SetPosition(0, 0).SetSize(100, 100);
         }
 
@@ -245,16 +241,16 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        /// <summary>
-        /// Set the parameters of rectTransform using the values of RectTransformInfo.
-        /// </summary>
-        /// <param name="rectInfo"></param>
-        /// <returns></returns>
-        public EGGameObject SetPresetRect(RectInfo rectInfo)
-        {
-            rectTransform.SetPresetRect(rectInfo);
-            return this;
-        }
+        // /// <summary>
+        // /// Set the parameters of rectTransform using the values of RectTransformInfo.
+        // /// </summary>
+        // /// <param name="rectInfo"></param>
+        // /// <returns></returns>
+        // public EGGameObject SetPresetRect(RectInfo rectInfo)
+        // {
+        //     rectTransform.SetPresetRect(rectInfo);
+        //     return this;
+        // }
         
         public EGGameObject AddEvent(EventTriggerType type, Action action)
         {
@@ -273,20 +269,20 @@ namespace EGUI.GameObjects
             return this;
         }
         
-        public EGGameObject SetGlobalPos(Vector3 pos)
-        {
-            var parentMono = rectTransform.parent.gameObject.GetOrAddComponent<GlobalPosSetter>();
-            if (parentMono != null)
-            {
-                gameObject.SetActive(false);
-                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
-            }
-            else
-            {
-                parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
-            }
-            return this;
-        }
+        // public EGGameObject SetGlobalPos(Vector3 pos)
+        // {
+        //     var parentMono = rectTransform.parent.gameObject.GetOrAddComponent<GlobalPosSetter>();
+        //     if (parentMono != null)
+        //     {
+        //         gameObject.SetActive(false);
+        //         parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+        //     }
+        //     else
+        //     {
+        //         parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
+        //     }
+        //     return this;
+        // }
 
         private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
         {
@@ -300,110 +296,6 @@ namespace EGUI.GameObjects
             rectTransform.SetAnchorType(anchorType, keepsPosition);
             return this;
         }
-
-        public EGGameObject SetTopLeftAnchor()
-        {
-            rectTransform.SetTopLeftAnchor();
-            return this;
-        }
-
-        public EGGameObject SetTopCenterAnchor()
-        {
-            rectTransform.SetTopCenterAnchor();
-            return this;
-        }
-
-        public EGGameObject SetTopRightAnchor()
-        {
-            rectTransform.SetTopRightAnchor();
-            return this;
-        }
-
-        public EGGameObject SetMiddleLeftAnchor()
-        {
-            rectTransform.SetMiddleLeftAnchor();
-            return this;
-        }
-
-        public EGGameObject SetMiddleCenterAnchor(bool keepsPosition = false)
-        {
-            rectTransform.SetMiddleCenterAnchor(keepsPosition);
-            return this;
-        }
-
-        public EGGameObject SetMiddleRightAnchor()
-        {
-            rectTransform.SetMiddleRightAnchor();
-            return this;
-        }
-
-        public EGGameObject SetBottomLeftAnchor()
-        {
-            rectTransform.SetBottomLeftAnchor();
-            return this;
-        }
-
-        public EGGameObject SetBottomCenterAnchor()
-        {
-            rectTransform.SetBottomCenterAnchor();
-            return this;
-        }
-
-        public EGGameObject SetBottomRightAnchor()
-        {
-            rectTransform.SetBottomRightAnchor();
-            return this;
-        }
-
-
-        public EGGameObject SetHorizontalStretchAnchor()
-        {
-            rectTransform.SetHorizontalStretchAnchor();
-            return this;
-        }
-
-        public EGGameObject SetHorizontalStretchWithTopPivotAnchor()
-        {
-            rectTransform.SetHorizontalStretchWithTopPivotAnchor();
-            return this;
-        }
-
-        public EGGameObject SetHorizontalStretchWithBottomPivotAnchor()
-        {
-            rectTransform.SetHorizontalStretchWithBottomPivotAnchor();
-            return this;
-        }
-
-        public EGGameObject SetVerticalStretchAnchor()
-        {
-            rectTransform.SetVerticalStretchAnchor();
-            return this;
-        }
-
-        public EGGameObject SetVerticalStretchWithLeftPivotAnchor()
-        {
-            rectTransform.SetVerticalStretchWithLeftPivotAnchor();
-            return this;
-        }
-
-        public EGGameObject SetVerticalStretchWithRightPivotAnchor()
-        {
-            rectTransform.SetVerticalStretchWithRightPivotAnchor();
-            return this;
-        }
-
-        public EGGameObject SetFullStretchAnchor()
-        {
-            rectTransform.SetFullStretchAnchor();
-            return this;
-        }
-
-
-        // public EGGameObject SetOnClick(Action action)
-        // {
-        //     gameObject.SetOnClick(action);
-        //     return this;
-        // }
 
         public EGGameObject AddOnClick(Action action)
         {

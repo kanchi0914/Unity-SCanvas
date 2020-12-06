@@ -36,7 +36,6 @@ namespace EGUI.Base
             list.Reverse();
             var target = list.Find(it => it.name == name);
             list.Remove(target);
-            //list.RemoveAll(it => it.name == name);
             Stack = new Stack<(string name, EGCanvas egCanvas)>(list);
         }
     }

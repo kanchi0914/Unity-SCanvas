@@ -23,12 +23,12 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
 
             var headerText = new EGText(logWindow, "バックログ")
                 .SetTextPreset(DefaultText)
-                .SetTopCenterAnchor()
+                .SetAnchorType(AnchorType.TopCenter)
                 .SetRelativeSize(1f, .1f) as EGText;
 
             var scrollRect = new EGVerticalLayoutScrollView(
                     logWindow, isAutoSizingWidth: true)
-                .SetTopCenterAnchor()
+                .SetAnchorType(AnchorType.TopCenter)
                 .SetRelativeSize(0.9f, 0.8f)
                 .SetRelativePosition(0, 0.1f) as EGVerticalLayoutScrollView;
             scrollRect.SetPaddingAndSpacing(10).SetImageColor(Color.clear);

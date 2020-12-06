@@ -65,11 +65,11 @@ namespace EGUI.GameObjects
                 .SetImage(UGUIDefaultResources.UISprite);
 
             var label = new EGText(gameObject, "Label")
-                .SetMiddleCenterAnchor() as EGText;
+                .SetAnchorType(AnchorType.MiddleCenter) as EGText;
             label.SetParagraph(alignment: TextAnchor.MiddleLeft);
 
             var arrow = new EGGameObject(gameObject, name: "Arrow")
-                .SetMiddleCenterAnchor()
+                .SetAnchorType(AnchorType.MiddleCenter)
                 .SetImage(UGUIDefaultResources.Dropdown);
 
             TemplateObject = new EGVerticalLayoutScrollView(gameObject, isAutoSizingWidth: true, name: "Template")
@@ -83,7 +83,7 @@ namespace EGUI.GameObjects
 
             item = new EGToggle(TemplateObject.ContentAreaObject.gameObject, name: "Item")
                 .SetImageColor(Color.clear)
-                .SetFullStretchAnchor() as EGToggle;
+                .SetAnchorType(AnchorType.FullStretch) as EGToggle;
             item.gameObject.GetOrAddComponent<LayoutElement>().minHeight = defaultheight;
             item.IsOn = true;
             item.BoxImageObject.SetImageColor(Color.clear);
@@ -97,15 +97,16 @@ namespace EGUI.GameObjects
             DropdownComponent.ClearOptions();
 
             label.SetSize(defaultWidth - 30, defaultheight - 10)
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0, 0.5f)
                 .SetPosition(20, 0);
 
-            arrow.SetMiddleRightAnchor()
+            arrow.SetAnchorType(AnchorType.MiddleRight)
                 .SetPosition(-15, 0)
                 .SetSize(30, 30);
 
-            TemplateObject.SetHorizontalStretchWithBottomPivotAnchor()
+            TemplateObject
+                .SetAnchorType(AnchorType.HorizontalStretchWithBottomPivot)
                 .SetSize(200, 250)
                 .SetPosition(0, 0)
                 .SetPivot(0.5f, 1)

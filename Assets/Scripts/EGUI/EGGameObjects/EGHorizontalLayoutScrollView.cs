@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
+using EGUI.Base;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -62,12 +63,12 @@ namespace EGUI.GameObjects
             string name = "EGHorizontalLayoutScrollView"
         ) : base(parent, name)
         {
-            SetMiddleCenterAnchor()
+            SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0, 0)
                 .SetSize(defaultWidth, defaultHeight)
                 .SetImageColor(Color.white, 0.4f);
             var viewport = new EGGameObject(gameObject, name: "Viewport")
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0,1)
                 .SetRelativeSize(1, 1)
                 .SetPosition(0, 0);
@@ -76,13 +77,13 @@ namespace EGUI.GameObjects
                 isAutoSizingHeight: isAutoSizingHeight, name: "Content");
             ContentAreaObject
                 .SetSize(0, defaultHeight)
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetPivot(0, 1)
                 .SetPosition(0, 0);
             
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Horizontal")
                 .SetDirection(Scrollbar.Direction.LeftToRight)
-                .SetHorizontalStretchWithBottomPivotAnchor()
+                .SetAnchorType(AnchorType.HorizontalStretchWithBottomPivot)
                 .SetSize(defaultWidth, scrollBarHeight)
                 .SetPosition(0, 0) as EGScrollBar;;
 

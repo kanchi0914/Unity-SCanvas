@@ -41,9 +41,9 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 SetImageColor(Color.gray);
                 new EGText(this, "No Data")
                     .SetRelativeSize(1, 1)
-                    .SetMiddleCenterAnchor()
+                    .SetAnchorType(AnchorType.MiddleCenter)
                     .SetPosition(0, 0)
-                    .SetFullStretchAnchor();
+                    .SetAnchorType(AnchorType.FullStretch);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
             var savedDate = new EGText(this, saveData?.SavedDate)
                 .SetTextPreset(GUIData.DefaultText)
                 .SetParagraph(resizeTextForBestFit: true)
-                .SetBottomCenterAnchor()
+                .SetAnchorType(AnchorType.BottomCenter)
                 .SetRelativeSize(.9f, .2f);
 
                 this.dataNumber = dataNumber;
@@ -79,14 +79,14 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 var saveConfirmDialogCanvas = new EGCanvas("saveConfirmDialogCanvas");
                 var saveConirmWindow = new EGGameObject(saveConfirmDialogCanvas)
                     .SetImageColor(Color.gray)
-                    .SetMiddleCenterAnchor()
+                    .SetAnchorType(AnchorType.MiddleCenter)
                     .SetRelativeSize(0.3f, 0.2f)
                     .SetPosition(0, 0);
                 new EGText(saveConirmWindow, "上書きしていいですか？")
                     .SetTextPreset(GUIData.DefaultText)
                     .SetRelativeSize(1f, 0.4f)
-                    .SetTopCenterAnchor().SetPosition(0, 0);
-                var okButton = new EGButton(saveConirmWindow, "OK").SetBottomCenterAnchor()
+                    .SetAnchorType(AnchorType.TopCenter).SetPosition(0, 0);
+                var okButton = new EGButton(saveConirmWindow, "OK").SetAnchorType(AnchorType.BottomCenter)
                     .SetRelativeSize(0.6f, 0.2f)
                     .SetRelativePosition(0, -0.2f) as EGButton;
                 // セーブ

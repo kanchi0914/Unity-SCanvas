@@ -1,27 +1,7 @@
-﻿using System;
-using System.Linq;
-using Assets.Scripts.EGUI.MonoBehaviourScripts;
-using Assets.Scripts.Examples.AdvGame.GameObjects;
-using Assets.Scripts.Extensions;
-using EGUI.Base;
+﻿using Assets.Scripts.Examples.AdvGame.GameObjects;
 using EGUI.Base;
 using EGUI.GameObjects;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.EGUI.MonoBehaviourScripts;
-using Assets.Scripts.Extensions;
 using UnityEngine;
-using EGUI.Base;
-using EGUI.EGGameObjects.Base;
-using UniRx;
-using Utils = Assets.Scripts.Examples.AdvGame.Utils;
-using UnityEditor;
-using Assets.Scripts.Extensions;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.Examples.AdvGame
 {
@@ -43,12 +23,12 @@ namespace Assets.Scripts.Examples.AdvGame
 
             var titleText = new EGText(canvas, "たのしいアドベンチャーゲーム")
                     .SetCharacter(font: GUIData.GenjuGothicBold, fontSize: 48)
-                    .SetTopCenterAnchor()
+                    .SetAnchorType(AnchorType.TopCenter)
                     .SetPosition(0, -50)
                     .SetSize(800, 150)
                 as EGText;
             var menus = new EGVerticalLayoutView(canvas, isAutoSizingWidth: true)
-                .SetBottomCenterAnchor()
+                .SetAnchorType(AnchorType.BottomCenter)
                 .SetPosition(0, 50)
                 .SetSize(500, 300);
             var newGameText = new EGText(menus, "ニューゲーム").SetTextPreset(GUIData.TopMenuText)

@@ -2,6 +2,7 @@
 using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
 using Assets.Scripts.SGUI.SGameObjects.ComponentScripts;
+using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,7 +54,7 @@ namespace EGUI.GameObjects
 
             PlaceHolderTextObject = new EGText(this.gameObject,"PlaceHolder")
                 .SetText("Enter Text...")
-                .SetFullStretchAnchor()
+                .SetAnchorType(AnchorType.FullStretch)
                 .SetImageColor(Color.gray, 0.5f) as EGText;
 
             PlaceHolderTextObject
@@ -65,7 +66,7 @@ namespace EGUI.GameObjects
             Textobject = new EGText(gameObject, "Text")
                 .SetParagraph(alignment: TextAnchor.UpperLeft)
                 .SetSize(RectSize.x - 10, RectSize.y - 10)
-                .SetFullStretchAnchor().SetPosition(0, 0) as EGText;
+                .SetAnchorType(AnchorType.FullStretch).SetPosition(0, 0) as EGText;
 
             Textobject.TextComponent.supportRichText = false;
 

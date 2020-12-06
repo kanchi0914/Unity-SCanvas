@@ -43,7 +43,6 @@
         <e p="Editor" t="Include">
           <e p="DebugMenu.cs" t="Include" />
         </e>
-        <e p="ParentSizeFItter.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -326,17 +325,12 @@
           <e p="MyMono.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="ChainMethods.cs" t="Include" />
-          <e p="Components" t="Include">
-            <e p="ClickEventGetter.cs" t="Include" />
-          </e>
           <e p="DoTweenAnimator.cs" t="Include" />
           <e p="EGUI" t="Include">
             <e p="EGGameObjectInstances.cs" t="Include" />
             <e p="EGGameObjects" t="Include">
               <e p="Base" t="Include">
                 <e p="CanvasStack.cs" t="Include" />
-                <e p="GlobalSettings.cs" t="Include" />
                 <e p="RectInfo.cs" t="Include" />
                 <e p="UGUIDefaultResources.cs" t="Include" />
                 <e p="Utils.cs" t="Include" />
@@ -446,15 +440,12 @@
               </e>
             </e>
           </e>
-          <e p="GlobalPosSetter.cs" t="Include" />
           <e p="GridItemSizeSetter.cs" t="Include" />
-          <e p="Main.cs" t="Include" />
           <e p="MethodInfoHelper.cs" t="Include" />
           <e p="Models" t="Include">
             <e p="Item.cs" t="Include" />
             <e p="Player.cs" t="Include" />
           </e>
-          <e p="MyTest.cs" t="Include" />
           <e p="Presentor" t="Include">
             <e p="PlayerPresenter.cs" t="Include" />
           </e>
@@ -469,7 +460,6 @@
             <e p="RectTransformExtensionsTest2.cs" t="Include" />
           </e>
         </e>
-        <e p="Test.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />
