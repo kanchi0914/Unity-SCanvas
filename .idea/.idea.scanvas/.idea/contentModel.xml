@@ -327,11 +327,14 @@
         <e p="Scripts" t="Include">
           <e p="DoTweenAnimator.cs" t="Include" />
           <e p="EGUI" t="Include">
-            <e p="EGGameObjectInstances.cs" t="Include" />
+            <e p="Demo" t="Include">
+              <e p="ButtonDemo.cs" t="Include" />
+              <e p="RectTransformExtensionsTest.cs" t="Include" />
+              <e p="RectTransformExtensionsTest2.cs" t="Include" />
+            </e>
             <e p="EGGameObjects" t="Include">
               <e p="Base" t="Include">
                 <e p="CanvasStack.cs" t="Include" />
-                <e p="RectInfo.cs" t="Include" />
                 <e p="UGUIDefaultResources.cs" t="Include" />
                 <e p="Utils.cs" t="Include" />
               </e>
@@ -358,12 +361,10 @@
               <e p="EGVerticalLayoutView.cs" t="Include" />
             </e>
             <e p="EGUIObjectInfo.cs" t="Include" />
-            <e p="Enums.cs" t="Include" />
             <e p="Extensions" t="Include">
               <e p="GameObjectExtensions .cs" t="Include" />
               <e p="RectTransformExtensions.cs" t="Include" />
             </e>
-            <e p="GameObjectExtensions.cs" t="Include" />
             <e p="MonoBehaviourScripts" t="Include">
               <e p="RelativeSizeSetter.cs" t="Include" />
             </e>
@@ -442,22 +443,9 @@
           </e>
           <e p="GridItemSizeSetter.cs" t="Include" />
           <e p="MethodInfoHelper.cs" t="Include" />
-          <e p="Models" t="Include">
-            <e p="Item.cs" t="Include" />
-            <e p="Player.cs" t="Include" />
-          </e>
-          <e p="Presentor" t="Include">
-            <e p="PlayerPresenter.cs" t="Include" />
-          </e>
           <e p="RectChecker.cs" t="Include" />
           <e p="Scenario1" t="Include">
             <e p="SymbolExtensions.cs" t="Include" />
-            <e p="Template.cs" t="Include" />
-          </e>
-          <e p="TestMono.cs" t="Include" />
-          <e p="Tests" t="Include">
-            <e p="RectTransformExtensionsTest.cs" t="Include" />
-            <e p="RectTransformExtensionsTest2.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">
@@ -499,7 +487,7 @@
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
     </e>
-    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_scanvas.1398508939.00" t="ExcludeRecursive" />
+    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_scanvas.1398508939.00" t="ExcludeRecursive" />
   </component>
 </project>

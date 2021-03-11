@@ -23,7 +23,7 @@ namespace Assets.Scripts.Extensions
                 return null;
             }
         }
-        
+
         public static List<GameObject> GetChildrenObjects(this GameObject gameObject)
         {
             var childrenObjects = new List<GameObject>();
@@ -31,12 +31,10 @@ namespace Assets.Scripts.Extensions
             {
                 childrenObjects.Add(child.gameObject);
             }
+
             return childrenObjects;
         }
 
-        /// <summary>
-        /// GameObjectをDestroyする
-        /// </summary>
         public static void DestroySelf(this GameObject gameObject)
         {
             GameObject.DestroyImmediate(gameObject);
@@ -51,7 +49,7 @@ namespace Assets.Scripts.Extensions
         {
             return gameObject.GetRectTransform().sizeDelta;
         }
-                
+
         public static Image GetImageComponent(this GameObject gameObject)
         {
             return gameObject.GetOrAddComponent<Image>();
@@ -70,13 +68,6 @@ namespace Assets.Scripts.Extensions
             yield return new WaitForEndOfFrame();
             gameObject.transform.SetParent(transform);
         }
-        
-        // public static GameObject SetOnClick(this GameObject gameObject, Action action)
-        // {
-        //     var Trigger = gameObject.GetOrAddComponent<EventTrigger>();
-        //     Trigger.triggers = new List<EventTrigger.Entry>();
-        //     return gameObject.AddOnClick(action);
-        // }
 
         public static GameObject AddOnClick(this GameObject gameObject, Action action)
         {
@@ -93,15 +84,16 @@ namespace Assets.Scripts.Extensions
             var image = gameObject.GetOrAddComponent<Image>();
             if (image != null)
             {
-                var source = Resources.Load<Sprite> (imageFilePath);
-                if (!source) Debug.Log ($"Sprite resource {imageFilePath} is not found");
+                var source = Resources.Load<Sprite>(imageFilePath);
+                if (!source) Debug.Log($"Sprite resource {imageFilePath} is not found");
                 else image.sprite = source;
                 image.type = Image.Type.Sliced;
                 return gameObject;
             }
+
             return gameObject;
         }
-        
+
         public static GameObject SetImage(this GameObject gameObject, Sprite sprite)
         {
             var image = gameObject.GetOrAddComponent<Image>();
@@ -111,9 +103,10 @@ namespace Assets.Scripts.Extensions
                 image.sprite = sprite;
                 return gameObject;
             }
+
             return gameObject;
         }
-        
+
         public static GameObject SetImageColor(this GameObject gameObject, Color color, float? alpha = null)
         {
             var image = gameObject.GetOrAddComponent<Image>();
@@ -122,8 +115,23 @@ namespace Assets.Scripts.Extensions
                 image.color = new Color(color.r, color.g, color.b, alpha ?? color.a);
                 return gameObject;
             }
+
             return gameObject;
         }
 
+        public static GameObject FindDeep(
+            this GameObject gameObject,
+            string name)
+        {
+            var children = gameObject.GetComponentsInChildren<Transform>();
+            foreach (var transform in children)
+            {
+                if (transform.name == name)
+                {
+                    return transform.gameObject;
+                }
+            }
+            return null;
+        }
     }
 }

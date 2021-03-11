@@ -90,7 +90,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                     .SetRelativeSize(0.6f, 0.2f)
                     .SetRelativePosition(0, -0.2f) as EGButton;
                 // セーブ
-                okButton.SetOnOnClick(() =>
+                okButton.AddOnClick(() =>
                 {
                     saveConfirmDialogCanvas.DestroySelf();
                     Save();

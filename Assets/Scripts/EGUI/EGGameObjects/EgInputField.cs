@@ -88,23 +88,23 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        // /// <summary>
-        // /// テキスト変更時に呼ばれるActionを追加する
-        // /// </summary>
-        // /// <param name="action"></param>
-        // /// <returns></returns>
-        // public EgInputField AddOnEndEdit(Action action)
-        // {
-        //     InputFieldComponent.onEndEdit.AddListener(e => action.Invoke());
-        //     return this;
-        // }
+        /// <summary>
+        /// テキスト変更時に呼ばれるActionを追加する
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public EgInputField AddOnEndEdit(Action action)
+        {
+            InputFieldComponent.onEndEdit.AddListener(e => action.Invoke());
+            return this;
+        }
 
         /// <summary>
         /// 入力欄にカーソルを合わせたときに呼ばれるActionを設定する
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
-        public EgInputField SetOnSelect(Action action)
+        public EgInputField AddOnSelect(Action action)
         {
             var onSelectEvent = gameObject.GetOrAddComponent<OnSelectEventWrapper>();
             onSelectEvent.OnSelectEvent += (g => action.Invoke());
@@ -128,7 +128,7 @@ namespace EGUI.GameObjects
         /// </summary>
         /// <param name="characterLimit"></param>
         /// <returns></returns>
-        public EgInputField SetCharacterLimit(
+        public EgInputField AddCharacterLimit(
             int characterLimit
         )
         {

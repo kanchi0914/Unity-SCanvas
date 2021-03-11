@@ -1,11 +1,9 @@
-﻿using System;
-using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Extensions;
 using Assets.Scripts.SGUI.Base;
 using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
-using static EGUI.Base.Utils;
 
 namespace EGUI.GameObjects
 {
@@ -39,10 +37,12 @@ namespace EGUI.GameObjects
         /// <param name="parent">親オブジェクト</param>
         public EgSlider
         (
-            EGGameObject parent
+            EGGameObject parent = null,
+            string name = "Slider"
         ) : this
         (
-            parent.gameObject
+            parent?.gameObject,
+            name
         )
         {
         }
@@ -54,7 +54,7 @@ namespace EGUI.GameObjects
         /// <param name="name"></param>
         public EgSlider(
             GameObject parent,
-            string name = "EgSlider"
+            string name = "Slider"
         ) : base(
             parent,
             name
@@ -74,9 +74,9 @@ namespace EGUI.GameObjects
                 .SetRelativeSize(1, 1f)
                 .SetAnchorType(AnchorType.HorizontalStretch);
 
-            handleSlideAreaObject = new EGGameObject(this.gameObject, name: "Handle Slide Area")
+            handleSlideAreaObject = new EGGameObject(gameObject, name: "Handle Slide Area")
                 .SetAnchorType(AnchorType.FullStretch);
-            handleSlideAreaObject.rectTransform.offsetMax = new Vector2(30, 30);
+            handleSlideAreaObject.rectTransform.offsetMax = new Vector2(20, 20);
 
             HandleObject = new EGGameObject(handleSlideAreaObject.gameObject, name: "Handle");
             HandleObject.gameObject.SetImage(UGUIDefaultResources.Knob);
@@ -86,8 +86,8 @@ namespace EGUI.GameObjects
             SliderComponent.fillRect = fillObject.gameObject.GetRectTransform();
             SliderComponent.handleRect = HandleObject.gameObject.GetRectTransform();
 
-            var setter = gameObject.ObserveEveryValueChanged(_ => rectTransform.sizeDelta);
-            setter.Subscribe(_ => UpdateSize());
+            // var setter = gameObject.ObserveEveryValueChanged(_ => rectTransform.sizeDelta);
+            // setter.Subscribe(_ => UpdateSize());
 
             UpdateSize();
         }
@@ -96,18 +96,18 @@ namespace EGUI.GameObjects
         {
             handleSlideAreaObject.rectTransform.offsetMax = new Vector2(-rectTransform.sizeDelta.y / 2, 0);
             handleSlideAreaObject.rectTransform.offsetMin = new Vector2(-rectTransform.sizeDelta.y / 2, 0);
-
+            
             // バーのサイズは親rectの半分になる
             // 4を設定すると親と同じ大きさになる
             BackgroundImageObject.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
             BackgroundImageObject.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
-
+            
             fillObject.rectTransform.offsetMax = new Vector2(0, rectTransform.sizeDelta.y / 4);
             fillObject.rectTransform.offsetMin = new Vector2(0, -rectTransform.sizeDelta.y / 4);
-
+            
             fillAreaObject.rectTransform.offsetMax = new Vector2(0, 0);
             fillAreaObject.rectTransform.offsetMin = new Vector2(0, 0);
-
+            
             HandleObject.rectTransform.offsetMax = new Vector2(rectTransform.sizeDelta.y, 0);
             HandleObject.rectTransform.offsetMin = new Vector2(0, 0);
         }

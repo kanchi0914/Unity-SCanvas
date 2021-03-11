@@ -45,7 +45,7 @@ namespace EGUI.GameObjects
             int maxContentFieldSize = 200
         ) : this
         (
-            parent.gameObject,
+            parent?.gameObject,
             maxContentFieldSize
         ){}
 
@@ -56,7 +56,7 @@ namespace EGUI.GameObjects
         /// <param name="maxContentFieldSize">選択肢表示エリアの最大高さ</param>
         /// <param name="name">オブジェクトの名前</param>
         public EGDropDown(
-            GameObject parent = null,
+            GameObject parent,
             int maxContentFieldSize = 200,
             string name = "DropDown"
         ) : base(parent, name)

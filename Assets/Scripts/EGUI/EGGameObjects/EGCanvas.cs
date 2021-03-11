@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Assets.Scripts.Extensions;
+﻿using Assets.Scripts.Extensions;
 using EGUI.Base;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,25 +20,17 @@ namespace EGUI.GameObjects
         public EGCanvas(string name = "EGCanvas", bool isStatic = false) : base(name: name)
         {
             Utils.TryCreateEventSystem();
-            ;
             CanvasComponent = gameObject.GetOrAddComponent<Canvas>();
             CanvasComponent.renderMode = RenderMode.ScreenSpaceCamera;
-            var mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-            if (mainCamera == null)
+            if (Camera.main == null)
             {
                 Debug.Log("Failed to generate Canvas object because Main Camera Object is not found.");
                 gameObject.DestroySelf();
                 return;
             }
 
-            CanvasComponent.worldCamera = mainCamera;
-            
-            // var scaler = gameObject.AddComponent<CanvasScaler>();
-            // scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            // scaler.referenceResolution = new Vector2(800, 600);
-            
+            CanvasComponent.worldCamera = Camera.main;
             gameObject.AddComponent<GraphicRaycaster>();
-            
             if (isStatic)
             {
                 CanvasComponent.sortingOrder = 1000;
@@ -58,7 +49,7 @@ namespace EGUI.GameObjects
         public void DestroySelf()
         {
             CanvasStack.RemoveByObjectName(gameObject.name);
-            GameObject.DestroyImmediate(gameObject);
+            gameObject.DestroySelf();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetPosition(20,20)
                 .SetSize(40, 40);
             TextObject.SetText("×");
-            SetOnOnClick(() =>
+            AddOnClick(() =>
             {
                 parent.DestroySelf();
             });

@@ -25,7 +25,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetAnchorType(AnchorType.TopRight)
                 .SetPosition(20,-20)
                 .SetSize(40, 40) as EGButton;
-            closeButton.SetOnOnClick(() =>
+            closeButton.AddOnClick(() =>
             {
                 DestroySelf();
             });

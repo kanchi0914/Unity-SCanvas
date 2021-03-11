@@ -41,68 +41,66 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="034a7c34-412a-411e-9da9-990b774289a5" name="Default Changelist" comment="Update rpg sample : stable ver">
+    <list default="true" id="034a7c34-412a-411e-9da9-990b774289a5" name="Default Changelist" comment="Remove alias methods from RectTransformExtensions&#10;Refactoring">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.scanvas/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/ButtonDemo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/ButtonDemo.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.scanvas/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.scanvas/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.scanvas/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.scanvas/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ParentSizeFItter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ParentSizeFItter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RpgScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/RpgScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChainMethods.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChainMethods.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Components.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Components/ClickEventGetter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Components/ClickEventGetter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/CanvasStack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/CanvasStack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/GlobalSettings.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/GlobalSettings.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Demo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Demo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Demo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Demo.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjectInstances.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjectInstances.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/RectInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/RectInfo.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/Utils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGameObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGameObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalGridLayoutScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalGridLayoutScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalLayoutScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalLayoutScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGToggle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGToggle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalGridLayoutScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalGridLayoutScrollView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutScrollView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutScrollView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgScrollbar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgScrollbar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/RectTransformExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/RectTransformExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/AdvGameOpening.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/AdvGameOpening.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/AdvMessageWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/AdvMessageWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGUIObjectInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/EGUIObjectInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/Enums.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/Enums.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/GameObjectExtensions .cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/GameObjectExtensions .cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/GameObjectExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EGUI/GameObjectExtensions.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LogWindowCanvas.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LogWindowCanvas.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionsWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionsWindow.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Utils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/Demos/RelativeSizeDemo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/Demos/RelativeSizeDemo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AlliesWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AlliesWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GlobalPosSetter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GlobalPosSetter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Main.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MyTest.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MyTest.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridItemSizeSetter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridItemSizeSetter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MethodInfoHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MethodInfoHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Item.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Item.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Player.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/Player.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Presentor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Presentor/PlayerPresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Presentor/PlayerPresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Scenario1/Template.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Scenario1/Template.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestMono.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TestMono.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest2.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ArtifactDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ArtifactDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/CurrentLayout-default.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentLayout-default.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/LastSceneManagerSetup.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/LastSceneManagerSetup.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SceneVisibilityState.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ShaderCache/EditorEncounteredVariants" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/SourceAssetDB" beforeDir="false" afterPath="$PROJECT_DIR$/Library/SourceAssetDB" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/expandedItems" beforeDir="false" afterPath="$PROJECT_DIR$/Library/expandedItems" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/UniRx.Examples.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UniRx.Examples.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/UniRx.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UniRx.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,176 +117,144 @@
     <option name="WARN_ABOUT_CRLF" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/CoroutineAsyncBridge.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/DirectoryUtils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/InternalUtil/ListObserver.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/81986B7D-E77F-470C-8157-A969000B3A00/2e/ab1974e0/Collider2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Examples/Sample06_ConvertToCoroutine.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario0_Morning.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TestMono.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario5_AfternoonDote.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E6610ED-2984-4F85-A379-24F81509FE5D/57/df905bb1/Camera.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario3_Afternoon.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario3_Pcroom.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E6610ED-2984-4F85-A379-24F81509FE5D/4c/e4d95554/Rect.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario2_Classroom.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Examples/Sample02_ObservableTriggers.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MethodInfoHelper.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario1_School.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RectChecker.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GridItemSizeSetter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Models/Charactor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Models/Option.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/GameObjectExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/RefCountDisposable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Utils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/AdvGameOpening.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/Utils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/Disposable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BA0DAC83-1D00-4D16-ABB3-DA2D502DBBD8/d1/df562fb3/List`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/UGUIDefaultResources.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/RectInfo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/CompositeDisposable.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/CancellationDisposable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Toolkit/ObjectPool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/SkipUntil.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGUIObjectInfo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/CanvasStack.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalGridLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Observer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AlliesWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/GroupBy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/StringUtils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/CommandsWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgCanvas.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/CommandTextLabel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/EnemiesWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest2.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableEventTrigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Observable.Paging.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgScrollbar.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Schedulers/CurrentThreadScheduler.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGameObject.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGToggle.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/ItemFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/ButtonDemo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AutoResizedTextLabel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableFixedUpdateTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgMessageWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/SubCommandsCanvas.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Observer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableScrollTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/GameObjectExtensions .cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Sample.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/RectTransformExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Scenario1/SymbolExtensions.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableSelectTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGridLayoutView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalGridLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgHorizontalLayoutView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Enums.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.2/Editor/VisualStudioEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGToggle.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGameObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgScrollbar.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservablePointerClickTrigger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalGridLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Schedulers/CurrentThreadScheduler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableTriggerBase.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/UGUIDefaultResources.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableTriggerExtensions.Component.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/Utils.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/CanvasStack.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/Disposable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/MonoBehaviourScripts/RelativeSizeSetter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/RefCountDisposable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/CancellationDisposable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUnityVersion.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/ListExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/BatchFrame.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/SampleFrame.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/Demos/RelativeSizeDemo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/Demos/ButtonAndWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/CompositeDisposable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/DelayFrameSubscription.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BA0DAC83-1D00-4D16-ABB3-DA2D502DBBD8/d1/df562fb3/List`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Subjects/Subject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Dropdown.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/8e/c270ccf9/Vector2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalGridLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Resources/MyMono.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGridLayoutView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalLayoutScrollView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Timeout.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/CommandsWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/623DD1C5-ED6E-43BC-8659-6AF9203BEC21/98/e44c47ce/DOTween.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgText.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LogWindowCanvas.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionsWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Demigiant/DOTween/Modules/DOTweenModuleUnityVersion.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/AdvMessageWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/83/26d406b6/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/CharacterData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/SampleFrame.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E6610ED-2984-4F85-A379-24F81509FE5D/b7/937f642c/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile Overlay.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/DelayFrameSubscription.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/SkipUntil.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DoTweenAnimator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/CommandTextLabel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Operators/BatchFrame.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/EnemiesWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMain.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/BackgroundImageData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/RectTransformExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF Overlay.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Sample.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableTriggerExtensions.Component.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/GameObjectExtensions .cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Demo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Shaders/TMP_SDF-Mobile.shader" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableTriggerBase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/GameInfo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/ListExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/FileUtils.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/GameData.cs.meta" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Skill.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableSelectTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Enemy.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableScrollTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/SkillFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/SkillEffecter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E6610ED-2984-4F85-A379-24F81509FE5D/c2/5d64ad17/Transform.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/ItemEffecter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Ally.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Item.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservablePointerClickTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Scenario1/Template.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/GroupBy.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Unit.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgMessageWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Command.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/SubCommandsCanvas.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Empty.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableFixedUpdateTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/62/f753c75f/UnityEventBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Triggers/ObservableEventTrigger.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgCanvas.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.2/Editor/VisualStudioEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Utils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/3c/cf45490a/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/DefaultIfEmpty.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2E6610ED-2984-4F85-A379-24F81509FE5D/ee/ea830a33/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/MonoBehaviourScripts/RelativeSizeSetter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/ExecuteEvents.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/EventTrigger.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AlliesWindow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/FileUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/Toolkit/ObjectPool.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AutoResizedTextLabel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/ea/71a1456e/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/b7/0b8545ae/RectTransform.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/Demos/ButtonAndWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4A3ACBF9-5658-4327-8F33-A8C814FDDBD1/09/fbd31ed2/NativeMethodAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/EventTrigger.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/DirectoryUtils.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Amb.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FB001E01-371B-4ADC-A200-13E0AC763896/ef/e14c621e/Type.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/73D57CEF-CD7C-4FD1-B35D-52187ECFC010/df/a5e9ddfb/AssetDatabase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/SaveData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/73D57CEF-CD7C-4FD1-B35D-52187ECFC010/52/eeaa019b/PrefabUtility.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Subjects/Subject.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/GUIData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/CommandBattle.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/A979F18D-51AF-4117-9D12-B797E8C5BE14/b7/0b8545ae/RectTransform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/AdvGameOpening.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/GameData.cs.meta" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/CharacterData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Empty.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/GameData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/Demos/RelativeSizeDemo.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/MainThreadScheduler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/GUIData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/BackgroundImageData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Data/SaveData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/InternalUtil/ListObserver.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/MyMono.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Models/Option.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Models/Charactor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario1_School.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario3_Pcroom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario3_Afternoon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario2_Classroom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario5_AfternoonDote.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario0_Morning.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/DefaultIfEmpty.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Examples/Sample06_ConvertToCoroutine.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/CoroutineAsyncBridge.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Demo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionsWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/MainThreadDispatcher.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/AdvMessageWindow.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/InspectorDisplayDrawer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjectInstances.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4DFEB7AC-F9F4-4DD0-ADC2-A4F68156471C/eb/3833305c/AssetDatabase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LogWindowCanvas.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Command.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Ally.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/SkillFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Skill.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Examples/Sample02_ObservableTriggers.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MethodInfoHelper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Unit.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Enemy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/SkillEffecter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GridItemSizeSetter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Timeout.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/CommandBattle.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/GameInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/ItemEffecter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/MainThreadScheduler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/ItemFactory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/RectChecker.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMain.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DoTweenAnimator.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Scenarios/Scenario.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Enums.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/CommandTextLabel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/EnemiesWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/SubCommandsCanvas.cs" />
-        <option value="$PROJECT_DIR$/Assets/Demo.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/Demos/ButtonAndWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/AlliesWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Ally.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/EgMessageWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMessageWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/GUIData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Views/RpgText.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Unit.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/Enums.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/ItemFactory.cs" />
@@ -304,28 +270,42 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/SkillFactory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/AdvGameOpening.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/RectTransformExtensions.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalGridLayoutScrollView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGHorizontalLayoutScrollView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgScrollbar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGToggle.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalGridLayoutScrollView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGVerticalLayoutScrollView.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/AdvMessageWindow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/Utils.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/Demos/RelativeSizeDemo.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGGameObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest2.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Examples/RpgGame/RpgMain.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Tests/RectTransformExtensionsTest.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Demo/ButtonDemo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/ButtonDemo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/CloseButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest2.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Demo/RectTransformExtensionsTest.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveDataImage.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/SaveMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/LoadMenu.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Examples/AdvGame/GameObjects/OptionsWindow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGCanvas.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGButton.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EGDropDown.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGUIObjectInfo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/Extensions/GameObjectExtensions .cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/Base/Utils.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GridItemSizeSetter.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MethodInfoHelper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/TestMono.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgInputField.cs" />
+        <option value="$PROJECT_DIR$/Assets/Demo.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/EGGameObjects/EgSlider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EGUI/StringUtils.cs" />
       </list>
     </option>
   </component>
@@ -341,10 +321,12 @@
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="XThreadsFramesViewSplitterKey" value="0.24675325" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -360,6 +342,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -379,7 +362,8 @@
       <workItem from="1606911958356" duration="8767000" />
       <workItem from="1606920962144" duration="22286000" />
       <workItem from="1606986549084" duration="15377000" />
-      <workItem from="1607232809756" duration="4341000" />
+      <workItem from="1607232809756" duration="8946000" />
+      <workItem from="1609304358647" duration="118000" />
     </task>
     <task id="LOCAL-00001" summary="add presenter(in progress)">
       <created>1606336577477</created>
@@ -402,11 +386,18 @@
       <option name="project" value="LOCAL" />
       <updated>1607004566367</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Remove alias methods from RectTransformExtensions&#10;Refactoring">
+      <created>1607237224254</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1607237224254</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
@@ -427,7 +418,8 @@
     <MESSAGE value="add presenter(in progress)" />
     <MESSAGE value="update" />
     <MESSAGE value="Update rpg sample : stable ver" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update rpg sample : stable ver" />
+    <MESSAGE value="Remove alias methods from RectTransformExtensions&#10;Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove alias methods from RectTransformExtensions&#10;Refactoring" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606644826735">
@@ -528,9 +520,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="468" y="164" key="SettingsEditor/0.0.1920.1040/-1280.0.1280.984/0.1080.1920.1040@0.0.1920.1040" timestamp="1606324348604" />
-    <state x="1832" y="252" key="Vcs.Push.Dialog.v2" timestamp="1607004572859">
-      <screen x="1280" y="0" width="1920" height="1040" />
+    <state x="-912" y="238" key="Vcs.Push.Dialog.v2" timestamp="1607237231795">
+      <screen x="-1280" y="0" width="1280" height="984" />
     </state>
+    <state x="-912" y="238" key="Vcs.Push.Dialog.v2/-1280.0.1280.984/0.0.1920.1040@-1280.0.1280.984" timestamp="1607237231795" />
     <state x="1832" y="252" key="Vcs.Push.Dialog.v2/0.0.1280.984/1280.0.1920.1040@1280.0.1920.1040" timestamp="1607004572859" />
     <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1280.0.1280.984/0.1080.1920.1040@0.0.1920.1040" timestamp="1606665369329" />
     <state x="291" y="233" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1606933483952">
@@ -556,9 +549,10 @@
     <state x="1896" y="240" key="run.anything.popup/0.0.1280.984/1280.0.1920.1040@1280.0.1920.1040" timestamp="1606986821505" />
     <state x="-869" y="227" key="run.anything.popup/0.0.1920.1040/-1280.0.1280.984/0.1080.1920.1040@-1280.0.1280.984" timestamp="1606912855676" />
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/-1280.0.1280.984/0.1080.1920.1040@0.0.1920.1040" timestamp="1606941163612" />
-    <state x="678" y="252" width="672" height="678" key="search.everywhere.popup" timestamp="1607236355547">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="-828" y="238" width="672" height="642" key="search.everywhere.popup" timestamp="1607242462416">
+      <screen x="-1280" y="0" width="1280" height="984" />
     </state>
+    <state x="-828" y="238" width="672" height="642" key="search.everywhere.popup/-1280.0.1280.984/0.0.1920.1040@-1280.0.1280.984" timestamp="1607242462416" />
     <state x="678" y="252" width="672" height="678" key="search.everywhere.popup/-1280.0.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1607236355547" />
     <state x="452" y="238" width="672" height="642" key="search.everywhere.popup/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1606994117796" />
     <state x="1958" y="252" width="672" height="678" key="search.everywhere.popup/0.0.1280.984/1280.0.1920.1040@1280.0.1920.1040" timestamp="1607003932000" />
@@ -585,7 +579,7 @@
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
-        <PinnedItemInfo typeName="UnityEngine.RectTransform" fieldName="sizeDelta" />
+        <PinnedItemInfo />
       </pinned-members>
     </pin-to-top-manager>
   </component>

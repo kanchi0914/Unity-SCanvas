@@ -15,7 +15,7 @@ namespace EGUI.GameObjects
         public Button ButtonComponent { get; set; }
 
         /// <summary>
-        /// Textコンポーネント
+        /// Textオブジェクト
         /// </summary>
         public EGText TextObject { get; private set; }
         
@@ -26,12 +26,12 @@ namespace EGUI.GameObjects
         /// <param name="text">ボタンのテキスト</param>
         public EGButton
         (
-            EGGameObject parent,
-            string text = ""
+            EGGameObject parent = null,
+            string name = "Button"
         ) : this
         (
-            parent.gameObject,
-            text
+            parent?.gameObject,
+            name
         ){}
 
         /// <summary>
@@ -41,25 +41,14 @@ namespace EGUI.GameObjects
         /// <param name="text">ボタンのテキスト</param>
         /// <param name="name">オブジェクト名</param>
         public EGButton(
-            GameObject parent = null,
-            string name = "EGButton"
+            GameObject parent,
+            string name = "Button"
         ) : base(parent, name)
         {
             SetImageColor(Color.white).SetImage(UGUIDefaultResources.UISprite);
             ButtonComponent = gameObject.GetOrAddComponent<Button>();
             TextObject = new EGText(gameObject)
                     .SetRelativeSize(1, 1).SetAnchorType(AnchorType.FullStretch) as EGText;
-        }
-
-        /// <summary>
-        /// ボタンコンポーネントから全てのイベントリスナーを削除し、新たにActionを追加する
-        /// </summary>
-        /// <param name="onClick">クリック時に呼ばれるAction</param>
-        public EGButton SetOnOnClick(Action onClick)
-        {
-            ButtonComponent.onClick.RemoveAllListeners();
-            AddOnClick(onClick);
-            return this;
         }
 
         /// <summary>

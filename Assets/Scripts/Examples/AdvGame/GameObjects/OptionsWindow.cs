@@ -43,7 +43,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 optionButton.SetImageColor(Color.gray, 0.8f);
                 optionButton.TextObject.SetTextColor(Color.white, 0.7f);
             }
-            optionButton.SetOnOnClick(() =>
+            optionButton.AddOnClick(() =>
             {
                 messageWindow.IsOptionSelecting = false;
                 DestroySelf();
