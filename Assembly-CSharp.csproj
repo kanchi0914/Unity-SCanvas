@@ -117,6 +117,7 @@
      <Compile Include="Assets\Scripts\EGUI\Extensions\GameObjectExtensions .cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\ComponentScripts\OnDeselectWrapper.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGVerticalGridLayoutScrollView.cs" />
+     <Compile Include="Assets\Scripts\EGUI\Demo\ButtonDemo.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Enemy.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario0_Morning.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\EnemiesWindow.cs" />
@@ -151,7 +152,6 @@
      <Compile Include="Assets\Scripts\Examples\RpgGame\SkillFactory.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\FileUtils.cs" />
      <Compile Include="Assets\Scripts\DoTweenAnimator.cs" />
-     <Compile Include="Assets\Scripts\EGUI\Demo\ButtonDemo.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />

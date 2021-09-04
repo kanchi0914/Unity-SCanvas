@@ -487,7 +487,7 @@
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
     </e>
-    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_scanvas.1398508939.00" t="ExcludeRecursive" />
+    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\user\AppData\Local\JetBrains\Rider2020.1\resharper-host\Local\Transient\ReSharperHost\v201\SolutionCaches\_scanvas.1398508939.00" t="ExcludeRecursive" />
   </component>
 </project>
