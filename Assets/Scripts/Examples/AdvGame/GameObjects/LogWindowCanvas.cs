@@ -21,7 +21,8 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
             backGroundImage.SetImageColor(Color.gray, 0.5f)
                 .SetRelativeSize(1, 1);
 
-            var headerText = new EGText(logWindow, "バックログ")
+            var headerText = new EGText(logWindow)
+                .SetText("バックログ")
                 .SetTextPreset(DefaultText)
                 .SetAnchorType(AnchorType.TopCenter)
                 .SetRelativeSize(1f, .1f) as EGText;
@@ -36,11 +37,12 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
             {
                 var image = new EGGameObject(scrollRect).SetSize(0, 120);
                 image.SetImageColor(Color.cyan, 0.5f);
-                var logtext = new EGText(image, $"{s.Talker} : {s.Text}")
-                    .SetTextPreset(DefaultText)
-                    .SetParagraph(alignment:TextAnchor.UpperLeft, verticalOverflow: VerticalWrapMode.Overflow)
-                    .SetCharacter(fontSize: 20)
-                    .SetRelativeSize(1, 1)
+                var logtext = new EGText(image)
+                        .SetText($"{s.Talker} : {s.Text}")
+                        .SetTextPreset(DefaultText)
+                        .SetParagraph(alignment: TextAnchor.UpperLeft, verticalOverflow: VerticalWrapMode.Overflow)
+                        .SetCharacter(fontSize: 20)
+                        .SetRelativeSize(1, 1)
                     as EGText;
             });
             scrollRect.ScrollRectComponent.verticalNormalizedPosition = 0;

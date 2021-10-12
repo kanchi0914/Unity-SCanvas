@@ -58,7 +58,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("say_yes", say_yes);
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("say_no", say_no);

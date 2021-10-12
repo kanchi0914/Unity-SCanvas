@@ -8,8 +8,6 @@ public class RpgMain : MonoBehaviour
 {
     void Start()
     {
-        new RectTransformExtensionsTest();
-        // new RectTransformExtensionsTest2();
-        // new CommandBattle();
+        new CommandBattle();
     }
 }

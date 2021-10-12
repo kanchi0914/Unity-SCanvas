@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx.Examples", "UniRx.Exa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{fcd115cc-ecb5-78d6-5a12-834167a505a3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests1", "Tests1.csproj", "{64fe4f3d-bd73-860c-d247-62fef5249926}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{fcd115cc-ecb5-78d6-5a12-834167a505a3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{fcd115cc-ecb5-78d6-5a12-834167a505a3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{fcd115cc-ecb5-78d6-5a12-834167a505a3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64fe4f3d-bd73-860c-d247-62fef5249926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64fe4f3d-bd73-860c-d247-62fef5249926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64fe4f3d-bd73-860c-d247-62fef5249926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64fe4f3d-bd73-860c-d247-62fef5249926}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

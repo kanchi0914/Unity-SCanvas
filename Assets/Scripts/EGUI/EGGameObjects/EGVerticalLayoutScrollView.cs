@@ -88,7 +88,7 @@ namespace EGUI.GameObjects
 
             ScrollBarObject = new EGScrollBar(gameObject, name: "Scrollbar Vertical")
                 .SetDirection(Scrollbar.Direction.BottomToTop)
-                .SetAnchorType(AnchorType.VerticalStretchWithLeftPivot)
+                .SetAnchorType(AnchorType.VerticalStretchWithRightPivot)
                 .SetSize(scrollBarWidth, defaultHeight)
                 .SetPosition(0, 0) as EGScrollBar;
 

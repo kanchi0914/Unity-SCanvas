@@ -61,6 +61,11 @@ namespace EGUI.GameObjects
             return this;
         }
 
+        /// <summary>
+        /// ボタンのテキストを設定する
+        /// </summary>
+        /// <param name="text">ボタンに表示するテキスト</param>
+        /// <returns>このオブジェクト</returns>
         public EGButton SetText(string text)
         {
             TextObject.SetText(text);

@@ -327,11 +327,6 @@
         <e p="Scripts" t="Include">
           <e p="DoTweenAnimator.cs" t="Include" />
           <e p="EGUI" t="Include">
-            <e p="Demo" t="Include">
-              <e p="ButtonDemo.cs" t="Include" />
-              <e p="RectTransformExtensionsTest.cs" t="Include" />
-              <e p="RectTransformExtensionsTest2.cs" t="Include" />
-            </e>
             <e p="EGGameObjects" t="Include">
               <e p="Base" t="Include">
                 <e p="CanvasStack.cs" t="Include" />
@@ -340,22 +335,17 @@
               </e>
               <e p="ComponentScripts" t="Include">
                 <e p="DGAnimationScript.cs" t="Include" />
-                <e p="InputFieldOnSelectWrapper.cs" t="Include" />
-                <e p="OnDeselectWrapper.cs" t="Include" />
               </e>
               <e p="EGButton.cs" t="Include" />
               <e p="EGCanvas.cs" t="Include" />
-              <e p="EGDropDown.cs" t="Include" />
               <e p="EGGameObject.cs" t="Include" />
               <e p="EGGridLayoutView.cs" t="Include" />
               <e p="EGHorizontalGridLayoutScrollView.cs" t="Include" />
               <e p="EGHorizontalLayoutScrollView.cs" t="Include" />
               <e p="EgHorizontalLayoutView.cs" t="Include" />
-              <e p="EgInputField.cs" t="Include" />
               <e p="EgScrollbar.cs" t="Include" />
               <e p="EgSlider.cs" t="Include" />
               <e p="EGText.cs" t="Include" />
-              <e p="EGToggle.cs" t="Include" />
               <e p="EGVerticalGridLayoutScrollView.cs" t="Include" />
               <e p="EGVerticalLayoutScrollView.cs" t="Include" />
               <e p="EGVerticalLayoutView.cs" t="Include" />
@@ -369,10 +359,16 @@
               <e p="RelativeSizeSetter.cs" t="Include" />
             </e>
             <e p="StringUtils.cs" t="Include" />
+            <e p="Test" t="Include">
+              <e p="ButtonDemo.cs" t="Include" />
+              <e p="GUITest.cs" t="Include" />
+              <e p="RectTransformExtensionsTest.cs" t="Include" />
+              <e p="RectTransformExtensionsTest2.cs" t="Include" />
+            </e>
           </e>
           <e p="Examples" t="Include">
             <e p="AdvGame" t="Include">
-              <e p="AdvGameOpening.cs" t="Include" />
+              <e p="AdvGameMain.cs" t="Include" />
               <e p="Data" t="Include">
                 <e p="BackgroundImageData.cs" t="Include" />
                 <e p="CharacterData.cs" t="Include" />
@@ -444,9 +440,9 @@
           <e p="GridItemSizeSetter.cs" t="Include" />
           <e p="MethodInfoHelper.cs" t="Include" />
           <e p="RectChecker.cs" t="Include" />
-          <e p="Scenario1" t="Include">
-            <e p="SymbolExtensions.cs" t="Include" />
-          </e>
+        </e>
+        <e p="Tests 1" t="Include">
+          <e p="NewTestScript.cs" t="Include" />
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
@@ -484,6 +480,7 @@
       <e p="Packages" t="ExcludeRecursive" />
       <e p="scanvas.sln" t="IncludeFlat" />
       <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Tests1.csproj" t="IncludeRecursive" />
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
     </e>

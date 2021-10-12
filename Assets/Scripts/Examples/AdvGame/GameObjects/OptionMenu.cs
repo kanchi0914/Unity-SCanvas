@@ -21,7 +21,8 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetAnchorType(AnchorType.MiddleCenter)
                 .SetPosition(0,0)
                 .SetRelativeSize(1, 1);
-            var closeButton = new EGButton(menu, "×")
+            var closeButton = new EGButton(menu, "closeButton")
+                .SetText("☓")
                 .SetAnchorType(AnchorType.TopRight)
                 .SetPosition(20,-20)
                 .SetSize(40, 40) as EGButton;

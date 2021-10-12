@@ -49,7 +49,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("choose_hiroko", choose_hiroko);
@@ -67,7 +67,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("choose_myself", choose_myself);
@@ -88,7 +88,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("choose_saito", choose_saito);

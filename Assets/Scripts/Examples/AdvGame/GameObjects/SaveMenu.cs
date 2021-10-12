@@ -2,7 +2,6 @@
 using EGUI.Base;
 using EGUI.GameObjects;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Examples.AdvGame.GameObjects
 {
@@ -24,7 +23,8 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetPosition(0, 0)
                 .SetRelativeSize(1, 1);
 
-            var text = new EGText(menu, "セーブする場所を選択")
+            new EGText(menu)
+                .SetText("セーブする場所を選択")
                 .SetAnchorType(AnchorType.TopCenter)
                 .SetRelativeSize(1, 0.2f)
                 .SetPosition(0, 0);
@@ -45,7 +45,7 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
 
             var closeButton = new EGButton(menu, "×")
                 .SetAnchorType(AnchorType.TopRight)
-                .SetPosition(20, -20)
+                .SetPosition(20, 20)
                 .SetSize(40, 40) as EGButton;
             closeButton.AddOnClick(() => { DestroySelf(); });
         }

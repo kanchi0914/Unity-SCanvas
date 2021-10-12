@@ -31,29 +31,24 @@ public static class GameInfos
         },
     };
 
-    public static List<Enemy> Enemies { get; private set; } = new List<Enemy>();
+    public static List<Enemy> Enemies { get; private set; } = new List<Enemy>()
+    {
+        new Enemy("ゴリラ", "gorilla_1", 20, 0, 10, 10, 5, "Images/pixel_gorilla")
+        {
+            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
+        },
+        new Enemy("トラ", "tiger_1", 15, 0, 10, 12, 7, "Images/pixel_tiger2")
+        {
+            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
+        },
+        new Enemy("ウシ", "cow_1", 25, 0, 8, 10, 8, "Images/pixel_cow2")
+        {
+            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
+        }
+    };
 
     static GameInfos()
     {
-        CreateEnemies();
-    }
-
-    private static void CreateEnemies()
-    {
-        var enemy1 = new Enemy("ゴリラ", "gorilla_1", 20, 0, 10, 10, 5, "Images/pixel_gorilla")
-        {
-            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
-        };
-        var enemy2 = new Enemy("トラ", "tiger_1", 15, 0, 10, 12, 7, "Images/pixel_tiger2")
-        {
-            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
-        };
-        var enemy3 = new Enemy("ウシ", "cow_1", 25, 0, 8, 10, 8, "Images/pixel_cow2")
-        {
-            Skills = new List<Skill>() {new Skill(SkillName.攻撃)}
-        };
-        Enemies.Add(enemy1);
-        Enemies.Add(enemy2);
-        Enemies.Add(enemy3);
+        // CreateEnemies();
     }
 }

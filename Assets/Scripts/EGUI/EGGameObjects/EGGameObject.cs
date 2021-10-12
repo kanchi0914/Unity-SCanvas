@@ -241,17 +241,6 @@ namespace EGUI.GameObjects
             return this;
         }
 
-        // /// <summary>
-        // /// Set the parameters of rectTransform using the values of RectTransformInfo.
-        // /// </summary>
-        // /// <param name="rectInfo"></param>
-        // /// <returns></returns>
-        // public EGGameObject SetPresetRect(RectInfo rectInfo)
-        // {
-        //     rectTransform.SetPresetRect(rectInfo);
-        //     return this;
-        // }
-        
         public EGGameObject AddEvent(EventTriggerType type, Action action)
         {
             var entry = new EventTrigger.Entry();
@@ -269,21 +258,6 @@ namespace EGUI.GameObjects
             return this;
         }
         
-        // public EGGameObject SetGlobalPos(Vector3 pos)
-        // {
-        //     var parentMono = rectTransform.parent.gameObject.GetOrAddComponent<GlobalPosSetter>();
-        //     if (parentMono != null)
-        //     {
-        //         gameObject.SetActive(false);
-        //         parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
-        //     }
-        //     else
-        //     {
-        //         parentMono.StartCoroutine(SetGlobalPosCoroutine(pos));
-        //     }
-        //     return this;
-        // }
-
         private IEnumerator SetGlobalPosCoroutine(Vector3 pos)
         {
             yield return null;

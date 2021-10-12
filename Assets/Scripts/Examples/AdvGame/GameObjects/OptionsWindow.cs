@@ -31,7 +31,8 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
         
         public void AddOption(Option option)
         {
-            var optionButton = new EGButton(options, option.Text)
+            var optionButton = new EGButton(options)
+                    .SetText(option.Text)
                     .SetSize(50, 60)
                     .SetImageColor(Color.gray, 0.5f)
                 as EGButton;

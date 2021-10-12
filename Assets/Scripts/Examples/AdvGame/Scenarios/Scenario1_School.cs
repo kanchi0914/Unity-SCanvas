@@ -112,7 +112,7 @@ namespace Assets.Scripts.Examples.AdvGame
                 new Section("", "", () =>
                 {
                     CanvasStack.ClearAll();
-                    new AdvGameOpening();
+                    new AdvGameMain();
                 }),
             };
             Scripts.Add("selected_dont_cooperate", script3);

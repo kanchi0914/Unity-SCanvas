@@ -27,7 +27,8 @@ namespace Assets.Scripts.Examples.AdvGame.GameObjects
                 .SetPosition(0, 0)
                 .SetRelativeSize(1, 1);
 
-            var text = new EGText(menu, "ロードするデータを選択")
+            var loadText = new EGText(menu)
+                .SetText("ロードするデータを選択")
                 .SetAnchorType(AnchorType.TopCenter)
                 .SetRelativeSize(1, 0.2f)
                 .SetPosition(0, 0);
