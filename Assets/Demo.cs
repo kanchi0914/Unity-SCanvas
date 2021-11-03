@@ -17,7 +17,7 @@ public class Demo : MonoBehaviour
         // var aaaa = new EGGameObject().SetImageColor(Color.black);
         // new ButtonAndWindow();
         //new RpgMain();
-        new CommandBattle();
-        // new AdvGameMain();
+        // new CommandBattle();
+        // .new AdvGameMain();
     }
 }

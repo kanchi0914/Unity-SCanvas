@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts;
 using Assets.Scripts.Extensions;
 using EGUI.Base;
@@ -13,6 +14,9 @@ namespace Examples.RpgGame.Views
     {
         private List<AllyView> allyViews = new List<AllyView>();
 
+        // public AutoResizedTextLabel whomLabel;
+        public EGCanvas allySelectingCanvas;
+        
         public AlliesWindow(RpgCanvas canvas, CommandBattle commandBattle, List<Ally> allies) : base(canvas,
             "AlliesWindow")
         {
@@ -34,6 +38,17 @@ namespace Examples.RpgGame.Views
 
         public void SetSelectMode(Action<string> callbackSelected, Action callbackCanceled)
         {
+            allySelectingCanvas = new EGCanvas("AllySelecting");
+            // new EGGameObject(allySelectingCanvas).SetRelativeSize(1, 1).SetImageColor(Color.clear);
+            // foreach (AllyView allyView in allyViews)
+            // {
+            //     allyView.gameObject.SetParent(allySelectingCanvas.gameObject);
+            // }
+            var whomLabel = new AutoResizedTextLabel(allySelectingCanvas, "誰に？")
+                .SetAnchorType(AnchorType.TopLeft)
+                .SetPosition(60, -180)
+                .As<AutoResizedTextLabel>();
+            
             var hasClicked = false;
             var stream1 = Observable.EveryUpdate().Where(_ => hasClicked);
             Observable
@@ -49,13 +64,14 @@ namespace Examples.RpgGame.Views
                         if (hit2d.transform.gameObject.tag == "Ally")
                         {
                             hasClicked = true;
+                            allySelectingCanvas?.DestroySelf();
                             callbackSelected.Invoke(hit2d.transform.gameObject.name);
                             return;
                         }
                     }
-
-                    hasClicked = true;
-                    callbackCanceled.Invoke();
+                    // hasClicked = true;
+                    // allySelectingCanvas.DestroySelf();
+                    // callbackCanceled.Invoke();
                 }).AddTo(gameObject);
         }
 
@@ -64,9 +80,20 @@ namespace Examples.RpgGame.Views
             allyViews.Find(a => a.Ally == ally).SetCommandView(commandText);
         }
 
+        public void ClearCommandView(Ally ally)
+        {
+            allyViews.Find(a => a.Ally == ally).ClearCommandView();
+        }
+
         public void ClearCommandViews()
         {
             allyViews.ForEach(a => a.ClearCommandView());
+        }
+
+        public void DisableAllySelecting()
+        {
+            allySelectingCanvas.DestroySelf();
+            // whomLabel?.DestroySelf();
         }
 
 

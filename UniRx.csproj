@@ -283,6 +283,12 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.TestRunner">
+ <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -507,6 +513,9 @@
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>C:/unity_works/scanvas/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/unity_works/scanvas/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

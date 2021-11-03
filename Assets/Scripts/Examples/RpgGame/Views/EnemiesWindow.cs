@@ -13,14 +13,14 @@ namespace Examples.RpgGame.Views
 {
     public class EnemiesWindow : EGGameObject
     {
-
         private List<EnemyView> enemyViews = new List<EnemyView>();
-        
+        public EGCanvas enemySelectingCanvas;
+
         public EnemiesWindow(RpgCanvas canvas, CommandBattle commandBattle, List<Enemy> enemies) : base(canvas)
         {
             SetRelativeSize(1, .5f);
             var layoutView = new EgHorizontalLayoutView(this).SetRelativeSize(1, 1).As<EgHorizontalLayoutView>();
-            layoutView.SetChildAliments(TextAnchor.MiddleCenter).SetPaddingAndSpacing(spacing:10);
+            layoutView.SetChildAliments(TextAnchor.MiddleCenter).SetPaddingAndSpacing(spacing: 10);
             enemies.ForEach(enemy =>
             {
                 var view = new EnemyView(layoutView, enemy);
@@ -44,7 +44,7 @@ namespace Examples.RpgGame.Views
                 Enemy = enemy;
                 SetImage(enemy.Image);
                 SetImageAspectRatio(this, enemy.Image);
-                
+
                 SetSize(128, 0);
                 var collider2D = gameObject.AddComponent<BoxCollider2D>();
                 collider2D.size = new Vector2(128, 128);
@@ -59,14 +59,14 @@ namespace Examples.RpgGame.Views
                     .SetAnchorType(AnchorType.BottomCenter)
                     .As<RpgText>();
                 hpTextObject.TextComponent.raycastTarget = false;
-                
+
                 nameTextObject = new RpgText(this)
                     .SetText(Enemy.Name)
                     .SetParagraph(TextAnchor.LowerCenter)
                     .SetSize(128, 25)
                     .SetAnchorType(AnchorType.BottomCenter)
                     .SetPosition(0, 25)
-                    .As<RpgText>();  
+                    .As<RpgText>();
 
                 animator = gameObject.GetOrAddComponent<DoTweenAnimator>();
                 enemy.AddOnHpDecreased(hp =>
@@ -85,7 +85,7 @@ namespace Examples.RpgGame.Views
                     gameObject.GetOrAddComponent<CanvasGroup>().alpha = 0;
                 }
             }
-            
+
             public void SetSelectable(bool isSelectable)
             {
                 if (isSelectable)
@@ -99,7 +99,7 @@ namespace Examples.RpgGame.Views
                     RemoveAllEvent();
                 }
             }
-            
+
             private void SetImageAspectRatio(EGGameObject imageObject, Sprite source)
             {
                 var ratio = source.bounds.size.x / source.bounds.size.y;
@@ -111,6 +111,11 @@ namespace Examples.RpgGame.Views
 
         public void SetSelectMode(Action<string> callbackSelected, Action callbackCanceled)
         {
+            enemySelectingCanvas = new EGCanvas();
+            var label = new AutoResizedTextLabel(enemySelectingCanvas, "誰に？")
+                .SetAnchorType(AnchorType.BottomLeft)
+                .SetPosition(60, 148);
+
             var hasClicked = false;
             enemyViews.ForEach(e => e.SetSelectable(true));
             var stream1 = Observable.EveryUpdate().Where(_ => hasClicked);
@@ -127,16 +132,24 @@ namespace Examples.RpgGame.Views
                         var clickedGameObject = hit2d.transform.gameObject.name;
                         if (hit2d.transform.gameObject.tag == "Enemy")
                         {
+                            hasClicked = true;
+                            // enemySelectingCanvas?.DestroySelf();
+                            DisableEnemySelecting();
                             callbackSelected.Invoke(hit2d.transform.gameObject.name);
                         }
                     }
-                    else
-                    {
-                        callbackCanceled.Invoke();
-                    }
-                    hasClicked = true;
-                    enemyViews.ForEach(e => e.SetSelectable(false));
                 }).AddTo(gameObject);
+        }
+
+        public void DisableEnemySelecting()
+        {
+            foreach (var enemyView in enemyViews)
+            {
+                enemyView.SetSelectable(false);
+            }
+
+            enemySelectingCanvas?.DestroySelf();
+            enemyViews.ForEach(e => e.SetSelectable(false));
         }
     }
 }

@@ -35,6 +35,16 @@ namespace Examples.RpgGame.Views
             commandTypeWindow = new CommandsTypeWindow(this, CommandBattle);
         }
 
+        public void EnableSubCommands()
+        {
+            commandTypeWindow?.SubCommandsCanvas?.Enable();
+        }
+
+        public void DestroySubCommands()
+        {
+            commandTypeWindow?.SubCommandsCanvas?.DestroySelf();
+        }
+
         private class CommandsTypeWindow : EGGameObject
         {
             private CommandsWindow commandsWindow;
@@ -42,6 +52,7 @@ namespace Examples.RpgGame.Views
             private List<CommandTextLabel> commandTextLabels = new List<CommandTextLabel>();
             private EGGameObject image;
             private CommandBattle commandBattle;
+            public SubCommandsCanvas SubCommandsCanvas { get; private set; }
 
             public CommandsTypeWindow(CommandsWindow commandsWindow, CommandBattle commandBattle) : base(commandsWindow)
             {
@@ -77,6 +88,7 @@ namespace Examples.RpgGame.Views
                     Skill = new Skill(SkillName.攻撃),
                     User = commandsWindow.CommandBattle.CommandSelectingAlly
                 };
+                // commandsWindow.CommandBattle.Situation = Situation.EnemySelectingOnAttack;
                 commandsWindow.CommandBattle.ShowEnemySelectView(command, null, () => commandsWindow.Reset());
             }
 
@@ -87,22 +99,25 @@ namespace Examples.RpgGame.Views
                     Skill = new Skill(SkillName.防御),
                     User = commandsWindow.CommandBattle.CommandSelectingAlly
                 };
+                commandsWindow.CommandBattle.Situation = Situation.CommandSelecting;
                 commandsWindow.CommandBattle.SetCommand(command);
             }
 
             void OnSkillSelected()
             {
                 Disable();
-                new SkillCommandsCanvas(commandsWindow, commandBattle, commandBattle.CommandSelectingAlly);
+                commandsWindow.CommandBattle.Situation = Situation.SubCommandSelecting;
+                SubCommandsCanvas = new SkillCommandsCanvas(commandsWindow, commandBattle, commandBattle.CommandSelectingAlly);
             }
 
             void OnItemSelected()
             {
                 Disable();
-                new ItemCommandsCanvas(commandsWindow, commandBattle, commandBattle.CommandSelectingAlly);
+                commandsWindow.CommandBattle.Situation = Situation.SubCommandSelecting;
+                SubCommandsCanvas = new ItemCommandsCanvas(commandsWindow, commandBattle, commandBattle.CommandSelectingAlly);
             }
 
-            void Disable()
+            public void Disable()
             {
                 image.SetImageColor(Color.gray);
                 commandTextLabels.ForEach(label => { label.Disable(); });

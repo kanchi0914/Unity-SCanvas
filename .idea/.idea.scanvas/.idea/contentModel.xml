@@ -5,6 +5,7 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="AAAA.cs" t="Include" />
         <e p="Demigiant" t="Include">
           <e p="DemiLib" t="Include">
             <e p="Core" t="Include">
@@ -43,6 +44,7 @@
         <e p="Editor" t="Include">
           <e p="DebugMenu.cs" t="Include" />
         </e>
+        <e p="NewBehaviourScript.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -411,19 +413,22 @@
             </e>
             <e p="ListExtension.cs" t="Include" />
             <e p="RpgGame" t="Include">
-              <e p="Ally.cs" t="Include" />
-              <e p="Command.cs" t="Include" />
               <e p="CommandBattle.cs" t="Include" />
-              <e p="Enemy.cs" t="Include" />
-              <e p="GameInfo.cs" t="Include" />
-              <e p="Item.cs" t="Include" />
-              <e p="ItemEffecter.cs" t="Include" />
-              <e p="ItemFactory.cs" t="Include" />
-              <e p="RpgMain.cs" t="Include" />
-              <e p="Skill.cs" t="Include" />
-              <e p="SkillEffecter.cs" t="Include" />
-              <e p="SkillFactory.cs" t="Include" />
-              <e p="Unit.cs" t="Include" />
+              <e p="GameManager.cs" t="Include" />
+              <e p="Models" t="Include">
+                <e p="Ally.cs" t="Include" />
+                <e p="Command.cs" t="Include" />
+                <e p="Enemy.cs" t="Include" />
+                <e p="GameInfo.cs" t="Include" />
+                <e p="Item.cs" t="Include" />
+                <e p="ItemEffecter.cs" t="Include" />
+                <e p="ItemFactory.cs" t="Include" />
+                <e p="Skill.cs" t="Include" />
+                <e p="SkillEffecter.cs" t="Include" />
+                <e p="SkillFactory.cs" t="Include" />
+                <e p="Unit.cs" t="Include" />
+              </e>
+              <e p="RightClickDetector.cs" t="Include" />
               <e p="Views" t="Include">
                 <e p="AlliesWindow.cs" t="Include" />
                 <e p="AutoResizedTextLabel.cs" t="Include" />
@@ -441,6 +446,7 @@
           <e p="MethodInfoHelper.cs" t="Include" />
           <e p="RectChecker.cs" t="Include" />
         </e>
+        <e p="tes.cs" t="Include" />
         <e p="Tests 1" t="Include">
           <e p="NewTestScript.cs" t="Include" />
         </e>

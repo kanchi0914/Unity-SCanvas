@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Examples.RpgGame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -57,9 +58,10 @@ namespace Assets.Scripts.Extensions
 
         public static GameObject SetParent(this GameObject gameObject, GameObject parent)
         {
-            var tempMono = new GameObject();
-            var mono = tempMono.gameObject.AddComponent<MonoBehaviour>();
-            mono.StartCoroutine(setParent(gameObject, parent.transform));
+            setParent(gameObject, parent.transform);
+            // var tempMono = new GameObject();
+            // var mono = tempMono.gameObject.AddComponent<RightClickDetector>();
+            // mono.StartCoroutine(setParent(gameObject, parent.transform));
             return gameObject;
         }
 
@@ -74,7 +76,11 @@ namespace Assets.Scripts.Extensions
             var trigger = gameObject.GetOrAddComponent<EventTrigger>();
             var entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener(e => action?.Invoke());
+            entry.callback.AddListener(e =>
+            {
+                var pointerEventData = e as PointerEventData;
+                if (pointerEventData.button == PointerEventData.InputButton.Left) action?.Invoke();
+            });
             trigger.triggers.Add(entry);
             return gameObject;
         }

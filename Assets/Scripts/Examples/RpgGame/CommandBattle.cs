@@ -1,15 +1,23 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Assets.Scripts.EGUI;
 using EGUI.Base;
 using EGUI.Examples;
 using EGUI.GameObjects;
 using Examples.RpgGame.Views;
+using UniRx;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Examples.RpgGame
 {
+    public enum Situation
+    {
+        CommandSelecting, SubCommandSelecting, AllySelecting, EnemySelectingOnAttack, EnemySelectingWithSubCommands, ExecutingCommands
+    }
+    
     public class CommandBattle
     {
         public int AllyIndex = 0;
@@ -23,10 +31,13 @@ namespace Examples.RpgGame
         private List<Ally> allies = GameInfos.Allies;
         private List<Enemy> enemies = GameInfos.Enemies;
 
+        public GameObject gameManager;
         public RpgCanvas Canvas;
         public CommandsWindow CommandsWindow;
         public EnemiesWindow EnemiesWindow;
         public AlliesWindow AlliesWindow;
+
+        public Situation Situation { get; set; }
 
         public List<Ally> LivingAllies
         {
@@ -47,9 +58,10 @@ namespace Examples.RpgGame
             }
         }
 
-        public CommandBattle()
+        public CommandBattle(GameObject gameManager)
         {
-            Canvas = new RpgCanvas(); 
+            this.gameManager = gameManager;
+            Canvas = new RpgCanvas();
             new EGGameObject(Canvas).SetImageColor(Color.black).SetRelativeSize(1, 1);
 
             var enemies = GameInfos.Enemies;
@@ -57,9 +69,60 @@ namespace Examples.RpgGame
             var allies = GameInfos.Allies;
             AlliesWindow = new AlliesWindow(Canvas, this, allies);
 
+            // var hasClicked = false;
+            // var stream1 = Observable.EveryUpdate().Where(_ => hasClicked);
+            Observable
+                .EveryUpdate()
+                // .TakeUntil(stream1)
+                .Where(_ => Input.GetMouseButtonDown(1))
+                .Subscribe(_ => { Cancel(); });
+
             StartNewTurn();
         }
-        
+
+        public void Cancel()
+        {
+            Debug.Log(Situation);
+            switch (Situation)
+            {
+                case Situation.CommandSelecting:
+                {
+                    CancelCommnad();
+                    break;
+                }
+                case Situation.SubCommandSelecting:
+                {
+                    CommandsWindow.DestroySubCommands();
+                    CommandsWindow.Reset();
+                    Situation = Situation.CommandSelecting;
+                    break;
+                }
+                case Situation.AllySelecting:
+                {
+                    AlliesWindow.DisableAllySelecting();
+                    CommandsWindow.EnableSubCommands();
+                    Situation = Situation.SubCommandSelecting;
+                    break;
+                }
+                case Situation.EnemySelectingOnAttack:
+                {
+                    EnemiesWindow.DisableEnemySelecting();
+                    CommandsWindow.Reset();
+                    Situation = Situation.CommandSelecting;
+                    break;
+                }
+                case Situation.EnemySelectingWithSubCommands:
+                {
+                    EnemiesWindow.DisableEnemySelecting();
+                    CommandsWindow.EnableSubCommands();
+                    Situation = Situation.SubCommandSelecting;
+                    // CommandsWindow.Reset();
+                    break;
+                }
+                default: break;
+            }
+        }
+
         /// <summary>
         /// コマンド選択の初期化処理
         /// </summary>
@@ -75,13 +138,16 @@ namespace Examples.RpgGame
         public void SelectNextCommand()
         {
             CommandsWindow?.DestroySelf();
-            
+            Situation = Situation.CommandSelecting;
+
             // コマンドの実行を開始する
             if (AllyIndex >= allies.Count)
             {
+                Situation = Situation.ExecutingCommands;
                 StartExecutingCommands();
                 return;
             }
+
             if (CommandSelectingAlly.IsAlive)
             {
                 AlliesWindow.SetCommand(CommandSelectingAlly, "どうする？");
@@ -90,6 +156,16 @@ namespace Examples.RpgGame
             else
             {
                 AllyIndex++;
+                SelectNextCommand();
+            }
+        }
+
+        public void CancelCommnad()
+        {
+            if (AllyIndex != 0)
+            {
+                AlliesWindow.ClearCommandView(allies[AllyIndex]);
+                AllyIndex--;
                 SelectNextCommand();
             }
         }
@@ -108,10 +184,11 @@ namespace Examples.RpgGame
                 var item = GameInfos.Items.Find(i => i.Id == command.itemId);
                 TempRemovedItem.Add(item);
             }
+
             AllyIndex++;
             SelectNextCommand();
         }
-        
+
         /// <summary>
         /// 仲間のコマンドを選択後、コマンドの実行を開始する
         /// </summary>
@@ -143,7 +220,7 @@ namespace Examples.RpgGame
                 StartNewTurn();
                 return;
             }
-            
+
             var command = Commands.GetAndRemove(0);
             // 死んでいたらスキップ
             if (!command.User.IsAlive)
@@ -151,7 +228,7 @@ namespace Examples.RpgGame
                 ExecuteNextCommand();
                 return;
             }
-            
+
             // スキルの対象が死んでいる場合、対象を選択しなおす
             if (command.Skill.Scope == TargetScope.Single && command.Target != null && !command.Target.IsAlive)
             {
@@ -170,17 +247,17 @@ namespace Examples.RpgGame
             var effectText = "";
             if (command.Skill.Scope == TargetScope.Single)
             {
-                 effectText = SkillEffecter.Invoke(command.Skill, command.User, command.Target) + "\n";
+                effectText = SkillEffecter.Invoke(command.Skill, command.User, command.Target) + "\n";
             }
             else
             {
                 if (command.User is Ally)
                 {
-                    effectText = SkillEffecter.Invoke(command.Skill, command.User,  enemies) + "\n";
+                    effectText = SkillEffecter.Invoke(command.Skill, command.User, enemies) + "\n";
                 }
                 else
                 {
-                    effectText = SkillEffecter.Invoke(command.Skill, command.User,  allies) + "\n";
+                    effectText = SkillEffecter.Invoke(command.Skill, command.User, allies) + "\n";
                 }
             }
 
@@ -197,7 +274,7 @@ namespace Examples.RpgGame
             });
             new RpgMessageWindow(Canvas, queue, onSentEveryMessage);
         }
-        
+
         /// <summary>
         /// 戦闘を終了
         /// </summary>
@@ -213,6 +290,7 @@ namespace Examples.RpgGame
             {
                 queue.Enqueue(("全滅した…", null));
             }
+
             new RpgMessageWindow(Canvas, queue, Canvas.DestroySelf);
         }
 
@@ -222,22 +300,39 @@ namespace Examples.RpgGame
         /// <param name="command"></param>
         public void ShowAllySelectView(Command command, Action callbackSelected, Action callbackCanceled)
         {
-            var label = new AutoResizedTextLabel(Canvas, "誰に？")
-                .SetAnchorType(AnchorType.TopLeft)
-                .SetPosition(60, -180);
+            // var label = new AutoResizedTextLabel(Canvas, "誰に？")
+            //     .SetAnchorType(AnchorType.TopLeft)
+            //     .SetPosition(60, -180);
+            Situation = Situation.AllySelecting;
             AlliesWindow.SetSelectMode(id =>
                 {
                     var ally = GameInfos.Allies.Find(a => a.Id == id);
-                    command.Target = ally; 
-                    label.DestroySelf();
+                    command.Target = ally;
+                    Situation = Situation.CommandSelecting;
+                    // CommandsWindow?.DestroySelf();
+                    // CommandsWindow.Reset();
                     callbackSelected?.Invoke();
                     SetCommand(command);
                 },
                 () =>
                 {
-                    label.DestroySelf();
+                    Situation = Situation.CommandSelecting;
+                    // label.DestroySelf();
                     callbackCanceled?.Invoke();
                 });
+
+            // var hasClicked = false;
+            // var stream1 = Observable.EveryUpdate().Where(_ => hasClicked);
+            // Observable
+            //     .EveryUpdate()
+            //     .TakeUntil(stream1)
+            //     .Where(_ => Input.GetMouseButtonDown(1))
+            //     .Subscribe(_ =>
+            //     {
+            //         hasClicked = true;
+            //         label.DestroySelf();
+            //         // callbackCanceled.Invoke();
+            //     }).AddTo(AlliesWindow.gameObject);
         }
 
 
@@ -247,23 +342,33 @@ namespace Examples.RpgGame
         /// <param name="command"></param>
         public void ShowEnemySelectView(Command command, Action callbackSelected, Action callbackCanceled)
         {
-            var label = new AutoResizedTextLabel(Canvas, "誰に？")
-                .SetAnchorType(AnchorType.BottomLeft)
-                .SetPosition(60, 148);
+            if (Situation == Situation.CommandSelecting)
+            {
+                Situation = Situation.EnemySelectingOnAttack;
+            }
+            else
+            {
+                Situation = Situation.EnemySelectingWithSubCommands;
+            }
+            
+            // var label = new AutoResizedTextLabel(Canvas, "誰に？")
+            //     .SetAnchorType(AnchorType.BottomLeft)
+            //     .SetPosition(60, 148);
             EnemiesWindow.SetSelectMode(id =>
                 {
                     var enemy = GameInfos.Enemies.Find(e => e.Id == id);
                     command.Target = enemy;
-                    label.DestroySelf();
+                    // label.DestroySelf();
                     callbackSelected?.Invoke();
+                    Situation = Situation.CommandSelecting;
                     SetCommand(command);
                 },
                 () =>
                 {
-                    label.DestroySelf();
+                    // label.DestroySelf();
+                    Situation = Situation.CommandSelecting;
                     callbackCanceled?.Invoke();
                 });
         }
-        
     }
 }

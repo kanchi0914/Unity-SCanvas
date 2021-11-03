@@ -50,12 +50,13 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\EGUI\Test\GUITest.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGVerticalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\EGUI\StringUtils.cs" />
      <Compile Include="Assets\Scripts\Examples\Demos\RelativeSizeDemo.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\RpgMain.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGHorizontalLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\GridItemSizeSetter.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\RightClickDetector.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGUIObjectInfo.cs" />
      <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenProShortcuts.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Data\GameData.cs" />
@@ -65,7 +66,7 @@
      <Compile Include="Assets\Scripts\Examples\AdvGame\Models\Section.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Models\Charactor.cs" />
      <Compile Include="Assets\Resources\MyMono.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Unit.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Unit.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGCanvas.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGGridLayoutView.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGHorizontalGridLayoutScrollView.cs" />
@@ -78,7 +79,7 @@
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario.cs" />
      <Compile Include="Assets\Scripts\EGUI\Test\RectTransformExtensionsTest.cs" />
      <Compile Include="Assets\Scripts\Examples\Demos\ButtonAndWindow.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Command.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Command.cs" />
      <Compile Include="Assets\Scripts\EGUI\MonoBehaviourScripts\RelativeSizeSetter.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\RpgText.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
@@ -91,7 +92,7 @@
      <Compile Include="Assets\Scripts\RectChecker.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario2_Classroom.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Ally.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Ally.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\GameObjects\SaveDataImage.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Data\BackgroundImageData.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Utils.cs" />
@@ -104,8 +105,10 @@
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\SubCommandsCanvas.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\GameObjects\OptionMenu.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\GameManager.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\AdvGameMain.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\ItemFactory.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\ItemFactory.cs" />
+     <Compile Include="Assets\tes.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\GameObjects\SaveMenu.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\AlliesWindow.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\CommandTextLabel.cs" />
@@ -114,28 +117,30 @@
      <Compile Include="Assets\Scripts\EGUI\Extensions\GameObjectExtensions .cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGVerticalGridLayoutScrollView.cs" />
      <Compile Include="Assets\Scripts\EGUI\Test\ButtonDemo.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Enemy.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario0_Morning.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\EnemiesWindow.cs" />
      <Compile Include="Assets\uGuiScriptCreator\UICreator.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\RpgMessageWindow.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario3_Pcroom.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Item.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Item.cs" />
      <Compile Include="Assets\Scripts\EGUI\Test\RectTransformExtensionsTest2.cs" />
      <Compile Include="Assets\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\AutoResizedTextLabel.cs" />
      <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTk2d.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\SkillEffecter.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\GameInfo.cs" />
+     <Compile Include="Assets\AAAA.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\SkillEffecter.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\GameInfo.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\ComponentScripts\DGAnimationScript.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGVerticalLayoutView.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\GameObjects\CloseButton.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\ItemEffecter.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\ItemEffecter.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EgSlider.cs" />
      <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenAnimation.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\Skill.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\Skill.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\Scenarios\Scenario3_Afternoon.cs" />
+     <Compile Include="Assets\NewBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGGameObject.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\Base\CanvasStack.cs" />
      <Compile Include="Assets\Scripts\Examples\RpgGame\Views\CommandsWindow.cs" />
@@ -143,10 +148,9 @@
      <Compile Include="Assets\Scripts\Examples\AdvGame\GameObjects\AdvMessageWindow.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EGButton.cs" />
      <Compile Include="Assets\Scripts\EGUI\EGGameObjects\EgHorizontalLayoutView.cs" />
-     <Compile Include="Assets\Scripts\Examples\RpgGame\SkillFactory.cs" />
+     <Compile Include="Assets\Scripts\Examples\RpgGame\Models\SkillFactory.cs" />
      <Compile Include="Assets\Scripts\Examples\AdvGame\FileUtils.cs" />
      <Compile Include="Assets\Scripts\DoTweenAnimator.cs" />
-     <Compile Include="Assets\Scripts\EGUI\Test\GUITest.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
@@ -169,6 +173,12 @@
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+ <Reference Include="UnityEditor.TestRunner">
+ <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/unity_works/scanvas/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
@@ -423,6 +433,9 @@
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>C:/unity_works/scanvas/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>C:/unity_works/scanvas/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

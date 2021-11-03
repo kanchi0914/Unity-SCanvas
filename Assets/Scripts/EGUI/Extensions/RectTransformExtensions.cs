@@ -25,13 +25,8 @@ namespace EGUI.Base
     }
     
     public static class RectTransformExtensions
-    { 
-        public static void SetRectSizeByRatio(this RectTransform rectTransform,  float ratioX, float ratioY)
-        {
-            rectTransform.SetSize(rectTransform.GetParentRectSize().x * ratioX,
-                rectTransform.GetParentRectSize().y * ratioY);
-        }
-        
+    {
+
         public static RectTransform SetSize(this RectTransform rectTransform, float width, float height)
         {
             var anchorType = rectTransform.GetAnchorType();
@@ -168,13 +163,6 @@ namespace EGUI.Base
             return AnchorType.MiddleCenter;
         }
 
-        public static RectTransform SetAnchoredPosAndSize(this RectTransform rectTransform, float posX, float posY, float width, float height)
-        {
-            rectTransform.SetAnchoredPos(posX, posY);
-            rectTransform.SetSize(width, height);
-            return rectTransform;
-        }
-        
         public static RectTransform SetOffset(this RectTransform rectTransform, float minX, float minY, float maxX,
             float maxY)
         {
@@ -327,82 +315,6 @@ namespace EGUI.Base
             if (keepsPosition) rectTransform.anchoredPosition = new Vector2(newAnchoredPosX, newAnchoredPosY);
             return rectTransform;
         }
-
-        private static RectTransform SetTopLeftAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.TopLeft);
-        }
-
-        private static RectTransform SetTopCenterAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.TopCenter);
-        }
-
-        private static RectTransform SetTopRightAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.TopRight);
-        }
-
-        private static RectTransform SetMiddleLeftAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.MiddleLeft);
-        }
-
-        private static RectTransform SetMiddleRightAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.MiddleRight);
-        }
-
-        private static RectTransform SetBottomLeftAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.BottomLeft);
-        }
-
-        private static RectTransform SetBottomCenterAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.BottomCenter);
-        }
-
-        public static RectTransform SetBottomRightAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.BottomRight);
-        }
-        
-        private static RectTransform SetHorizontalStretchAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.HorizontalStretch);
-        }
-
-        private static RectTransform SetHorizontalStretchWithTopPivotAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.HorizontalStretchWithTopPivot);
-        }
-
-        private static RectTransform SetHorizontalStretchWithBottomPivotAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.HorizontalStretchWithBottomPivot);
-        }
-        
-        private static RectTransform SetVerticalStretchAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.VerticalStretch);
-        }
-
-        private static RectTransform SetVerticalStretchWithLeftPivotAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.VerticalStretchWithLeftPivot);
-        }
-
-        private static RectTransform SetVerticalStretchWithRightPivotAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.VerticalStretchWithRightPivot);
-        }
-
-        private static RectTransform SetFullStretchAnchor(this RectTransform rectTransform)
-        {
-            return rectTransform.SetAnchorType(AnchorType.FullStretch);
-        }
-
 
         public static RectTransform SetAnchorType(this RectTransform rectTransform, AnchorType anchorType, bool keepsPosition = false)
         {
